@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+  <title>eGenie Digital Shelf — prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDF0F9; --surface:#FFFFFF; --surface-2:#F7F9FD; --surface-3:#EFF3FB;
+  --ink:#0E1729; --ink-2:#4A566E; --ink-3:#8590A8;
+  --line:#E2E7F2; --line-strong:#CFD7E8; --accent:#2563EB; --accent-soft:#E7EEFE;
+  --rail:#0E1729;
+  --shadow:0 1px 2px rgba(14,23,41,.05), 0 6px 18px -10px rgba(14,23,41,.14);
+  --shadow-lift:0 2px 4px rgba(14,23,41,.07), 0 16px 38px -14px rgba(14,23,41,.24);
+}
+@media (prefers-color-scheme: dark){ :root{
+  --ground:#0B111D; --surface:#131C2C; --surface-2:#182234; --surface-3:#1D283C;
+  --ink:#EAEFF9; --ink-2:#A7B3C9; --ink-3:#7684A0;
+  --line:#243046; --line-strong:#324158; --accent:#5B8DEF; --accent-soft:#1B2A47; --rail:#080D16;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 16px 38px -14px rgba(0,0,0,.7);
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{background:var(--rail);color:#fff;padding:34px 0 40px}
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:17px;
+  background:linear-gradient(140deg,#3B82F6,#1D4ED8)}
+.brand b{display:block;font-size:15px;line-height:1.2}
+.brand span{font-size:11px;color:#7A87A3}
+header h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.028em;max-width:22ch;text-wrap:balance}
+header p{margin:12px 0 0;font-size:14.5px;color:#A9B6D0;max-width:70ch}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;font-size:11.5px}
+.meta span{background:#FFFFFF14;border:1px solid #FFFFFF1F;border-radius:20px;padding:4px 11px;color:#C7D0E4}
+.meta b{color:#fff;font-weight:600}
+main{padding:26px 0 56px}
+.sec{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:26px 0 11px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 19px 16px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:7px;transition:box-shadow .15s,border-color .15s,transform .15s}
+.card:hover{box-shadow:var(--shadow-lift);border-color:var(--line-strong);transform:translateY(-2px)}
+.card.hero{grid-column:1 / -1}
+.card.hero h2{font-size:20px}
+.card.hero p{font-size:14px;max-width:82ch}
+@media (max-width:760px){.card.hero h2{font-size:17px}header h1{font-size:25px}}
+.tag{align-self:flex-start;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:3px 8px}
+.card h2{margin:2px 0 0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.card p{margin:0;font-size:13.2px;color:var(--ink-2)}
+.feat{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:11px;color:var(--ink-3);line-height:1.6;
+  border-top:1px solid var(--line);padding-top:9px;margin-top:3px}
+.go{margin-top:auto;padding-top:10px;font-size:12.5px;font-weight:600;color:var(--accent)}
+.go i{font-style:normal;transition:transform .15s;display:inline-block}
+.card:hover .go i{transform:translateX(3px)}
+footer{border-top:1px solid var(--line);padding:20px 0 40px;font-size:12.2px;color:var(--ink-3)}
+footer p{margin:0 0 7px;max-width:88ch}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><div class="mark">e</div><div><b>eGenie</b><span>Digital Shelf</span></div></div>
+    <h1>Digital Shelf prototypes</h1>
+    <p>Working prototypes built in response to the Demo&nbsp;II conversation. Every screen is clickable and every number
+      reconciles &mdash; the data is illustrative, not live. Start with the Executive Summary; each prototype links to all the others
+      from the foot of its left rail.</p>
+    <div class="meta">
+      <span>Prepared for <b>Perfetti Van Melle</b></span>
+      <span><b>47</b> shipped &middot; <b>6</b> partial &middot; <b>5</b> open</span>
+      <span>Updated <b>31 Aug 2026</b></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="sec">The prototypes</div>
+  <div class="grid">
+      <a class="card hero" href="exec-summary.html">
+        <span class="tag">Start here</span>
+        <h2>Executive Summary — Share &amp; Opportunity Loss</h2>
+        <p>Where share moved, what it cost, and what to do first. Opens with the written summary — what's working, what's not, what to do — then the revenue-at-risk ribbon, the seven blocks as doorways, and the full availability decomposition down to the PO and the pin code.</p>
+        <span class="feat">AI summary · event counters · waterfall · activity trace · RCA tree · PO ledger · MOQ · pin-code map · action queue</span>
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="modules.html">
+        <span class="tag">Newest work</span>
+        <h2>Module Set — eight modules</h2>
+        <p>Control Tower, Action &amp; Value Recovery, Investment Optimization, Campaign Performance, Pricing Compliance, New Product Radar, Alerts &amp; Reviews, Release Notes.</p>
+        <span class="feat">Chennai↔Pune funding trade · counter-metric watch · marginal spend · organic-to-paid handoff · agentic price change with an approval gate</span>
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="competition-sensor.html">
+        <span class="tag">Rebuilt</span>
+        <h2>Competition Sensor</h2>
+        <p>Indexed against a competitor you name, at a multiple you choose. Their footprint city by city, the named fight, and the reason they are ahead.</p>
+        <span class="feat">set picker · Nielsen-style index · growth decomposition · penetration map · city targets · reverse diagnosis · promo calendar</span>
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="response.html">
+        <span class="tag">For the meeting</span>
+        <h2>Answering Tejas — response register</h2>
+        <p>Every point raised across the summary document and both Demo transcripts, each with the prototype that answers it. 47 shipped, 6 partial, 5 not started.</p>
+        <span class="feat">the standardisation register · dependencies · what is still open</span>
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="supply-risk.html">
+        <span class="tag">Existing</span>
+        <h2>Supply Risk &amp; Price–Velocity</h2>
+        <p>Weeks of cover, exposure gaps, ASP dips and the alert engine.</p>
+        
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="promo-tracker.html">
+        <span class="tag">Existing</span>
+        <h2>Promo Tracker</h2>
+        <p>Promotion planning, calendar and performance.</p>
+        
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="persona-insights.html">
+        <span class="tag">Existing</span>
+        <h2>Persona Insights</h2>
+        <p>The same shelf read through KAM, category and brand lenses.</p>
+        
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+      <a class="card" href="competition-sensor-v1.html">
+        <span class="tag">Superseded</span>
+        <h2>Competition Sensor v1</h2>
+        <p>The original head-to-head build, kept for reference.</p>
+        
+        <span class="go">Open <i>&rarr;</i></span>
+      </a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>All figures are illustrative and generated deterministically for design review &mdash; the arithmetic reconciles exactly,
+      but none of it is live client data. Competitor brands in the New Product Radar and the Competition Sensor are fictional
+      on purpose, so no invented ingredient list, claim or review is attributed to a real company.</p>
+    <p>eGenie Digital Shelf &middot; internal review build</p>
+  </div>
+</footer>
+
+</body>
+</html>

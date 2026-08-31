@@ -1,0 +1,1970 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+  <title>eGenie Module Set</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDF0F9; --ground-2:#E4E9F6;
+  --surface:#FFFFFF; --surface-2:#F7F9FD; --surface-3:#EFF3FB;
+  --rail:#0E1729; --rail-ink:#C7D0E4; --rail-ink-dim:#7A87A3; --rail-active:#1B2740;
+  --ink:#0E1729; --ink-2:#4A566E; --ink-3:#8590A8;
+  --line:#E2E7F2; --line-strong:#CFD7E8;
+  --accent:#2563EB; --accent-soft:#E7EEFE;
+  --loss:#DC2626; --loss-soft:#FCEBEB;
+  --gain:#0D9488; --gain-soft:#E3F4F2;
+  --s1:#1D4ED8; --s2:#B45309; --s3:#BE185D;      /* validated 3-hue categorical */
+  --up:#B45309; --up-soft:#FBF0E1;
+  --down:#1D4ED8; --down-soft:#E8EEFE;
+  --unk:#475569; --unk-soft:#EDF0F5;
+  --grid:#EDF1F8;
+  --shadow:0 1px 2px rgba(14,23,41,.05), 0 6px 18px -10px rgba(14,23,41,.14);
+  --shadow-lift:0 2px 4px rgba(14,23,41,.07), 0 14px 34px -14px rgba(14,23,41,.22);
+  --r:13px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#0B111D; --ground-2:#0E1626; --surface:#131C2C; --surface-2:#182234; --surface-3:#1D283C;
+  --rail:#080D16; --rail-ink:#AFBBD3; --rail-ink-dim:#69768F; --rail-active:#18233A;
+  --ink:#EAEFF9; --ink-2:#A7B3C9; --ink-3:#7684A0; --line:#243046; --line-strong:#324158;
+  --accent:#5B8DEF; --accent-soft:#1B2A47;
+  --loss:#EF4444; --loss-soft:#2C1719; --gain:#0D9488; --gain-soft:#0F2A2A;
+  --s1:#3B82F6; --s2:#D97706; --s3:#EC4899;
+  --up:#D97706; --up-soft:#2C2213; --down:#3B82F6; --down-soft:#152341; --unk:#94A3B8; --unk-soft:#1E2839;
+  --grid:#1E293C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 14px 34px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --ground:#0B111D; --ground-2:#0E1626; --surface:#131C2C; --surface-2:#182234; --surface-3:#1D283C;
+  --rail:#080D16; --rail-ink:#AFBBD3; --rail-ink-dim:#69768F; --rail-active:#18233A;
+  --ink:#EAEFF9; --ink-2:#A7B3C9; --ink-3:#7684A0; --line:#243046; --line-strong:#324158;
+  --accent:#5B8DEF; --accent-soft:#1B2A47;
+  --loss:#EF4444; --loss-soft:#2C1719; --gain:#0D9488; --gain-soft:#0F2A2A;
+  --s1:#3B82F6; --s2:#D97706; --s3:#EC4899;
+  --up:#D97706; --up-soft:#2C2213; --down:#3B82F6; --down-soft:#152341; --unk:#94A3B8; --unk-soft:#1E2839;
+  --grid:#1E293C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 14px 34px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;letter-spacing:-.018em;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:none}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+svg{display:block;width:100%;height:auto}
+
+/* chrome */
+.app{display:flex;min-height:100vh;background:linear-gradient(90deg,var(--rail) 0 224px,var(--ground) 224px)}
+.rail{width:224px;flex:none;background:var(--rail);color:var(--rail-ink);padding:16px 0 28px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.rail::-webkit-scrollbar{width:6px}.rail::-webkit-scrollbar-thumb{background:#FFFFFF1F;border-radius:20px}
+.rail-brand{display:flex;gap:10px;align-items:center;padding:4px 16px 18px}
+.rail-mark{width:30px;height:30px;border-radius:8px;flex:none;background:linear-gradient(140deg,#3B82F6,#1D4ED8);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px}
+.rail-brand b{display:block;font-size:14.5px;color:#fff;line-height:1.15}
+.rail-brand span{font-size:10.5px;color:var(--rail-ink-dim)}
+.rail-sec{padding:15px 16px 6px;font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--rail-ink-dim)}
+.rail-item{display:flex;align-items:center;gap:9px;margin:0 8px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--rail-ink);width:calc(100% - 16px);text-align:left}
+.rail-item:hover{background:#FFFFFF12}
+.rail-item.is-on{background:var(--rail-active);color:#fff;font-weight:600;box-shadow:inset 2.5px 0 0 var(--accent)}
+.rail-item .dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;flex:none}
+.rail-item .tag{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.05em;background:#2563EB;color:#fff;border-radius:4px;padding:1px 5px}
+.rail-client{margin:0 12px 4px;padding:9px 11px;border-radius:9px;background:#FFFFFF0F;border:1px solid #FFFFFF14}
+.rail-client b{color:#fff;font-size:13px;font-weight:600}
+
+/* ── prototype switcher ── */
+a.rail-item{text-decoration:none}
+.rail-item .go{margin-left:auto;font-size:11px;opacity:.45;flex:none}
+.rail-item.here{background:#FFFFFF14;color:#fff;font-weight:600;cursor:default}
+.rail-item.here .go{opacity:0}
+.rail-note{padding:2px 16px 8px;font-size:10.5px;line-height:1.45;color:var(--rail-ink-dim)}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 22px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.topbar h1{font-size:16.5px;font-weight:600}
+.crumb{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-3);margin-right:auto}
+.crumb b{color:var(--ink);font-weight:600;font-size:12.5px}
+.ctrl{display:flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:9px;padding:6px 11px;background:var(--surface);font-size:12px}
+.ctrl .eyebrow{font-size:9px}.ctrl b{font-weight:600;font-size:12.5px}
+.icon-btn{width:32px;height:32px;border-radius:9px;border:1px solid var(--line-strong);display:grid;place-items:center;font-size:14px;color:var(--ink-2)}
+.icon-btn:hover{background:var(--surface-3)}
+.canvas{padding:20px 22px 26px;display:flex;flex-direction:column;gap:16px;max-width:1460px;width:100%}
+.screen[hidden]{display:none}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:16px 18px 12px;flex-wrap:wrap}
+.card-hd h2{font-size:14.5px;font-weight:600}
+.card-hd p{margin:3px 0 0;font-size:12.2px;color:var(--ink-2);max-width:78ch}
+.card-hd .right{margin-left:auto;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.footnote{font-size:11.4px;color:var(--ink-3);padding:10px 18px 16px;border-top:1px solid var(--line)}
+.seg{display:inline-flex;background:var(--surface-3);border-radius:9px;padding:3px;gap:2px}
+.seg button{padding:5px 11px;border-radius:7px;font-size:11.8px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.seg button.is-on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.p-good{background:var(--gain-soft);color:var(--gain)}
+.p-bad{background:var(--loss-soft);color:var(--loss)}
+.p-warn{background:var(--up-soft);color:var(--up)}
+.p-info{background:var(--down-soft);color:var(--down)}
+.p-mute{background:var(--unk-soft);color:var(--unk)}
+.swatch{width:9px;height:9px;border-radius:3px;flex:none;display:inline-block}
+.dn{color:var(--loss);font-weight:600}.up{color:var(--gain);font-weight:600}.muted{color:var(--ink-3)}
+
+/* hero band */
+.band{display:grid;grid-template-columns:minmax(300px,1.25fr) minmax(0,2fr);gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.band-lead{padding:18px 22px;border-right:1px solid var(--line)}
+.band-v{font-size:34px;font-weight:600;letter-spacing:-.035em;line-height:1.08;margin-top:5px}
+.band-v small{font-size:14px;font-weight:500;color:var(--ink-3);letter-spacing:0;margin-left:4px}
+.band-sub{font-size:12.4px;color:var(--ink-2);margin-top:8px;max-width:44ch}
+.band-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line)}
+.btile{background:var(--surface);padding:14px 15px;display:flex;flex-direction:column;gap:2px}
+.btile .k{font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.btile .v{font-size:21px;font-weight:600;letter-spacing:-.03em;margin-top:4px}
+.btile .d{font-size:11px;color:var(--ink-3);margin-top:1px}
+@media (max-width:1080px){.band{grid-template-columns:1fr}.band-lead{border-right:none;border-bottom:1px solid var(--line)}.band-tiles{grid-template-columns:1fr 1fr}}
+
+/* tables */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.6px}
+th{text-align:left;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:9px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+th.r,td.r{text-align:right}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover{background:var(--surface-2)}
+tbody tr.row.is-on{background:var(--accent-soft)}
+.bar-mini{display:block;position:relative;height:6px;border-radius:20px;background:var(--surface-3);min-width:56px;overflow:hidden}
+.bar-mini i{position:absolute;inset:0 auto 0 0;border-radius:20px}
+.geo{font-size:11px;color:var(--ink-3)}
+
+/* progress */
+.prog{display:block;position:relative;height:10px;border-radius:20px;background:var(--surface-3);overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;border-radius:20px;background:var(--gain)}
+.prog b{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.35}
+
+/* chart bits */
+.chartwrap{padding:4px 14px 8px;overflow-x:auto}
+.ax{font-size:10px;fill:var(--ink-3)}
+.gl{stroke:var(--grid);stroke-width:1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 12px;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+
+/* allocator */
+.alloc{display:grid;grid-template-columns:150px minmax(0,1fr) 96px;gap:12px;align-items:center;padding:9px 18px}
+.alloc .an{font-size:12.6px;font-weight:600;display:flex;align-items:center;gap:7px}
+.alloctrack{position:relative;height:26px;background:var(--surface-3);border-radius:6px;overflow:hidden}
+.alloctrack .cur{position:absolute;top:0;bottom:13px;left:0;border-radius:5px 5px 0 0;background:var(--unk);opacity:.5}
+.alloctrack .rec{position:absolute;top:13px;bottom:0;left:0;border-radius:0 0 5px 5px}
+.allockey{display:flex;gap:16px;padding:2px 18px 10px;font-size:11px;color:var(--ink-3)}
+.allockey span{display:flex;align-items:center;gap:6px}
+.delta-chip{font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+
+/* NPD */
+.npdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;padding:2px 18px 16px}
+.npd{border:1px solid var(--line);border-radius:11px;padding:12px 13px;background:var(--surface-2);text-align:left;display:flex;flex-direction:column;gap:3px}
+.npd:hover{border-color:var(--line-strong);box-shadow:var(--shadow-lift)}
+.npd.is-on{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.npd .nm{font-size:13px;font-weight:600}
+.npd .br{font-size:11px;color:var(--ink-3)}
+.npd .vel{font-size:19px;font-weight:600;letter-spacing:-.03em;margin-top:5px}
+.npd .sub{font-size:10.8px;color:var(--ink-3)}
+.bio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0;border-top:1px solid var(--line)}
+.biol{padding:16px 18px;border-right:1px solid var(--line)}
+.bior{padding:16px 18px;min-width:0}
+.biohero{height:118px;border-radius:11px;display:grid;place-items:center;font-size:34px;margin-bottom:12px;
+  background:linear-gradient(135deg,var(--accent-soft),var(--surface-3))}
+.speclist{display:grid;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.specrow{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:8px 11px;font-size:12px;border-bottom:1px solid var(--line)}
+.specrow:last-child{border-bottom:none}
+.specrow .sk{color:var(--ink-3);font-size:11px}
+.claims{width:100%;border-collapse:collapse;font-size:12px}
+.claims td{padding:7px 9px;border-bottom:1px solid var(--line)}
+.yes{color:var(--gain);font-weight:700}.no{color:var(--loss);font-weight:700}
+.adgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.adcard{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);text-align:left}
+.adthumb{height:74px;position:relative;display:grid;place-items:center;background:linear-gradient(140deg,var(--surface-3),var(--accent-soft))}
+.adthumb .play{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:12px}
+.adthumb .src{position:absolute;top:6px;left:6px;font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:4px;background:var(--ink);color:var(--surface)}
+.admeta{padding:8px 10px;font-size:11px;color:var(--ink-2)}
+.admeta b{display:block;font-size:11.8px;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+/* semantic alert */
+.nlbox{margin:2px 18px 10px;border:1.5px solid var(--accent);border-radius:11px;background:var(--surface);padding:12px 14px}
+.nlbox textarea{width:100%;border:none;background:none;resize:vertical;min-height:52px;font-size:14.5px;line-height:1.5;outline:none}
+.nlbox textarea::placeholder{color:var(--ink-3)}
+.nlrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;border-top:1px solid var(--line);padding-top:9px}
+.btn{padding:7px 14px;border-radius:9px;font-size:12.5px;font-weight:600;background:var(--accent);color:#fff}
+.btn.ghost{background:var(--surface-3);color:var(--ink-2)}
+.chipex{font-size:11.5px;padding:4px 10px;border-radius:20px;background:var(--surface-3);color:var(--ink-2);border:1px solid var(--line)}
+.chipex:hover{border-color:var(--accent);color:var(--accent)}
+.parse{margin:0 18px 14px;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.parse-hd{padding:9px 13px;background:var(--surface-2);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line)}
+.parse-body{padding:12px 13px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px}
+.tok{padding:3px 9px;border-radius:7px;font-weight:600;font-size:12.5px}
+.tok.m{background:var(--down-soft);color:var(--down)}
+.tok.o{background:var(--surface-3);color:var(--ink-2)}
+.tok.v{background:var(--up-soft);color:var(--up)}
+.tok.x{background:var(--gain-soft);color:var(--gain)}
+.tok.s{background:var(--unk-soft);color:var(--unk)}
+.blast{margin:0 18px 14px;padding:11px 14px;border-radius:10px;font-size:12.3px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.blast b{font-size:15px}
+
+/* reviews */
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.feedcol{padding:14px 18px}
+.feedcol:first-child{border-right:1px solid var(--line)}
+.theme{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--surface-2)}
+.theme .th{display:flex;align-items:center;gap:8px;font-size:12.8px;font-weight:600}
+.theme .tm{font-size:11.3px;color:var(--ink-3);margin-top:3px}
+.theme .tb{margin-top:8px}
+@media (max-width:900px){.feed{grid-template-columns:1fr}.feedcol:first-child{border-right:none;border-bottom:1px solid var(--line)}.bio{grid-template-columns:1fr}.biol{border-right:none;border-bottom:1px solid var(--line)}}
+
+/* release notes */
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;padding:2px 18px 16px}
+.rel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.relvid{height:120px;position:relative;display:grid;place-items:center;background:linear-gradient(140deg,var(--accent-soft),var(--surface-3));border-bottom:1px solid var(--line)}
+.relbody{padding:12px 14px}
+.relbody h3{font-size:13.4px;font-weight:600}
+.relbody p{margin:5px 0 0;font-size:11.8px;color:var(--ink-2)}
+.relfoot{display:flex;align-items:center;gap:9px;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface-2);font-size:12px}
+.cbx{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:11px;color:transparent;flex:none}
+.cbx.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.tooltip{position:fixed;z-index:90;pointer-events:none;background:var(--rail);color:#fff;border-radius:8px;padding:8px 11px;font-size:11.5px;line-height:1.45;box-shadow:var(--shadow-lift);opacity:0;transition:opacity .1s;max-width:250px}
+.tooltip.on{opacity:1}
+.tooltip b{display:block;font-size:12px;margin-bottom:2px}
+.tooltip s{display:block;text-decoration:none;color:#A9B6D0}
+.note{margin:0 18px 14px;padding:9px 12px;border-radius:9px;background:var(--up-soft);border:1px solid color-mix(in srgb,var(--up) 22%,transparent);font-size:11.6px;color:var(--ink-2)}
+.note b{color:var(--up)}
+@media (max-width:860px){.rail{display:none}.canvas{padding:14px}}
+
+/* control tower */
+.pauselist{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;padding:2px 18px 16px}
+.pausecard{border:1px solid var(--line);border-left:3px solid var(--loss);border-radius:11px;padding:13px 15px;background:var(--surface-2)}
+.pausecard .ph{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.pausecard .ph b{font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}
+.pausecard .ph .pill{margin-left:auto}
+.pausecard h3{font-size:13.6px;font-weight:600}
+.pausecard p{margin:6px 0 10px;font-size:12.1px;color:var(--ink-2)}
+.prow{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:12px}
+.prow .pk{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding-top:1px}
+.pausebtn{margin-top:11px;width:100%;background:var(--loss)}
+
+/* price candidates */
+.candgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:10px;padding:2px 18px 14px}
+.cand{position:relative;border:1px solid var(--line);border-radius:11px;padding:13px 14px;background:var(--surface-2)}
+.cand.is-on{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.candtag{position:absolute;top:-8px;left:13px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--accent);color:#fff;border-radius:4px;padding:2px 7px}
+.candp{font-size:25px;font-weight:600;letter-spacing:-.03em}
+.candl{font-size:11.8px;color:var(--ink-2);margin:1px 0 8px}
+.candrows{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;display:grid;gap:5px}
+.candrows div{display:flex;justify-content:space-between;gap:10px;font-size:11.8px;color:var(--ink-3)}
+.candrows b{color:var(--ink);font-weight:600;font-size:12.4px}
+
+/* approval flow */
+.flowwrap{display:flex;align-items:stretch;gap:6px;padding:2px 18px 12px;flex-wrap:wrap}
+.flowstep{flex:1 1 190px;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:var(--surface-2)}
+.flowstep .fi{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;font-size:13px;background:var(--surface-3)}
+.flowstep b{display:block;font-size:12.5px;font-weight:600}
+.flowstep span{display:block;font-size:11.2px;color:var(--ink-3);margin-top:2px}
+.flowstep.done{border-color:color-mix(in srgb,var(--gain) 45%,transparent);background:var(--gain-soft)}
+.flowstep.done .fi{background:var(--gain);color:#fff;font-weight:700}
+.flowstep.next{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.flowarrow{align-self:center;color:var(--ink-3);font-size:13px}
+.approvebar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 18px 14px;padding:12px 15px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface)}
+.approvebar .apx{display:flex;flex-direction:column;gap:1px;font-size:12px}
+.approvebar .apx b{font-size:14px;font-weight:600}
+.approvebar .apx .muted{font-size:11.2px}
+.approvebar .btn:last-of-type{margin-left:auto}
+@media (max-width:640px){.approvebar .btn:last-of-type{margin-left:0}}
+</style>
+
+<div class="app">
+  <nav class="rail">
+    <div class="rail-brand"><div class="rail-mark">e</div><div><b>eGenie</b><span>Digital Shelf</span></div></div>
+    <div class="rail-sec" style="padding-top:0">Client</div>
+    <div class="rail-client"><b>Perfetti Van Melle</b></div>
+    <a class="rail-item" href="exec-summary.html" target="_blank" rel="noopener"><span class="dot"></span>Executive Summary<span class="go">↗</span></a>
+    <div class="rail-sec">Modules in this prototype</div>
+    <button class="rail-item is-on" data-s="control"><span class="dot"></span>Control Tower<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="action"><span class="dot"></span>Action &amp; Value Recovery<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="invest"><span class="dot"></span>Investment Optimization<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="campaign"><span class="dot"></span>Campaign Performance<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="price"><span class="dot"></span>Pricing Compliance<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="npd"><span class="dot"></span>New Product Radar<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="alerts"><span class="dot"></span>Alerts &amp; Reviews<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="release"><span class="dot"></span>Release Notes<span class="tag">NEW</span></button>
+    <div class="rail-sec">Existing</div>
+    <button class="rail-item"><span class="dot"></span>Availability</button>
+    <button class="rail-item"><span class="dot"></span>Tasks &amp; SLAs</button>
+    <button class="rail-item"><span class="dot"></span>Catalog System</button>
+
+    <div class="rail-sec">Prototype switcher</div>
+    <div class="rail-note">Every eGenie prototype, reachable from any of them.</div>
+    <a class="rail-item" href="exec-summary.html" target="_blank" rel="noopener"><span class="dot"></span>Executive Summary — Share<span class="go">↗</span></a>
+    <span class="rail-item here"><span class="dot"></span>Module Set — 8 modules<span class="go">●</span></span>
+    <a class="rail-item" href="supply-risk.html" target="_blank" rel="noopener"><span class="dot"></span>Supply Risk & Velocity<span class="go">↗</span></a>
+    <a class="rail-item" href="promo-tracker.html" target="_blank" rel="noopener"><span class="dot"></span>Promo Tracker<span class="go">↗</span></a>
+    <a class="rail-item" href="competition-sensor.html" target="_blank" rel="noopener"><span class="dot"></span>Competition Sensor<span class="go">↗</span></a>
+    <a class="rail-item" href="persona-insights.html" target="_blank" rel="noopener"><span class="dot"></span>Persona Insights<span class="go">↗</span></a>
+    <a class="rail-item" href="response.html" target="_blank" rel="noopener"><span class="dot"></span>Response to Demo II<span class="go">↗</span></a>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <h1 id="scrTitle">Action &amp; Value Recovery</h1>
+      <div class="crumb" id="crumb"></div>
+      <div class="ctrl"><span class="eyebrow">Period</span><b>Aug '26 · MTD</b></div>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+    </header>
+
+    <div class="canvas">
+
+      <!-- ══════════ 1. ACTION & VALUE RECOVERY ══════════ -->
+      <div class="screen" id="s-action">
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Value recovered · rolling 90 days</div>
+            <div class="band-v num" style="color:var(--gain)">₹3.84<small>Cr</small></div>
+            <div class="band-sub">proven back against a pre-action baseline on the same SKU × platform × geo.
+              <b>₹1.62 Cr</b> of addressed loss did not move and is still open.</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Actions</span><span class="v num" id="aProg">—</span>
+              <span class="d" id="aProgD">—</span><span class="prog" style="margin-top:9px"><i id="aProgBar"></i></span></div>
+            <div class="btile"><span class="k">Closed in SLA</span><span class="v num" style="color:var(--gain)">78<small>%</small></span>
+              <span class="d">target 85% · 11 breached</span></div>
+            <div class="btile"><span class="k">Recovery rate</span><span class="v num">70<small>%</small></span>
+              <span class="d">₹ recovered ÷ ₹ addressed</span></div>
+            <div class="btile"><span class="k">Net leakage</span><span class="v num dn">4.1<small>%</small></span>
+              <span class="d">of achievable offtake · <span class="up">−0.9pt MoM</span></span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Proof, not assertion — value recovered after the decision date</h2>
+              <p>Every action carries a decision date. From that day the same metric is tracked against a frozen pre-action baseline, and the gap between the two is the recovered value. Pick an action to see its curve.</p></div>
+            <div class="right"><div class="seg" id="recSeg"></div></div>
+          </div>
+          <div class="chartwrap"><svg id="recChart" viewBox="0 0 1180 340" role="img" aria-label="Loss run-rate before and after the decision date"></svg></div>
+          <div class="legend" id="recLegend"></div>
+          <div class="footnote" id="recNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Action register</h2>
+            <p>Baseline tracking at the grain the client asked for — how many are done, who owns them, and what each one has returned since its decision date.</p></div>
+            <div class="right"><div class="seg" id="regSeg">
+              <button data-f="all" class="is-on">All</button><button data-f="open">Open</button>
+              <button data-f="done">Complete</button><button data-f="breach">SLA breach</button></div></div>
+          </div>
+          <div class="tablewrap" id="regWrap"></div>
+          <div class="footnote">Recovered value is measured against a frozen 4-week pre-action baseline on the same SKU × platform × geography. Where the metric did not move, the row says so rather than claiming the action worked — that honesty is what makes the total defensible.</div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Monthly impact ledger</h2>
+            <p>The month-on-month record. This is the artefact that answers "what did the platform actually change?" a quarter after launch.</p></div></div>
+          <div class="tablewrap" id="ledgerWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>100-day rolling improvement, split by who owns the fix</h2>
+            <p>The gradual uptick, measured. Total loss run-rate is one line; the two bands underneath are the only split that
+              tells you who to talk to next — upstream is Supply Planning, downstream is the CAM.</p></div>
+            <div class="right"><span class="pill p-mute">Rolling 100 days</span></div></div>
+          <div class="chartwrap"><svg id="rollChart" viewBox="0 0 1180 300" role="img" aria-label="Daily loss run-rate over 100 days split between upstream and downstream ownership"></svg></div>
+          <div class="legend">
+            <span><i class="swatch" style="background:var(--s2);opacity:.55"></i>Upstream — Supply Planning</span>
+            <span><i class="swatch" style="background:var(--s1);opacity:.55"></i>Downstream — CAM</span>
+            <span><i class="swatch" style="background:var(--ink)"></i>Total daily loss run-rate</span></div>
+          <div class="footnote" id="rollNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 2. INVESTMENT OPTIMIZATION ══════════ -->
+      <div class="screen" id="s-invest" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Working budget · Aug '26</div>
+            <div class="band-v num">₹1.42<small>Cr</small></div>
+            <div class="band-sub">Share of search and promotions under one head. Reallocating to the recommended split
+              is modelled to return <b style="color:var(--gain)">+₹0.31 Cr</b> at the same spend.</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Blended ROAS</span><span class="v num">3.1<small>×</small></span><span class="d">vs 3.6× at recommended split</span></div>
+            <div class="btile"><span class="k">Wasted spend</span><span class="v num dn">₹18.4<small>L</small></span><span class="d">on OOS or unlisted SKUs</span></div>
+            <div class="btile"><span class="k">Promo intensity</span><span class="v num">9.2<small>%</small></span><span class="d">competitor set at 12.4%</span></div>
+            <div class="btile"><span class="k">Share of search</span><span class="v num up">33.9<small>%</small></span><span class="d">+3.4pt vs previous period</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Three splits, one budget</h2>
+              <p>The client's question in their own words: how do I split ₹100 between Blinkit and Zepto, then within a platform between promo and search, then across brands. Grey is where the money sits today, colour is where the model puts it.</p></div>
+            <div class="right"><div class="seg" id="splitSeg">
+              <button data-v="inter" class="is-on">Inter-platform</button>
+              <button data-v="intra">Intra-platform</button>
+              <button data-v="brand">Brand</button></div></div>
+          </div>
+          <div id="allocList"></div>
+          <div class="allockey">
+            <span><i class="swatch" style="background:var(--unk);opacity:.5"></i>Current split</span>
+            <span><i class="swatch" style="background:var(--s1)"></i>Recommended split</span>
+          </div>
+          <div class="footnote" id="splitNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Competitor ad investment — estimated</h2>
+            <p>Modelled from crawl history: sponsored-slot occupancy × observed slot rates, indexed to our own spend at 100. Directional, not billed spend — and labelled that way on the axis.</p></div></div>
+          <div class="chartwrap"><svg id="compChart" viewBox="0 0 1180 300" role="img" aria-label="Estimated competitor ad investment index over twelve weeks"></svg></div>
+          <div class="legend" id="compLegend"></div>
+          <div class="footnote" id="compNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Keyword verdicts</h2>
+            <p>Where the search money should move. A keyword we already own organically does not need defending; one we are losing while a competitor bids is where the next rupee goes.</p></div></div>
+          <div class="tablewrap" id="kwWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>What does the next rupee buy?</h2>
+              <p>The blended return is an average of every rupee already spent. The question on the table is a different one —
+                what the <em>next</em> rupee returns — and the answer is always smaller.</p></div>
+            <div class="right"><span class="eyebrow" style="margin-right:2px">Add</span><div class="seg" id="incSeg">
+              <button data-v="25">+₹25 L</button>
+              <button data-v="50" class="is-on">+₹50 L</button>
+              <button data-v="100">+₹100 L</button></div></div>
+          </div>
+          <div class="chartwrap"><svg id="mgChart" viewBox="0 0 1180 300" role="img" aria-label="Modelled return against total media spend, with the marginal return of an increment"></svg></div>
+          <div class="footnote" id="mgNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 3. NEW PRODUCT RADAR ══════════ -->
+      <div class="screen" id="s-npd" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">First seen · last 30 days</div>
+            <div class="band-v num">14</div>
+            <div class="band-sub">new competitor SKUs detected by the crawl across 9 platforms. Three are scaling faster than
+              the category's normal launch curve.</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Scaling fast</span><span class="v num dn">3</span><span class="d">&gt;2× the launch benchmark</span></div>
+            <div class="btile"><span class="k">Share taken</span><span class="v num dn">0.19<small>pt</small></span><span class="d">from cells we compete in</span></div>
+            <div class="btile"><span class="k">Cells we don't carry</span><span class="v num">5</span><span class="d">format or claim gap</span></div>
+            <div class="btile"><span class="k">Ads retrieved</span><span class="v num">27</span><span class="d">YouTube &amp; Meta · by connector</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Detected launches</h2>
+              <p>Pick one to open its bio. Everything in the bio is assembled automatically from the detailed PDP crawl plus the ads connector — no manual report.</p></div>
+            <div class="right"><span class="pill p-mute">Illustrative data · fictional brands</span></div>
+          </div>
+          <div class="npdgrid" id="npdGrid"></div>
+          <div class="bio" id="bioPane"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 4. ALERTS & REVIEWS ══════════ -->
+      <div class="screen" id="s-alerts" hidden>
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Text to alert</h2>
+              <p>Type the alert as a sentence. The parser turns it into a rule you can see and edit — so the fluency never costs you the ability to check what was actually set.</p></div>
+            <div class="right"><span class="pill p-info">Semantic parser</span></div>
+          </div>
+          <div class="nlbox">
+            <textarea id="nlInput" spellcheck="false" placeholder="e.g. tell me when cover drops under two weeks and no PO has been raised on Blinkit"></textarea>
+            <div class="nlrow">
+              <button class="btn" id="nlParse">Parse</button>
+              <span class="muted" style="font-size:11.5px">or try:</span>
+              <button class="chipex" data-ex="tell me when cover drops under two weeks and no PO has been raised on Blinkit">cover under 2 weeks, no PO</button>
+              <button class="chipex" data-ex="alert me if content score falls below 60 on any MSL sku">content below 60 on MSL</button>
+              <button class="chipex" data-ex="notify me when a competitor discounts deeper than 30% and we have no promo on the calendar">competitor dip, no promo</button>
+              <button class="chipex" data-ex="warn me when fill rate is under 85 percent on zepto">fill rate under 85% on Zepto</button>
+            </div>
+          </div>
+          <div class="parse">
+            <div class="parse-hd">Parsed rule — editable</div>
+            <div class="parse-body" id="parseBody"></div>
+          </div>
+          <div class="blast" id="blast"></div>
+          <div class="footnote">The impact preview runs the rule against live data <i>before</i> it is saved and names the matches. Alert fatigue is the single reason alerting features get switched off; showing the blast radius up front is a two-line calculation that protects the whole feature.</div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Saved rules</h2>
+            <p>Every rule shows what it matches now beside what it fired over 30 days, so drift is visible without opening anything.</p></div></div>
+          <div class="tablewrap" id="rulesWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Review brand feed</h2>
+              <p>Not a rating number — the themes underneath it. What our products are failing on, and what is working for the competitor set, from the same review corpus.</p></div>
+            <div class="right"><span class="pill p-mute">Aggregated themes · no verbatims shown</span></div>
+          </div>
+          <div class="feed">
+            <div class="feedcol"><div class="eyebrow" style="margin-bottom:10px">Where we are failing</div><div id="feedUs"></div></div>
+            <div class="feedcol"><div class="eyebrow" style="margin-bottom:10px">What is working for the competitor set</div><div id="feedThem"></div></div>
+          </div>
+          <div class="footnote">Themes are clustered from review text and sized by share of mentions. Sentiment delta is the movement versus the previous 90 days — a theme that is shrinking is as informative as one that is growing.</div>
+        </section>
+      </div>
+
+      <!-- ══════════ 5. RELEASE NOTES ══════════ -->
+      <div class="screen" id="s-release" hidden>
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>What shipped this quarter</h2>
+              <p>Delivered in-product rather than as a servicing call. Each note carries a short walkthrough and the result it produced for a client, and a single checkbox to add the feature to your own dashboard.</p></div>
+            <div class="right"><span class="pill p-info">Q3 FY26</span></div>
+          </div>
+          <div class="relgrid" id="relGrid"></div>
+          <div class="footnote" id="relNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 6. CONTROL TOWER ══════════ -->
+      <div class="screen" id="s-control" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Live interventions · net share effect to date</div>
+            <div class="band-v num" id="ctNet">—</div>
+            <div class="band-sub" id="ctNetSub">—</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Live now</span><span class="v num" id="ctLive">—</span><span class="d" id="ctLiveD">—</span></div>
+            <div class="btile"><span class="k">Funded by cutting</span><span class="v num" id="ctFund">—</span><span class="d">something else was given up</span></div>
+            <div class="btile"><span class="k">Counter-metric breaches</span><span class="v num dn" id="ctBreach">—</span><span class="d">guardrails crossed since decision</span></div>
+            <div class="btile"><span class="k">Pause recommended</span><span class="v num dn" id="ctPause">—</span><span class="d">the donor lost more than the recipient gained</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Initiative register</h2>
+              <p>Every intervention we are running, what it was meant to move, and what it cost somewhere else. A row is only
+                green when <b>both</b> numbers agree — a target metric moving while its counter-metric breaks is not a win.</p></div>
+            <div class="right"><div class="seg" id="ctSeg">
+              <button data-f="all" class="is-on">All</button>
+              <button data-f="funded">Funded by a cut</button>
+              <button data-f="bad">Needs a decision</button></div></div>
+          </div>
+          <div class="tablewrap" id="ctWrap"></div>
+          <div class="footnote" id="ctNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2 id="ctTradeT">The trade, measured</h2>
+              <p id="ctTradeP">Both sides of the transfer on one axis, from the decision date. Share change is shown in points
+                against each geography's own base, and the bold line is the net after weighting each side by the size of its category.</p></div>
+            <div class="right"><span class="pill" id="ctTradePill">—</span></div>
+          </div>
+          <div class="chartwrap"><svg id="ctChart" viewBox="0 0 1180 320" role="img" aria-label="Share change in the funded geography against the donor geography since the decision date"></svg></div>
+          <div class="legend" id="ctLegend"></div>
+          <div id="ctLedger"></div>
+          <div class="footnote" id="ctVerdict"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Counter-metric watch</h2>
+            <p>The guardrail set attached to each initiative at the decision date. These are chosen up front, not after the fact —
+              that is the only way a breach means anything.</p></div></div>
+          <div class="tablewrap" id="cmWrap"></div>
+          <div class="footnote">A breach does not automatically stop an initiative. Some trades are deliberate — the MRP correction on
+            Flipkart gives up share on purpose to recover margin, and it is declared that way. What the register refuses to do is let a
+            trade happen silently.</div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Pause recommendations</h2>
+            <p>Where the arithmetic says stop. Each card states what would be restored, what it costs to unwind, and who signs it off.</p></div></div>
+          <div class="pauselist" id="pauseList"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 7. CAMPAIGN PERFORMANCE ══════════ -->
+      <div class="screen" id="s-campaign" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Campaign spend · Aug '26 MTD</div>
+            <div class="band-v num">₹58.4<small>L</small></div>
+            <div class="band-sub" id="cpSub">—</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Blended ROAS</span><span class="v num">3.2<small>×</small></span><span class="d">range 1.4× – 5.1× by campaign</span></div>
+            <div class="btile"><span class="k">Share of search</span><span class="v num up">33.9<small>%</small></span><span class="d">paid 19.4 · organic 14.5</span></div>
+            <div class="btile"><span class="k">Releasable</span><span class="v num up" id="cpRel">—</span><span class="d" id="cpRelD">—</span></div>
+            <div class="btile"><span class="k">Spend on OOS</span><span class="v num dn">₹4.6<small>L</small></span><span class="d">served ads for unavailable SKUs</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Campaigns</h2>
+              <p>Select a campaign to open its keyword ladder. Every campaign resolves down to the keywords it bought and the SKUs
+                those keywords served — the link back to search that was missing.</p></div>
+          </div>
+          <div class="tablewrap" id="cpWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2 id="cpDeepT">Keyword ladder</h2>
+              <p id="cpDeepP">—</p></div>
+            <div class="right"><span class="pill p-mute" id="cpDeepPill">—</span></div>
+          </div>
+          <div class="tablewrap" id="cpKwWrap"></div>
+          <div class="footnote" id="cpDeepNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Organic-to-paid handoff</h2>
+            <p>A keyword should graduate. Paid support buys the rank; once organic holds rank 3 or better for six straight weeks,
+              the paid line is doing nothing the page would not do on its own. Grey band = paid support, line = organic rank.</p></div>
+            <div class="right"><div class="seg" id="hoSeg"></div></div>
+          </div>
+          <div class="chartwrap"><svg id="hoChart" viewBox="0 0 1180 300" role="img" aria-label="Organic rank against paid support over sixteen weeks"></svg></div>
+          <div class="legend" id="hoLegend"></div>
+          <div class="footnote" id="hoNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ 8. PRICING COMPLIANCE ══════════ -->
+      <div class="screen" id="s-price" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Off-guardrail value · rolling 30 days</div>
+            <div class="band-v num dn" id="pcVal">—</div>
+            <div class="band-sub" id="pcSub">—</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">SKUs breaching</span><span class="v num dn" id="pcN">—</span><span class="d" id="pcND">—</span></div>
+            <div class="btile"><span class="k">Deepest deviation</span><span class="v num dn" id="pcDeep">—</span><span class="d" id="pcDeepD">—</span></div>
+            <div class="btile"><span class="k">Longest running</span><span class="v num" id="pcLong">—</span><span class="d" id="pcLongD">—</span></div>
+            <div class="btile"><span class="k">Platform-led</span><span class="v num" id="pcPlat">—</span><span class="d">discount we did not fund</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Price compliance</h2>
+              <p>Live price against the approved floor for each SKU × platform. Platform-led discounting shows up here as clearly
+                as our own — the platform funding it does not make the shelf price compliant.</p></div>
+            <div class="right"><div class="seg" id="pcSeg">
+              <button data-f="breach" class="is-on">Breaching</button>
+              <button data-f="all">All tracked</button></div></div>
+          </div>
+          <div class="tablewrap" id="pcWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2 id="pdT">Price history</h2>
+              <p id="pdP">—</p></div>
+            <div class="right"><span class="pill" id="pdPill">—</span></div>
+          </div>
+          <div class="chartwrap"><svg id="pdChart" viewBox="0 0 1180 320" role="img" aria-label="Ninety days of live price against the approved floor and the nearest competitor"></svg></div>
+          <div class="legend" id="pdLegend"></div>
+          <div class="footnote" id="pdNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Recommended price change</h2>
+              <p>What the agent proposes, and what it costs. Every candidate is priced out on all four numbers — units, revenue,
+                gross margin and share — because a price that wins share can still lose money.</p></div>
+            <div class="right"><span class="eyebrow" style="margin-right:2px">Objective</span><div class="seg" id="objSeg">
+              <button data-o="rev" class="is-on">Revenue</button>
+              <button data-o="mar">Margin</button>
+              <button data-o="shr">Share</button></div></div>
+          </div>
+          <div class="candgrid" id="candGrid"></div>
+          <div class="chartwrap"><svg id="elChart" viewBox="0 0 1180 260" role="img" aria-label="Modelled revenue and gross margin across the candidate price points"></svg></div>
+          <div class="legend" id="elLegend"></div>
+          <div class="footnote" id="objNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Approval &amp; write-back</h2>
+              <p>The agent drafts the change and prepares the payload. It cannot approve its own proposal — a named human signs it,
+                and only then does it queue to the platform. Every step is written to the audit trail.</p></div>
+            <div class="right"><span class="pill" id="wbPill">—</span></div>
+          </div>
+          <div class="flowwrap" id="flowWrap"></div>
+          <div class="approvebar" id="approveBar"></div>
+          <div class="tablewrap" id="auditWrap"></div>
+          <div class="footnote" id="wbNote"></div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="tooltip" id="tip" role="status"></div>
+
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+const cvar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const money = x => Math.abs(x) >= 0.10 ? "₹" + x.toFixed(2) + " Cr" : "₹" + (x * 100).toFixed(1) + " L";
+const units = n => n >= 100000 ? (n/100000).toFixed(2) + " L" : n >= 1000 ? (n/1000).toFixed(1) + "k" : String(Math.round(n));
+function hash(str){ let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h,16777619);} return h>>>0; }
+function rng(seed){ let a = hash(seed); return () => { a |= 0; a = a + 0x6D2B79F5 | 0;
+  let t = Math.imul(a ^ a>>>15, 1|a); t = t + Math.imul(t ^ t>>>7, 61|t) ^ t; return ((t ^ t>>>14)>>>0)/4294967296; }; }
+const tip = $("#tip");
+function showTip(e, html){ tip.innerHTML = html; tip.classList.add("on");
+  const r = tip.getBoundingClientRect(); let x = e.clientX+14, y = e.clientY-r.height-12;
+  if (x + r.width > innerWidth-10) x = e.clientX-r.width-14; if (y < 10) y = e.clientY+18;
+  tip.style.left = x+"px"; tip.style.top = y+"px"; }
+const hideTip = () => tip.classList.remove("on");
+addEventListener("scroll", hideTip, { passive:true });
+
+/* ═════════ 1. ACTION & VALUE RECOVERY ═════════ */
+const ACTIONS = [
+  { id:"A-2214", t:"Renegotiate MOQ — Zepto Bengaluru DC", drv:"Availability · MOQ", own:"Priya S. · CAM",
+    dec:"28 Jul", days:23, at:0.57, rec:0.41, status:"Complete", sla:"In SLA", moved:true,
+    base:[0.041,0.043,0.040,0.042,0.044,0.042,0.043,0.041,0.042,0.043,0.041,0.042,0.043,0.042,0.041,0.043,0.042,0.041,0.042,0.043,0.042,0.041,0.042,0.043],
+    act:[0.041,0.043,0.040,0.042,0.044,0.042,0.043,0.041,0.038,0.033,0.028,0.024,0.021,0.018,0.017,0.015,0.014,0.014,0.013,0.013,0.012,0.012,0.011,0.011] },
+  { id:"A-2198", t:"Restock 12 SKUs — Bengaluru & Hyderabad", drv:"Availability · serviceability", own:"Aman K. · Supply",
+    dec:"04 Aug", days:16, at:1.34, rec:0.86, status:"Complete", sla:"Breached 4d", moved:true,
+    base:[0.092,0.090,0.094,0.091,0.093,0.092,0.090,0.093,0.091,0.092,0.094,0.091,0.092,0.093,0.091,0.092,0.090,0.093,0.092,0.091,0.093,0.092,0.090,0.092],
+    act:[0.092,0.090,0.094,0.091,0.093,0.092,0.090,0.093,0.089,0.084,0.076,0.066,0.058,0.051,0.046,0.042,0.039,0.037,0.035,0.034,0.033,0.032,0.031,0.031] },
+  { id:"A-2231", t:"Relist 6 delisted SKUs on Zepto", drv:"Assortment", own:"Priya S. · CAM",
+    dec:"11 Aug", days:9, at:0.57, rec:0.49, status:"Complete", sla:"In SLA", moved:true,
+    base:[0.039,0.040,0.038,0.041,0.039,0.040,0.038,0.039,0.040,0.038,0.041,0.039,0.040,0.038,0.039,0.040,0.038,0.041,0.039,0.040,0.038,0.039,0.040,0.038],
+    act:[0.039,0.040,0.038,0.041,0.039,0.040,0.038,0.039,0.031,0.021,0.012,0.008,0.006,0.005,0.005,0.004,0.004,0.004,0.003,0.003,0.003,0.003,0.003,0.003] },
+  { id:"A-2240", t:"Fix zero-score content — SMint, Chocoliebe", drv:"Content", own:"Neha R. · Content",
+    dec:"14 Aug", days:6, at:0.24, rec:0, status:"In progress", sla:"In SLA", moved:false,
+    base:[0.017,0.016,0.017,0.018,0.016,0.017,0.017,0.016,0.017,0.018,0.016,0.017,0.017,0.016,0.017,0.018,0.016,0.017,0.017,0.016,0.017,0.018,0.016,0.017],
+    act:[0.017,0.016,0.017,0.018,0.016,0.017,0.017,0.016,0.017,0.017,0.016,0.016,0.015,0.015,0.016,0.015,0.015,0.014,0.015,0.014,0.015,0.014,0.014,0.014] },
+  { id:"A-2189", t:"Rebalance search spend — Blinkit → Zepto", drv:"Visibility", own:"Rohit M. · Media",
+    dec:"21 Jul", days:30, at:0.42, rec:0.38, status:"Complete", sla:"In SLA", moved:true,
+    base:[0.029,0.030,0.028,0.031,0.029,0.030,0.028,0.029,0.030,0.028,0.031,0.029,0.030,0.028,0.029,0.030,0.028,0.031,0.029,0.030,0.028,0.029,0.030,0.028],
+    act:[0.029,0.030,0.028,0.031,0.029,0.030,0.024,0.019,0.014,0.011,0.009,0.008,0.007,0.006,0.006,0.005,0.005,0.005,0.004,0.004,0.004,0.004,0.004,0.004] },
+  { id:"A-2251", t:"Close depth gap — Center Fruit vs Candyman", drv:"Price & Promo", own:"Vikram T. · Trade",
+    dec:"—", days:0, at:0.33, rec:0, status:"Open", sla:"Due 26 Aug", moved:null, base:null, act:null },
+  { id:"A-2255", t:"Escalate fill-rate breach — Blinkit KAM", drv:"Availability · serviceability", own:"Priya S. · CAM",
+    dec:"—", days:0, at:0.53, rec:0, status:"Open", sla:"Breached 6d", moved:null, base:null, act:null },
+  { id:"A-2260", t:"Review-response programme — Fruittella", drv:"Rating", own:"Neha R. · Brand",
+    dec:"18 Aug", days:2, at:0.14, rec:0, status:"In progress", sla:"In SLA", moved:false,
+    base:[0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010],
+    act:[0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.011,0.010,0.010,0.009,0.010,0.010,0.010,0.010,0.009,0.010] }
+];
+const LEDGER = [
+  { m:"May '26", ident:142, trig:96,  sla:64, rec:1.12, per:0.91, leak:6.4, cov:71 },
+  { m:"Jun '26", ident:167, trig:121, sla:70, rec:1.68, per:0.84, leak:5.8, cov:78 },
+  { m:"Jul '26", ident:181, trig:148, sla:74, rec:2.41, per:0.77, leak:5.0, cov:83 },
+  { m:"Aug '26", ident:200, trig:163, sla:78, rec:3.84, per:1.62, leak:4.1, cov:87 }
+];
+let recSel = "A-2198";
+
+function renderAction(){
+  const done = ACTIONS.filter(a => a.status === "Complete").length;
+  $("#aProg").innerHTML = `50<small> of 200</small>`;
+  $("#aProgD").textContent = `${done} of the ${ACTIONS.length} shown here complete · 163 triggered this month`;
+  $("#aProgBar").style.width = "25%";
+
+  $("#recSeg").innerHTML = ACTIONS.filter(a => a.base).map(a =>
+    `<button data-a="${a.id}" class="${a.id === recSel ? "is-on" : ""}">${esc(a.id)}</button>`).join("");
+  $("#recSeg").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { recSel = b.dataset.a; renderAction(); }));
+  renderRecovery();
+
+  const f = state.regFilter;
+  const rows = ACTIONS.filter(a => f === "all" ? true : f === "open" ? a.status !== "Complete"
+    : f === "done" ? a.status === "Complete" : a.sla.startsWith("Breached"));
+  $("#regWrap").innerHTML = `<table><thead><tr>
+      <th style="width:78px">ID</th><th>Action</th><th>Driver</th><th>Owner</th>
+      <th>Decision date</th><th class="r">₹ addressed</th><th class="r">₹ recovered</th>
+      <th style="width:120px">Movement</th><th>SLA</th></tr></thead><tbody>
+    ${rows.map(a => {
+      const pct = a.at ? a.rec / a.at * 100 : 0;
+      const mv = a.moved === null ? ["Not started","p-mute"] : a.moved ? ["Metric moved","p-good"] : ["No movement yet","p-warn"];
+      return `<tr class="row${a.id === recSel ? " is-on" : ""}" data-a="${a.id}">
+        <td class="mono" style="font-weight:600">${esc(a.id)}</td>
+        <td style="font-weight:600">${esc(a.t)}<div class="muted" style="font-size:10.6px;margin-top:2px">${esc(a.status)}</div></td>
+        <td class="geo">${esc(a.drv)}</td><td>${esc(a.own)}</td>
+        <td class="num">${esc(a.dec)}${a.days ? `<span class="muted"> · ${a.days}d ago</span>` : ""}</td>
+        <td class="r num">${money(a.at)}</td>
+        <td class="r num ${a.rec ? "up" : "muted"}">${a.rec ? money(a.rec) : "—"}</td>
+        <td><span class="bar-mini"><i style="width:${pct.toFixed(0)}%;background:var(--gain)"></i></span>
+            <div class="muted num" style="font-size:10.6px;margin-top:3px">${pct.toFixed(0)}% of addressed</div></td>
+        <td><span class="pill ${a.sla.startsWith("Breached") ? "p-bad" : "p-good"}">${esc(a.sla)}</span>
+            <div style="margin-top:4px"><span class="pill ${mv[1]}">${mv[0]}</span></div></td></tr>`;
+    }).join("")}</tbody></table>`;
+  $("#regWrap").querySelectorAll("tr.row").forEach(tr => tr.addEventListener("click", () => {
+    const a = ACTIONS.find(x => x.id === tr.dataset.a); if (a.base){ recSel = a.id; renderAction();
+      document.getElementById("recChart").scrollIntoView({ behavior:"smooth", block:"center" }); }
+  }));
+
+  $("#ledgerWrap").innerHTML = `<table><thead><tr>
+      <th>Month</th><th class="r">Issues identified</th><th class="r">Actions triggered</th>
+      <th class="r">Closed in SLA</th><th class="r">₹ recovered</th><th class="r">₹ persisted</th>
+      <th class="r">Net leakage</th><th style="width:150px">Attribution coverage</th></tr></thead><tbody>
+    ${LEDGER.map((l, i) => {
+      const prev = LEDGER[i-1];
+      return `<tr><td style="font-weight:600">${esc(l.m)}</td>
+        <td class="r num">${l.ident}</td><td class="r num">${l.trig}</td>
+        <td class="r num">${l.sla}%</td>
+        <td class="r num up">${money(l.rec)}${prev ? `<span class="muted" style="font-weight:400"> · ${((l.rec/prev.rec-1)*100).toFixed(0)}%</span>` : ""}</td>
+        <td class="r num dn">${money(l.per)}</td>
+        <td class="r num ${l.leak < (prev ? prev.leak : 99) ? "up" : "dn"}">${l.leak}%</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><span class="num" style="font-weight:600">${l.cov}%</span>
+          <span class="bar-mini"><i style="width:${l.cov}%;background:var(--s1)"></i></span></div></td></tr>`;
+    }).join("")}</tbody></table>`;
+}
+
+function renderRecovery(){
+  const a = ACTIONS.find(x => x.id === recSel), svg = $("#recChart");
+  const W = 1180, H = 340, L = 66, R = 26, T = 22, B = 276;
+  const n = a.base.length, decIdx = 8;
+  const hi = Math.max(...a.base, ...a.act) * 1.25;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = hi * k / 4;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-9}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${(v*100).toFixed(1)}L</text>`; }
+  for (let i = 0; i < n; i += 4)
+    g += `<text class="ax num" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">D${i - decIdx >= 0 ? "+" : ""}${i - decIdx}</text>`;
+
+  /* recovered area between baseline and actual, after the decision */
+  const areaTop = a.base.map((v, i) => i >= decIdx ? [x(i), y(v)] : null).filter(Boolean);
+  const areaBot = a.act.map((v, i) => i >= decIdx ? [x(i), y(v)] : null).filter(Boolean).reverse();
+  g += `<path d="${[...areaTop, ...areaBot].map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ")} Z"
+          fill="${cvar("--gain")}" fill-opacity=".16"/>`;
+  const line = (arr, col, dash) => `<path d="${arr.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+    fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" ${dash ? `stroke-dasharray="5 4"` : ""}/>`;
+  g += line(a.base, cvar("--unk"), true);
+  g += line(a.act, cvar("--s1"), false);
+  /* decision marker */
+  g += `<line x1="${x(decIdx).toFixed(1)}" y1="${T-6}" x2="${x(decIdx).toFixed(1)}" y2="${B}" stroke="${cvar("--ink")}" stroke-width="1.4" stroke-dasharray="3 3"/>
+        <rect x="${(x(decIdx)-46).toFixed(1)}" y="${T-20}" width="92" height="17" rx="8.5" fill="${cvar("--ink")}"/>
+        <text x="${x(decIdx).toFixed(1)}" y="${T-8}" text-anchor="middle" font-size="10" font-weight="700" fill="${cvar("--surface")}">DECISION ${esc(a.dec)}</text>`;
+  const midX = (x(decIdx) + x(n-1)) / 2, midY = (y(a.base[n-1]) + y(a.act[n-1])) / 2;
+  g += `<text x="${midX.toFixed(1)}" y="${midY.toFixed(1)}" text-anchor="middle" font-size="12.5" font-weight="700" fill="${cvar("--gain")}">${money(a.rec)} recovered</text>`;
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">daily loss run-rate (₹)</text>`;
+  svg.innerHTML = g;
+
+  $("#recLegend").innerHTML = `
+    <span><i class="swatch" style="background:var(--unk)"></i>Frozen pre-action baseline</span>
+    <span><i class="swatch" style="background:var(--s1)"></i>Actual after the decision</span>
+    <span><i class="swatch" style="background:var(--gain);opacity:.35"></i>Recovered value</span>`;
+  $("#recNote").innerHTML = a.moved
+    ? `<b class="mono">${esc(a.id)}</b> · ${esc(a.t)}. Decision taken ${esc(a.dec)}, ${a.days} days of tracking since.
+       Daily loss run-rate fell from ₹${(a.base[0]*100).toFixed(1)}L to ₹${(a.act[a.act.length-1]*100).toFixed(1)}L against a flat baseline —
+       <b class="up">${money(a.rec)} recovered of ${money(a.at)} addressed (${(a.rec/a.at*100).toFixed(0)}%)</b>. Owner ${esc(a.own)}.`
+    : `<b class="mono">${esc(a.id)}</b> · ${esc(a.t)}. Decision taken ${esc(a.dec)}, only ${a.days} days of tracking so far and the
+       metric has not separated from the baseline yet. The row says so rather than claiming an early win — this is the case the
+       ledger has to report honestly for the total to mean anything.`;
+}
+
+/* ═════════ 2. INVESTMENT OPTIMIZATION ═════════ */
+const SPLITS = {
+  inter: { unit:"₹ of every 100", note:`Blinkit takes 38% of the budget for 29% of the category and a 2.6× return. Zepto returns 4.1× and is under-funded — the model moves ₹14 of every ₹100 across. The constraint is not total spend, it is where it sits.`,
+    rows:[ { n:"Blinkit", cur:38, rec:26, roas:2.6, note:"over-funded vs return" },
+           { n:"Zepto", cur:19, rec:31, roas:4.1, note:"best return, under-funded" },
+           { n:"Swiggy Instamart", cur:22, rec:24, roas:3.4, note:"near optimal" },
+           { n:"FK Minutes", cur:11, rec:12, roas:3.1, note:"hold" },
+           { n:"Amazon Now", cur:7, rec:5, roas:2.2, note:"trim" },
+           { n:"Bigbasket", cur:3, rec:2, roas:1.9, note:"trim" } ] },
+  intra: { unit:"₹ of every 100 on Zepto", note:`Within Zepto the money is 71% price-led. Promo is buying volume we would partly get anyway, while search is where we are losing organic rank. The model shifts 18 points from promo depth into search.`,
+    rows:[ { n:"Promo depth", cur:52, rec:34, roas:2.1, note:"partly cannibalising base volume" },
+           { n:"Search ads", cur:23, rec:41, roas:4.6, note:"9 keywords losing organic rank" },
+           { n:"Category banners", cur:14, rec:15, roas:3.2, note:"hold" },
+           { n:"Homepage placement", cur:11, rec:10, roas:2.8, note:"hold" } ] },
+  brand: { unit:"₹ of every 100 across brands", note:`Spend follows revenue, not headroom. Happydent and Mentos are already winning search and do not need more; Center Fresh and Alpenliebe are losing share in cells where a rupee still moves rank.`,
+    rows:[ { n:"Alpenliebe", cur:18, rec:26, roas:3.8, note:"losing share, rank still movable" },
+           { n:"Center Fresh", cur:14, rec:22, roas:4.0, note:"biggest headroom" },
+           { n:"Mentos", cur:21, rec:14, roas:2.4, note:"already winning organically" },
+           { n:"Happydent", cur:19, rec:12, roas:2.2, note:"already winning organically" },
+           { n:"Chupa Chups", cur:15, rec:16, roas:3.3, note:"hold" },
+           { n:"Others", cur:13, rec:10, roas:2.6, note:"trim" } ] }
+};
+const KEYWORDS = [
+  { k:"chewing gum", vol:"very high", ours:22, comp:41, spend:3.4, rank:"14 → 27", v:"Attack", tone:"p-bad" },
+  { k:"mint candy", vol:"high", ours:38, comp:19, spend:2.1, rank:"3 → 3", v:"Stop bidding", tone:"p-warn" },
+  { k:"toffee", vol:"high", ours:29, comp:34, spend:1.8, rank:"9 → 15", v:"Attack", tone:"p-bad" },
+  { k:"lollipop", vol:"medium", ours:44, comp:12, spend:1.2, rank:"2 → 2", v:"Stop bidding", tone:"p-warn" },
+  { k:"sugar free gum", vol:"medium", ours:9, comp:52, spend:0.4, rank:"22 → 24", v:"Attack", tone:"p-bad" },
+  { k:"eclairs", vol:"medium", ours:51, comp:18, spend:0.9, rank:"1 → 1", v:"Hold", tone:"p-good" },
+  { k:"candy pack", vol:"high", ours:26, comp:28, spend:2.6, rank:"11 → 10", v:"Hold", tone:"p-good" },
+  { k:"jelly candy", vol:"low", ours:14, comp:37, spend:0.3, rank:"18 → 26", v:"Attack", tone:"p-bad" }
+];
+const COMPSPEND = {
+  weeks:["W20","W21","W22","W23","W24","W25","W26","W27","W28","W29","W30","W31"],
+  series:[
+    { n:"Us", tok:"--s1", v:[100,102,99,104,101,103,106,108,105,110,112,109] },
+    { n:"Candyman", tok:"--s2", v:[62,64,68,71,78,84,92,101,114,126,138,147] },
+    { n:"Pulse", tok:"--s3", v:[88,86,84,87,85,83,86,84,82,85,83,81] }
+  ],
+  others:[44,45,43,46,44,45,47,46,45,47,46,45]
+};
+
+function renderInvest(){
+  const v = state.split, S = SPLITS[v];
+  const max = Math.max(...S.rows.flatMap(r => [r.cur, r.rec]));
+  $("#allocList").innerHTML = S.rows.map(r => {
+    const d = r.rec - r.cur;
+    const col = d > 0 ? "--gain" : d < 0 ? "--loss" : "--unk";
+    return `<div class="alloc">
+      <span class="an">${esc(r.n)}<span class="pill p-mute">${r.roas}×</span></span>
+      <span class="alloctrack">
+        <i class="cur" style="width:${(r.cur/max*100).toFixed(1)}%"></i>
+        <i class="rec" style="width:${(r.rec/max*100).toFixed(1)}%;background:var(--s1)"></i></span>
+      <span class="delta-chip" style="color:var(${col})">${r.cur} → <b>${r.rec}</b> ${d > 0 ? "▲" : d < 0 ? "▼" : "•"}${Math.abs(d)}</span>
+    </div><div class="geo" style="padding:0 18px 6px 162px;margin-top:-6px">${esc(r.note)}</div>`;
+  }).join("");
+  $("#splitNote").innerHTML = `Figures are <b>${esc(S.unit)}</b>. ${esc(S.note)}`;
+  [...$("#splitSeg").children].forEach(b => b.classList.toggle("is-on", b.dataset.v === v));
+
+  $("#kwWrap").innerHTML = `<table><thead><tr>
+      <th>Keyword</th><th>Search volume</th><th class="r">Our SOS</th><th class="r">Top competitor SOS</th>
+      <th style="width:130px"></th><th class="r">Spend (₹L)</th><th>Organic rank</th><th>Verdict</th></tr></thead><tbody>
+    ${KEYWORDS.map(k => `<tr>
+      <td style="font-weight:600">${esc(k.k)}</td><td class="geo">${esc(k.vol)}</td>
+      <td class="r num ${k.ours >= k.comp ? "up" : "dn"}">${k.ours}%</td>
+      <td class="r num">${k.comp}%</td>
+      <td><span class="bar-mini"><i style="width:${k.ours}%;background:var(--s1)"></i></span>
+          <span class="bar-mini" style="margin-top:3px;height:4px"><i style="width:${k.comp}%;background:var(--s2)"></i></span></td>
+      <td class="r num">${k.spend.toFixed(1)}</td>
+      <td class="num geo">${esc(k.rank)}</td>
+      <td><span class="pill ${k.tone}">${esc(k.v)}</span></td></tr>`).join("")}</tbody></table>`;
+  renderCompChart();
+}
+
+function renderCompChart(){
+  const svg = $("#compChart"), D = COMPSPEND;
+  const W = 1180, L = 60, R = 120, T = 22, B = 240;
+  const n = D.weeks.length;
+  const hi = Math.max(...D.series.flatMap(s => s.v), ...D.others) * 1.12;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 3; k++){ const v = hi * k / 3;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-9}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(0)}</text>`; }
+  D.weeks.forEach((w, i) => { if (i % 2 === 0)
+    g += `<text class="ax" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">${w}</text>`; });
+  /* all-other-competitors band, deliberately neutral */
+  g += `<path d="${D.others.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+          fill="none" stroke="${cvar("--line-strong")}" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <text class="ax" x="${(x(n-1)+8).toFixed(1)}" y="${(y(D.others[n-1])+3.5).toFixed(1)}">All others</text>`;
+  D.series.forEach(s => {
+    const col = cvar(s.tok);
+    g += `<path d="${s.v.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+            fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="${x(n-1).toFixed(1)}" cy="${y(s.v[n-1]).toFixed(1)}" r="3.4" fill="${col}"/>
+          <text x="${(x(n-1)+8).toFixed(1)}" y="${(y(s.v[n-1])+3.5).toFixed(1)}" font-size="11" font-weight="600" fill="${col}">${esc(s.n)} ${s.v[n-1]}</text>`;
+  });
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">estimated investment index (us at W20 = 100)</text>`;
+  svg.innerHTML = g;
+  $("#compLegend").innerHTML = D.series.map(s =>
+    `<span><i class="swatch" style="background:var(${s.tok})"></i>${esc(s.n)}</span>`).join("") +
+    `<span><i class="swatch" style="background:var(--line-strong)"></i>All other competitors</span>`;
+  $("#compNote").innerHTML = `<b>Candyman has more than doubled</b> its estimated ad investment in twelve weeks, from an index of 62 to 147 —
+    and their share gain of +0.31pt lands in the same window. Pulse is flat and gaining share anyway, which says their gain is product-led,
+    not media-led. That distinction is the point of the chart: it tells you which competitor you can outspend and which you cannot.`;
+}
+
+/* ═════════ 3. NEW PRODUCT RADAR ═════════ */
+/* Fictional brands and products — the module is real, the content is illustrative. */
+const NPD = [
+  { id:"n1", nm:"Zesta Sour Blast Rolls", br:"Zesta", cat:"Candy", seen:"02 Aug", plat:"Blinkit · Zepto", vel:2.8, share:0.09, fast:true,
+    price:"₹20", ppu:"₹6.7 / 100g", pack:"3 × 30g", mfr:"Zesta Confectionery Pvt Ltd, Baddi",
+    desc:"A sour-centre hard candy roll in a three-pack, positioned at the ₹20 impulse price point and merchandised at checkout.",
+    ing:"Sugar, liquid glucose, acidity regulator (330), permitted natural colours, artificial flavouring substances (green apple, blue raspberry), anticaking agent (551).",
+    claims:[["No artificial colours", false, true],["Sour centre", true, false],["₹20 multipack", true, false],["Sugar free variant", false, true],["Vegetarian", true, true]],
+    rating:4.42, revs:1840, themes:[["Sourness level is right",38],["Pack tears easily",21],["Good value at ₹20",17]],
+    ads:[["YouTube","Sour Blast — 15s bumper","0:15","first seen 04 Aug"],["Meta","Carousel — 3 flavours","—","first seen 07 Aug"]] },
+  { id:"n2", nm:"Frooza Chewy Cubes", br:"Frooza", cat:"Jelly", seen:"29 Jul", plat:"Zepto · Instamart", vel:3.4, share:0.06, fast:true,
+    price:"₹45", ppu:"₹18.0 / 100g", pack:"250g jar", mfr:"Frooza Foods Ltd, Vapi",
+    desc:"A jar-format chewy fruit cube aimed at in-home sharing rather than impulse — a format we do not currently carry.",
+    ing:"Sugar, glucose syrup, gelatin, fruit juice concentrate (8%), citric acid, natural flavours, carnauba wax.",
+    claims:[["Real fruit juice", true, false],["Jar format", true, false],["Gelatin free", false, true],["No added colour", true, false],["Sharing pack", true, false]],
+    rating:4.61, revs:920, themes:[["Jar is resealable and good",44],["Too sweet for some",19],["Kids like the shapes",15]],
+    ads:[["YouTube","Frooza jar — family moment 20s","0:20","first seen 31 Jul"],["Meta","Reel — snack-drawer format","0:09","first seen 02 Aug"]] },
+  { id:"n3", nm:"Minto Max Cool Strips", br:"Minto Max", cat:"Mints", seen:"11 Aug", plat:"Blinkit", vel:2.1, share:0.03, fast:true,
+    price:"₹30", ppu:"₹120 / 100g", pack:"24 strips", mfr:"Minto Max India, Sri City",
+    desc:"A dissolving mint strip in a slim pocket case — a delivery format entirely absent from our portfolio.",
+    ing:"Pullulan, natural peppermint oil, sucralose, menthol, xylitol, purified water.",
+    claims:[["Sugar free", true, true],["Dissolving strip format", true, false],["Xylitol", true, true],["Pocket case", true, false],["Zero calorie", true, false]],
+    rating:4.28, revs:410, themes:[["Very strong mint",41],["Case is fiddly",26],["Premium at ₹30",13]],
+    ads:[["Meta","Static — breath confidence","—","first seen 13 Aug"],["YouTube","Strip demo 6s bumper","0:06","first seen 14 Aug"]] },
+  { id:"n4", nm:"Cocoloco Duo Bites", br:"Cocoloco", cat:"Chocolate", seen:"18 Jul", plat:"Instamart", vel:0.9, share:0.01, fast:false,
+    price:"₹35", ppu:"₹35.0 / 100g", pack:"100g pouch", mfr:"Cocoloco Foods, Pune",
+    desc:"A cocoa-and-caramel bite pouch at a mid price point, scaling slower than the category launch benchmark.",
+    ing:"Sugar, cocoa solids (14%), milk solids, hydrogenated vegetable fat, emulsifier (322), caramel flavour.",
+    claims:[["Cocoa 14%", true, false],["Pouch pack", true, true],["No palm oil", false, false],["Milk solids", true, true],["Kid-safe size", true, true]],
+    rating:3.94, revs:260, themes:[["Melts in transit",47],["Caramel ratio praised",22],["Pouch not resealable",18]],
+    ads:[["Meta","Static — value pouch","—","first seen 22 Jul"]] },
+  { id:"n5", nm:"Zesta Fizz Lollipops", br:"Zesta", cat:"Lollipop", seen:"06 Aug", plat:"Blinkit · FK Minutes", vel:1.4, share:0.02, fast:false,
+    price:"₹10", ppu:"₹62.5 / 100g", pack:"single 16g", mfr:"Zesta Confectionery Pvt Ltd, Baddi",
+    desc:"A fizzing-centre lollipop at the ₹10 entry price, competing directly in a cell we lead.",
+    ing:"Sugar, liquid glucose, sodium bicarbonate, citric acid, permitted colours, flavouring substances.",
+    claims:[["Fizzing centre", true, false],["₹10 price point", true, true],["Single wrap", true, true],["No artificial colour", false, true],["Vegetarian", true, true]],
+    rating:4.11, revs:640, themes:[["Fizz is a novelty",35],["Stick bends",24],["Good at ₹10",20]],
+    ads:[["YouTube","Fizz reveal 10s","0:10","first seen 09 Aug"],["Meta","Reel — schoolbag moment","0:12","first seen 10 Aug"]] }
+];
+let npdSel = "n2";
+
+function renderNPD(){
+  $("#npdGrid").innerHTML = NPD.map(p => `
+    <button class="npd${p.id === npdSel ? " is-on" : ""}" data-n="${p.id}">
+      <span class="nm">${esc(p.nm)}</span>
+      <span class="br">${esc(p.br)} · ${esc(p.cat)} · first seen ${esc(p.seen)}</span>
+      <span class="vel num" style="color:var(${p.fast ? "--loss" : "--ink"})">${p.vel.toFixed(1)}×</span>
+      <span class="sub">launch benchmark · ${p.share.toFixed(2)}pt taken · ${esc(p.plat)}</span>
+      ${p.fast ? `<span class="pill p-bad" style="align-self:flex-start;margin-top:7px">Scaling fast</span>`
+               : `<span class="pill p-mute" style="align-self:flex-start;margin-top:7px">Normal curve</span>`}
+    </button>`).join("");
+  $("#npdGrid").querySelectorAll(".npd").forEach(b => b.addEventListener("click", () => { npdSel = b.dataset.n; renderNPD(); }));
+
+  const p = NPD.find(x => x.id === npdSel);
+  const emoji = { Candy:"🍬", Jelly:"🧸", Mints:"🌿", Chocolate:"🍫", Lollipop:"🍭" }[p.cat] || "🍬";
+  $("#bioPane").innerHTML = `
+    <div class="biol">
+      <div class="biohero">${emoji}</div>
+      <h3 style="font-size:15.5px">${esc(p.nm)}</h3>
+      <p style="font-size:12.4px;color:var(--ink-2);margin:6px 0 12px">${esc(p.desc)}</p>
+      <div class="speclist">
+        <div class="specrow"><span class="sk">Brand</span><span>${esc(p.br)}</span></div>
+        <div class="specrow"><span class="sk">Manufacturer</span><span>${esc(p.mfr)}</span></div>
+        <div class="specrow"><span class="sk">Pack &amp; price</span><span>${esc(p.pack)} · <b>${esc(p.price)}</b> · ${esc(p.ppu)}</span></div>
+        <div class="specrow"><span class="sk">First seen</span><span>${esc(p.seen)} on ${esc(p.plat)}</span></div>
+        <div class="specrow"><span class="sk">Ingredients</span><span style="font-size:11.5px;color:var(--ink-2)">${esc(p.ing)}</span></div>
+        <div class="specrow"><span class="sk">Rating</span><span><b>${p.rating}</b> from ${p.revs.toLocaleString("en-IN")} reviews</span></div>
+      </div>
+      <div class="eyebrow" style="margin:16px 0 8px">Share velocity since launch</div>
+      <svg id="velChart" viewBox="0 0 420 150" role="img" aria-label="Share growth since launch versus the category benchmark"></svg>
+    </div>
+    <div class="bior">
+      <div class="eyebrow" style="margin-bottom:8px">Claims — head to head vs our nearest SKU</div>
+      <table class="claims"><thead><tr><th>Claim</th><th style="width:78px" class="r">Them</th><th style="width:78px" class="r">Us</th></tr></thead>
+        <tbody>${p.claims.map(([c, them, us]) => `<tr>
+          <td>${esc(c)}</td>
+          <td class="r ${them ? "yes" : "no"}">${them ? "✓" : "✗"}</td>
+          <td class="r ${us ? "yes" : "no"}">${us ? "✓" : "✗"}</td></tr>`).join("")}</tbody></table>
+
+      <div class="eyebrow" style="margin:16px 0 8px">Review themes</div>
+      ${p.themes.map(([t, pct]) => `<div class="theme" style="margin-bottom:6px">
+        <div class="th">${esc(t)}<span class="pill p-mute" style="margin-left:auto">${pct}% of mentions</span></div>
+        <span class="bar-mini tb"><i style="width:${pct}%;background:var(--s3)"></i></span></div>`).join("")}
+
+      <div class="eyebrow" style="margin:16px 0 0">Creative, retrieved by the ads connector</div>
+      <div class="adgrid">${p.ads.map(([src, title, dur, seen]) => `
+        <div class="adcard"><div class="adthumb"><span class="src">${esc(src)}</span><span class="play">▶</span></div>
+          <div class="admeta"><b>${esc(title)}</b>${esc(dur === "—" ? "static" : dur)} · ${esc(seen)}</div></div>`).join("")}</div>
+      <div class="note" style="margin:12px 0 0">
+        <b>Prototype note.</b> Creative plays in-app through the ads connector in the live product. In this prototype the
+        cards are placeholders — external media cannot load inside a published artifact.</div>
+    </div>`;
+  renderVel(p);
+}
+function renderVel(p){
+  const svg = $("#velChart"); if (!svg) return;
+  const W = 420, H = 150, L = 34, R = 12, T = 12, B = 118;
+  const n = 8;
+  const bench = Array.from({ length:n }, (_, i) => 0.012 * i);
+  const theirs = Array.from({ length:n }, (_, i) => 0.012 * i * p.vel * (0.55 + i / n * 0.6));
+  const hi = Math.max(...theirs, ...bench) * 1.2 || 0.1;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 2; k++){ const v = hi * k / 2;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-6}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(2)}</text>`; }
+  [0,3,7].forEach(i => g += `<text class="ax" x="${x(i).toFixed(1)}" y="${B+16}" text-anchor="middle">W${i+1}</text>`);
+  g += `<path d="${bench.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--line-strong")}" stroke-width="1.8" stroke-dasharray="4 3"/>`;
+  g += `<path d="${theirs.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar(p.fast?"--loss":"--s1")}" stroke-width="2.2" stroke-linejoin="round"/>`;
+  g += `<text class="ax" x="${(x(n-1)-2).toFixed(1)}" y="${(y(theirs[n-1])-8).toFixed(1)}" text-anchor="end" font-weight="600" fill="${cvar(p.fast?"--loss":"--s1")}">${esc(p.br)}</text>`;
+  g += `<text class="ax" x="${(x(n-1)-2).toFixed(1)}" y="${(y(bench[n-1])+14).toFixed(1)}" text-anchor="end">category launch benchmark</text>`;
+  svg.innerHTML = g;
+}
+
+/* ═════════ 4. ALERTS & REVIEWS ═════════ */
+const LEX = {
+  metric:[
+    { re:/\b(weeks? of )?cover\b/i, m:"Weeks of cover", u:"wk" },
+    { re:/\bfill ?rate\b/i, m:"Fill rate", u:"%" },
+    { re:/\bcontent score\b/i, m:"Content score", u:"" },
+    { re:/\b(discount|dip|depth)\b/i, m:"Competitor dip depth", u:"%" },
+    { re:/\bshare of search|sos\b/i, m:"Share of search", u:"%" },
+    { re:/\brating\b/i, m:"Avg rating", u:"" },
+    { re:/\bout of stock|oos\b/i, m:"Days out of stock", u:"d" }
+  ],
+  op:[
+    { re:/\b(under|below|drops? (under|below)|less than|falls? below)\b/i, o:"falls below" },
+    { re:/\b(over|above|deeper than|more than|rises? above|exceeds?)\b/i, o:"rises above" }
+  ],
+  extra:[
+    { re:/\bno po\b|\bpo (has|is)? ?not (been )?raised\b/i, x:"and no PO has been raised" },
+    { re:/\bno promo\b|\bnot on the calendar\b/i, x:"and no promo is on the calendar" },
+    { re:/\bpo lands? after\b/i, x:"and the PO lands after the projected stockout" }
+  ],
+  scope:[
+    { re:/\bblinkit\b/i, s:"Blinkit" }, { re:/\bzepto\b/i, s:"Zepto" },
+    { re:/\binstamart|swiggy\b/i, s:"Swiggy Instamart" }, { re:/\bmsl\b/i, s:"MSL only" }
+  ]
+};
+const WORDNUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10 };
+function parseNL(txt){
+  const t = txt || "";
+  const metric = (LEX.metric.find(x => x.re.test(t)) || { m:"Weeks of cover", u:"wk" });
+  const op = (LEX.op.find(x => x.re.test(t)) || { o:"falls below" }).o;
+  let val = null;
+  const num = t.match(/(\d+(?:\.\d+)?)\s*(?:%|percent|weeks?|wk|days?)?/i);
+  if (num) val = parseFloat(num[1]);
+  if (val === null) { const w = Object.keys(WORDNUM).find(k => new RegExp("\\b"+k+"\\b","i").test(t)); if (w) val = WORDNUM[w]; }
+  if (val === null) val = metric.m === "Fill rate" ? 85 : metric.m === "Content score" ? 60 : 2;
+  const extras = LEX.extra.filter(x => x.re.test(t)).map(x => x.x);
+  const scopes = LEX.scope.filter(x => x.re.test(t)).map(x => x.s);
+  const sev = /\b(critical|urgent|immediately)\b/i.test(t) ? "Critical" : extras.length ? "High" : "Medium";
+  return { metric:metric.m, unit:metric.u, op, val, extras, scope: scopes.length ? scopes.join(" · ") : "All platforms", sev };
+}
+function blastFor(r){
+  const seed = rng(r.metric + r.op + r.val + r.extras.join() + r.scope);
+  const M = 300;
+  let base = r.metric === "Weeks of cover" ? 0.42 : r.metric === "Fill rate" ? 0.31
+    : r.metric === "Content score" ? 0.18 : r.metric === "Competitor dip depth" ? 0.12 : 0.24;
+  base *= r.extras.length ? 0.45 : 1;
+  base *= r.scope === "All platforms" ? 1 : 0.4;
+  const N = Math.max(1, Math.round(M * base * (0.75 + seed() * 0.5)));
+  return { N, M, pct: N / M };
+}
+function renderParse(){
+  const r = parseNL($("#nlInput").value);
+  $("#parseBody").innerHTML = `
+    <span class="tok s">WHEN</span>
+    <span class="tok m">${esc(r.metric)}</span>
+    <span class="tok o">${esc(r.op)}</span>
+    <span class="tok v">${r.val}${esc(r.unit)}</span>
+    ${r.extras.map(x => `<span class="tok x">${esc(x)}</span>`).join("")}
+    <span class="tok s">scoped to</span><span class="tok s">${esc(r.scope)}</span>
+    <span class="tok s">severity</span><span class="tok v">${esc(r.sev)}</span>`;
+  const b = blastFor(r);
+  const noisy = b.pct > 0.5;
+  $("#blast").style.background = noisy ? "var(--loss-soft)" : "var(--gain-soft)";
+  $("#blast").style.border = `1px solid color-mix(in srgb, var(${noisy ? "--loss" : "--gain"}) 25%, transparent)`;
+  $("#blast").innerHTML = `<b class="num" style="color:var(${noisy ? "--loss" : "--gain"})">${b.N} of ${b.M}</b>
+    <span>SKUs match this rule right now (${(b.pct*100).toFixed(0)}% of the portfolio in scope).</span>
+    ${noisy ? `<span class="pill p-bad">That is more than half the portfolio — this will be noisy</span>`
+            : `<span class="pill p-good">Sensible blast radius</span>`}
+    <button class="btn" style="margin-left:auto">Save rule</button>`;
+}
+const RULES = [
+  { n:"Cover falling with no PO raised", m:"Weeks of cover falls below 2wk · no PO", sc:"All platforms · MSL", sev:"Critical", now:14, fired:38, ch:"In-app · Task" },
+  { n:"Fill rate under 85% on Blinkit", m:"Fill rate falls below 85%", sc:"Blinkit", sev:"High", now:9, fired:22, ch:"Email · Task" },
+  { n:"Unplanned competitor dip", m:"Competitor dip depth rises above 25% · no promo", sc:"All platforms", sev:"High", now:6, fired:11, ch:"In-app" },
+  { n:"Content score below threshold", m:"Content score falls below 60", sc:"All platforms", sev:"Medium", now:31, fired:47, ch:"In-app" },
+  { n:"Days out of stock over 7", m:"Days out of stock rises above 7d", sc:"Zepto · Instamart", sev:"Critical", now:4, fired:19, ch:"In-app · Email · Task" }
+];
+const FEED_US = [
+  { t:"Melting in transit", pct:38, d:+9, sku:"Chocoliebe, Alpenliebe Eclairs", note:"spikes in Tier-2 summer routes; correlates with 1-star reviews on Instamart" },
+  { t:"Pack tears on opening", pct:24, d:+4, sku:"Center Fresh Rolls", note:"mentions doubled since the pouch gauge changed in June" },
+  { t:"Sweetness too high", pct:19, d:-3, sku:"Juzt Jelly, Center Fruit", note:"declining — the reformulated batch is landing" },
+  { t:"Received near expiry", pct:12, d:+6, sku:"Fruittella", note:"concentrated in 4 dark stores, not a manufacturing issue" }
+];
+const FEED_THEM = [
+  { t:"Resealable jar format", pct:44, d:+12, sku:"Frooza", note:"a format we do not carry; drives repeat-purchase language" },
+  { t:"Real fruit juice claim", pct:29, d:+7, sku:"Frooza, Zesta", note:"claim appears in 3 of 5 new launches this quarter" },
+  { t:"Sugar free without aftertaste", pct:22, d:+5, sku:"Minto Max", note:"xylitol formulations, priced 2× our mints" },
+  { t:"Value at ₹10 / ₹20", pct:18, d:-2, sku:"Zesta", note:"the one theme where we still lead on sentiment" }
+];
+function renderAlerts(){
+  renderParse();
+  $("#rulesWrap").innerHTML = `<table><thead><tr>
+      <th>Rule</th><th>Condition</th><th>Scope</th><th>Severity</th>
+      <th class="r">Matching now</th><th class="r">Fired · 30d</th><th>Channels</th></tr></thead><tbody>
+    ${RULES.map(r => `<tr><td style="font-weight:600">${esc(r.n)}</td>
+      <td class="geo mono" style="font-size:11px">${esc(r.m)}</td>
+      <td class="geo">${esc(r.sc)}</td>
+      <td><span class="pill ${r.sev === "Critical" ? "p-bad" : r.sev === "High" ? "p-warn" : "p-mute"}">${esc(r.sev)}</span></td>
+      <td class="r num">${r.now}</td><td class="r num muted">${r.fired}</td>
+      <td class="geo">${esc(r.ch)}</td></tr>`).join("")}</tbody></table>`;
+
+  const themeHTML = (arr, tok) => arr.map(t => `<div class="theme">
+    <div class="th">${esc(t.t)}<span class="pill ${t.d > 0 ? "p-bad" : "p-good"}" style="margin-left:auto">${t.d > 0 ? "+" : ""}${t.d}pt</span></div>
+    <div class="tm">${t.pct}% of mentions · ${esc(t.sku)}</div>
+    <div class="tm" style="margin-top:4px">${esc(t.note)}</div>
+    <span class="bar-mini tb"><i style="width:${t.pct}%;background:var(${tok})"></i></span></div>`).join("");
+  $("#feedUs").innerHTML = themeHTML(FEED_US, "--loss");
+  $("#feedThem").innerHTML = themeHTML(FEED_THEM, "--s1");
+}
+
+/* ═════════ 5. RELEASE NOTES ═════════ */
+const RELEASES = [
+  { t:"Opportunity loss, down to the PO", d:"Availability now reports rupees, not percentages — split into four gates and drillable to the individual PO and its serviceability.",
+    res:"A confectionery client recovered ₹0.86 Cr in 16 days by working the four worst POs first.", tag:"Availability", on:true },
+  { t:"MOQ recommendations", d:"Where the platform never raised a PO, eGenie now computes the MOQ that would have let it fire, and packages it as one conversation per warehouse.",
+    res:"11 MOQ renegotiations bundled into a single CAM meeting; ₹0.41 Cr unlocked.", tag:"Availability", on:true },
+  { t:"Pin-code loss map", d:"Loss by city and pin code, sized by rupees and coloured by the side that owns the fix. Grouped by Tier 1/2/3.",
+    res:"Surfaced a Tier-2 cluster worth more than two metros combined.", tag:"Availability", on:false },
+  { t:"Text to alert", d:"Write an alert as a sentence. The parser shows you the rule it built and how many SKUs it will fire on before you save it.",
+    res:"Alert volume down 60% after teams could see the blast radius up front.", tag:"Alerts", on:false },
+  { t:"Value recovered tracking", d:"Set a decision date on any action; eGenie freezes the pre-action baseline and reports the gap day by day.",
+    res:"First client quarter closed with ₹3.84 Cr of proven recovery against ₹1.62 Cr that did not move.", tag:"Actions", on:true },
+  { t:"New Product Radar", d:"Competitor launches detected from the crawl, each with a full bio — ingredients, claims head-to-head, reviews and retrieved ad creative.",
+    res:"Replaced a monthly manual competitor deck entirely.", tag:"Competition", on:false }
+];
+function renderRelease(){
+  $("#relGrid").innerHTML = RELEASES.map((r, i) => `
+    <div class="rel">
+      <div class="relvid"><span style="font-size:26px">▶</span>
+        <span class="pill p-info" style="position:absolute;top:9px;left:9px">${esc(r.tag)}</span>
+        <span class="muted" style="position:absolute;bottom:8px;right:10px;font-size:10.5px">1:20 walkthrough</span></div>
+      <div class="relbody"><h3>${esc(r.t)}</h3><p>${esc(r.d)}</p>
+        <p style="margin-top:7px;color:var(--gain);font-weight:600">${esc(r.res)}</p></div>
+      <div class="relfoot"><span class="cbx${r.on ? " on" : ""}" data-r="${i}">✓</span>
+        <span>${r.on ? "On your dashboard" : "Add to my dashboard"}</span></div>
+    </div>`).join("");
+  $("#relGrid").querySelectorAll(".cbx").forEach(el => el.addEventListener("click", () => {
+    RELEASES[+el.dataset.r].on = !RELEASES[+el.dataset.r].on; renderRelease();
+  }));
+  const on = RELEASES.filter(r => r.on).length;
+  $("#relNote").innerHTML = `<b>${on} of ${RELEASES.length}</b> features enabled on your dashboard.
+    Notes ship quarterly, in-product — the walkthrough and the client result travel with the feature so a servicing call is not the only way to find out it exists.`;
+}
+
+/* ═════════ 6. CONTROL TOWER ═════════ */
+const INIT = [
+  { id:"I-401", t:"Discount depth 15% → 18% · Center Fresh 30s", ty:"Promo", pf:"Zepto",
+    to:"Pune", from:"Chennai", cut:"Chennai depth cut 15% → 8%", dec:"12 Jun", wk:10, own:"Rakesh · CAM West",
+    gain:0.42, cost:-0.61, baseTo:81, baseFrom:138, v:"bad", rec:"Pause & restore",
+    cm:[["Chennai share", "4.10pt", "3.49pt", "≥ 3.95pt", true],
+        ["Pune share", "2.31pt", "2.73pt", "≥ 2.55pt", false],
+        ["Blended gross margin", "22.4%", "21.1%", "≥ 21.0%", false],
+        ["Chennai competitor share", "18.2pt", "19.4pt", "≤ 18.6pt", true]],
+    why:`Chennai's category base is 1.7× Pune's, so a share point is worth ₹1.38 Cr there against ₹0.81 Cr in Pune.
+         The transfer bought points where they are cheap and gave up points where they are expensive.`,
+    fix:`Restore Chennai to 12% and fund Pune from the Zepto display line instead — it is returning 2.2× against a 4.1× search line,
+         so the money is available without touching a live shelf price.`,
+    undo:"2 weeks to re-index; the platform holds the last approved depth on file" },
+
+  { id:"I-402", t:"Search spend +₹8.2 L · Mints portfolio", ty:"Media", pf:"Blinkit",
+    to:"Blinkit search", from:"Zepto display", cut:"Zepto display budget −₹8.2 L", dec:"02 Jul", wk:8, own:"Salil · Media",
+    gain:0.31, cost:-0.06, baseTo:96, baseFrom:74, v:"good", rec:"Continue",
+    cm:[["Zepto display SoS", "28.1%", "27.4%", "≥ 26.0%", false],
+        ["Blended ROAS", "3.1×", "3.6×", "≥ 3.0×", false],
+        ["Blinkit organic rank · 'mint candy'", "4", "3", "≤ 5", false]],
+    why:`The donor line was the weakest-returning rupee in the plan. Display lost 0.06pt on a smaller base while search gained
+         0.31pt on a larger one.`,
+    fix:`Nothing to fix. The same test is worth running on Instamart, where display holds 22% of the budget at 2.4×.`,
+    undo:"—" },
+
+  { id:"I-403", t:"MOQ renegotiated 480 → 240 units · Gums", ty:"Supply", pf:"Instamart",
+    to:"Instamart · 6 DCs", from:null, cut:null, dec:"21 May", wk:14, own:"Aman · Supply Planning",
+    gain:0.34, cost:0, baseTo:118, baseFrom:0, v:"good", rec:"Continue · extend to 4 more DCs",
+    cm:[["Fill rate", "78%", "91%", "≥ 85%", false],
+        ["Weeks of cover", "2.1", "3.4", "≥ 2.5", false],
+        ["Returns / expiry", "1.2%", "1.3%", "≤ 2.0%", false],
+        ["Cost per case shipped", "₹41", "₹46", "≤ ₹48", false]],
+    why:`The MOQ threshold was the single largest downstream gate on this platform. Halving it turned 11 dead SKU × DC cells live.`,
+    fix:`Extend to Kolkata, Lucknow, Jaipur and Kochi — the same threshold is blocking 7 more cells there.`,
+    undo:"—" },
+
+  { id:"I-404", t:"Listing content rebuild · Alpenliebe top 40", ty:"Content", pf:"All platforms",
+    to:"Alpenliebe · 40 SKUs", from:null, cut:null, dec:"08 Aug", wk:3, own:"Subhab · Catalog",
+    gain:0.05, cost:0, baseTo:210, baseFrom:0, v:"watch", rec:"Hold — 3 weeks is too early to read",
+    cm:[["Content score", "62", "88", "≥ 80", false],
+        ["Conversion rate", "3.8%", "3.9%", "≥ 3.8%", false],
+        ["Organic rank · top 10 keywords", "11.4", "10.8", "≤ 11.0", false]],
+    why:`Content score moved immediately, conversion has not. Three weeks is inside the noise band for this metric on this base.`,
+    fix:`Read it again at week 8. If conversion has not moved 20bps by then, the content was not the constraint.`,
+    undo:"—" },
+
+  { id:"I-405", t:"Dark-store priority replenishment list · NCR", ty:"Supply", pf:"Blinkit",
+    to:"NCR · 214 stores", from:null, cut:null, dec:"17 Jun", wk:10, own:"Aman · Supply Planning",
+    gain:0.28, cost:0, baseTo:152, baseFrom:0, v:"watch", rec:"Continue · watch the other metros",
+    cm:[["NCR on-shelf availability", "71%", "86%", "≥ 82%", false],
+        ["Non-NCR on-shelf availability", "79%", "77%", "≥ 78%", true],
+        ["Store-level stockout days", "4.1", "2.2", "≤ 3.0", false]],
+    why:`Prioritising NCR pulled replenishment attention away from the other metros. The drop is small but it is real, and it is
+         the same shape of trade as I-401 — just less visible because it was not a budget decision.`,
+    fix:`Raise the non-NCR floor into the priority rule rather than reversing NCR. The list is a ranking, not a budget.`,
+    undo:"1 week; the list is a config change" },
+
+  { id:"I-406", t:"MRP correction 12% → 6% discount · Minis", ty:"Price", pf:"FK Minutes",
+    to:"Minis · 18 SKUs", from:null, cut:null, dec:"30 Jun", wk:9, own:"PK · Revenue", declared:true,
+    gain:-0.14, cost:0, baseTo:64, baseFrom:0, v:"declared", rec:"Continue — declared margin trade",
+    cm:[["Minis share", "1.92pt", "1.78pt", "≥ 1.85pt", true],
+        ["Gross margin", "18.2%", "20.6%", "≥ 20.0%", false],
+        ["Absolute gross profit", "₹1.44 Cr", "₹1.71 Cr", "≥ ₹1.50 Cr", false]],
+    why:`Share was given up on purpose. The guardrail was set at 1.85pt knowing it would break — what matters is that it was
+         written down before the decision, not explained afterwards.`,
+    fix:`Nothing. The trade is working: 0.14pt of share bought ₹0.27 Cr of gross profit.`,
+    undo:"—" },
+
+  { id:"I-407", t:"Sampling promo · Chocolates", ty:"Promo", pf:"Zepto",
+    to:"Bengaluru", from:"Hyderabad", cut:"Hyderabad search budget −₹3.4 L", dec:"24 Jul", wk:6, own:"Rakesh · CAM South",
+    gain:0.18, cost:-0.24, baseTo:71, baseFrom:66, v:"bad", rec:"Pause & restore",
+    cm:[["Hyderabad share", "3.05pt", "2.81pt", "≥ 2.95pt", true],
+        ["Bengaluru share", "3.44pt", "3.62pt", "≥ 3.55pt", false],
+        ["Sampling cost per incremental unit", "₹4.10", "₹7.80", "≤ ₹5.00", true]],
+    why:`The two bases are close in size, so this is a straight comparison: we lost more points than we bought, and the
+         acquisition cost ran 56% over plan.`,
+    fix:`Restore the Hyderabad search line. Sampling is the wrong instrument in a category where the trial barrier is price, not awareness.`,
+    undo:"Immediate; the budget is unspent for the coming cycle" },
+
+  { id:"I-408", t:"Counter-bid on 'sugar free mints'", ty:"Media", pf:"Blinkit",
+    to:"'sugar free mints'", from:"'chewing gum'", cut:"'chewing gum' bid −₹2.1 L", dec:"05 Aug", wk:4, own:"Salil · Media",
+    gain:0.11, cost:-0.03, baseTo:44, baseFrom:88, v:"watch", rec:"Hold & watch — ROAS guardrail broken",
+    cm:[["Campaign ROAS", "2.4×", "1.6×", "≥ 2.0×", true],
+        ["'chewing gum' paid rank", "14", "19", "≤ 16", true],
+        ["'sugar free mints' paid rank", "22", "9", "≤ 12", false]],
+    why:`We are winning the keyword and losing the economics. The rank moved as intended; the cost of holding it did not.`,
+    fix:`Cap the bid at the ₹2.0× breakeven and accept rank 12 rather than 9, or accept the loss as a category-entry cost with a stated end date.`,
+    undo:"Immediate; bid change only" },
+];
+const VLAB = { good:["Working","p-good"], watch:["Watch","p-warn"], bad:["Backfiring","p-bad"], declared:["Declared trade","p-info"] };
+const vRs = i => i.gain / 100 * i.baseTo;
+const cRs = i => i.cost / 100 * i.baseFrom;
+const netRs = i => vRs(i) + cRs(i);
+let ctSel = "I-401";
+
+function ctSeries(i, n){
+  const r = rng("ct" + i.id), ramp = (end, s) => {
+    const out = [0]; const q = rng(s);
+    for (let k = 1; k <= n; k++){ const t = k / n;
+      out.push(end * (1 - Math.exp(-2.7 * t)) / (1 - Math.exp(-2.7)) + (q() - 0.5) * Math.abs(end) * 0.2); }
+    out[n] = end; return out; };
+  return { to: ramp(i.gain, "a" + i.id), from: i.from ? ramp(i.cost, "b" + i.id) : null, r };
+}
+
+function renderControl(){
+  const live = INIT.length, funded = INIT.filter(i => i.from).length;
+  const breach = INIT.filter(i => !i.declared && i.cm.some(c => c[4])).length;
+  const pause = INIT.filter(i => i.v === "bad").length;
+  const totBase = INIT.reduce((a, i) => a + i.baseTo + i.baseFrom, 0);
+  const totRs = INIT.reduce((a, i) => a + netRs(i), 0);
+  const netPt = totRs / totBase * 100;
+  $("#ctNet").textContent = (netPt >= 0 ? "+" : "") + netPt.toFixed(2) + "pt";
+  $("#ctNet").style.color = cvar(netPt >= 0 ? "--gain" : "--loss");
+  $("#ctNetSub").innerHTML = `weighted across every geography and cell an intervention touches — <b>${money(Math.abs(totRs))}</b>
+    ${totRs >= 0 ? "net gained" : "net given up"}. Two initiatives are taking more than they return; the register names them rather than
+    letting the portfolio total absorb them.`;
+  $("#ctLive").textContent = live;
+  $("#ctLiveD").textContent = INIT.filter(i => i.wk >= 8).length + " past the 8-week read window";
+  $("#ctFund").textContent = funded;
+  $("#ctBreach").textContent = breach;
+  $("#ctPause").textContent = pause;
+
+  const f = state.ctFilter;
+  const rows = INIT.filter(i => f === "all" || (f === "funded" ? !!i.from : (i.v === "bad" || i.v === "watch")));
+  $("#ctWrap").innerHTML = `<table><thead><tr>
+      <th>Initiative</th><th>Where</th><th>Funded by</th><th>Live</th>
+      <th class="r">Target Δ</th><th class="r">Counter Δ</th><th class="r">Net value</th><th>Verdict</th><th>Recommendation</th></tr></thead>
+    <tbody>${rows.map(i => {
+      const [lab, tone] = VLAB[i.v], n = netRs(i);
+      return `<tr class="row${i.id === ctSel ? " is-on" : ""}" data-i="${i.id}">
+        <td><b>${esc(i.t)}</b><div class="geo mono">${esc(i.id)} · ${esc(i.ty)} · ${esc(i.own)}</div></td>
+        <td>${esc(i.pf)}<div class="geo">${esc(i.to)}</div></td>
+        <td>${i.cut ? esc(i.cut) : `<span class="muted">not funded by a cut</span>`}</td>
+        <td class="num">${i.wk}w<div class="geo">from ${esc(i.dec)}</div></td>
+        <td class="r num" style="color:${cvar(i.gain >= 0 ? "--gain" : "--loss")};font-weight:600">${i.gain >= 0 ? "+" : ""}${i.gain.toFixed(2)}pt</td>
+        <td class="r num" style="color:${cvar(i.cost < 0 ? "--loss" : "--ink-3")};font-weight:600">${i.cost ? i.cost.toFixed(2) + "pt" : "—"}</td>
+        <td class="r num" style="color:${cvar(n >= 0 ? "--gain" : "--loss")};font-weight:600">${n >= 0 ? "+" : "−"}${money(Math.abs(n))}</td>
+        <td><span class="pill ${tone}">${lab}</span></td>
+        <td>${esc(i.rec)}</td></tr>`; }).join("")}</tbody></table>`;
+  $("#ctWrap").querySelectorAll("tr.row").forEach(tr => tr.addEventListener("click", () => { ctSel = tr.dataset.i; renderControl(); }));
+  $("#ctNote").innerHTML = `${rows.length} of ${INIT.length} initiatives shown. <b>Net value</b> is the target metric's value gain minus the
+    donor's value loss, each measured on its own category base — which is why a bigger share gain can still be the losing side of a trade.`;
+
+  renderTrade();
+  $("#cmWrap").innerHTML = `<table><thead><tr><th>Initiative</th><th>Counter metric</th>
+      <th class="r">At decision</th><th class="r">Now</th><th class="r">Guardrail</th><th>Status</th></tr></thead>
+    <tbody>${INIT.flatMap(i => i.cm.map((c, k) => `<tr>
+        ${k === 0 ? `<td rowspan="${i.cm.length}" style="vertical-align:top"><b class="mono">${esc(i.id)}</b>
+            <div class="geo">${esc(i.t)}</div></td>` : ""}
+        <td>${esc(c[0])}</td><td class="r num">${esc(c[1])}</td>
+        <td class="r num" style="font-weight:600;color:${cvar(c[4] ? "--loss" : "--ink")}">${esc(c[2])}</td>
+        <td class="r num muted">${esc(c[3])}</td>
+        <td>${c[4] ? `<span class="pill ${i.declared ? "p-info" : "p-bad"}">${i.declared ? "Breached · expected" : "Breached"}</span>`
+                   : `<span class="pill p-good">Holding</span>`}</td></tr>`)).join("")}</tbody></table>`;
+
+  const bad = INIT.filter(i => i.v === "bad");
+  $("#pauseList").innerHTML = bad.map(i => `
+    <div class="pausecard">
+      <div class="ph"><b class="mono">${esc(i.id)}</b><span class="pill p-bad">Net ${money(netRs(i))}</span></div>
+      <h3>${esc(i.t)}</h3>
+      <p>${esc(i.why.replace(/\s+/g, " ").trim())}</p>
+      <div class="prow"><span class="pk">What to do</span><span>${esc(i.fix.replace(/\s+/g, " ").trim())}</span></div>
+      <div class="prow"><span class="pk">Restores</span><span>${esc(i.from)} — modelled recovery <b class="up">${money(Math.abs(cRs(i)))}</b></span></div>
+      <div class="prow"><span class="pk">Unwind cost</span><span>${esc(i.undo)}</span></div>
+      <div class="prow"><span class="pk">Signs off</span><span>${esc(i.own)}</span></div>
+      <button class="btn pausebtn" data-p="${i.id}">${state.paused.has(i.id) ? "Paused — restore queued ✓" : "Pause & restore"}</button>
+    </div>`).join("");
+  $("#pauseList").querySelectorAll(".pausebtn").forEach(b => b.addEventListener("click", () => {
+    state.paused.has(b.dataset.p) ? state.paused.delete(b.dataset.p) : state.paused.add(b.dataset.p);
+    renderControl(); }));
+}
+
+function renderTrade(){
+  const i = INIT.find(x => x.id === ctSel), svg = $("#ctChart");
+  const n = i.wk, S = ctSeries(i, n);
+  const W = 1180, H = 320, L = 62, R = 150, T = 20, B = 260;
+  const net = S.to.map((v, k) => (v * i.baseTo + (S.from ? S.from[k] : 0) * i.baseFrom) / (i.baseTo + i.baseFrom));
+  const all = [...S.to, ...(S.from || []), ...net];
+  const hi = Math.max(...all, 0.05), lo = Math.min(...all, -0.05), pad = (hi - lo) * 0.18;
+  const x = k => L + k / n * (W - L - R);
+  const y = v => B - (v - lo + pad) / (hi - lo + 2 * pad) * (B - T);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = lo - pad + (hi - lo + 2 * pad) * k / 4;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${v >= 0 ? "+" : ""}${v.toFixed(2)}</text>`; }
+  g += `<line x1="${L}" y1="${y(0).toFixed(1)}" x2="${W-R}" y2="${y(0).toFixed(1)}" stroke="${cvar("--line-strong")}" stroke-width="1.4"/>`;
+  for (let k = 0; k <= n; k += Math.max(1, Math.round(n / 8)))
+    g += `<text class="ax num" x="${x(k).toFixed(1)}" y="${B+18}" text-anchor="middle">W${k}</text>`;
+  const path = (arr, col, w, dash) => `<path d="${arr.map((v, k) => (k ? "L" : "M") + x(k).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+    fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" ${dash ? `stroke-dasharray="5 4"` : ""}/>`;
+  const lab = (arr, col, txt, wt) => `<text class="ax" x="${(x(n)+8).toFixed(1)}" y="${(y(arr[n])+4).toFixed(1)}"
+    fill="${col}" font-weight="${wt}" font-size="11.5">${esc(txt)}</text>`;
+  g += path(S.to, cvar("--gain"), 2.2, false) + lab(S.to, cvar("--gain"), i.to, 600);
+  if (S.from) g += path(S.from, cvar("--loss"), 2.2, false) + lab(S.from, cvar("--loss"), i.from + " (donor)", 600);
+  g += path(net, cvar("--ink"), 3, false) + lab(net, cvar("--ink"), "Net, weighted", 700);
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">share Δ since decision (pt)</text>`;
+  svg.innerHTML = g;
+
+  const [vl, vt] = VLAB[i.v];
+  $("#ctTradeT").textContent = i.from ? "The trade, measured — " + i.to + " vs " + i.from : "Effect since decision — " + i.to;
+  $("#ctTradePill").className = "pill " + vt; $("#ctTradePill").textContent = i.id + " · " + vl;
+  $("#ctLegend").innerHTML = `<span><i class="swatch" style="background:var(--gain)"></i>${esc(i.to)} — what we bought</span>
+    ${i.from ? `<span><i class="swatch" style="background:var(--loss)"></i>${esc(i.from)} — what paid for it</span>` : ""}
+    <span><i class="swatch" style="background:var(--ink)"></i>Net, weighted by category size</span>`;
+
+  const n1 = vRs(i), n2 = cRs(i), tot = n1 + n2;
+  $("#ctLedger").innerHTML = `<div class="tablewrap"><table><thead><tr><th></th>
+      <th class="r">${esc(i.to)}</th>${i.from ? `<th class="r">${esc(i.from)}</th>` : ""}<th class="r">Net</th></tr></thead>
+    <tbody>
+      <tr><td>Share Δ since ${esc(i.dec)}</td>
+        <td class="r num" style="color:${cvar(i.gain>=0?"--gain":"--loss")};font-weight:600">${i.gain>=0?"+":""}${i.gain.toFixed(2)}pt</td>
+        ${i.from ? `<td class="r num dn">−${Math.abs(i.cost).toFixed(2)}pt</td>` : ""}
+        <td class="r num" style="font-weight:700;color:${cvar(tot>=0?"--gain":"--loss")}">${tot>=0?"+":"−"}${Math.abs(tot/(i.baseTo+i.baseFrom)*100).toFixed(2)}pt</td></tr>
+      <tr><td>Category base (annualised)</td>
+        <td class="r num">₹${i.baseTo} Cr</td>${i.from ? `<td class="r num">₹${i.baseFrom} Cr</td>` : ""}
+        <td class="r num muted">₹${i.baseTo + i.baseFrom} Cr</td></tr>
+      <tr><td>Value Δ</td>
+        <td class="r num" style="color:${cvar(n1>=0?"--gain":"--loss")};font-weight:600">${n1>=0?"+":"−"}${money(Math.abs(n1))}</td>
+        ${i.from ? `<td class="r num dn">−${money(Math.abs(n2))}</td>` : ""}
+        <td class="r num" style="font-weight:700;color:${cvar(tot>=0?"--gain":"--loss")}">${tot>=0?"+":"−"}${money(Math.abs(tot))}</td></tr>
+    </tbody></table></div>`;
+  $("#ctVerdict").innerHTML = `<b>Why it reads this way.</b> ${esc(i.why.replace(/\s+/g," ").trim())}
+    <br><b>What to do.</b> ${esc(i.fix.replace(/\s+/g," ").trim())}`;
+}
+
+/* ═════════ 7. CAMPAIGN PERFORMANCE ═════════ */
+const CAMP = [
+  { id:"C-1183", n:"Mentos — brand defence", pf:"Blinkit", ty:"Search", sp:14.2, roas:3.4, sos:31.2, sku:12 },
+  { id:"C-1191", n:"Center Fresh — category attack", pf:"Zepto", ty:"Search", sp:11.6, roas:4.6, sos:22.8, sku:9 },
+  { id:"C-1204", n:"Alpenliebe — new pack push", pf:"Instamart", ty:"Display", sp:8.4, roas:2.1, sos:14.1, sku:6 },
+  { id:"C-1210", n:"Happydent — always-on", pf:"Blinkit", ty:"Search", sp:7.9, roas:2.2, sos:29.4, sku:8 },
+  { id:"C-1222", n:"Chupa Chups — kids occasion", pf:"Zepto", ty:"Display", sp:5.1, roas:5.1, sos:9.6, sku:5 },
+  { id:"C-1231", n:"Sugar-free counter-bid", pf:"Blinkit", ty:"Search", sp:4.2, roas:1.6, sos:6.2, sku:4 },
+  { id:"C-1244", n:"Mints — Instamart defence", pf:"Instamart", ty:"Search", sp:3.4, roas:3.0, sos:18.9, sku:7 },
+  { id:"C-1250", n:"Eclairs — festive", pf:"FK Minutes", ty:"Display", sp:2.4, roas:2.8, sos:7.4, sku:4 },
+  { id:"C-1258", n:"Chocolates — Bengaluru sampling", pf:"Zepto", ty:"Promo", sp:1.2, roas:1.4, sos:4.1, sku:3 },
+];
+const KWPOOL = {
+  "C-1183":["mentos","mint candy","fresh mint","chewing gum","breath freshener","mentos gum"],
+  "C-1191":["center fresh","liquid filled gum","bubble gum","chewing gum","mouth freshener","center fresh gum","gum pack"],
+  "C-1204":["alpenliebe","caramel candy","toffee","lollipop","candy pack"],
+  "C-1210":["happydent","white gum","chewing gum","sugar free gum","mint gum"],
+  "C-1222":["chupa chups","lollipop","kids candy","candy gift pack"],
+  "C-1231":["sugar free mints","sugar free gum","diet candy","zero sugar mint"],
+  "C-1244":["mints","mint candy","cool mint","pocket mints","after meal mint"],
+  "C-1250":["eclairs","chocolate toffee","eclair candy","toffee pack"],
+  "C-1258":["chocolate","chocolate bites","kids chocolate"],
+};
+function kwRows(cid){
+  const r = rng("kwl" + cid);
+  return KWPOOL[cid].map(k => {
+    const org = 1 + Math.floor(r() * 19), paid = 1 + Math.floor(r() * 7);
+    const sp = +(0.25 + r() * 2.7).toFixed(2), roas = +(0.8 + r() * 4.2).toFixed(1);
+    const conv = Math.round(sp * roas * 3400);
+    const v = org <= 3 ? ["Withdraw — organic holds", "p-warn", sp]
+            : roas < 1.5 ? ["Cut — below breakeven", "p-bad", 0]
+            : org > 10 ? ["Attack — rank is winnable", "p-info", 0]
+            : ["Defend", "p-good", 0];
+    return { k, org, paid, sp, roas, conv, v:v[0], tone:v[1], rel:v[2] };
+  }).sort((a, b) => b.sp - a.sp);
+}
+let cpSel = "C-1183";
+
+function renderCampaign(){
+  const relAll = CAMP.reduce((a, c) => a + kwRows(c.id).reduce((s, k) => s + k.rel, 0), 0);
+  const spend = CAMP.reduce((a, c) => a + c.sp, 0);
+  $("#cpRel").innerHTML = "₹" + relAll.toFixed(1) + "<small>L</small>";
+  $("#cpRelD").textContent = "organic rank ≤3 while still bid on";
+  $("#cpSub").innerHTML = `across ${CAMP.length} live campaigns. <b class="dn">₹${relAll.toFixed(1)} L</b> of it is defending keywords we already
+    hold organically at rank 1–3 — money that can be released without losing a position.`;
+
+  $("#cpWrap").innerHTML = `<table><thead><tr><th>Campaign</th><th>Platform</th><th>Type</th>
+      <th class="r">Spend</th><th class="r">ROAS</th><th class="r">Share of search</th><th class="r">Keywords</th>
+      <th class="r">SKUs</th><th class="r">Releasable</th><th>Read</th></tr></thead>
+    <tbody>${CAMP.map(c => {
+      const rows = kwRows(c.id), rel = rows.reduce((s, k) => s + k.rel, 0);
+      const v = c.roas < 1.8 ? ["Under review","p-bad"] : rel > 1.5 ? ["Release spend","p-warn"]
+              : c.roas > 4 ? ["Scale","p-good"] : ["Hold","p-mute"];
+      return `<tr class="row${c.id === cpSel ? " is-on" : ""}" data-c="${c.id}">
+        <td><b>${esc(c.n)}</b><div class="geo mono">${esc(c.id)}</div></td>
+        <td>${esc(c.pf)}</td><td>${esc(c.ty)}</td>
+        <td class="r num">₹${c.sp.toFixed(1)} L</td>
+        <td class="r num" style="font-weight:600;color:${cvar(c.roas < 2 ? "--loss" : c.roas > 3.5 ? "--gain" : "--ink")}">${c.roas.toFixed(1)}×</td>
+        <td class="r num">${c.sos.toFixed(1)}%</td>
+        <td class="r num">${rows.length}</td><td class="r num">${c.sku}</td>
+        <td class="r num" style="color:${cvar(rel > 0 ? "--up" : "--ink-3")};font-weight:600">${rel > 0 ? "₹" + rel.toFixed(2) + " L" : "—"}</td>
+        <td><span class="pill ${v[1]}">${v[0]}</span></td></tr>`; }).join("")}
+      <tr><td colspan="3" style="font-weight:600">Total</td><td class="r num" style="font-weight:600">₹${spend.toFixed(1)} L</td>
+        <td class="r num" style="font-weight:600">3.2×</td><td class="r num">33.9%</td>
+        <td class="r num">${CAMP.reduce((a,c)=>a+KWPOOL[c.id].length,0)}</td>
+        <td class="r num">${CAMP.reduce((a,c)=>a+c.sku,0)}</td>
+        <td class="r num up" style="font-weight:700">₹${relAll.toFixed(1)} L</td><td></td></tr>
+    </tbody></table>`;
+  $("#cpWrap").querySelectorAll("tr.row").forEach(tr => tr.addEventListener("click", () => { cpSel = tr.dataset.c; renderCampaign(); }));
+
+  const c = CAMP.find(x => x.id === cpSel), rows = kwRows(c.id), rel = rows.reduce((s, k) => s + k.rel, 0);
+  $("#cpDeepT").textContent = "Keyword ladder — " + c.n;
+  $("#cpDeepP").innerHTML = `Every rupee in <b class="mono">${esc(c.id)}</b> resolved to the keyword that spent it, the rank it bought,
+    and the rank the page holds without it. The verdict column is the rule, not an opinion: organic rank 1–3 means the paid line is
+    buying a position we already own.`;
+  $("#cpDeepPill").className = "pill " + (c.roas < 2 ? "p-bad" : "p-mute");
+  $("#cpDeepPill").textContent = c.pf + " · " + c.ty + " · ₹" + c.sp.toFixed(1) + " L";
+  $("#cpKwWrap").innerHTML = `<table><thead><tr><th>Keyword</th><th class="r">Paid rank</th><th class="r">Organic rank</th>
+      <th class="r">Spend</th><th class="r">ROAS</th><th class="r">Conversions</th><th>Verdict</th></tr></thead>
+    <tbody>${rows.map(k => `<tr>
+      <td><b>${esc(k.k)}</b></td>
+      <td class="r num">${k.paid}</td>
+      <td class="r num" style="font-weight:600;color:${cvar(k.org <= 3 ? "--gain" : k.org > 10 ? "--loss" : "--ink")}">${k.org}</td>
+      <td class="r num">₹${k.sp.toFixed(2)} L</td>
+      <td class="r num" style="color:${cvar(k.roas < 1.5 ? "--loss" : "--ink")}">${k.roas.toFixed(1)}×</td>
+      <td class="r num">${units(k.conv)}</td>
+      <td><span class="pill ${k.tone}">${esc(k.v)}</span></td></tr>`).join("")}</tbody></table>`;
+  $("#cpDeepNote").innerHTML = rel > 0
+    ? `<b class="up">₹${rel.toFixed(2)} L releasable in this campaign.</b> ${rows.filter(k => k.rel > 0).length} keyword${rows.filter(k=>k.rel>0).length>1?"s are":" is"}
+       held at organic rank 3 or better while still carrying a bid. Release is not the same as switch-off — the handoff test below asks for
+       six consecutive weeks before the money moves.`
+    : `Nothing releasable here — every keyword in this campaign is either being defended below organic rank 3 or is a rank we do not yet hold.`;
+
+  const keys = ["mint candy","chewing gum","lollipop","eclairs"];
+  $("#hoSeg").innerHTML = keys.map(k => `<button data-k="${esc(k)}"${k === state.hoKw ? ` class="is-on"` : ""}>${esc(k)}</button>`).join("");
+  $("#hoSeg").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { state.hoKw = b.dataset.k; renderCampaign(); }));
+  renderHandoff();
+}
+
+function renderHandoff(){
+  const svg = $("#hoChart"), k = state.hoKw, n = 16, r = rng("ho" + k);
+  const start = { "mint candy":9, "chewing gum":16, "lollipop":6, "eclairs":11 }[k] || 10;
+  const end = { "mint candy":2, "chewing gum":12, "lollipop":1, "eclairs":3 }[k] || 5;
+  const org = [], paid = [];
+  for (let i = 0; i < n; i++){ const t = i / (n - 1);
+    org.push(Math.max(1, Math.round(start + (end - start) * (1 - Math.exp(-5 * t)) / (1 - Math.exp(-5)) + (r() - 0.5) * 1.3)));
+    paid.push(+(0.9 - 0.5 * t + (r() - 0.5) * 0.25).toFixed(2)); }
+  org[n-1] = end;
+  const W = 1180, H = 300, L = 54, R = 30, T = 20, B = 244, maxR = Math.max(...org, 20);
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => T + (v - 1) / (maxR - 1) * (B - T);
+  const yb = v => B - v / 1.3 * (B - T) * 0.34;
+  let g = "";
+  [1, 3, 5, 10, 15, 20].filter(v => v <= maxR).forEach(v =>
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">#${v}</text>`);
+  for (let i = 0; i < n; i += 3) g += `<text class="ax num" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">W${i+1}</text>`;
+  const bw = (W - L - R) / n * 0.62;
+  paid.forEach((v, i) => g += `<rect x="${(x(i)-bw/2).toFixed(1)}" y="${yb(v).toFixed(1)}" width="${bw.toFixed(1)}"
+    height="${(B-yb(v)).toFixed(1)}" rx="2" fill="${cvar("--unk")}" fill-opacity=".28"/>`);
+  /* graduation window: 6 consecutive weeks at organic ≤3 */
+  let gStart = -1;
+  for (let i = 0; i <= n - 6; i++) if (org.slice(i, i + 6).every(v => v <= 3)) { gStart = i; break; }
+  if (gStart >= 0){
+    g += `<rect x="${x(gStart).toFixed(1)}" y="${T}" width="${(x(n-1)-x(gStart)).toFixed(1)}" height="${B-T}"
+      fill="${cvar("--gain")}" fill-opacity=".10"/>
+      <line x1="${x(gStart+5).toFixed(1)}" y1="${T}" x2="${x(gStart+5).toFixed(1)}" y2="${B}" stroke="${cvar("--gain")}" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <rect x="${(x(gStart+5)-52).toFixed(1)}" y="${T-2}" width="104" height="17" rx="8.5" fill="${cvar("--gain")}"/>
+      <text x="${x(gStart+5).toFixed(1)}" y="${T+10}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">GRADUATED W${gStart+6}</text>`;
+  }
+  g += `<line x1="${L}" y1="${y(3).toFixed(1)}" x2="${W-R}" y2="${y(3).toFixed(1)}" stroke="${cvar("--gain")}" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+  g += `<path d="${org.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+    fill="none" stroke="${cvar("--s1")}" stroke-width="2.4" stroke-linejoin="round"/>`;
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">organic rank (1 = top)</text>`;
+  svg.innerHTML = g;
+  $("#hoLegend").innerHTML = `<span><i class="swatch" style="background:var(--s1)"></i>Organic rank</span>
+    <span><i class="swatch" style="background:var(--unk);opacity:.28"></i>Paid support (₹ L / week)</span>
+    <span><i class="swatch" style="background:var(--gain);opacity:.35"></i>Six weeks at rank ≤3 — paid no longer needed</span>`;
+  const spent = paid.slice(gStart >= 0 ? gStart + 5 : n).reduce((a, v) => a + v, 0);
+  $("#hoNote").innerHTML = gStart >= 0
+    ? `<b class="mono">${esc(k)}</b> graduated in week ${gStart + 6} and has held rank ${org[n-1]} since. We have spent
+       <b class="dn">₹${spent.toFixed(2)} L</b> defending it after the handoff point — that is the release, and it is recoverable
+       without a rank change. The rule is deliberately conservative: six weeks, not one good week.`
+    : `<b class="mono">${esc(k)}</b> has not graduated. Organic sits at rank ${org[n-1]} after 16 weeks of support, so the paid line
+       is holding the position rather than seeding it. This is a keyword to argue about — either fund it properly as an attack,
+       or stop paying rent on it.`;
+}
+
+/* ═════════ 8. PRICING COMPLIANCE ═════════ */
+const PRICE = [
+  { id:"p1", sku:"Center Fresh 30s", pf:"Zepto", mrp:50, floor:40, live:37.5, cogs:26, base:4.20, comp:42.9, d:11, src:"Platform-led", risk:0.62 },
+  { id:"p2", sku:"Mentos Roll 6-pack", pf:"Blinkit", mrp:60, floor:51, live:46.0, cogs:31, base:3.10, comp:49.5, d:23, src:"Platform-led", risk:0.48 },
+  { id:"p3", sku:"Alpenliebe Jar 300g", pf:"Instamart", mrp:180, floor:158, live:149.0, cogs:104, base:0.86, comp:155.0, d:6, src:"Our promo", risk:0.31 },
+  { id:"p4", sku:"Happydent Bottle 60s", pf:"Blinkit", mrp:120, floor:104, live:99.0, cogs:68, base:1.24, comp:102.0, d:31, src:"Platform-led", risk:0.27 },
+  { id:"p5", sku:"Chupa Chups 12-pack", pf:"Zepto", mrp:120, floor:106, live:101.5, cogs:70, base:0.94, comp:108.0, d:4, src:"Our promo", risk:0.18 },
+  { id:"p6", sku:"Center Fresh Bottle 100s", pf:"FK Minutes", mrp:200, floor:174, live:176.0, cogs:118, base:0.52, comp:172.0, d:0, src:"—", risk:0 },
+  { id:"p7", sku:"Mentos Mint Bottle", pf:"Instamart", mrp:90, floor:78, live:79.5, cogs:52, base:1.08, comp:80.0, d:0, src:"—", risk:0 },
+  { id:"p8", sku:"Alpenliebe Pouch 100g", pf:"Blinkit", mrp:60, floor:52, live:52.0, cogs:35, base:2.15, comp:53.5, d:0, src:"—", risk:0 },
+];
+const E = -1.8;
+const modelAt = (p, price) => {
+  const u = p.base * Math.pow(price / p.live, E);
+  return { price, u, rev: u * price, mar: u * (price - p.cogs), shr: 2.41 * Math.pow(price / p.live, E) };
+};
+let pdSel = "p1";
+const AUDIT = [];
+let wbStep = 1;
+
+function renderPrice(){
+  const br = PRICE.filter(p => p.live < p.floor);
+  const risk = br.reduce((a, p) => a + p.risk, 0);
+  const deep = br.reduce((a, p) => Math.max(a, (p.floor - p.live) / p.floor * 100), 0);
+  const dp = br.find(p => (p.floor - p.live) / p.floor * 100 >= deep - 0.001);
+  const lg = br.reduce((a, p) => p.d > a.d ? p : a, br[0]);
+  $("#pcVal").textContent = money(risk);
+  $("#pcSub").innerHTML = `of gross margin sitting below the approved floor across ${br.length} SKU × platform cells.
+    <b>${br.filter(p => p.src === "Platform-led").length} of ${br.length}</b> are platform-funded discounts we never approved — the
+    platform paying for it does not make the shelf price compliant, and it resets the customer's reference price all the same.`;
+  $("#pcN").textContent = br.length; $("#pcND").textContent = "of " + PRICE.length + " tracked cells";
+  $("#pcDeep").innerHTML = deep.toFixed(1) + "<small>%</small>"; $("#pcDeepD").textContent = dp.sku + " · " + dp.pf;
+  $("#pcLong").innerHTML = lg.d + "<small>d</small>"; $("#pcLongD").textContent = lg.sku + " · " + lg.pf;
+  $("#pcPlat").textContent = br.filter(p => p.src === "Platform-led").length;
+
+  const rows = state.pcFilter === "breach" ? br : PRICE;
+  $("#pcWrap").innerHTML = `<table><thead><tr><th>SKU</th><th>Platform</th>
+      <th class="r">MRP</th><th class="r">Approved floor</th><th class="r">Live price</th><th class="r">Deviation</th>
+      <th class="r">Nearest competitor</th><th class="r">Days</th><th>Set by</th><th>Status</th></tr></thead>
+    <tbody>${rows.map(p => {
+      const dev = (p.floor - p.live) / p.floor * 100, bad = dev > 0;
+      return `<tr class="row${p.id === pdSel ? " is-on" : ""}" data-p="${p.id}">
+        <td><b>${esc(p.sku)}</b></td><td>${esc(p.pf)}</td>
+        <td class="r num">₹${p.mrp}</td><td class="r num">₹${p.floor.toFixed(2)}</td>
+        <td class="r num" style="font-weight:600;color:${cvar(bad ? "--loss" : "--ink")}">₹${p.live.toFixed(2)}</td>
+        <td class="r num" style="font-weight:600;color:${cvar(bad ? "--loss" : "--gain")}">${bad ? "−" : "+"}${Math.abs(dev).toFixed(1)}%</td>
+        <td class="r num muted">₹${p.comp.toFixed(2)}</td>
+        <td class="r num">${p.d || "—"}</td><td>${esc(p.src)}</td>
+        <td>${bad ? `<span class="pill p-bad">Breach</span>` : `<span class="pill p-good">Compliant</span>`}</td></tr>`; }).join("")}</tbody></table>`;
+  $("#pcWrap").querySelectorAll("tr.row").forEach(tr => tr.addEventListener("click", () => {
+    if (pdSel !== tr.dataset.p){ pdSel = tr.dataset.p; wbStep = 1; AUDIT.length = 0; } renderPrice(); }));
+
+  renderPriceHist(); renderCandidates(); renderFlow();
+}
+
+function renderPriceHist(){
+  const p = PRICE.find(x => x.id === pdSel), svg = $("#pdChart"), n = 90, r = rng("ph" + p.id);
+  const our = [], comp = [];
+  for (let i = 0; i < n; i++){
+    const t = i / (n - 1), drop = i > n - p.d - 1 && p.d > 0;
+    const basePrice = drop ? p.live : p.floor + (p.mrp - p.floor) * 0.06 * (1 - t);
+    our.push(+(basePrice + (r() - 0.5) * 0.5).toFixed(2));
+    comp.push(+(p.comp + (r() - 0.5) * 1.6 - t * 0.9).toFixed(2)); }
+  our[n-1] = p.live;
+  const W = 1180, H = 320, L = 58, R = 120, T = 20, B = 262;
+  const all = [...our, ...comp, p.floor, p.mrp];
+  const hi = Math.max(...all) * 1.02, lo = Math.min(...all) * 0.97;
+  const x = i => L + i / (n - 1) * (W - L - R), y = v => B - (v - lo) / (hi - lo) * (B - T);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = lo + (hi - lo) * k / 4;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">₹${v.toFixed(0)}</text>`; }
+  [0, 30, 60, 89].forEach(i => g += `<text class="ax num" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">D−${89-i}</text>`);
+  if (p.live < p.floor)
+    g += `<path d="${our.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(Math.min(v,p.floor)).toFixed(1)).join(" ")}
+      L ${x(n-1).toFixed(1)} ${y(p.floor).toFixed(1)} L ${L} ${y(p.floor).toFixed(1)} Z" fill="${cvar("--loss")}" fill-opacity=".13"/>`;
+  g += `<line x1="${L}" y1="${y(p.floor).toFixed(1)}" x2="${W-R}" y2="${y(p.floor).toFixed(1)}" stroke="${cvar("--loss")}" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <text class="ax" x="${W-R+8}" y="${(y(p.floor)+4).toFixed(1)}" fill="${cvar("--loss")}" font-weight="600" font-size="11.5">approved floor ₹${p.floor.toFixed(2)}</text>`;
+  g += `<path d="${comp.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--unk")}" stroke-width="1.8" stroke-dasharray="4 3"/>
+        <text class="ax" x="${W-R+8}" y="${(y(comp[n-1])+4).toFixed(1)}" fill="${cvar("--unk")}" font-size="11.5">nearest competitor</text>`;
+  g += `<path d="${our.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--s1")}" stroke-width="2.4" stroke-linejoin="round"/>
+        <text class="ax" x="${W-R+8}" y="${(y(our[n-1])+4).toFixed(1)}" fill="${cvar("--s1")}" font-weight="600" font-size="11.5">our live price</text>`;
+  svg.innerHTML = g;
+  $("#pdT").textContent = "Price history — " + p.sku + " · " + p.pf;
+  $("#pdP").innerHTML = `Ninety days of live shelf price against the approved floor and the nearest competitor SKU.
+    The shaded band is time spent below the floor, which is what the compliance number is actually counting.`;
+  $("#pdPill").className = "pill " + (p.live < p.floor ? "p-bad" : "p-good");
+  $("#pdPill").textContent = p.live < p.floor ? p.d + " days below floor" : "Compliant";
+  $("#pdLegend").innerHTML = `<span><i class="swatch" style="background:var(--s1)"></i>Our live price</span>
+    <span><i class="swatch" style="background:var(--unk)"></i>Nearest competitor</span>
+    <span><i class="swatch" style="background:var(--loss)"></i>Approved floor</span>
+    <span><i class="swatch" style="background:var(--loss);opacity:.3"></i>Below floor</span>`;
+  $("#pdNote").innerHTML = p.live < p.floor
+    ? `${esc(p.src)} discounting took the shelf to ₹${p.live.toFixed(2)} on day ${90 - p.d} and it has not come back.
+       Modelled margin at risk over the window is <b class="dn">${money(p.risk)}</b>. The competitor line matters here: at ₹${p.comp.toFixed(2)}
+       there is ₹${(p.comp - p.live).toFixed(2)} of headroom before we lose the price advantage, which is what makes a correction feasible at all.`
+    : `This cell has held at or above the floor for the full window. It is in the table so the compliant cases are visible too —
+       a compliance screen that only ever shows red teaches people to ignore it.`;
+}
+
+function renderCandidates(){
+  const p = PRICE.find(x => x.id === pdSel);
+  const prices = [p.live, +(p.floor).toFixed(2), +((p.floor + p.comp) / 2).toFixed(2), +(p.comp + (p.mrp - p.comp) * 0.25).toFixed(2)];
+  const cands = prices.map((pr, i) => {
+    const m = modelAt(p, pr);
+    m.compliant = pr >= p.floor - 0.001;
+    m.underComp = pr <= p.comp + 0.001;
+    m.lab = i === 0 ? "Hold — no change" : i === 1 ? "Restore to floor" : i === 2 ? "Floor + half the headroom" : "Above competitor";
+    return m; });
+  const key = { rev:"rev", mar:"mar", shr:"shr" }[state.obj];
+  const ok = cands.filter(c => c.compliant && c.underComp);
+  const best = ok.reduce((a, c) => c[key] > a[key] ? c : a, ok[0]);
+  const uncon = cands.reduce((a, c) => c[key] > a[key] ? c : a, cands[0]);
+  state.propPrice = best.price;
+
+  $("#candGrid").innerHTML = cands.map(c => {
+    const on = c.price === best.price;
+    const flag = !c.compliant ? `<span class="pill p-bad">Below approved floor</span>`
+               : !c.underComp ? `<span class="pill p-warn">Above competitor shelf</span>`
+               : `<span class="pill p-good">Within guardrails</span>`;
+    return `<div class="cand${on ? " is-on" : ""}">
+      ${on ? `<span class="candtag">Recommended</span>` : ""}
+      <div class="candp num">₹${c.price.toFixed(2)}</div>
+      <div class="candl">${esc(c.lab)}</div>
+      ${flag}
+      <div class="candrows">
+        <div><span>Units / month</span><b class="num">${c.u.toFixed(2)} L</b></div>
+        <div><span>Revenue</span><b class="num">₹${c.rev.toFixed(1)} L</b></div>
+        <div><span>Gross margin</span><b class="num">₹${c.mar.toFixed(1)} L</b></div>
+        <div><span>Modelled share</span><b class="num">${c.shr.toFixed(2)} pt</b></div>
+      </div></div>`; }).join("");
+
+  const svg = $("#elChart"), W = 1180, H = 260, L = 62, R = 62, T = 22, B = 200;
+  const hiR = Math.max(...cands.map(c => c.rev)) * 1.12, hiM = Math.max(...cands.map(c => c.mar)) * 1.25;
+  const xs = cands.map(c => c.price), xlo = Math.min(...xs) - 2, xhi = Math.max(...xs) + 2;
+  const x = v => L + (v - xlo) / (xhi - xlo) * (W - L - R);
+  const yR = v => B - v / hiR * (B - T), yM = v => B - v / hiM * (B - T);
+  let g = "";
+  for (let k = 0; k <= 3; k++) g += `<line class="gl" x1="${L}" y1="${(T + (B-T)*k/3).toFixed(1)}" x2="${W-R}" y2="${(T + (B-T)*k/3).toFixed(1)}"/>`;
+  g += `<rect x="${L}" y="${T}" width="${(x(p.floor)-L).toFixed(1)}" height="${B-T}" fill="${cvar("--loss")}" fill-opacity=".08"/>
+        <line x1="${x(p.floor).toFixed(1)}" y1="${T}" x2="${x(p.floor).toFixed(1)}" y2="${B}" stroke="${cvar("--loss")}" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text class="ax" x="${x(p.floor).toFixed(1)}" y="${T-6}" text-anchor="middle" fill="${cvar("--loss")}" font-weight="600">approved floor</text>`;
+  g += `<line x1="${x(p.comp).toFixed(1)}" y1="${T}" x2="${x(p.comp).toFixed(1)}" y2="${B}" stroke="${cvar("--unk")}" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text class="ax" x="${x(p.comp).toFixed(1)}" y="${T-6}" text-anchor="middle" fill="${cvar("--unk")}">competitor ₹${p.comp.toFixed(2)}</text>`;
+  const sorted = [...cands].sort((a, b) => a.price - b.price);
+  const ln = (arr, acc, yf, col) => `<path d="${arr.map((c, i) => (i ? "L" : "M") + x(c.price).toFixed(1) + " " + yf(acc(c)).toFixed(1)).join(" ")}"
+    fill="none" stroke="${col}" stroke-width="2.2"/>`;
+  g += ln(sorted, c => c.rev, yR, cvar("--s1")) + ln(sorted, c => c.mar, yM, cvar("--gain"));
+  sorted.forEach(c => {
+    const on = c.price === best.price;
+    g += `<circle cx="${x(c.price).toFixed(1)}" cy="${yR(c.rev).toFixed(1)}" r="${on?6:4}" fill="${cvar("--s1")}" stroke="${cvar("--surface")}" stroke-width="2"/>
+          <circle cx="${x(c.price).toFixed(1)}" cy="${yM(c.mar).toFixed(1)}" r="${on?6:4}" fill="${cvar("--gain")}" stroke="${cvar("--surface")}" stroke-width="2"/>
+          <text class="ax num" x="${x(c.price).toFixed(1)}" y="${B+18}" text-anchor="middle" font-weight="${on?700:400}">₹${c.price.toFixed(2)}</text>`; });
+  g += `<text class="ax" x="${L}" y="${T-6}" fill="${cvar("--s1")}" font-weight="600">revenue ₹L</text>
+        <text class="ax" x="${W-R}" y="${T-6}" text-anchor="end" fill="${cvar("--gain")}" font-weight="600">gross margin ₹L</text>`;
+  svg.innerHTML = g;
+  $("#elLegend").innerHTML = `<span><i class="swatch" style="background:var(--s1)"></i>Modelled revenue</span>
+    <span><i class="swatch" style="background:var(--gain)"></i>Modelled gross margin</span>
+    <span><i class="swatch" style="background:var(--loss);opacity:.3"></i>Below the approved floor</span>`;
+  const OBJ = { rev:"revenue", mar:"gross margin", shr:"share" };
+  $("#objNote").innerHTML = `At an assumed elasticity of ${E}, <b>revenue and share always argue for a lower price and margin always argues for a
+    higher one</b> — which is exactly why no single number can settle this. The recommendation is the best <b>${OBJ[state.obj]}</b> option that stays
+    inside both guardrails: <b class="mono">₹${best.price.toFixed(2)}</b>, ${esc(best.lab.toLowerCase())}.
+    ${uncon.price !== best.price ? `The unconstrained optimum on this objective is ₹${uncon.price.toFixed(2)}, which
+    ${!uncon.compliant ? "sits below the approved floor" : "sits above the competitor's shelf price"} — it is shown, not hidden, and it would need an
+    exception rather than an approval.` : `On this objective the unconstrained optimum is already compliant.`}
+    Elasticity is a client parameter and stays MODELLED-confidence until calibrated against real price moves.`;
+}
+
+function renderFlow(){
+  const p = PRICE.find(x => x.id === pdSel);
+  const steps = [
+    ["Agent proposal", "Drafted from the compliance breach and the objective set above", "🤖"],
+    ["Human approval", "A named approver signs. The agent cannot approve its own proposal", "✍️"],
+    ["Queued to platform", "Payload built against the platform's price API", "📤"],
+    ["Confirmed live", "Platform echoes the new shelf price; the crawl verifies it independently", "✅"]];
+  $("#flowWrap").innerHTML = steps.map((s, i) => `
+    <div class="flowstep${i < wbStep ? " done" : i === wbStep ? " next" : ""}">
+      <div class="fi">${i < wbStep ? "✓" : s[2]}</div>
+      <div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>
+    </div>`).join(`<div class="flowarrow">→</div>`);
+  $("#wbPill").className = "pill " + (wbStep >= 4 ? "p-good" : wbStep >= 2 ? "p-info" : "p-warn");
+  $("#wbPill").textContent = ["", "Awaiting approval", "Approved — not yet queued", "Queued", "Live"][wbStep] || "Awaiting approval";
+
+  const label = wbStep === 1 ? `Approve ₹${(state.propPrice||0).toFixed(2)} on ${p.pf}`
+              : wbStep === 2 ? "Queue to platform" : wbStep === 3 ? "Receive platform confirmation" : "Change is live";
+  $("#approveBar").innerHTML = `
+    <div class="apx"><span class="eyebrow">Proposed</span><b class="num">₹${(state.propPrice||0).toFixed(2)}</b>
+      <span class="muted">from ₹${p.live.toFixed(2)} · ${esc(p.sku)} · ${esc(p.pf)}</span></div>
+    <div class="apx"><span class="eyebrow">Approver</span><b>PK · Revenue</b></div>
+    <div class="apx"><span class="eyebrow">Reason code</span><b>Floor restoration</b></div>
+    <button class="btn" id="wbGo"${wbStep >= 4 ? " disabled style=\"opacity:.45;cursor:default\"" : ""}>${esc(label)}</button>
+    ${wbStep > 1 && wbStep < 4 ? `<button class="btn ghost" id="wbNo">Withdraw</button>` : ""}
+    ${wbStep >= 4 ? `<button class="btn ghost" id="wbNo">Reset demo</button>` : ""}`;
+  const go = $("#wbGo"); if (go && wbStep < 4) go.addEventListener("click", () => {
+    const now = new Date(2026, 7, 31, 9 + wbStep, 12 + wbStep * 7);
+    const stamp = now.toISOString().slice(0, 16).replace("T", " ");
+    AUDIT.push([stamp, steps[wbStep][0], wbStep === 1 ? "PK · Revenue" : wbStep === 2 ? "eGenie agent" : "Platform API",
+      wbStep === 1 ? `Approved ₹${state.propPrice.toFixed(2)} · reason: floor restoration`
+      : wbStep === 2 ? `PUT /price {sku:"${p.sku}", platform:"${p.pf}", mrp:${p.mrp}, sell:${state.propPrice.toFixed(2)}}`
+      : `200 OK · effective next slot · crawl re-check scheduled +2h`]);
+    wbStep++; renderFlow(); });
+  const no = $("#wbNo"); if (no) no.addEventListener("click", () => { wbStep = 1; AUDIT.length = 0; renderFlow(); });
+
+  $("#auditWrap").innerHTML = AUDIT.length ? `<table><thead><tr><th>Timestamp</th><th>Step</th><th>Actor</th><th>Record</th></tr></thead>
+    <tbody>${AUDIT.map(a => `<tr><td class="num mono">${esc(a[0])}</td><td>${esc(a[1])}</td><td>${esc(a[2])}</td>
+      <td class="mono" style="font-size:11.4px">${esc(a[3])}</td></tr>`).join("")}</tbody></table>` : "";
+  $("#wbNote").innerHTML = wbStep >= 4
+    ? `The change is live and the crawl re-checks it in two hours. If the platform does not honour it, the cell reopens on the compliance
+       table with the write-back attempt attached — a failed push is evidence for the CAM conversation, not a silent miss.`
+    : `Nothing has been sent. The agent can draft, price out and prepare the payload, but the write-back is gated on a named human —
+       and the audit trail records who, when, and on what reason code.`;
+}
+
+/* ═════════ marginal spend response ═════════ */
+const RETC = 2.83, RETK = 38, SPEND0 = 142;
+const retAt = s => RETC * Math.log(1 + s / RETK);
+function renderMarginal(){
+  const svg = $("#mgChart"), W = 1180, H = 300, L = 64, R = 150, T = 22, B = 244;
+  const hiS = 280, hiR = retAt(hiS) * 1.08;
+  const x = s => L + s / hiS * (W - L - R), y = v => B - v / hiR * (B - T);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = hiR * k / 4;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">₹${v.toFixed(1)} Cr</text>`; }
+  for (let s = 0; s <= hiS; s += 40) g += `<text class="ax num" x="${x(s).toFixed(1)}" y="${B+18}" text-anchor="middle">₹${s} L</text>`;
+  const pts = []; for (let s = 0; s <= hiS; s += 4) pts.push([x(s), y(retAt(s))]);
+  const knee = 100 * RETC - RETK;
+  g += `<rect x="${x(knee).toFixed(1)}" y="${T}" width="${(x(hiS)-x(knee)).toFixed(1)}" height="${B-T}" fill="${cvar("--loss")}" fill-opacity=".08"/>
+        <line x1="${x(knee).toFixed(1)}" y1="${T}" x2="${x(knee).toFixed(1)}" y2="${B}" stroke="${cvar("--loss")}" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text class="ax" x="${(x(knee)+7).toFixed(1)}" y="${T+12}" fill="${cvar("--loss")}" font-weight="600">breakeven · ₹${knee.toFixed(0)} L</text>`;
+  g += `<path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--s1")}" stroke-width="2.6"/>`;
+  const inc = state.inc, s1 = SPEND0, s2 = SPEND0 + inc;
+  const gain = retAt(s2) - retAt(s1), mult = gain * 100 / inc;
+  g += `<line x1="${x(s1).toFixed(1)}" y1="${y(retAt(s1)).toFixed(1)}" x2="${x(s2).toFixed(1)}" y2="${y(retAt(s1)).toFixed(1)}" stroke="${cvar("--ink")}" stroke-width="1.4"/>
+        <line x1="${x(s2).toFixed(1)}" y1="${y(retAt(s1)).toFixed(1)}" x2="${x(s2).toFixed(1)}" y2="${y(retAt(s2)).toFixed(1)}" stroke="${cvar("--gain")}" stroke-width="2.4"/>
+        <circle cx="${x(s1).toFixed(1)}" cy="${y(retAt(s1)).toFixed(1)}" r="6" fill="${cvar("--ink")}" stroke="${cvar("--surface")}" stroke-width="2"/>
+        <circle cx="${x(s2).toFixed(1)}" cy="${y(retAt(s2)).toFixed(1)}" r="6" fill="${cvar("--gain")}" stroke="${cvar("--surface")}" stroke-width="2"/>
+        <text class="ax" x="${(x(s1)).toFixed(1)}" y="${(y(retAt(s1))+20).toFixed(1)}" text-anchor="middle" font-weight="600">today ₹${s1} L</text>
+        <text class="ax" x="${(x(s2)+8).toFixed(1)}" y="${(y(retAt(s2))-8).toFixed(1)}" fill="${cvar("--gain")}" font-weight="700">+${money(gain)} · ${mult.toFixed(2)}× marginal</text>`;
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">modelled return (₹ Cr / month)</text>`;
+  svg.innerHTML = g;
+  $("#mgNote").innerHTML = `The blended number is <b>3.1×</b>. The next rupee is not the average rupee: adding <b>₹${inc} L</b> to the current
+    ₹${SPEND0} L returns <b class="up">${money(gain)}</b>, a <b>${mult.toFixed(2)}× marginal return</b>. Past <b>₹${knee.toFixed(0)} L</b> a
+    marginal rupee returns less than a rupee — that is the ceiling on this plan, and it is a lot closer than the blended figure suggests.
+    Answering "what do I get for another ₹50 L" with the blended ROAS overstates it by ${(3.1 / mult).toFixed(1)}×.`;
+}
+
+/* ═════════ 100-day rolling improvement, split by owner ═════════ */
+function renderRoll(){
+  const svg = $("#rollChart"), n = 100, r = rng("roll100");
+  const up = [], dn = [];
+  for (let i = 0; i < n; i++){ const t = i / (n - 1);
+    up.push(+(0.192 - 0.088 * t + (r() - 0.5) * 0.014).toFixed(4));
+    dn.push(+(0.164 - 0.031 * t + (r() - 0.5) * 0.016).toFixed(4)); }
+  const W = 1180, H = 300, L = 62, R = 138, T = 20, B = 244;
+  const tot = up.map((v, i) => v + dn[i]), hi = Math.max(...tot) * 1.15;
+  const x = i => L + i / (n - 1) * (W - L - R), y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = hi * k / 4;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-8}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">₹${(v*100).toFixed(0)} L</text>`; }
+  for (let i = 0; i < n; i += 20) g += `<text class="ax num" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">D−${99-i}</text>`;
+  const area = (lowArr, hiArr, col, op) => `<path d="${hiArr.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}
+    ${lowArr.map((v,i)=>"L"+x(n-1-i).toFixed(1)+" "+y(lowArr[n-1-i]).toFixed(1)).join(" ")} Z" fill="${col}" fill-opacity="${op}"/>`;
+  const zero = up.map(() => 0);
+  g += area(zero, up, cvar("--s2"), .55);
+  g += area(up, tot, cvar("--s1"), .55);
+  g += `<path d="${tot.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--ink")}" stroke-width="2"/>`;
+  g += `<text class="ax" x="${(W-R+8)}" y="${y(up[n-1]/2).toFixed(1)}" fill="${cvar("--s2")}" font-weight="600" font-size="11.5">Upstream · Supply</text>
+        <text class="ax" x="${(W-R+8)}" y="${y(up[n-1]+dn[n-1]/2).toFixed(1)}" fill="${cvar("--s1")}" font-weight="600" font-size="11.5">Downstream · CAM</text>`;
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">daily loss run-rate (₹)</text>`;
+  svg.innerHTML = g;
+  const u0 = up[0], u1 = up[n-1], d0 = dn[0], d1 = dn[n-1];
+  $("#rollNote").innerHTML = `Daily loss run-rate fell from <b>₹${((u0+d0)*100).toFixed(0)} L</b> to <b>₹${((u1+d1)*100).toFixed(0)} L</b> over 100 days —
+    but the two halves did not move together. <b style="color:var(--s2)">Upstream</b> is down
+    <b class="up">${((1-u1/u0)*100).toFixed(0)}%</b>: fill rates and PO timing responded to the supply work. <b style="color:var(--s1)">Downstream</b>
+    is down only <b>${((1-d1/d0)*100).toFixed(0)}%</b>, and now carries <b>${(d1/(u1+d1)*100).toFixed(0)}%</b> of the remaining loss against
+    ${(d0/(u0+d0)*100).toFixed(0)}% at the start. The gradual uptick is real; the next ₹ of recovery is a CAM conversation, not a supply one.`;
+}
+
+/* ═════════ SHELL ═════════ */
+const state = { screen:"control", regFilter:"all", split:"inter", ctFilter:"all",
+                hoKw:"mint candy", pcFilter:"breach", obj:"rev", inc:50, propPrice:0, paused:new Set() };
+const TITLES = { control:"Control Tower", action:"Action & Value Recovery", invest:"Investment Optimization",
+                 campaign:"Campaign Performance", price:"Pricing Compliance",
+                 npd:"New Product Radar", alerts:"Alerts & Reviews", release:"Release Notes" };
+const CRUMB = { control:"Every live intervention, and what it cost somewhere else",
+                campaign:"Campaigns resolved down to the keywords that spent the money",
+                price:"Shelf price against the approved floor — and the agent that fixes it",
+                action:"Closing the loop — proving the value actually came back",
+                invest:"Share of search and promotions, under one budget",
+                npd:"Competitor launches, detected and profiled automatically",
+                alerts:"Alerts you can write in a sentence, and what reviews are telling us",
+                release:"What shipped, and what it returned" };
+function show(k){
+  state.screen = k;
+  ["control","action","invest","campaign","price","npd","alerts","release"].forEach(s => $("#s-" + s).hidden = s !== k);
+  document.querySelectorAll(".rail-item[data-s]").forEach(b => b.classList.toggle("is-on", b.dataset.s === k));
+  $("#scrTitle").textContent = TITLES[k];
+  $("#crumb").innerHTML = `Perfetti Van Melle <span>›</span> <b>${esc(CRUMB[k])}</b>`;
+  if (k === "control") renderControl();
+  if (k === "action"){ renderAction(); renderRoll(); }
+  if (k === "invest"){ renderInvest(); renderMarginal(); }
+  if (k === "campaign") renderCampaign();
+  if (k === "price") renderPrice();
+  if (k === "npd") renderNPD();
+  if (k === "alerts") renderAlerts();
+  if (k === "release") renderRelease();
+  scrollTo({ top:0, behavior:"smooth" });
+}
+document.querySelectorAll(".rail-item[data-s]").forEach(b => b.addEventListener("click", () => show(b.dataset.s)));
+$("#regSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.regFilter = b.dataset.f; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderAction(); });
+$("#splitSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.split = b.dataset.v; renderInvest(); });
+$("#ctSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.ctFilter = b.dataset.f; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderControl(); });
+$("#pcSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.pcFilter = b.dataset.f; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderPrice(); });
+$("#objSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.obj = b.dataset.o; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b));
+  wbStep = 1; AUDIT.length = 0; renderCandidates(); renderFlow(); });
+$("#incSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.inc = +b.dataset.v; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderMarginal(); });
+$("#nlParse").addEventListener("click", renderParse);
+$("#nlInput").addEventListener("input", renderParse);
+document.querySelectorAll(".chipex").forEach(b => b.addEventListener("click", () => {
+  $("#nlInput").value = b.dataset.ex; renderParse(); }));
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  show(state.screen);
+});
+$("#nlInput").value = "tell me when cover drops under two weeks and no PO has been raised on Blinkit";
+show("control");
+})();
+</script>
+
+</body>
+</html>

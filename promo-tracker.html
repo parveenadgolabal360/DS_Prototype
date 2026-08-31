@@ -1,0 +1,1715 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+  <title>eGenie · Promo Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* ============================ DESIGN TOKENS (sampled from eGenie screenshots) === */
+:root{
+  --nav:#0E1320; --nav-2:#191E2B; --nav-3:#262B38; --nav-label:#7A8699; --nav-text:#E2E6EE;
+  --blue:#387FEF; --blue-deep:#2F6ED0; --blue-soft:#EFF5FE; --blue-line:#CFE0FB;
+  --ink:#0F1729; --ink-2:#334158; --muted:#64748B; --muted-2:#8A97AB;
+  --line:#E6EAF2; --line-2:#EFF2F7; --chip:#EFF1F5;
+  --red:#DC2626; --red-2:#B91C1C; --red-soft:#FEF2F2; --red-line:#FBD5D5;
+  --amber:#D97706; --amber-ink:#92400E; --amber-soft:#FFFBEB; --amber-line:#FDE3A7;
+  --green:#15803D; --green-soft:#F0FDF4; --green-line:#BBF7D0;
+  --violet:#7C3AED; --violet-soft:#F5F3FF; --violet-line:#DDD6FE;
+  --slate-soft:#F6F8FB;
+  --r-card:14px; --r-ctrl:12px; --r-pill:999px;
+  --sh:0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+  --sh-lg:0 8px 28px rgba(16,24,40,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Lato',-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:#fff; -webkit-font-smoothing:antialiased;
+  font-size:14px; line-height:1.45;
+}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.mono{font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:9px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============================ APP SHELL ======================================= */
+.app{display:flex;min-height:100vh;background:var(--nav)}
+.main{background:#fff}
+.sidebar{width:230px;flex:0 0 230px;background:var(--nav);color:#fff;padding:16px 14px 28px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar::-webkit-scrollbar-thumb{background:#2A3040}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 4px 2px}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(160deg,#5EA0FF,#2F6ED0);display:grid;place-items:center;font-size:20px;font-weight:900;color:#fff;font-style:italic}
+.brand .bt{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.1}
+.brand .bs{font-size:11.5px;color:#94A3B8}
+.brand .burger{margin-left:auto;display:flex;flex-direction:column;gap:3px;padding:6px}
+.brand .burger i{display:block;width:15px;height:2px;background:#CBD5E1;border-radius:2px}
+.nav-label{font-size:9.5px;font-weight:700;letter-spacing:1.3px;color:var(--nav-label);margin:20px 6px 8px}
+.client-card{background:var(--nav-2);border-radius:10px;padding:11px 13px;display:flex;align-items:center;font-weight:700;font-size:14px}
+.client-card svg{margin-left:auto;opacity:.5}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;color:var(--nav-text);font-size:13.5px;font-weight:700;position:relative;margin-bottom:2px;width:100%;text-align:left}
+.nav-item:hover{background:#161C2A}
+.nav-item.on{background:var(--nav-3);color:#fff}
+.nav-item.on::before{content:'';position:absolute;left:-14px;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--blue)}
+.nav-item svg{flex:0 0 16px;opacity:.9}
+.nav-item .badge{margin-left:auto;background:#E23B3B;color:#fff;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px}
+.nav-item .newtag{margin-left:auto;background:rgba(56,127,239,.18);color:#8DBBFF;font-size:9px;font-weight:900;letter-spacing:.6px;padding:2px 6px;border-radius:5px}
+.allplat{width:100%;background:#fff;color:var(--ink);border-radius:10px;padding:10px;font-weight:700;font-size:13.5px;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:9px}
+.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.plat{background:var(--nav-2);border-radius:9px;padding:6px 7px;display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:#EAEEF6;overflow:hidden}
+.plat i{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:12px;font-weight:900;font-style:normal;flex:0 0 22px}
+.plat span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;background:#fff}
+.topbar{background:#fff;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:12px;padding:11px 22px;position:sticky;top:0;z-index:40}
+.page-title{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-right:auto}
+.ctrl{border:1px solid var(--line);border-radius:var(--r-ctrl);padding:6px 12px;display:flex;align-items:center;gap:9px;background:#fff}
+.ctrl .lab{font-size:9.5px;font-weight:700;letter-spacing:.9px;color:var(--muted);text-transform:uppercase}
+.ctrl .val{font-weight:700;font-size:13.5px}
+.pill-blue{background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:12px;padding:2px 9px;border-radius:7px;display:inline-flex;align-items:center;gap:4px}
+.iconbtn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;background:#fff;color:var(--ink-2)}
+.iconbtn.plain{border:0}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700}
+.bell{position:relative}
+.bell .dot{position:absolute;top:-4px;right:-5px;background:#E23B3B;color:#fff;font-size:9px;font-weight:900;border-radius:999px;padding:1px 4px}
+
+.subbar{display:flex;align-items:center;gap:8px;padding:11px 22px;border-bottom:1px solid var(--line-2);background:#fff;position:sticky;top:57px;z-index:35;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:999px;font-weight:700;font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:7px;border:1px solid transparent}
+.tab:hover{background:var(--slate-soft)}
+.tab.on{background:var(--blue);color:#fff}
+.tab .n{background:rgba(255,255,255,.22);border-radius:6px;padding:0 6px;font-size:11px}
+.tab:not(.on) .n{background:var(--chip);color:var(--muted)}
+.subbar .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.mini{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--ink-2);display:flex;align-items:center;gap:6px;background:#fff}
+
+.canvas{flex:1;padding:22px 22px 70px;background:
+  linear-gradient(180deg,#E6EAF9 0%,#F2F5FC 220px,#FFFFFF 460px);}
+.wrap{max-width:1560px;margin:0 auto}
+
+/* ============================ PRIMITIVES ====================================== */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--sh)}
+.pad{padding:18px}
+.sec-h{display:flex;align-items:center;gap:8px;margin:26px 0 12px;font-size:16.5px;font-weight:700;letter-spacing:-.2px}
+.sec-h .hint{width:15px;height:15px;border-radius:50%;border:1.4px solid #B6C0D0;color:#8A97AB;font-size:10px;display:grid;place-items:center;font-weight:700;cursor:help}
+.sec-h .rt{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--muted-2)}
+.hr{flex:1;height:1px;background:var(--line);margin-left:6px}
+.sev{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:900;letter-spacing:.9px}
+.sev b{width:7px;height:7px;border-radius:50%;display:block}
+.sev.crit{background:var(--red-soft);border:1px solid var(--red-line);color:var(--red)}
+.sev.crit b{background:var(--red)}
+.sev.warn{background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--amber-ink)}
+.sev.warn b{background:#F59E0B}
+.sev.info{background:var(--blue-soft);border:1px solid var(--blue-line);color:var(--blue-deep)}
+.sev.info b{background:var(--blue)}
+.meta{font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase}
+.tag{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 9px;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;border:1px solid transparent;white-space:nowrap}
+.t-red{background:var(--red-soft);border-color:var(--red-line);color:var(--red)}
+.t-amb{background:var(--amber-soft);border-color:var(--amber-line);color:var(--amber-ink)}
+.t-grn{background:var(--green-soft);border-color:var(--green-line);color:var(--green)}
+.t-blu{background:var(--blue-soft);border-color:var(--blue-line);color:var(--blue-deep)}
+.t-vio{background:var(--violet-soft);border-color:var(--violet-line);color:var(--violet)}
+.t-gry{background:var(--slate-soft);border-color:var(--line);color:var(--muted)}
+.delta{background:var(--chip);border-radius:8px;padding:3px 10px;font-weight:900;font-size:12.5px;display:inline-block}
+.delta.neg{color:var(--red)} .delta.pos{color:var(--green)} .delta.amb{color:var(--amber)}
+.btn{border-radius:10px;padding:8px 15px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink-2)}
+.btn:hover{background:var(--slate-soft)}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:hover{background:var(--blue-deep)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.dgr{background:#fff;border-color:var(--red-line);color:var(--red)}
+.btn.sm{padding:5px 11px;font-size:12px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* attention rail */
+.rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.rail::-webkit-scrollbar{height:6px}
+.acard{flex:0 0 316px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:16px;box-shadow:var(--sh);position:relative;cursor:pointer;transition:.15s}
+.acard:hover{box-shadow:var(--sh-lg);transform:translateY(-1px)}
+.acard .top{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.acard .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:0 0 32px}
+.acard h4{margin:0 0 5px;font-size:14.5px;font-weight:700;line-height:1.32;letter-spacing:-.1px}
+.acard p{margin:0 0 11px;font-size:12.5px;color:var(--muted);line-height:1.4}
+.acard .chev{position:absolute;right:14px;top:14px;color:#B6C0D0}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:15px 16px 13px;box-shadow:var(--sh);cursor:pointer;transition:.15s}
+.kpi:hover{box-shadow:var(--sh-lg)}
+.kpi .kt{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:900;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.kpi .kt .st{margin-left:auto;font-size:10px;padding:2px 9px;border-radius:999px;font-weight:900;letter-spacing:.3px}
+.kpi .kv{font-size:29px;font-weight:900;letter-spacing:-1px;margin:7px 0 2px;display:flex;align-items:baseline;gap:9px}
+.kpi .kv small{font-size:12.5px;font-weight:900}
+.kpi .kf{font-size:11.5px;font-weight:700;color:var(--muted)}
+.spark{height:34px;width:100%;margin:2px 0}
+
+/* deep dive chips */
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.chipc{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;display:flex;gap:11px;align-items:flex-start;cursor:pointer}
+.chipc:hover{border-color:var(--blue-line);background:var(--blue-soft)}
+.chipc .ic{width:30px;height:30px;border-radius:8px;background:var(--slate-soft);display:grid;place-items:center;flex:0 0 30px;color:var(--blue-deep)}
+.chipc .lb{font-size:9.5px;font-weight:900;letter-spacing:.9px;color:var(--muted);text-transform:uppercase}
+.chipc .vl{font-size:19px;font-weight:900;letter-spacing:-.5px;line-height:1.15}
+.chipc .sb{font-size:11px;color:var(--muted);font-weight:700}
+
+/* tables */
+table{width:100%;border-collapse:collapse}
+thead th{font-size:9.5px;font-weight:900;letter-spacing:1px;color:var(--muted);text-transform:uppercase;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);background:#FBFCFE;white-space:nowrap;position:sticky;top:0;z-index:2}
+tbody td{padding:12px;border-bottom:1px solid var(--line-2);font-size:13px;vertical-align:middle}
+tbody tr:hover{background:#FAFCFF}
+tbody tr.clickable{cursor:pointer}
+.tnum{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.skucell{font-weight:700;line-height:1.3}
+.skucell small{display:block;font-weight:700;color:var(--muted-2);font-size:11px}
+.pl{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12.5px;white-space:nowrap}
+.pl i{width:19px;height:19px;border-radius:5px;display:grid;place-items:center;font-size:10.5px;font-weight:900;font-style:normal;flex:0 0 19px}
+
+/* matrix */
+.matrix{overflow:auto;max-height:760px}
+.matrix table{border-collapse:separate;border-spacing:0}
+.matrix th.sk{position:sticky;left:0;z-index:3;background:#FBFCFE;min-width:250px}
+.matrix td.sk{position:sticky;left:0;z-index:1;background:#fff;border-right:1px solid var(--line);min-width:250px}
+.matrix tr:hover td.sk{background:#FAFCFF}
+.cell{width:64px;height:38px;border-radius:8px;display:grid;place-items:center;font-weight:900;font-size:12px;font-variant-numeric:tabular-nums;margin:0 auto;cursor:pointer;border:1px solid transparent}
+.cell:hover{outline:2px solid var(--blue);outline-offset:1px}
+.c-match{background:#EAF7EF;color:#15803D;border-color:#CBEBD8}
+.c-under{background:#FDECEC;color:#B91C1C;border-color:#F8CFCF}
+.c-under.deep{background:#DC2626;color:#fff;border-color:#DC2626}
+.c-over{background:#FFF4E5;color:#B45309;border-color:#FBE0B8}
+.c-nv{background:#F5F3FF;color:#6D28D9;border-color:#E3DDFC}
+.c-nl{background:#F1F5F9;color:#94A3B8;border-color:#E2E8F0}
+.c-none{background:#FBFCFE;color:#CBD5E1;border-color:#F1F5F9}
+.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:11.5px;font-weight:700;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:4px;display:block}
+
+/* drawer / modal */
+.scrim{position:fixed;inset:0;background:rgba(15,23,41,.42);backdrop-filter:blur(2px);z-index:80;opacity:0;pointer-events:none;transition:.18s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(940px,94vw);background:#fff;z-index:90;transform:translateX(100%);transition:.24s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-14px 0 44px rgba(15,23,41,.16)}
+.drawer.on{transform:none}
+.drawer .dh{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
+.drawer .db{overflow-y:auto;padding:20px 22px 40px;flex:1}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.98);width:min(720px,94vw);max-height:88vh;overflow:auto;background:#fff;border-radius:16px;z-index:95;opacity:0;pointer-events:none;transition:.18s;box-shadow:var(--sh-lg)}
+.modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.x{margin-left:auto;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--muted)}
+.x:hover{background:var(--slate-soft)}
+
+/* misc */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.split{display:grid;grid-template-columns:1fr 400px;gap:14px}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.kv:last-child{border:0}
+.kv .k{color:var(--muted);font-weight:700}
+.kv .v{font-weight:700;text-align:right}
+.bar{height:7px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px}
+.note{background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:12px;padding:12px 14px;font-size:12.5px;color:#1E3A6E;line-height:1.5}
+.note b{color:#12294F}
+.note.amb{background:var(--amber-soft);border-color:var(--amber-line);color:#78350F}
+.note.red{background:var(--red-soft);border-color:var(--red-line);color:#7F1D1D}
+.note.grn{background:var(--green-soft);border-color:var(--green-line);color:#14532D}
+.raw{font-family:'JetBrains Mono',monospace;font-size:12px;background:#F8FAFC;border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:#334158;white-space:pre-wrap;line-height:1.5}
+.steps{display:flex;align-items:center;gap:0;margin-bottom:16px}
+.step{display:flex;align-items:center;gap:9px;padding:8px 16px 8px 14px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.step .b{width:22px;height:22px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:11px;font-weight:900;color:var(--muted)}
+.step.done{color:var(--green)} .step.done .b{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+.step.now{color:var(--blue-deep)} .step.now .b{background:var(--blue);color:#fff}
+.step-sep{width:26px;height:1.5px;background:var(--line);border-radius:2px}
+.fab{position:fixed;right:24px;bottom:22px;background:linear-gradient(135deg,#4A8EF3,#2F6ED0);color:#fff;border-radius:999px;padding:12px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;box-shadow:0 10px 26px rgba(47,110,208,.36);z-index:50}
+.footer{display:flex;align-items:center;gap:14px;padding:12px 22px;border-top:1px solid var(--line-2);font-size:11.5px;color:var(--muted-2);font-weight:700}
+.footer .live{color:var(--green)}
+.empty{display:grid;place-items:center;padding:70px 20px;text-align:center}
+.empty .ic{width:64px;height:64px;border-radius:18px;background:var(--amber-soft);border:1px solid var(--amber-line);display:grid;place-items:center;margin-bottom:16px}
+.hero{padding:6px 2px 18px}
+.hero h1{margin:0 0 5px;font-size:27px;font-weight:900;letter-spacing:-.9px}
+.hero .eyebrow{font-size:10px;font-weight:900;letter-spacing:1.6px;color:var(--muted-2);text-transform:uppercase;margin-bottom:7px}
+.hero p{margin:0;color:var(--muted);font-size:13.5px;font-weight:700}
+.ribbon{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:11px 16px;box-shadow:var(--sh);margin-bottom:18px}
+.ribbon .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.seg{display:inline-flex;background:var(--slate-soft);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{padding:5px 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+input[type=text],input[type=number],input[type=date],select,textarea{font-family:inherit;font-size:13px;border:1px solid var(--line);border-radius:9px;padding:8px 11px;width:100%;color:var(--ink);background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue-line);border-color:var(--blue)}
+label.fl{font-size:10px;font-weight:900;letter-spacing:.9px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:5px}
+.radio{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:12px 14px;cursor:pointer;transition:.12s}
+.radio:hover{border-color:var(--blue-line);background:#FBFDFF}
+.radio.on{border-color:var(--blue);background:var(--blue-soft);box-shadow:0 0 0 3px rgba(56,127,239,.09)}
+.radio .rb{width:17px;height:17px;border-radius:50%;border:2px solid #C3CEDF;flex:0 0 17px;margin-top:2px;display:grid;place-items:center}
+.radio.on .rb{border-color:var(--blue)}
+.radio.on .rb::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.tl{display:flex;height:26px;border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+.tl div{display:grid;place-items:center;font-size:10.5px;font-weight:900;color:#fff;letter-spacing:.2px}
+</style>
+
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <header class="topbar" id="topbar"></header>
+    <div class="subbar" id="subbar"></div>
+    <div class="canvas"><div class="wrap" id="view"></div></div>
+    <div class="footer">
+      <span>© 2026 eGenie · Digital Shelf</span><span class="mono">v2.1.0—beta</span>
+      <span style="margin-left:auto" class="live">● Live</span><span>Help</span><span>Privacy</span><span>Terms</span>
+    </div>
+  </main>
+</div>
+<button class="fab">✦ Ask e-genie</button>
+<div class="scrim" id="scrim" onclick="closeAll()"></div>
+<div class="drawer" id="drawer"></div>
+<div class="modal" id="modal"></div>
+
+<script>
+/* ============================================================================
+   ICONS
+============================================================================ */
+const I = {
+  grid:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="4" rx="1.5"/><rect x="14" y="11" width="7" height="10" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>',
+  tasks:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 7h8M13 17h8"/></svg>',
+  box:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 8-9-5-9 5v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>',
+  eye:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/><circle cx="12" cy="12" r="2.5"/></svg>',
+  tagi:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 12 22l-9-9V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/></svg>',
+  doc:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>',
+  star:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.6l1.1-6L3.4 9.4l6-.8z"/></svg>',
+  spark:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg>',
+  agent:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="3"/><path d="M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></svg>',
+  cat:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+  pct:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 5-14 14"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>',
+  chev:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>',
+  cal:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  globe:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>',
+  filt:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>',
+  pin:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  lock:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+  unlock:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 7.5-2"/></svg>',
+  down:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 12l5 5 5-5M4 21h16"/></svg>',
+  up:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V8M7 12l5-5 5 5M4 3h16"/></svg>',
+  warn:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m4 12 5 5L20 6"/></svg>',
+  xm:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  price:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h9M6 9h9M13.5 4c3.5 0 3.5 5 0 5H6l7 11"/></svg>',
+  bolt:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+  merge:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 7.5v9M8.5 5H13a2.5 2.5 0 0 1 2.5 2.5V10M8.5 19H13a2.5 2.5 0 0 0 2.5-2.5V14"/></svg>',
+  upl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V6M7 11l5-5 5 5"/><path d="M4 20h16"/></svg>',
+  plus:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>',
+};
+
+/* ============================================================================
+   PLATFORM MASTER
+============================================================================ */
+const PLAT = {
+  BLK:{n:'Blinkit',       s:'B', bg:'#F8CB46', fg:'#1F2937'},
+  ZEP:{n:'Zepto',         s:'Z', bg:'#7B2CBF', fg:'#fff'},
+  SWG:{n:'Swiggy Instamart', s:'S', bg:'#F07C25', fg:'#fff'},
+  FKM:{n:'FK Minutes',    s:'F', bg:'#A8213F', fg:'#F5C453'},
+  BB :{n:'Bigbasket',     s:'B', bg:'#84C225', fg:'#fff'},
+  AMZ:{n:'Amazon',        s:'A', bg:'#232F3E', fg:'#F59E0B'},
+  FLK:{n:'Flipkart',      s:'F', bg:'#3B82F6', fg:'#F5C453'},
+};
+const PORDER = ['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'];
+const pchip = k => `<span class="pl"><i style="background:${PLAT[k].bg};color:${PLAT[k].fg}">${PLAT[k].s}</i>${PLAT[k].n}</span>`;
+
+/* ============================================================================
+   DEMO DATA — Nestlé India, Aug 2026 (rows drawn from the uploaded tracker)
+============================================================================ */
+const PERIOD = {
+  label:'Aug 2026', state:'LOCKED', version:2,
+  lockedBy:'Priya Nair (Trade Marketing Lead)', lockedOn:'29 Jul 2026, 18:42',
+  makerName:'Rohan Shetty', amendedOn:'08 Aug 2026', amendReason:'Zepto pulled Nescafe Gold from event slot',
+  lines:143, commitments:1061, verifiable:892, notVerifiable:169,
+  matched:637, under:118, over:137, notLive:43, notListed:26,
+  compliance:71.4, complianceDelta:-3.1, avgDev:-2.8, excessPts:4.2,
+  pincodes:1934, breaching:1412, darkstores:4581, days:31
+};
+
+const DEV = [
+ {id:'D1', sku:'NESCAFÉ Gold 100g Plain Jar', brand:'Nescafe Gold · Beverages', plat:'ZEP',
+  raw:'INR 110 off from 1-7 days and INR 80 off for rest of the month',
+  cTxt:'₹110 off (1–7 Aug) → 12.2%  ·  ₹80 off (8–31 Aug) → 8.9%', cAvg:9.6, aAvg:0.0, dev:-9.6,
+  verdict:'NOT_LIVE', days:31, dbreach:31, pins:812, cities:['Delhi NCR','Mumbai','Bengaluru','Hyderabad','Pune'],
+  why:'Zero price movement detected for the full period. SP == MRP on every crawl.',
+  mrp:900, actualSp:900, series:Array(31).fill(0),
+  cSeries:Array.from({length:31},(_,i)=> i<7?12.2:8.9),
+  locs:[['Delhi NCR',212,0.0,-9.6,'NOT LIVE'],['Mumbai',168,0.0,-9.6,'NOT LIVE'],['Bengaluru',151,0.0,-9.6,'NOT LIVE'],['Hyderabad',104,0.0,-9.6,'NOT LIVE'],['Pune',96,0.0,-9.6,'NOT LIVE'],['Chennai',81,0.0,-9.6,'NOT LIVE']]},
+
+ {id:'D2', sku:'Munch Choco Fills 250g', brand:'Munch Cereal · NBC', plat:'BLK',
+  raw:'30% off', cTxt:'30% off — flat, whole month', cAvg:30, aAvg:12.4, dev:-17.6,
+  verdict:'UNDER', days:31, dbreach:22, pins:1204, cities:['Lucknow','Jaipur','Kolkata','Ahmedabad'],
+  why:'Promo went live at 30% on 1–9 Aug, then dropped to ~10% from 10 Aug onward.',
+  mrp:220, actualSp:192.7,
+  series:[30,30,30,29.8,30,30,30,30,29.5,10.2,10,10,10,10.4,10,10,10,10,10,10,10,10,12,12,12,12,12,12,12,12,12],
+  cSeries:Array(31).fill(30),
+  locs:[['Lucknow',248,9.8,-20.2,'UNDER'],['Jaipur',221,10.1,-19.9,'UNDER'],['Kolkata',196,11.4,-18.6,'UNDER'],['Ahmedabad',173,12.0,-18.0,'UNDER'],['Delhi NCR',188,18.2,-11.8,'UNDER'],['Mumbai',178,21.4,-8.6,'UNDER']]},
+
+ {id:'D3', sku:'MAGGI Noodles Classic — Pack of 70g×12', brand:'Maggi Noodles · Foods', plat:'FKM',
+  raw:'INR 5 off', cTxt:'₹5 off → 4.2% on MRP ₹120', cAvg:4.2, aAvg:1.0, dev:-3.2,
+  verdict:'UNDER', days:31, dbreach:19, pins:388, cities:['Bengaluru','Delhi NCR','Hyderabad'],
+  why:'Only ₹1.2 average off applied. Promo appears keyed to the single 70g pack, not the ×12 multipack.',
+  mrp:120, actualSp:118.8,
+  series:[4.2,4.2,4.2,4.2,1,1,1,1,1,1,1,1,1,1,1,4.2,4.2,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  cSeries:Array(31).fill(4.2),
+  locs:[['Bengaluru',142,0.8,-3.4,'UNDER'],['Delhi NCR',121,1.1,-3.1,'UNDER'],['Hyderabad',68,1.0,-3.2,'UNDER'],['Chennai',57,1.4,-2.8,'UNDER']]},
+
+ {id:'D4', sku:'MILO RTD 180ml', brand:'Milo RTD · C&C', plat:'SWG',
+  raw:'5% off on singles | 10% off on PO2 | 15% off on PO3',
+  cTxt:'Tier ladder — Singles 5% · PO2 10% · PO3 15%', cAvg:5, aAvg:1.8, dev:-3.2,
+  verdict:'UNDER', days:31, dbreach:26, pins:655, cities:['Chennai','Kochi','Bengaluru','Delhi NCR'],
+  why:'Singles tier under-delivered in North & East. PO2/PO3 bundle SKUs not listed on Instamart — 2 of 3 tiers unmeasurable.',
+  mrp:40, actualSp:39.3, tierNote:true,
+  series:[5,5,5,2,2,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5],
+  cSeries:Array(31).fill(5),
+  locs:[['Chennai',148,4.9,-0.1,'MATCH'],['Kochi',96,5.0,0.0,'MATCH'],['Bengaluru',151,4.8,-0.2,'MATCH'],['Delhi NCR',122,0.0,-5.0,'NOT LIVE'],['Kolkata',88,0.0,-5.0,'NOT LIVE'],['Lucknow',50,0.4,-4.6,'UNDER']]},
+
+ {id:'D5', sku:'NESPLUS Flakes 850g Bulk Pack', brand:'Flakes · NBC', plat:'BB',
+  raw:'30% off', cTxt:'30% off — flat, whole month', cAvg:30, aAvg:41.2, dev:11.2,
+  verdict:'OVER', days:31, dbreach:24, pins:902, cities:['Mumbai','Pune','Bengaluru'],
+  why:'Platform stacked an additional 11pt on top of the committed depth. Unfunded discount — margin exposure.',
+  mrp:499, actualSp:293.4,
+  series:[30,30,30,41,41,41,42,42,42,42,41,41,41,41,41,42,42,42,42,42,41,41,41,41,41,41,42,42,42,42,42],
+  cSeries:Array(31).fill(30),
+  locs:[['Mumbai',242,42.1,12.1,'OVER'],['Pune',188,41.8,11.8,'OVER'],['Bengaluru',201,40.9,10.9,'OVER'],['Hyderabad',146,40.2,10.2,'OVER'],['Delhi NCR',125,39.4,9.4,'OVER']]},
+
+ {id:'D6', sku:'NANGROW 800g Large Pack', brand:'Nangrow · IN', plat:'FLK',
+  raw:'10% off on singles', cTxt:'10% off on singles — whole month', cAvg:10, aAvg:3.4, dev:-6.6,
+  verdict:'UNDER', days:31, dbreach:18, pins:210, cities:['Delhi NCR','Mumbai'],
+  why:'Discount applied only on weekends. Committed promo had no weekend restriction.',
+  mrp:1050, actualSp:1014,
+  series:[0,0,10,10,0,0,0,0,0,10,10,0,0,0,0,0,10,10,0,0,0,0,0,10,10,0,0,0,0,0,10],
+  cSeries:Array(31).fill(10),
+  locs:[['Delhi NCR',88,3.5,-6.5,'UNDER'],['Mumbai',64,3.2,-6.8,'UNDER'],['Bengaluru',58,3.6,-6.4,'UNDER']]},
+
+ {id:'D7', sku:'NESPLUS Flakes 475g', brand:'Flakes · NBC', plat:'FLK',
+  raw:'15% off', cTxt:'15% off — flat, whole month', cAvg:15, aAvg:null, dev:null,
+  verdict:'NOT_LISTED', days:31, dbreach:31, pins:0, cities:[],
+  why:'SKU is committed on Flipkart but has never been listed there in the crawl window. Compliance cannot be measured — this is a listing failure, not a pricing failure.',
+  mrp:180, actualSp:null, series:[], cSeries:Array(31).fill(15), locs:[]},
+
+ {id:'D8', sku:'SUPERCOAT Adult Chicken 10kg', brand:'Supercoat · Purina', plat:'AMZ',
+  raw:'5% & 6% on event days', cTxt:'BAU 5%  ·  Event days 6% (Freedom Sale 12–16 Aug)', cAvg:5.2, aAvg:2.1, dev:-3.1,
+  verdict:'UNDER', days:31, dbreach:27, pins:141, cities:['Delhi NCR','Bengaluru'],
+  why:'BAU depth ran at ~2%. Event-day uplift to 6% did fire on 12–16 Aug.',
+  mrp:4200, actualSp:4111.8, eventNote:true,
+  series:[2,2,2,2,2,2,2,2,2,2,2,6,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  cSeries:Array.from({length:31},(_,i)=> (i>=11&&i<=15)?6:5),
+  locs:[['Delhi NCR',52,2.2,-3.0,'UNDER'],['Bengaluru',44,2.0,-3.2,'UNDER'],['Mumbai',45,2.1,-3.1,'UNDER']]},
+
+ {id:'D9', sku:'NESCAFÉ Frappé Multiserve 300g', brand:'Nescafe Frappe · Beverages', plat:'ZEP',
+  raw:'INR 50 off', cTxt:'₹50 off → 13.3% on MRP ₹375', cAvg:13.3, aAvg:19.7, dev:6.4,
+  verdict:'OVER', days:31, dbreach:21, pins:730, cities:['Mumbai','Delhi NCR','Pune'],
+  why:'Platform-funded top-up during Zepto Mega Sale extended past the event window.',
+  mrp:375, actualSp:301.1,
+  series:[13,13,13,13,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],
+  cSeries:Array(31).fill(13.3),
+  locs:[['Mumbai',198,20.4,7.1,'OVER'],['Delhi NCR',214,19.8,6.5,'OVER'],['Pune',144,19.2,5.9,'OVER'],['Bengaluru',174,19.4,6.1,'OVER']]},
+
+ {id:'D10', sku:'MAGGI Sauces H&S 1kg', brand:'Maggi Sauces · Foods', plat:'BLK',
+  raw:'Rs 15 off', cTxt:'₹15 off → 8.3% on MRP ₹180', cAvg:8.3, aAvg:8.1, dev:-0.2,
+  verdict:'MATCH', days:31, dbreach:0, pins:0, cities:[],
+  why:'Within the ±1.0pt tolerance band on every tracked day.',
+  mrp:180, actualSp:165.4,
+  series:Array.from({length:31},()=>8.1+ (Math.random()*0.3-0.15)),
+  cSeries:Array(31).fill(8.3),
+  locs:[['Delhi NCR',212,8.2,-0.1,'MATCH'],['Mumbai',186,8.0,-0.3,'MATCH']]},
+
+ {id:'D11', sku:'NESCAFÉ Classic Jar 180g', brand:'Nescafe Classic Large · Beverages', plat:'BLK',
+  raw:'Red Mug promo', cTxt:'Gift-with-purchase — free Red Mug', cAvg:null, aAvg:null, dev:null,
+  verdict:'NOT_VERIFIABLE', days:31, dbreach:0, pins:0, cities:[],
+  why:'GWP mechanic produces no change in MRP or selling price. Not measurable from price data — needs offer-badge capture or platform PO reconciliation.',
+  mrp:610, actualSp:610, series:[], cSeries:[], locs:[]},
+
+ {id:'D12', sku:'Munch Cereal 120g', brand:'Munch Cereal · NBC', plat:'SWG',
+  raw:'Buy 1 get 10% off', cTxt:'BOGO-style — Buy 1 get 10% off', cAvg:null, aAvg:null, dev:null,
+  verdict:'NOT_VERIFIABLE', days:31, dbreach:0, pins:0, cities:[],
+  why:'Cart-level mechanic. PDP price is unchanged, so MRP–SP cannot confirm delivery.',
+  mrp:90, actualSp:90, series:[], cSeries:[], locs:[]},
+
+ {id:'D13', sku:'FELIX Wet Food Chicken 12×85g', brand:'Felix · Purina', plat:'ZEP',
+  raw:'8% & 15% on event days', cTxt:'BAU 8%  ·  Event days 15% (Zepto Mega Sale 05–09 Aug)', cAvg:9.1, aAvg:9.0, dev:-0.1,
+  verdict:'MATCH', days:31, dbreach:2, pins:96, cities:['Kolkata'],
+  why:'Compliant except 2 event days in Kolkata where uplift did not fire.',
+  mrp:520, actualSp:473.2, eventNote:true,
+  series:Array.from({length:31},(_,i)=> (i>=4&&i<=8)?15:8),
+  cSeries:Array.from({length:31},(_,i)=> (i>=4&&i<=8)?15:8),
+  locs:[['Kolkata',96,7.9,-1.2,'UNDER'],['Delhi NCR',221,9.1,0.0,'MATCH'],['Mumbai',204,9.0,-0.1,'MATCH']]},
+
+ {id:'D14', sku:'CEREGROW Multipack 600g', brand:'Ceregrow · IN', plat:'AMZ',
+  raw:'10% off (Amazon Only)', cTxt:'10% off — Amazon exclusive', cAvg:10, aAvg:9.8, dev:-0.2,
+  verdict:'MATCH', days:31, dbreach:1, pins:12, cities:[],
+  why:'Within tolerance. Platform-exclusivity honoured — no discount detected on other platforms.',
+  mrp:750, actualSp:676.5,
+  series:Array.from({length:31},()=>9.8), cSeries:Array(31).fill(10),
+  locs:[['Delhi NCR',6,9.8,-0.2,'MATCH'],['Bengaluru',6,9.7,-0.3,'MATCH']]},
+
+ {id:'D15', sku:'NESTEA Lemon 750g Plain', brand:'Nestea · Beverages', plat:'AMZ',
+  raw:'15% off', cTxt:'15% off — flat, whole month', cAvg:15, aAvg:15.4, dev:0.4,
+  verdict:'MATCH', days:31, dbreach:0, pins:0, cities:[],
+  why:'Within the ±1.0pt tolerance band.',
+  mrp:375, actualSp:317.3,
+  series:Array.from({length:31},()=>15.4), cSeries:Array(31).fill(15),
+  locs:[['Delhi NCR',188,15.4,0.4,'MATCH'],['Mumbai',164,15.3,0.3,'MATCH']]},
+];
+
+const VERD = {
+  NOT_LIVE :{lab:'Promo not live', cls:'t-red',  cell:'c-under deep', pri:1},
+  UNDER    :{lab:'Under-delivered',cls:'t-red',  cell:'c-under',      pri:2},
+  NOT_LISTED:{lab:'Not listed',    cls:'t-gry',  cell:'c-nl',         pri:3},
+  OVER     :{lab:'Over-delivered', cls:'t-amb',  cell:'c-over',       pri:4},
+  MATCH    :{lab:'Match',          cls:'t-grn',  cell:'c-match',      pri:5},
+  NOT_VERIFIABLE:{lab:'Not price-verifiable', cls:'t-vio', cell:'c-nv', pri:6},
+};
+
+const CITIES = [
+ ['Delhi NCR',212,58.4,-6.2,41,22,'Blinkit'],['Mumbai',186,64.1,-2.8,33,19,'Zepto'],
+ ['Bengaluru',201,61.7,-4.1,38,21,'Zepto'],['Lucknow',248,44.2,-11.9,58,14,'Blinkit'],
+ ['Jaipur',221,47.6,-9.4,54,12,'Blinkit'],['Kolkata',196,52.3,-7.7,49,17,'Swiggy Instamart'],
+ ['Hyderabad',146,69.8,+1.2,26,18,'Zepto'],['Pune',188,66.4,-1.1,30,24,'Bigbasket'],
+ ['Ahmedabad',173,55.1,-5.6,44,16,'Blinkit'],['Chennai',163,72.9,+2.4,21,15,'FK Minutes'],
+ ['Kochi',96,78.2,+3.9,14,9,'Zepto'],['Indore',84,49.7,-8.8,42,11,'Blinkit'],
+];
+
+/* --------------------------- CONFIGURATOR DATA ----------------------------- */
+const PERIODS = [
+  {id:'2026-08', label:'Aug 2026', state:'LOCKED',    v:2, lines:143, green:0, amber:0, red:0, note:'Locked 29 Jul · amended 08 Aug (v2)'},
+  {id:'2026-09', label:'Sep 2026', state:'IN REVIEW', v:1, lines:118, green:74, amber:29, red:15, nv:21, note:'Uploaded 09 Aug by Rohan Shetty · 6 conflicts open'},
+  {id:'2026-10', label:'Oct 2026', state:'DRAFT',     v:0, lines:122, green:0, amber:0, red:0, note:'File staged, not parsed'},
+  {id:'2026-11', label:'Nov 2026', state:'NOT STARTED',v:0, lines:0,  green:0, amber:0, red:0, note:'No commitments uploaded'},
+];
+
+const PARSED = [
+/* bucket: G / A / R / N   conf: 0-100 */
+{b:'G',conf:98,sku:'MAGGI Noodles Classic — Pack of 70g×12',match:'Exact catalog match · NESIN-MG-0112',raw:'INR 5 off',
+ seg:[{d:'01–31 Aug',v:'₹5 off',t:'flat'}],plats:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'],geo:'PAN INDIA',meas:'Price-verifiable',
+ note:'Absolute ₹ converted to % daily against that day\'s MRP.'},
+{b:'G',conf:97,sku:'Munch Choco Fills 250g',match:'Exact catalog match · NESIN-MC-0250',raw:'30% off',
+ seg:[{d:'01–31 Aug',v:'30%',t:'flat'}],plats:['BLK','FKM','SWG','ZEP','FLK'],geo:'PAN INDIA',meas:'Price-verifiable',note:''},
+{b:'G',conf:95,sku:'NESCAFÉ Gold 100g Plain Jar',match:'Exact catalog match · NESIN-NG-0100',raw:'INR 110 off from 1-7 days and INR 80 off for rest of the month',
+ seg:[{d:'01–07 Sep',v:'₹110 off',t:'phase1'},{d:'08–30 Sep',v:'₹80 off',t:'phase2'}],plats:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'],geo:'PAN INDIA',meas:'Price-verifiable',
+ note:'Two-phase schedule detected. "1-7 days" resolved to calendar days 1–7 of the period.'},
+{b:'G',conf:93,sku:'CEREGROW Multipack 600g',match:'Exact catalog match · NESIN-CG-0600',raw:'10% off (Amazon Only)',
+ seg:[{d:'01–30 Sep',v:'10%',t:'flat'}],plats:['AMZ'],geo:'PAN INDIA',meas:'Price-verifiable',
+ note:'Platform scope narrowed from the text. Sheet marked only Amazon = Yes — text and grid agree.'},
+
+{b:'A',conf:74,sku:'SUPERCOAT Adult Chicken 10kg',match:'Exact catalog match · NESIN-SC-10K',raw:'5% & 6% on event days',
+ reason:'EVENT_REF',plats:['AMZ','ZEP'],geo:'PAN INDIA',meas:'Price-verifiable',
+ seg:[{d:'BAU days',v:'5%',t:'bau'},{d:'Event days',v:'6%',t:'event'}],
+ note:'“Event days” resolved against the Event Calendar → Amazon Freedom Sale (12–16 Sep) + Zepto Mega Sale (05–09 Sep). Confirm the event set before locking.'},
+{b:'A',conf:71,sku:'MILO RTD 180ml',match:'Brand-level match — 3 candidate SKUs',raw:'5% off on singles | 10% off on PO2 | 15% off on PO3',
+ reason:'TIER_LADDER',plats:['BLK','ZEP','SWG','BB','FLK'],geo:'PAN INDIA',meas:'Partly verifiable (1 of 3 tiers)',
+ seg:[{d:'Singles',v:'5%',t:'flat'},{d:'PO2 bundle',v:'10%',t:'bundle'},{d:'PO3 bundle',v:'15%',t:'bundle'}],
+ note:'PO2/PO3 are separate virtual-bundle listings. Only the singles tier maps to a tracked SKU — pick the bundle SKUs or accept partial measurement.'},
+{b:'A',conf:68,sku:'NESCAFÉ Sunrise 90g Jar',match:'Exact catalog match · NESIN-SR-0090',raw:'NR 245 off for South and INR 55 off for North,East, West',
+ reason:'GEO_SPLIT',plats:['BLK','ZEP','SWG','BB'],geo:'Region-split',meas:'Price-verifiable',
+ seg:[{d:'South zone',v:'₹245 off',t:'geo'},{d:'North / East / West',v:'₹55 off',t:'geo'}],
+ note:'Typo “NR 245” auto-corrected to “INR 245”. Zone→pincode mapping uses the Region Master (South = 412 pincodes). Confirm zone definition.'},
+{b:'A',conf:66,sku:'NANGROW 800g Large Pack',match:'Exact catalog match · NESIN-NW-0800',raw:'10% off on singles for the 1st 7 days & weekends',
+ reason:'WEEKEND_DEF',plats:['BLK','ZEP','SWG','FKM','AMZ','FLK'],geo:'PAN INDIA',meas:'Price-verifiable',
+ seg:[{d:'01–07 Sep',v:'10%',t:'phase1'},{d:'Weekends after 07 Sep',v:'10%',t:'weekend'},{d:'All other days',v:'No promo',t:'none'}],
+ note:'Weekend currently defined as Sat + Sun in client settings. Some platforms run Fri–Sun — confirm.'},
+{b:'A',conf:63,sku:'NESTEA Lemon 400g plain  |  NESTEA Peach 400g',match:'2 SKUs found in one cell',
+ raw:'15% during event days & 10% on BAU days',
+ reason:'MULTI_SKU',plats:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'],geo:'PAN INDIA',meas:'Price-verifiable',
+ seg:[{d:'Event days',v:'15%',t:'event'},{d:'BAU days',v:'10%',t:'bau'}],
+ note:'Row will be exploded into 2 commitment lines, one per SKU. Confirm both SKUs are in scope.'},
+{b:'A',conf:61,sku:'NESCAFÉ Roastery 95g Jar Dk/Md',match:'Exact catalog match · NESIN-RS-0095',raw:'40% off on singles & 50% on Po2 (Virtual bundle) (MRP 1000)',
+ reason:'MRP_MISMATCH',plats:['ZEP','SWG','AMZ'],geo:'PAN INDIA',meas:'Price-verifiable',
+ seg:[{d:'Singles',v:'40%',t:'flat'},{d:'PO2 virtual bundle',v:'50%',t:'bundle'}],
+ note:'Text states MRP ₹1000; catalog MRP is ₹950. Absolute/anchored maths will differ by 5%. Choose which MRP is authoritative.'},
+
+{b:'R',conf:0,sku:'TK 1kg (Plain stocks)',match:'No catalog match',raw:'10% off',
+ reason:'SKU_UNMATCHED',plats:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'],geo:'PAN INDIA',meas:'—',
+ seg:[],note:'“TK 1kg (Plain stocks)” does not resolve to a tracked SKU. 4 fuzzy candidates below 60% confidence. Map manually or exclude.'},
+{b:'R',conf:0,sku:'MILO RTD',match:'Brand row, not a SKU',raw:'3+1 (Blinkit, Swiggy, Zepto))',
+ reason:'MECHANIC_UNKNOWN',plats:['BLK','SWG','ZEP'],geo:'PAN INDIA',meas:'Not price-verifiable',
+ seg:[],note:'“3+1” free-goods mechanic could not be converted to a price commitment, and the SKU cell is a brand, not a pack.'},
+{b:'R',conf:0,sku:'NESPLUS Flakes 475g',match:'Exact catalog match · NESIN-NF-0475',raw:'15% off',
+ reason:'NOT_LISTED',plats:['FLK'],geo:'PAN INDIA',meas:'Cannot measure',
+ seg:[{d:'01–30 Sep',v:'15%',t:'flat'}],
+ note:'SKU has zero listing history on Flipkart across the last 90 days. Committing a promo here will always read as non-compliant. Confirm listing first.'},
+
+{b:'N',conf:88,sku:'NESCAFÉ Classic Jar 180g',match:'Exact catalog match · NESIN-NC-0180',raw:'Red Mug promo',
+ reason:'GWP',plats:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'],geo:'PAN INDIA',meas:'Not price-verifiable',
+ seg:[{d:'01–30 Sep',v:'Free Red Mug (GWP)',t:'gwp'}],
+ note:'Recorded as a commitment, excluded from the compliance denominator. Will show on the dashboard as "tracked, not measurable".'},
+{b:'N',conf:85,sku:'Munch Cereal 120g',match:'Exact catalog match · NESIN-MU-0120',raw:'Buy 1 get 10% off',
+ reason:'CART_MECHANIC',plats:['SWG'],geo:'PAN INDIA',meas:'Not price-verifiable',
+ seg:[{d:'01–30 Sep',v:'Buy 1 → 10% off',t:'bogo'}],note:'Cart-level mechanic — PDP price unchanged.'},
+{b:'N',conf:82,sku:'NESCAFÉ Gold 100g Plain Jar',match:'Exact catalog match · NESIN-NG-0100',raw:'10% off on VPC Targeted Coupons',
+ reason:'COUPON',plats:['BLK'],geo:'PAN INDIA',meas:'Not price-verifiable',
+ seg:[{d:'01–30 Sep',v:'10% coupon (targeted)',t:'coupon'}],note:'Targeted coupon is user-segment specific and never appears in the public crawl.'},
+];
+
+const REASONS = {
+  EVENT_REF:{t:'Needs event calendar',   d:'Promo references “event days”. Resolved against the Event Calendar — approve the event set.'},
+  TIER_LADDER:{t:'Pack-tier ladder',      d:'Different depths for singles vs PO2/PO3. Bundle SKUs must be mapped to be measurable.'},
+  GEO_SPLIT:{t:'Region-split promo',      d:'Different depth per zone. Requires the Region Master to map zones → pincodes.'},
+  WEEKEND_DEF:{t:'Weekend definition',    d:'Promo is weekend-conditional. Confirm which days count as weekend for this client.'},
+  MULTI_SKU:{t:'Multiple SKUs in one cell',d:'The SKU cell contains more than one pack. Row will be exploded.'},
+  MRP_MISMATCH:{t:'MRP conflict',         d:'MRP quoted in the promo text differs from the catalog MRP.'},
+  SKU_UNMATCHED:{t:'SKU not recognised',  d:'No catalog match above the confidence threshold.'},
+  MECHANIC_UNKNOWN:{t:'Promo not understood',d:'The promo grammar could not be parsed into a price commitment.'},
+  NOT_LISTED:{t:'SKU not listed on platform',d:'Committed on a platform where the SKU has no listing history.'},
+  GWP:{t:'Gift with purchase',            d:'No price movement — cannot be verified from MRP/SP.'},
+  CART_MECHANIC:{t:'Cart-level mechanic', d:'BOGO / free-goods. PDP price unchanged.'},
+  COUPON:{t:'Targeted coupon',            d:'Segment-specific coupon, never visible in a public crawl.'},
+};
+
+const CONFLICTS = [
+ {id:'C1', type:'OVERLAP_DIFFERENT', sev:'crit', sku:'NESCAFÉ Gold 100g Plain Jar', plat:'ZEP',
+  title:'Two different depths committed for overlapping dates',
+  a:{src:'Bulk upload · Nestle_Promo_Tracker.xlsx · Sheet "Sept" · Row 8', when:'01–30 Sep', val:'₹110 off (1–7) then ₹80 off', by:'Rohan Shetty · 09 Aug 14:22'},
+  b:{src:'Manual entry · Promo Configurator', when:'05–14 Sep', val:'₹150 off', by:'Ankita Verma · 07 Aug 11:03'},
+  opts:['Keep bulk upload — discard manual entry',
+        'Keep manual entry — it supersedes the file',
+        'Split the timeline: bulk 01–04 & 15–30, manual 05–14',
+        'Escalate to approver — do not lock until resolved']},
+ {id:'C2', type:'SCOPE_MISMATCH', sev:'crit', sku:'CEREGROW Multipack 600g', plat:null,
+  title:'Promo text says “Amazon Only” but 6 platforms are marked Yes',
+  a:{src:'Activity Details text', when:'01–30 Sep', val:'10% off (Amazon Only)', by:'Parsed from column E'},
+  b:{src:'Platform grid columns', when:'01–30 Sep', val:'Yes on Blinkit, Zepto, Swiggy, FK Minutes, Bigbasket, Amazon', by:'Parsed from columns H–T'},
+  opts:['Trust the text — Amazon only',
+        'Trust the grid — all 6 platforms',
+        'Amazon at 10%, other 5 platforms flagged for input',
+        'Send back to uploader for correction']},
+ {id:'C3', type:'PLATFORM_OVERRIDE', sev:'warn', sku:'MILO RTD 180ml', plat:'AMZ',
+  title:'Platform cell contains its own promo text, not Yes/No',
+  a:{src:'Activity Details (row-level)', when:'01–30 Sep', val:'5% singles | 10% PO2 | 15% PO3', by:'Column E'},
+  b:{src:'Amazon column cell', when:'01–30 Sep', val:'“CP on singles”', by:'Column J'},
+  opts:['Treat cell text as an Amazon-specific override — singles tier only',
+        'Treat cell as “Yes” — apply the full row-level ladder',
+        'Flag Amazon as needs-input, keep other platforms']},
+ {id:'C4', type:'DUPLICATE', sev:'info', sku:'MAGGI Sauces H&S 1kg', plat:null,
+  title:'Identical commitment appears twice in the same file',
+  a:{src:'Sheet "Sept" · Row 10', when:'01–30 Sep', val:'Rs 15 off', by:'Bulk upload'},
+  b:{src:'Sheet "Sept" · Row 87', when:'01–30 Sep', val:'Rs 15 off', by:'Bulk upload'},
+  opts:['Auto-deduplicate — keep the first occurrence (recommended)',
+        'Keep both as separate commitment lines']},
+ {id:'C5', type:'MRP_CONFLICT', sev:'warn', sku:'NESCAFÉ Roastery 95g Jar', plat:null,
+  title:'MRP stated in promo text does not match catalog MRP',
+  a:{src:'Promo text', when:'01–30 Sep', val:'MRP ₹1,000', by:'Parsed from “(MRP 1000)”'},
+  b:{src:'eGenie Catalog System', when:'current', val:'MRP ₹950', by:'Catalog sync · 05 Aug'},
+  opts:['Use catalog MRP ₹950 as the measurement base (recommended)',
+        'Use ₹1,000 from the promo text',
+        'Raise a catalog correction task and hold this line']},
+ {id:'C6', type:'CROSS_PERIOD', sev:'warn', sku:'NESPLUS Flakes 850g Bulk Pack', plat:'BB',
+  title:'Commitment spills across the period boundary',
+  a:{src:'Aug 2026 (LOCKED v2)', when:'ends 31 Aug', val:'30% off', by:'Locked 29 Jul'},
+  b:{src:'Sep 2026 upload', when:'starts 28 Aug', val:'35% off', by:'Rohan Shetty · 09 Aug'},
+  opts:['Clip the Sep commitment to start 01 Sep (recommended)',
+        'Raise an amendment on the locked Aug period (creates v3)',
+        'Keep the overlap and evaluate the higher commitment on 28–31 Aug']},
+];
+
+const EVENTS = [
+ {n:'Zepto Mega Sale',        p:['ZEP'],           s:5,  e:9,  c:'#7B2CBF', used:38},
+ {n:'Amazon Freedom Sale',    p:['AMZ'],           s:12, e:16, c:'#232F3E', used:26},
+ {n:'Blinkit Independence Bonanza', p:['BLK'],     s:13, e:15, c:'#D9A916', used:44},
+ {n:'Big Basket Super Saver', p:['BB'],            s:22, e:24, c:'#84C225', used:19},
+ {n:'Raksha Bandhan Weekend', p:['BLK','ZEP','SWG','FKM','BB','AMZ','FLK'], s:28, e:30, c:'#387FEF', used:58},
+];
+
+/* ============================================================================
+   STATE
+============================================================================ */
+let S = { tab:'overview', cfgPeriod:null, cfgTab:'review', bucket:'A', conflictPick:{}, devFilter:'ALL' };
+
+/* ============================================================================
+   SHELL RENDER
+============================================================================ */
+function renderSidebar(){
+  const nav = (ic,label,on,badge)=>`<button class="nav-item ${on?'on':''}">${ic}<span>${label}</span>${badge||''}</button>`;
+  document.getElementById('sidebar').innerHTML = `
+  <div class="brand"><div class="logo">e</div><div><div class="bt">eGenie</div><div class="bs">Digital Shelf</div></div>
+    <div class="burger"><i></i><i></i><i></i></div></div>
+  <div class="nav-label">CLIENT</div>
+  <div class="client-card">Nestlé India ${I.chev}</div>
+  <div style="height:14px"></div>
+  ${nav(I.grid,'Executive Summary',false)}
+  ${nav(I.tasks,'Tasks &amp; SLAs',false,'<span class="badge">24</span>')}
+  <div class="nav-label">PLATFORMS</div>
+  <button class="allplat">${I.globe} All Platforms</button>
+  <div class="plat-grid">${PORDER.map(k=>`<div class="plat"><i style="background:${PLAT[k].bg};color:${PLAT[k].fg}">${PLAT[k].s}</i><span>${PLAT[k].n}</span></div>`).join('')}</div>
+  <div class="nav-label">DASHBOARDS</div>
+  ${nav(I.box,'Availability',false)}
+  ${nav(I.eye,'Visibility',false)}
+  ${nav(I.tagi,'Promotion',false)}
+  ${nav(I.pct,'Promo Tracker',true,'<span class="newtag">NEW</span>')}
+  ${nav(I.doc,'Content Score',false)}
+  ${nav(I.star,'Rating &amp; Review',false)}
+  <div class="nav-label">E-GENIE AI</div>
+  ${nav(I.spark,'Ask your e-genie',false)}
+  ${nav(I.agent,'Agent Framework',false)}
+  <div class="nav-label">SETTINGS</div>
+  ${nav(I.cat,'Catalog System',false)}
+  ${nav(I.tagi,'Labels &amp; Tags',false)}
+  ${nav(I.cal,'Event Calendar',false,'<span class="newtag">NEW</span>')}`;
+}
+
+function renderTopbar(){
+  document.getElementById('topbar').innerHTML = `
+  <div class="page-title">Promo Tracker</div>
+  <div class="ctrl"><span class="lab">MSL</span>
+    <span style="width:34px;height:19px;border-radius:99px;background:#E2E8F0;display:inline-block;position:relative">
+      <span style="position:absolute;left:2px;top:2px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:var(--sh)"></span></span></div>
+  <div class="ctrl"><div><div class="lab">PERIOD <span class="pill-blue">Aug 2026 ▾</span></div>
+    <div class="val">01 Aug'26 &nbsp;→&nbsp; 31 Aug'26</div></div>${I.cal}</div>
+  <div class="ctrl"><div><div class="lab">COMPARE WITH <span class="pill-blue">Prev Period ▾</span></div>
+    <div class="val">01 Jul'26 &nbsp;→&nbsp; 31 Jul'26</div></div>${I.cal}</div>
+  <button class="iconbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.7-.9 1.3v.5"/><path d="M12 17h.01"/></svg></button>
+  <button class="iconbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></button>
+  <button class="iconbtn bell"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6-2 6h16s-2-1-2-6z"/><path d="M10.5 20a2 2 0 0 0 3 0"/></svg><span class="dot">9+</span></button>
+  <div class="avatar">N</div>`;
+}
+
+const TABS = [
+  ['overview','Overview',''],
+  ['matrix','Compliance Matrix',''],
+  ['deviations','Deviations','118'],
+  ['locations','Locations',''],
+  ['configurator','Configurator','6'],
+  ['calendar','Event Calendar',''],
+];
+function renderSubbar(){
+  document.getElementById('subbar').innerHTML =
+   TABS.map(([k,l,n])=>`<button class="tab ${S.tab===k?'on':''}" onclick="go('${k}')">${l}${n?`<span class="n">${n}</span>`:''}</button>`).join('')
+   + `<div class="right">
+      <span class="mini">Data till <b>11 Aug 26</b></span>
+      <span class="mini">${I.pin} 1,934 pincodes</span>
+      <span class="mini">${I.filt} Filters</span></div>`;
+}
+function go(t){ S.tab=t; renderSubbar(); render(); window.scrollTo(0,0); }
+
+/* ============================================================================
+   HELPERS
+============================================================================ */
+const fmt = (n,d=1)=> n===null||n===undefined ? '—' : (n>0?'+':'')+n.toFixed(d);
+const pct = (n,d=1)=> n===null||n===undefined ? '—' : n.toFixed(d)+'%';
+function sparkline(vals, color, fill){
+  const w=250,h=34,mx=Math.max(...vals),mn=Math.min(...vals),rg=(mx-mn)||1;
+  const pts=vals.map((v,i)=>[i/(vals.length-1)*w,h-2-((v-mn)/rg)*(h-6)]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    ${fill?`<path d="${d} L${w} ${h} L0 ${h} Z" fill="${color}" opacity=".08"/>`:''}
+    <path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+function closeAll(){ document.getElementById('scrim').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+  document.getElementById('modal').classList.remove('on'); }
+function openDrawer(html){ document.getElementById('drawer').innerHTML=html;
+  document.getElementById('drawer').classList.add('on'); document.getElementById('scrim').classList.add('on'); }
+function openModal(html){ document.getElementById('modal').innerHTML=html;
+  document.getElementById('modal').classList.add('on'); document.getElementById('scrim').classList.add('on'); }
+/* ============================================================================
+   VIEW 1 — OVERVIEW
+============================================================================ */
+function vOverview(){
+  const P=PERIOD;
+  const attention = [
+    {sev:'crit',cat:'PROMO NOT LIVE',ic:I.bolt,c:'red',t:'NESCAFÉ Gold 100g · Zepto',
+     s:'Committed ₹110 off (1–7 Aug). Zero price movement on 812 pincodes, all 31 days.',d:'−9.6pt',id:'D1'},
+    {sev:'crit',cat:'UNDER-DELIVERED',ic:I.down,c:'red',t:'Munch Choco Fills 250g · Blinkit',
+     s:'Committed 30%, running at 12.4% since 10 Aug. 1,204 pincodes breaching.',d:'−17.6pt',id:'D2'},
+    {sev:'crit',cat:'REGIONAL SHORTFALL',ic:I.pin,c:'red',t:'MILO RTD 180ml · Swiggy Instamart',
+     s:'South compliant at 4.9%. Delhi NCR & Kolkata show no promo at all.',d:'−5.0pt',id:'D4'},
+    {sev:'crit',cat:'UNDER-DELIVERED',ic:I.down,c:'red',t:'NANGROW 800g · Flipkart',
+     s:'10% committed all month, delivered on weekends only — 18 days breached.',d:'−6.6pt',id:'D6'},
+    {sev:'crit',cat:'NOT LISTED',ic:I.warn,c:'red',t:'NESPLUS Flakes 475g · Flipkart',
+     s:'Promo committed on a platform where the SKU has never been listed.',d:'0 listings',id:'D7'},
+    {sev:'warn',cat:'OVER-DISCOUNTING',ic:I.up,c:'amb',t:'NESPLUS Flakes 850g · Bigbasket',
+     s:'Committed 30%, platform running 41.2%. Unfunded depth on 902 pincodes.',d:'+11.2pt',id:'D5'},
+    {sev:'warn',cat:'OVER-DISCOUNTING',ic:I.up,c:'amb',t:'NESCAFÉ Frappé 300g · Zepto',
+     s:'Event top-up continued 12 days past the Zepto Mega Sale window.',d:'+6.4pt',id:'D9'},
+    {sev:'info',cat:'CONFIGURATOR',ic:I.merge,c:'blu',t:'Sep 2026 has 6 unresolved conflicts',
+     s:'Period cannot be locked until conflicts are resolved. Lock cut-off is 25 Aug.',d:'6 open',id:'CFG'},
+  ];
+  const acard = a => {
+    const map={red:['#FEF2F2','#DC2626'],amb:['#FFFBEB','#D97706'],blu:['#EFF5FE','#2F6ED0']};
+    const [bg,fg]=map[a.c];
+    return `<div class="acard" onclick="${a.id==='CFG'?"go('configurator')":`openDev('${a.id}')`}">
+      <span class="chev">${I.chev}</span>
+      <div class="top"><div class="ic" style="background:${bg};color:${fg}">${a.ic}</div>
+        <span class="tag t-${a.c==='blu'?'blu':(a.c==='red'?'red':'amb')}">${a.cat}</span></div>
+      <h4>${a.t}</h4><p>${a.s}</p><span class="delta ${a.c==='amb'?'amb':(a.c==='blu'?'':'neg')}">${a.d}</span></div>`;
+  };
+  const crit = attention.filter(a=>a.sev==='crit'), warn=attention.filter(a=>a.sev==='warn'), info=attention.filter(a=>a.sev==='info');
+
+  const kpi = (lab,val,sub,st,stc,spark,col,foot)=>`
+   <div class="kpi" onclick="go('deviations')">
+     <div class="kt">${lab} <span class="hint" style="border-color:#C7D0DE">i</span>
+       <span class="st" style="background:${stc[0]};color:${stc[1]};border:1px solid ${stc[2]}">${st}</span></div>
+     <div class="kv">${val}<small style="color:${col}">${sub}</small></div>
+     ${sparkline(spark,col,true)}
+     <div class="kf" style="color:${col}">${foot}</div></div>`;
+
+  const top = DEV.filter(d=>['NOT_LIVE','UNDER'].includes(d.verdict)).sort((a,b)=>a.dev-b.dev);
+
+  return `
+  <div class="hero">
+    <div class="eyebrow">PROMOTION · COMMITTED VS ACTUAL</div>
+    <h1>Did the promo we committed actually run?</h1>
+    <p>Scope: All Platforms · ${P.lines} committed lines → ${P.commitments.toLocaleString()} SKU × platform commitments · ${P.days} days · as of 11 Aug 2026</p>
+  </div>
+
+  <div class="ribbon">
+    <span class="dot"></span>
+    <b style="font-size:14px">Aug 2026</b>
+    <span class="tag t-grn">${I.lock} LOCKED · v${P.version}</span>
+    <span style="color:var(--muted);font-size:12.5px">Locked by <b style="color:var(--ink-2)">${P.lockedBy}</b> on ${P.lockedOn}</span>
+    <span class="tag t-blu">AMENDED 08 AUG</span>
+    <span style="color:var(--muted);font-size:12.5px">${P.amendReason}</span>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn sm" onclick="openVersions()">Version history</button>
+      <button class="btn sm" onclick="go('configurator')">Open configurator</button>
+    </div>
+  </div>
+
+  <div class="sec-h">Things that need your attention <span class="hint">i</span>
+    <span class="rt" style="margin-left:auto"><span class="tag t-red">5 CRITICAL</span> &nbsp; 8 ITEMS</span></div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:11px">
+    <span class="sev crit"><b></b>CRITICAL</span><span class="meta">5 ITEMS &nbsp; SCROLL →</span><span class="hr"></span></div>
+  <div class="rail">${crit.map(acard).join('')}</div>
+  <div style="display:flex;align-items:center;gap:12px;margin:18px 0 11px">
+    <span class="sev warn"><b></b>WARNING</span><span class="meta">2 ITEMS</span><span class="hr"></span></div>
+  <div class="rail">${warn.map(acard).join('')}</div>
+  <div style="display:flex;align-items:center;gap:12px;margin:18px 0 11px">
+    <span class="sev info"><b></b>GOVERNANCE</span><span class="meta">1 ITEM</span><span class="hr"></span></div>
+  <div class="rail">${info.map(acard).join('')}</div>
+
+  <div class="sec-h">Promo KPI Health <span class="hint">i</span><span class="rt" style="margin-left:auto">CLICK A TILE TO DRILL</span></div>
+  <div class="kpis">
+    ${kpi('PROMO COMPLIANCE','71.4%','−3.1pt','Watch',['#FFFBEB','#B45309','#FDE3A7'],
+      [78,77,76.5,75,74.2,73,71.4],'#DC2626','637 of 892 verifiable commitments in band')}
+    ${kpi('UNDER-DELIVERED','118','+21','Critical',['#FEF2F2','#B91C1C','#FBD5D5'],
+      [88,94,97,101,108,112,118],'#DC2626','43 of these show no promo at all')}
+    ${kpi('OVER-DELIVERED','137','+14','Watch',['#FFFBEB','#B45309','#FDE3A7'],
+      [110,116,119,124,128,131,137],'#D97706','avg +4.2pt of unfunded depth')}
+    ${kpi('AVG DEVIATION','−2.8pt','−0.6','Watch',['#FFFBEB','#B45309','#FDE3A7'],
+      [-1.4,-1.7,-1.9,-2.1,-2.4,-2.6,-2.8],'#DC2626','committed minus actual, verifiable only')}
+    ${kpi('NOT VERIFIABLE','169','0','Tracked',['#F5F3FF','#6D28D9','#E3DDFC'],
+      [169,169,169,169,169,169,169],'#7C3AED','GWP, BOGO &amp; coupon mechanics')}
+  </div>
+
+  <div class="sec-h">Compliance Deep Dive <span class="hint">i</span><span class="rt" style="margin-left:auto">CLICK A CHIP TO DRILL</span></div>
+  <div class="split">
+    <div class="card pad">
+      <div class="chips">
+        ${[[I.doc,'COMMITTED LINES','143','from Sheet “Aug”'],
+           [I.merge,'SKU × PLATFORM','1,061','commitment records'],
+           [I.price,'PRICE-VERIFIABLE','892','84% of commitments'],
+           [I.check,'IN COMPLIANCE','637','within ±1.0pt band'],
+           [I.down,'UNDER-DELIVERED','118','13.2% of verifiable'],
+           [I.up,'OVER-DELIVERED','137','15.4% of verifiable'],
+           [I.warn,'NOT LISTED','26','committed, never listed'],
+           [I.pin,'PINCODES BREACHING','1,412','of 1,934 · 73%']
+          ].map(([ic,l,v,s])=>`<div class="chipc" onclick="go('deviations')"><div class="ic">${ic}</div>
+            <div><div class="lb">${l}</div><div class="vl num">${v}</div><div class="sb">${s}</div></div></div>`).join('')}
+      </div>
+      <div style="height:16px"></div>
+      <div class="note"><b>How compliance is measured.</b> For every <b>day × SKU × platform × pincode</b> we derive
+        actual depth as <span class="mono">(MRP − SP) ÷ MRP</span> from the daily crawl, resolve the committed depth for that
+        exact day from the locked configurator version, and classify the cell against a <b>±1.0pt tolerance band</b>
+        (client-configurable). Mechanics that never move the shelf price — GWP, BOGO, targeted coupons, unlisted bundle
+        tiers — are recorded as commitments but held <b>outside the denominator</b> so they neither inflate nor
+        depress the compliance number.</div>
+    </div>
+    <div class="card">
+      <div class="pad" style="border-bottom:1px solid var(--line);display:flex;align-items:center">
+        <b>Top Under-delivery</b><span class="meta" style="margin-left:auto">DEVIATION</span></div>
+      ${top.map((d,i)=>`<div class="pad" style="padding:12px 16px;border-bottom:1px solid var(--line-2);display:flex;gap:11px;align-items:center;cursor:pointer" onclick="openDev('${d.id}')">
+        <span style="width:20px;height:20px;border-radius:6px;background:var(--slate-soft);display:grid;place-items:center;font-size:11px;font-weight:900;color:var(--muted)">${i+1}</span>
+        <div style="min-width:0"><div style="font-weight:700;font-size:12.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.sku}</div>
+          <div style="font-size:11px;color:var(--muted-2);font-weight:700">${PLAT[d.plat].n} · ${d.pins.toLocaleString()} pincodes</div></div>
+        <span class="delta neg" style="margin-left:auto">${d.dev!==null?fmt(d.dev)+'pt':'n/a'}</span>${I.chev}</div>`).join('')}
+      <div class="pad" style="padding:11px 16px"><button class="btn sm" style="width:100%;justify-content:center" onclick="go('deviations')">View all 118 breaches</button></div>
+    </div>
+  </div>
+
+  <div class="sec-h">Where money is exposed <span class="hint">i</span></div>
+  <div class="grid3">
+    <div class="card pad">
+      <div class="meta">UNFUNDED DEPTH (OVER-DELIVERY)</div>
+      <div style="font-size:29px;font-weight:900;letter-spacing:-1px;margin:6px 0 2px">3,288 <small style="font-size:13px;color:var(--muted)">excess pt-days</small></div>
+      <div style="font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:12px">137 commitments × avg +4.2pt × 5.7 days</div>
+      <div class="note amb" style="padding:10px 12px">₹ value of margin leakage unlocks when offtake is plugged.
+        <span class="tag t-amb" style="margin-left:4px">⚡ PLUG OFFTAKE</span></div>
+    </div>
+    <div class="card pad">
+      <div class="meta">PROMISED-BUT-NOT-DELIVERED</div>
+      <div style="font-size:29px;font-weight:900;letter-spacing:-1px;margin:6px 0 2px">2,914 <small style="font-size:13px;color:var(--muted)">shortfall pt-days</small></div>
+      <div style="font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:12px">118 commitments · 43 with zero promo live</div>
+      <div class="note red" style="padding:10px 12px">Highest priority. Trade spend was budgeted against depth the shopper never saw.</div>
+    </div>
+    <div class="card pad">
+      <div class="meta">MEASUREMENT COVERAGE</div>
+      <div style="font-size:29px;font-weight:900;letter-spacing:-1px;margin:6px 0 2px">84.1%</div>
+      <div class="bar" style="margin:8px 0 10px"><i style="width:84.1%;background:linear-gradient(90deg,#387FEF,#2F6ED0)"></i></div>
+      <div style="font-size:12.5px;color:var(--muted);font-weight:700">892 verifiable / 1,061 committed. 169 held out:
+        87 GWP &amp; BOGO, 44 coupons, 38 unmapped bundle tiers.</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================================
+   VIEW 2 — COMPLIANCE MATRIX
+============================================================================ */
+const MATRIX_SKUS = [
+ ['NESCAFÉ Gold 100g Plain Jar','Beverages',       {BLK:-1.2,ZEP:-9.6,SWG:-0.4,FKM:-2.1,BB:0.3,AMZ:-0.2,FLK:1.1}],
+ ['Munch Choco Fills 250g','NBC',                  {BLK:-17.6,ZEP:-0.3,SWG:0.6,FKM:-4.2,BB:null,AMZ:null,FLK:-2.2}],
+ ['MAGGI Noodles Classic 70g×12','Foods',          {BLK:-0.4,ZEP:0.2,SWG:-0.9,FKM:-3.2,BB:0.1,AMZ:-0.3,FLK:0.5}],
+ ['MILO RTD 180ml','C&C',                          {BLK:-0.8,ZEP:-1.9,SWG:-3.2,FKM:null,BB:0.4,AMZ:'NV',FLK:-0.6}],
+ ['NESPLUS Flakes 850g Bulk','NBC',                {BLK:2.1,ZEP:null,SWG:1.4,FKM:0.8,BB:11.2,AMZ:3.4,FLK:0.2}],
+ ['NANGROW 800g Large Pack','IN',                  {BLK:-1.1,ZEP:-0.7,SWG:-2.4,FKM:-0.9,BB:null,AMZ:-0.4,FLK:-6.6}],
+ ['NESPLUS Flakes 475g','NBC',                     {BLK:0.3,ZEP:-0.6,SWG:0.9,FKM:-1.4,BB:0.2,AMZ:1.8,FLK:'NL'}],
+ ['SUPERCOAT Adult Chicken 10kg','Purina',         {BLK:null,ZEP:-1.4,SWG:null,FKM:null,BB:null,AMZ:-3.1,FLK:null}],
+ ['NESCAFÉ Frappé Multiserve 300g','Beverages',    {BLK:1.2,ZEP:6.4,SWG:2.1,FKM:null,BB:0.7,AMZ:4.9,FLK:1.3}],
+ ['MAGGI Sauces H&S 1kg','Foods',                  {BLK:-0.2,ZEP:0.4,SWG:-0.6,FKM:0.3,BB:-0.1,AMZ:0.8,FLK:0.2}],
+ ['NESCAFÉ Classic Jar 180g','Beverages',          {BLK:'NV',ZEP:'NV',SWG:'NV',FKM:'NV',BB:'NV',AMZ:'NV',FLK:'NV'}],
+ ['Munch Cereal 120g','NBC',                       {BLK:null,ZEP:null,SWG:'NV',FKM:null,BB:null,AMZ:null,FLK:null}],
+ ['FELIX Wet Food Chicken 12×85g','Purina',        {BLK:-0.4,ZEP:-0.1,SWG:0.7,FKM:null,BB:0.9,AMZ:1.2,FLK:null}],
+ ['CEREGROW Multipack 600g','IN',                  {BLK:null,ZEP:null,SWG:null,FKM:null,BB:null,AMZ:-0.2,FLK:null}],
+ ['NESTEA Lemon 750g Plain','Beverages',           {BLK:null,ZEP:null,SWG:-0.4,FKM:0.6,BB:0.3,AMZ:0.4,FLK:-0.8}],
+ ['FRISKIES Seafood Sensations 1.2kg','Purina',    {BLK:-2.4,ZEP:-1.8,SWG:-0.9,FKM:null,BB:null,AMZ:-0.6,FLK:null}],
+ ['NESCAFÉ Sunrise 90g Jar','Beverages',           {BLK:-4.1,ZEP:-3.8,SWG:-5.2,FKM:-1.1,BB:-0.7,AMZ:0.4,FLK:null}],
+ ['NESCAFÉ E Machine 6×900g','Beverages',          {BLK:null,ZEP:null,SWG:2.2,FKM:null,BB:null,AMZ:0.9,FLK:1.4}],
+];
+function cellFor(v){
+  if(v===null) return `<div class="cell c-none" title="No commitment">·</div>`;
+  if(v==='NV') return `<div class="cell c-nv" title="Committed but not price-verifiable">NV</div>`;
+  if(v==='NL') return `<div class="cell c-nl" title="Committed but SKU never listed on this platform">NL</div>`;
+  const cls = v<=-8?'c-under deep': v<=-1?'c-under': v>=1?'c-over':'c-match';
+  return `<div class="cell ${cls}" title="Deviation ${fmt(v)}pt">${fmt(v)}</div>`;
+}
+function vMatrix(){
+  return `
+  <div class="hero"><div class="eyebrow">PROMOTION · COMPLIANCE MATRIX</div>
+    <h1>Every commitment, every platform, one grid.</h1>
+    <p>Cell shows average deviation in percentage points — actual depth minus committed depth — across the locked period.</p></div>
+
+  <div class="card pad" style="margin-bottom:14px">
+    <div class="legend">
+      <span><i style="background:#DC2626"></i>Promo not live / severe shortfall (≤ −8pt)</span>
+      <span><i style="background:#FDECEC;border:1px solid #F8CFCF"></i>Under-delivered (−1 to −8pt)</span>
+      <span><i style="background:#EAF7EF;border:1px solid #CBEBD8"></i>Match (within ±1pt)</span>
+      <span><i style="background:#FFF4E5;border:1px solid #FBE0B8"></i>Over-delivered (&gt; +1pt)</span>
+      <span><i style="background:#F5F3FF;border:1px solid #E3DDFC"></i>NV — not price-verifiable</span>
+      <span><i style="background:#F1F5F9;border:1px solid #E2E8F0"></i>NL — committed, never listed</span>
+      <span><i style="background:#FBFCFE;border:1px solid #F1F5F9"></i>No commitment</span>
+      <span style="margin-left:auto"><button class="btn sm">${I.down} Export grid</button></span>
+    </div>
+  </div>
+
+  <div class="card matrix">
+    <table>
+      <thead><tr><th class="sk">SKU</th>${PORDER.map(k=>`<th style="text-align:center">${PLAT[k].n}</th>`).join('')}
+        <th style="text-align:center">Row verdict</th></tr></thead>
+      <tbody>${MATRIX_SKUS.map(([sku,bu,row])=>{
+        const nums = PORDER.map(k=>row[k]).filter(v=>typeof v==='number');
+        const worst = nums.length?Math.min(...nums):null;
+        const vd = worst===null?'—': worst<=-8?'<span class="tag t-red">CRITICAL</span>': worst<=-1?'<span class="tag t-red">UNDER</span>':
+                   Math.max(...nums)>=1?'<span class="tag t-amb">OVER</span>':'<span class="tag t-grn">OK</span>';
+        return `<tr><td class="sk"><div class="skucell">${sku}<small>${bu}</small></div></td>
+          ${PORDER.map(k=>`<td style="text-align:center;padding:5px" onclick="matrixCell('${sku.replace(/'/g,"\\'")}','${k}')">${cellFor(row[k])}</td>`).join('')}
+          <td style="text-align:center">${vd}</td></tr>`;}).join('')}
+      </tbody>
+    </table>
+  </div>
+
+  <div style="height:14px"></div>
+  <div class="note"><b>Reading the grid.</b> A blank cell means nothing was committed for that SKU × platform in this
+  period — it is not a failure. <b>NL</b> is the one to act on fastest after severe shortfall: a promo was funded and
+  committed on a platform where the pack has no listing at all, so the spend has nowhere to land.</div>`;
+}
+function matrixCell(sku,plat){
+  const d = DEV.find(x=>x.sku.includes(sku.split(' ')[0]) && x.plat===plat);
+  if(d) return openDev(d.id);
+  openModal(`<div style="padding:20px 22px"><div style="display:flex;align-items:flex-start;gap:12px">
+    <div><div class="meta">MATRIX CELL</div><h3 style="margin:4px 0 2px">${sku}</h3>
+    <div style="color:var(--muted);font-weight:700">${PLAT[plat].n}</div></div>
+    <button class="x" onclick="closeAll()">${I.xm}</button></div>
+    <div style="height:12px"></div>
+    <div class="note">Full day-level and pincode-level drilldown opens here in the live build. The wired examples in this
+    prototype are the rows on the <b>Deviations</b> tab.</div></div>`);
+}
+/* ============================================================================
+   VIEW 3 — DEVIATIONS
+============================================================================ */
+const DFILTERS = [['ALL','All',DEV.length],['NOT_LIVE','Promo not live',1],['UNDER','Under-delivered',4],
+  ['NOT_LISTED','Not listed',1],['OVER','Over-delivered',2],['MATCH','Match',4],['NOT_VERIFIABLE','Not verifiable',2]];
+function vDeviations(){
+  const rows = DEV.filter(d=>S.devFilter==='ALL'||d.verdict===S.devFilter)
+                  .sort((a,b)=>VERD[a.verdict].pri-VERD[b.verdict].pri || (a.dev??0)-(b.dev??0));
+  return `
+  <div class="hero"><div class="eyebrow">PROMOTION · DEVIATIONS</div>
+    <h1>Ranked by what costs you most.</h1>
+    <p>Priority order: promo never went live → under-delivered → committed on an unlisted SKU → over-delivered → in band.</p></div>
+
+  <div class="card pad" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+    ${DFILTERS.map(([k,l,n])=>`<button class="tab ${S.devFilter===k?'on':''}" onclick="S.devFilter='${k}';render()">${l}<span class="n">${n}</span></button>`).join('')}
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <span class="mini">Tolerance band <b>±1.0pt</b></span>
+      <button class="btn sm">${I.down} Export</button>
+      <button class="btn sm pri">${I.tasks} Raise tasks for all critical</button></div>
+  </div>
+
+  <div class="card" style="overflow:auto">
+    <table><thead><tr>
+      <th style="width:28px"></th><th>SKU</th><th>Platform</th><th>Committed</th>
+      <th style="text-align:right">Committed %</th><th style="text-align:right">Actual %</th>
+      <th style="text-align:right">Deviation</th><th style="text-align:right">Days breached</th>
+      <th style="text-align:right">Pincodes</th><th>Verdict</th><th style="width:28px"></th></tr></thead>
+    <tbody>${rows.map((d,i)=>`
+      <tr class="clickable" onclick="openDev('${d.id}')">
+        <td style="color:var(--muted-2);font-weight:900;font-size:11px">${i+1}</td>
+        <td><div class="skucell">${d.sku}<small>${d.brand}</small></div></td>
+        <td>${pchip(d.plat)}</td>
+        <td style="max-width:260px"><div style="font-size:12.3px;font-weight:700;color:var(--ink-2);line-height:1.35">${d.cTxt}</div>
+            <div class="mono" style="font-size:10.5px;color:var(--muted-2);margin-top:3px">“${d.raw}”</div></td>
+        <td class="tnum">${pct(d.cAvg)}</td>
+        <td class="tnum">${d.aAvg===null?'<span style="color:var(--muted-2)">—</span>':pct(d.aAvg)}</td>
+        <td class="tnum">${d.dev===null?'—':`<span class="delta ${d.dev<0?'neg':'amb'}">${fmt(d.dev)}pt</span>`}</td>
+        <td class="tnum">${d.dbreach}/${d.days}</td>
+        <td class="tnum">${d.pins?d.pins.toLocaleString():'—'}</td>
+        <td><span class="tag ${VERD[d.verdict].cls}">${VERD[d.verdict].lab}</span></td>
+        <td style="color:#B6C0D0">${I.chev}</td></tr>`).join('')}
+    </tbody></table>
+  </div>
+
+  <div style="height:14px"></div>
+  <div class="grid2">
+    <div class="note red"><b>Why “promo not live” is its own verdict.</b> A commitment running at 12% against a 30%
+      target is a depth problem the category team can negotiate. A commitment showing <b>zero</b> price movement is
+      usually an execution failure — the promo was never keyed in on the platform, or it was keyed against the wrong
+      pack. Splitting them changes who gets the task.</div>
+    <div class="note"><b>Days breached vs deviation.</b> Both matter and they fail differently. A −17.6pt average
+      across 22 days is a sustained mis-keyed promo. A −2pt average across 27 days is chronic shallow delivery.
+      Sorting only by deviation hides the second one, so both columns are sortable and the attention cards use
+      whichever is more extreme.</div>
+  </div>`;
+}
+
+/* ---------------------------- DRILLDOWN DRAWER ---------------------------- */
+function openDev(id){
+  const d = DEV.find(x=>x.id===id); if(!d) return;
+  const hasSeries = d.series && d.series.length;
+  const chart = hasSeries ? dayChart(d) : `<div class="empty" style="padding:36px">
+      <div class="ic" style="background:var(--violet-soft);border-color:var(--violet-line)">${I.warn}</div>
+      <b style="font-size:15px">No price series to compare</b>
+      <p style="color:var(--muted);max-width:420px;margin:8px 0 0">${d.why}</p></div>`;
+
+  openDrawer(`
+   <div class="dh">
+     <div style="min-width:0">
+       <div class="meta">DEVIATION DETAIL · AUG 2026 · LOCKED v2</div>
+       <h2 style="margin:5px 0 6px;font-size:20px;letter-spacing:-.5px">${d.sku}</h2>
+       <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+         ${pchip(d.plat)} <span class="tag ${VERD[d.verdict].cls}">${VERD[d.verdict].lab}</span>
+         ${d.dev!==null?`<span class="delta ${d.dev<0?'neg':'amb'}">${fmt(d.dev)}pt</span>`:''}
+         ${d.eventNote?'<span class="tag t-blu">EVENT-LINKED</span>':''}
+         ${d.tierNote?'<span class="tag t-vio">TIER LADDER</span>':''}
+       </div>
+     </div>
+     <button class="x" onclick="closeAll()">${I.xm}</button>
+   </div>
+   <div class="db">
+     <div class="note ${d.verdict==='MATCH'?'grn':(d.verdict==='OVER'?'amb':(d.verdict==='NOT_VERIFIABLE'?'':'red'))}" style="margin-bottom:16px">
+       <b>What happened.</b> ${d.why}</div>
+
+     <div class="grid3" style="margin-bottom:16px">
+       <div class="card pad"><div class="meta">COMMITTED</div>
+         <div style="font-size:22px;font-weight:900;letter-spacing:-.6px;margin:5px 0 3px">${pct(d.cAvg)}</div>
+         <div style="font-size:12px;color:var(--muted);font-weight:700">${d.cTxt}</div></div>
+       <div class="card pad"><div class="meta">ACTUAL (AVG)</div>
+         <div style="font-size:22px;font-weight:900;letter-spacing:-.6px;margin:5px 0 3px">${pct(d.aAvg)}</div>
+         <div style="font-size:12px;color:var(--muted);font-weight:700">MRP ₹${d.mrp} → SP ₹${d.actualSp??'—'}</div></div>
+       <div class="card pad"><div class="meta">BREACH FOOTPRINT</div>
+         <div style="font-size:22px;font-weight:900;letter-spacing:-.6px;margin:5px 0 3px">${d.dbreach}<span style="font-size:13px;color:var(--muted)">/${d.days} days</span></div>
+         <div style="font-size:12px;color:var(--muted);font-weight:700">${d.pins?d.pins.toLocaleString()+' pincodes affected':'no pincode breach'}</div></div>
+     </div>
+
+     <div class="sec-h" style="margin-top:6px">Daily committed vs actual</div>
+     <div class="card pad">${chart}</div>
+
+     <div class="sec-h">Location breakdown <span class="hint">i</span>
+       <span class="rt" style="margin-left:auto">CITY → PINCODE → DARKSTORE</span></div>
+     ${d.locs.length?`<div class="card" style="overflow:hidden">
+       <table><thead><tr><th>City</th><th style="text-align:right">Pincodes</th>
+         <th style="text-align:right">Actual %</th><th style="text-align:right">Deviation</th><th>Verdict</th><th style="width:24px"></th></tr></thead>
+       <tbody>${d.locs.map(l=>`<tr class="clickable"><td style="font-weight:700">${l[0]}</td>
+         <td class="tnum">${l[1]}</td><td class="tnum">${l[2].toFixed(1)}%</td>
+         <td class="tnum"><span class="delta ${l[3]<0?'neg':'amb'}">${fmt(l[3])}pt</span></td>
+         <td><span class="tag ${l[4]==='MATCH'?'t-grn':(l[4]==='OVER'?'t-amb':'t-red')}">${l[4]}</span></td>
+         <td style="color:#B6C0D0">${I.chev}</td></tr>`).join('')}</tbody></table></div>`
+       :`<div class="card pad" style="color:var(--muted);font-weight:700">No location-level breach recorded for this commitment.</div>`}
+
+     <div class="sec-h">Provenance</div>
+     <div class="card pad">
+       <div class="kv"><span class="k">Source</span><span class="v">Bulk upload · Nestle_Promo_Tracker.xlsx · Sheet “Aug”</span></div>
+       <div class="kv"><span class="k">Raw text as written</span><span class="v mono" style="font-size:11.5px">“${d.raw}”</span></div>
+       <div class="kv"><span class="k">Parsed by</span><span class="v">Promo grammar engine v1.4 · confidence 96%</span></div>
+       <div class="kv"><span class="k">Reviewed &amp; accepted</span><span class="v">Rohan Shetty · 27 Jul 2026</span></div>
+       <div class="kv"><span class="k">Approved &amp; locked</span><span class="v">Priya Nair · 29 Jul 2026, 18:42 · v1</span></div>
+       <div class="kv"><span class="k">Amendment</span><span class="v">v2 effective 08 Aug — ${PERIOD.amendReason}</span></div>
+       <div class="kv"><span class="k">Evaluated against</span><span class="v">v1 for 01–07 Aug, v2 for 08–31 Aug</span></div>
+     </div>
+
+     <div style="display:flex;gap:9px;margin-top:18px;flex-wrap:wrap">
+       <button class="btn pri">${I.tasks} Raise task to category team</button>
+       <button class="btn">${I.down} Export evidence pack</button>
+       <button class="btn">Compare vs competitor depth</button>
+       <button class="btn dgr">Flag as data issue</button>
+     </div>
+   </div>`);
+}
+
+function dayChart(d){
+  const W=880,H=210,PADL=42,PADB=26,PADT=14;
+  const n=d.series.length, all=[...d.series,...d.cSeries];
+  const mx=Math.max(6,Math.ceil(Math.max(...all)/5)*5), bw=(W-PADL-8)/n;
+  const y = v => PADT + (1-v/mx)*(H-PADT-PADB);
+  const bars = d.series.map((v,i)=>{
+    const c=d.cSeries[i]??0, dev=v-c;
+    const col = dev<-1?'#DC2626': dev>1?'#F59E0B':'#22A366';
+    const yy=y(v), hh=Math.max(1,(H-PADB)-yy);
+    return `<rect x="${PADL+i*bw+1.5}" y="${yy}" width="${bw-3}" height="${hh}" rx="2.5" fill="${col}" opacity=".88">
+      <title>Day ${i+1}: actual ${v.toFixed(1)}% vs committed ${c.toFixed(1)}%</title></rect>`;}).join('');
+  const cline = d.cSeries.map((v,i)=>`${i?'L':'M'}${(PADL+i*bw+bw/2).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  const grid = [0,.25,.5,.75,1].map(t=>{const yy=PADT+t*(H-PADT-PADB), val=(mx*(1-t)).toFixed(0);
+    return `<line x1="${PADL}" x2="${W}" y1="${yy}" y2="${yy}" stroke="#EFF2F7"/>
+            <text x="${PADL-8}" y="${yy+4}" text-anchor="end" font-size="10" fill="#8A97AB" font-weight="700">${val}%</text>`;}).join('');
+  const days = d.series.map((_,i)=> (i%3===0)?`<text x="${PADL+i*bw+bw/2}" y="${H-8}" text-anchor="middle" font-size="9.5" fill="#8A97AB" font-weight="700">${i+1}</text>`:'').join('');
+  const ev = d.eventNote?`<rect x="${PADL+11*bw}" y="${PADT}" width="${5*bw}" height="${H-PADT-PADB}" fill="#387FEF" opacity=".07"/>
+     <text x="${PADL+11*bw+4}" y="${PADT+13}" font-size="9.5" fill="#2F6ED0" font-weight="900">EVENT WINDOW</text>`:'';
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">${grid}${ev}${bars}
+    <path d="${cline}" fill="none" stroke="#0F1729" stroke-width="2" stroke-dasharray="5 4"/>${days}</svg>
+    <div style="display:flex;gap:18px;margin-top:10px;font-size:11.5px;font-weight:700;color:var(--muted);flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:16px;height:0;border-top:2px dashed #0F1729;display:block"></i>Committed depth</span>
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:3px;background:#22A366;display:block"></i>Actual — in band</span>
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:3px;background:#DC2626;display:block"></i>Actual — under</span>
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:3px;background:#F59E0B;display:block"></i>Actual — over</span></div>`;
+}
+
+function openVersions(){
+  openModal(`<div style="padding:20px 22px">
+    <div style="display:flex;align-items:flex-start"><div><div class="meta">AUG 2026</div>
+      <h3 style="margin:4px 0 0;font-size:19px">Version history</h3></div>
+      <button class="x" onclick="closeAll()">${I.xm}</button></div>
+    <div style="height:14px"></div>
+    ${[['v2','08 Aug 2026 → 31 Aug','AMENDMENT · LIVE','t-grn','Priya Nair approved · Zepto pulled NESCAFÉ Gold from the event slot; 4 commitment lines changed'],
+       ['v1','01 Aug 2026 → 07 Aug','LOCKED · SUPERSEDED','t-gry','Priya Nair locked 29 Jul 18:42 · 143 lines, 1,061 commitments, snapshot hash 8f31c2'],
+       ['—','27 Jul 2026','IN REVIEW','t-gry','Rohan Shetty resolved 11 conflicts, accepted 29 amber rows'],
+       ['—','24 Jul 2026','PARSED','t-gry','Nestle_Promo_Tracker.xlsx uploaded · 143 rows → 118 green / 17 amber / 8 red']
+      ].map(([v,dt,st,cls,txt])=>`<div style="display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line-2)">
+        <div style="width:34px;flex:0 0 34px;font-weight:900;color:var(--muted)">${v}</div>
+        <div><div style="display:flex;gap:8px;align-items:center;margin-bottom:3px"><b style="font-size:13px">${dt}</b>
+          <span class="tag ${cls}">${st}</span></div>
+          <div style="font-size:12.5px;color:var(--muted);font-weight:700">${txt}</div></div></div>`).join('')}
+    <div style="height:14px"></div>
+    <div class="note"><b>Why versions and not overwrites.</b> Days 01–07 Aug are still evaluated against v1, because
+      that is what the business had committed to on those days. Overwriting the period would silently rewrite history
+      and make last week's compliance number change after the fact.</div>
+  </div>`);
+}
+
+/* ============================================================================
+   VIEW 4 — LOCATIONS
+============================================================================ */
+function vLocations(){
+  const mx = Math.max(...CITIES.map(c=>c[4]));
+  return `
+  <div class="hero"><div class="eyebrow">PROMOTION · LOCATION VIEW</div>
+    <h1>Where the promo didn't land.</h1>
+    <p>A national commitment is delivered pincode by pincode. This is the cut that tells the platform exactly where to fix.</p></div>
+
+  <div class="kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px">
+    <div class="kpi"><div class="kt">PINCODES TRACKED</div><div class="kv">1,934</div><div class="kf">across 4,581 darkstores</div></div>
+    <div class="kpi"><div class="kt">PINCODES BREACHING<span class="st" style="background:#FEF2F2;color:#B91C1C;border:1px solid #FBD5D5">Critical</span></div>
+      <div class="kv">1,412 <small style="color:#DC2626">73.0%</small></div><div class="kf" style="color:#DC2626">≥1 under-delivered commitment</div></div>
+    <div class="kpi"><div class="kt">WORST CITY</div><div class="kv" style="font-size:23px">Lucknow</div><div class="kf" style="color:#DC2626">44.2% compliance · −11.9pt vs prev</div></div>
+    <div class="kpi"><div class="kt">BEST CITY</div><div class="kv" style="font-size:23px">Kochi</div><div class="kf" style="color:#15803D">78.2% compliance · +3.9pt vs prev</div></div>
+  </div>
+
+  <div class="split">
+    <div class="card" style="overflow:hidden">
+      <div class="pad" style="border-bottom:1px solid var(--line);display:flex;align-items:center">
+        <b>City compliance</b><span class="meta" style="margin-left:auto">CLICK TO DRILL TO PINCODE</span></div>
+      <div style="overflow:auto;max-height:560px">
+      <table><thead><tr><th>City</th><th style="text-align:right">Pincodes</th>
+        <th style="text-align:right">Compliance</th><th style="text-align:right">vs prev</th>
+        <th style="text-align:right">Under</th><th style="text-align:right">Over</th>
+        <th>Worst platform</th><th style="width:24px"></th></tr></thead>
+      <tbody>${CITIES.sort((a,b)=>a[2]-b[2]).map(c=>`<tr class="clickable" onclick="openCity('${c[0]}')">
+        <td style="font-weight:700">${c[0]}</td><td class="tnum">${c[1]}</td>
+        <td class="tnum"><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
+            <span class="bar" style="width:64px"><i style="width:${c[2]}%;background:${c[2]<55?'#DC2626':c[2]<70?'#F59E0B':'#22A366'}"></i></span>
+            <b>${c[2].toFixed(1)}%</b></div></td>
+        <td class="tnum"><span class="delta ${c[3]<0?'neg':'pos'}">${fmt(c[3])}pt</span></td>
+        <td class="tnum" style="color:#DC2626">${c[4]}</td><td class="tnum" style="color:#D97706">${c[5]}</td>
+        <td style="font-weight:700;font-size:12.3px">${c[6]}</td><td style="color:#B6C0D0">${I.chev}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+    <div>
+      <div class="card pad" style="margin-bottom:14px">
+        <b style="font-size:14.5px">Under-delivered commitments by city</b>
+        <div style="height:12px"></div>
+        ${CITIES.slice().sort((a,b)=>b[4]-a[4]).map(c=>`<div style="margin-bottom:9px">
+          <div style="display:flex;font-size:12px;font-weight:700;margin-bottom:3px"><span>${c[0]}</span>
+            <span style="margin-left:auto;color:var(--muted)">${c[4]}</span></div>
+          <div class="bar"><i style="width:${c[4]/mx*100}%;background:linear-gradient(90deg,#F87171,#DC2626)"></i></div></div>`).join('')}
+      </div>
+      <div class="note amb"><b>The geo-split case.</b> Some commitments in the file are already regional —
+        <span class="mono" style="font-size:11px">“INR 245 off for South and INR 55 off for North, East, West”</span>.
+        Those are evaluated against the <b>Region Master</b>, so a South pincode is only ever judged against the South
+        commitment. A national promo failing in one zone and a zone promo working as designed look identical in a
+        national average — this view is what separates them.</div>
+    </div>
+  </div>`;
+}
+function openCity(city){
+  const c = CITIES.find(x=>x[0]===city);
+  openDrawer(`<div class="dh"><div><div class="meta">LOCATION DETAIL · AUG 2026</div>
+      <h2 style="margin:5px 0 6px;font-size:20px;letter-spacing:-.5px">${city}</h2>
+      <div style="display:flex;gap:9px"><span class="tag ${c[2]<55?'t-red':c[2]<70?'t-amb':'t-grn'}">${c[2].toFixed(1)}% COMPLIANCE</span>
+      <span class="tag t-gry">${c[1]} PINCODES</span><span class="tag t-red">${c[4]} UNDER</span><span class="tag t-amb">${c[5]} OVER</span></div></div>
+      <button class="x" onclick="closeAll()">${I.xm}</button></div>
+    <div class="db">
+      <div class="note red" style="margin-bottom:16px"><b>Worst platform: ${c[6]}.</b>
+        ${Math.round(c[4]*0.55)} of ${c[4]} under-delivered commitments in ${city} sit on ${c[6]} alone.</div>
+      <div class="sec-h" style="margin-top:0">Pincode breakdown</div>
+      <div class="card" style="overflow:hidden"><table>
+        <thead><tr><th>Pincode</th><th>Area</th><th style="text-align:right">Darkstores</th>
+          <th style="text-align:right">Commitments</th><th style="text-align:right">Compliance</th><th>Verdict</th></tr></thead>
+        <tbody>${[['110017','Pushp Vihar',6,42,38.1,'CRITICAL'],['110024','Lajpat Nagar',4,39,41.0,'CRITICAL'],
+          ['201301','Noida Sec 18',7,44,52.3,'UNDER'],['122002','Gurugram Sec 29',9,47,58.4,'UNDER'],
+          ['110092','Shahdara',3,31,64.5,'UNDER'],['201014','Indirapuram',5,36,71.2,'OK'],
+          ['110070','Vasant Kunj',4,33,74.8,'OK'],['121003','Faridabad NIT',3,28,79.1,'OK']]
+          .map(p=>`<tr class="clickable"><td class="mono" style="font-weight:700">${p[0]}</td><td style="font-weight:700">${p[1]}</td>
+          <td class="tnum">${p[2]}</td><td class="tnum">${p[3]}</td>
+          <td class="tnum"><b>${p[4].toFixed(1)}%</b></td>
+          <td><span class="tag ${p[5]==='CRITICAL'?'t-red':p[5]==='UNDER'?'t-amb':'t-grn'}">${p[5]}</span></td></tr>`).join('')}
+        </tbody></table></div>
+      <div style="height:16px"></div>
+      <div class="note"><b>Why pincode and not just city.</b> Quick-commerce promo keying is darkstore-scoped on some
+        platforms. A city can read 58% compliant while three specific pincodes are at zero — and it is those three
+        that go into the platform escalation, not the city average.</div>
+      <div style="display:flex;gap:9px;margin-top:18px"><button class="btn pri">${I.tasks} Raise pincode fix task</button>
+        <button class="btn">${I.down} Export pincode list</button></div>
+    </div>`);
+}
+/* ============================================================================
+   VIEW 5 — CONFIGURATOR
+============================================================================ */
+const ST_STYLE = {'LOCKED':['t-grn',I.lock],'IN REVIEW':['t-amb',I.merge],'DRAFT':['t-blu',I.upl],'NOT STARTED':['t-gry',I.plus]};
+function vConfigurator(){
+  if(!S.cfgPeriod) return cfgPeriodList();
+  return cfgWorkspace();
+}
+
+function cfgPeriodList(){
+  return `
+  <div class="hero"><div class="eyebrow">PROMOTION · CONFIGURATOR</div>
+    <h1>Commit the promo before you measure it.</h1>
+    <p>Each period moves through the same gates. The dashboard only reads a period once it is locked.</p></div>
+
+  <div class="card pad" style="margin-bottom:16px">
+    <div class="steps">
+      ${[['1','Upload or enter','done'],['2','Parse &amp; review','done'],['3','Resolve conflicts','now'],
+         ['4','Approve','pending'],['5','Lock','pending'],['6','Measure','pending']]
+        .map(([n,l,st],i)=>`${i?'<span class="step-sep"></span>':''}
+          <div class="step ${st==='done'?'done':st==='now'?'now':''}"><span class="b">${st==='done'?'✓':n}</span>${l}</div>`).join('')}
+    </div>
+    <div class="note"><b>The gate that matters.</b> Committed-vs-actual is only rendered for a <b>locked</b> period.
+      An unlocked period would let the target move after the fact, which makes every compliance number
+      unauditable. Locking freezes a versioned snapshot; changes after that become dated amendments, never edits.</div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:16px">
+    ${PERIODS.map(p=>{
+      const [cls,ic]=ST_STYLE[p.state];
+      const total=p.green+p.amber+p.red+(p.nv||0);
+      return `<div class="card pad" style="cursor:pointer" onclick="${p.state==='NOT STARTED'?'openManual()':`openPeriod('${p.id}')`}">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <b style="font-size:16px">${p.label}</b><span class="tag ${cls}">${ic} ${p.state}${p.v?' · v'+p.v:''}</span>
+          <span style="margin-left:auto;color:#B6C0D0">${I.chev}</span></div>
+        <div style="font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:11px">${p.note}</div>
+        ${total?`<div style="display:flex;height:8px;border-radius:99px;overflow:hidden;margin-bottom:8px">
+            <div style="width:${p.green/total*100}%;background:#22A366"></div>
+            <div style="width:${p.amber/total*100}%;background:#F59E0B"></div>
+            <div style="width:${p.red/total*100}%;background:#DC2626"></div>
+            <div style="width:${(p.nv||0)/total*100}%;background:#7C3AED"></div></div>
+          <div style="display:flex;gap:14px;font-size:11.5px;font-weight:700;color:var(--muted);flex-wrap:wrap">
+            <span style="color:#15803D">● ${p.green} understood</span>
+            <span style="color:#B45309">● ${p.amber} needs approval</span>
+            <span style="color:#B91C1C">● ${p.red} needs input</span>
+            <span style="color:#6D28D9">● ${p.nv||0} not verifiable</span></div>`
+          :`<div style="font-size:12.5px;color:var(--muted-2);font-weight:700">${p.state==='LOCKED'?'143 lines · 1,061 commitments · 892 price-verifiable · snapshot 8f31c2':(p.lines?p.lines+' rows staged, awaiting parse':'Nothing uploaded yet')}</div>`}
+      </div>`;}).join('')}
+  </div>
+
+  <div class="grid2">
+    <div class="card pad">
+      <b style="font-size:14.5px">Start a new period</b>
+      <div style="height:12px"></div>
+      <div style="border:2px dashed var(--line);border-radius:12px;padding:26px;text-align:center;background:#FBFCFE">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--blue-soft);color:var(--blue-deep);display:grid;place-items:center;margin:0 auto 10px">${I.upl}</div>
+        <b style="font-size:14px">Drop the monthly promo tracker</b>
+        <div style="font-size:12.5px;color:var(--muted);font-weight:700;margin:5px 0 12px">.xlsx or .csv · one sheet per month · up to 20MB</div>
+        <button class="btn pri" onclick="openPeriod('2026-09')">Browse files</button>
+        <button class="btn" onclick="openManual()">${I.plus} Enter a promo manually</button>
+      </div>
+      <div style="height:12px"></div>
+      <div class="note"><b>The file format is not fixed and does not need to be.</b> The parser maps whatever column
+        headers it finds to the canonical schema — <span class="mono" style="font-size:11px">SKU · promo text · platform scope · geography · period</span> —
+        and asks you to confirm the mapping once per file layout. It then remembers that layout for the client.</div>
+    </div>
+    <div class="card pad">
+      <b style="font-size:14.5px">Governance settings</b>
+      <div style="height:8px"></div>
+      <div class="kv"><span class="k">Approval model</span><span class="v">Maker–checker <span class="tag t-blu">RECOMMENDED</span></span></div>
+      <div class="kv"><span class="k">Maker</span><span class="v">Promo/Trade executive — uploads, resolves, submits</span></div>
+      <div class="kv"><span class="k">Checker</span><span class="v">Category or Trade Marketing Lead — approves &amp; locks</span></div>
+      <div class="kv"><span class="k">Lock cut-off</span><span class="v">25th of the preceding month</span></div>
+      <div class="kv"><span class="k">Post-lock changes</span><span class="v">Dated amendment → new version, never an edit</span></div>
+      <div class="kv"><span class="k">Hard unlock</span><span class="v">Admin only · invalidates computed compliance · audit-logged</span></div>
+      <div class="kv"><span class="k">Tolerance band</span><span class="v">±1.0 pt <button class="btn sm" style="margin-left:8px">Edit</button></span></div>
+      <div class="kv"><span class="k">Weekend definition</span><span class="v">Saturday + Sunday</span></div>
+      <div class="kv"><span class="k">Source precedence</span><span class="v">Manual entry &gt; bulk upload, unless the upload is newer</span></div>
+      <div style="height:12px"></div>
+      <div class="note grn"><b>Why maker–checker.</b> The committed promo is the yardstick every compliance number is
+        measured against, and the person who uploads it is usually the person whose execution it judges. Splitting
+        upload from approval is the cheapest possible control, and it costs one click a month.</div>
+    </div>
+  </div>`;
+}
+function openPeriod(id){ S.cfgPeriod=id; S.cfgTab='review'; S.bucket='A'; render(); window.scrollTo(0,0); }
+
+const CFG_TABS = [['review','Parse review','139'],['conflicts','Conflicts','6'],['coverage','Coverage checks','3'],['lock','Approve &amp; lock','']];
+function cfgWorkspace(){
+  const p = PERIODS.find(x=>x.id===S.cfgPeriod);
+  const body = S.cfgTab==='review'?cfgReview(): S.cfgTab==='conflicts'?cfgConflicts(): S.cfgTab==='coverage'?cfgCoverage():cfgLock();
+  return `
+  <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px">
+    <button class="btn sm" onclick="S.cfgPeriod=null;render()">← All periods</button>
+    <b style="font-size:18px;letter-spacing:-.4px">${p.label}</b>
+    <span class="tag ${ST_STYLE[p.state][0]}">${ST_STYLE[p.state][1]} ${p.state}</span>
+    <span style="color:var(--muted);font-size:12.5px;font-weight:700">Nestle_Promo_Tracker.xlsx · Sheet “Sept” · 118 rows → 139 commitment lines after row explosion</span>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn sm">${I.down} Download working copy</button>
+      <button class="btn sm" onclick="openManual()">${I.plus} Add manually</button></div>
+  </div>
+  <div class="card pad" style="margin-bottom:16px">
+    <div class="steps">
+      ${[['1','Upload','done'],['2','Map columns','done'],['3','Parse &amp; review','now'],
+         ['4','Resolve conflicts','pending'],['5','Approve','pending'],['6','Lock','pending']]
+        .map(([n,l,st],i)=>`${i?'<span class="step-sep"></span>':''}
+          <div class="step ${st==='done'?'done':st==='now'?'now':''}"><span class="b">${st==='done'?'✓':n}</span>${l}</div>`).join('')}
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <span class="tag t-red">6 CONFLICTS BLOCK LOCK</span>
+        <button class="btn sm pri" onclick="S.cfgTab='lock';render()">Go to approval</button></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    ${CFG_TABS.map(([k,l,n])=>`<button class="tab ${S.cfgTab===k?'on':''}" onclick="S.cfgTab='${k}';render()">${l}${n?`<span class="n">${n}</span>`:''}</button>`).join('')}
+  </div>
+  ${body}`;
+}
+
+/* ---- parse review ---- */
+const BUCKETS = [
+ ['G','Understood',            '#22A366','Auto-mapped and fully parsed. Accepted on lock unless you object.'],
+ ['A','Filled — needs approval','#F59E0B','Parsed with an assumption. Nothing is measured until you approve it.'],
+ ['R','Needs your input',      '#DC2626','Could not be resolved. These block the lock.'],
+ ['N','Not price-verifiable',  '#7C3AED','Understood, recorded, deliberately excluded from the compliance denominator.'],
+];
+function cfgReview(){
+  const counts = {G:74,A:29,R:15,N:21};
+  const rows = PARSED.filter(r=>r.b===S.bucket);
+  return `
+  <div class="grid2" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+    ${BUCKETS.map(([k,l,c,d])=>`<div class="card pad" style="cursor:pointer;${S.bucket===k?`border-color:${c};box-shadow:0 0 0 3px ${c}22`:''}" onclick="S.bucket='${k}';render()">
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:${c}"></span>
+        <div class="meta" style="color:${c}">${l}</div></div>
+      <div style="font-size:27px;font-weight:900;letter-spacing:-1px;margin:5px 0 3px">${counts[k]}</div>
+      <div style="font-size:11.5px;color:var(--muted);font-weight:700;line-height:1.4">${d}</div></div>`).join('')}
+  </div>
+
+  <div class="card pad" style="margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <b style="font-size:14px">${BUCKETS.find(b=>b[0]===S.bucket)[1]}</b>
+    <span style="color:var(--muted);font-size:12.5px;font-weight:700">showing ${rows.length} of ${counts[S.bucket]} rows</span>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      ${S.bucket==='A'?'<button class="btn sm">Approve all with same reason</button>':''}
+      ${S.bucket==='G'?'<button class="btn sm">Spot-check 10 random rows</button>':''}
+      <button class="btn sm">${I.down} Export bucket</button></div>
+  </div>
+
+  ${rows.map((r,i)=>parsedRow(r,i)).join('')}
+
+  <div class="note" style="margin-top:14px"><b>Why four buckets and not three.</b> You asked for green / amber / red.
+    Working through the real file, a fourth kept appearing: rows that are <b>perfectly understood</b> — “Red Mug promo”,
+    “Buy 1 get 10% off”, “10% off on VPC Targeted Coupons” — but that <b>can never be proven from MRP and selling
+    price</b>. Filing them as red would put 21 rows in front of a human every month with nothing to decide. Filing them
+    as green would quietly drag the compliance number down forever. They get their own bucket, are recorded as real
+    commitments, and sit outside the denominator.</div>`;
+}
+function parsedRow(r,i){
+  const col = {G:'#22A366',A:'#F59E0B',R:'#DC2626',N:'#7C3AED'}[r.b];
+  const segColors={flat:'#387FEF',phase1:'#2F6ED0',phase2:'#7BA7E8',event:'#7C3AED',bau:'#94A3B8',
+    weekend:'#F59E0B',geo:'#0EA5E9',bundle:'#EC4899',none:'#E2E8F0',gwp:'#7C3AED',bogo:'#7C3AED',coupon:'#7C3AED'};
+  return `<div class="card" style="margin-bottom:12px;border-left:4px solid ${col}">
+    <div class="pad" style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div style="flex:1;min-width:320px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:7px;flex-wrap:wrap">
+          <b style="font-size:14.5px">${r.sku}</b>
+          ${r.reason?`<span class="tag ${r.b==='R'?'t-red':r.b==='N'?'t-vio':'t-amb'}">${REASONS[r.reason].t}</span>`:''}
+          ${r.conf?`<span class="tag t-gry">${r.conf}% CONFIDENCE</span>`:''}
+        </div>
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:9px">${r.match}</div>
+        <div class="meta" style="margin-bottom:5px">RAW TEXT AS WRITTEN IN THE FILE</div>
+        <div class="raw">${r.raw}</div>
+        ${r.note?`<div class="note ${r.b==='R'?'red':r.b==='N'?'':'amb'}" style="margin-top:10px;padding:10px 12px">${r.note}</div>`:''}
+      </div>
+      <div style="flex:1;min-width:320px">
+        <div class="meta" style="margin-bottom:6px">WHAT eGENIE UNDERSTOOD</div>
+        ${r.seg.length?`<div class="tl" style="margin-bottom:9px">
+          ${r.seg.map(s=>`<div style="flex:1;background:${segColors[s.t]||'#387FEF'}" title="${s.d}: ${s.v}">${s.v}</div>`).join('')}</div>
+          ${r.seg.map(s=>`<div class="kv" style="padding:5px 0"><span class="k">${s.d}</span><span class="v">${s.v}</span></div>`).join('')}`
+          :`<div class="note red" style="padding:10px 12px">No commitment could be constructed from this row.</div>`}
+        <div class="kv"><span class="k">Platforms</span><span class="v" style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">
+          ${r.plats.map(k=>`<i style="width:19px;height:19px;border-radius:5px;background:${PLAT[k].bg};color:${PLAT[k].fg};display:grid;place-items:center;font-size:10.5px;font-weight:900;font-style:normal" title="${PLAT[k].n}">${PLAT[k].s}</i>`).join('')}</span></div>
+        <div class="kv"><span class="k">Geography</span><span class="v">${r.geo}</span></div>
+        <div class="kv"><span class="k">Measurable from MRP/SP</span><span class="v">${r.meas}</span></div>
+        <div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap">
+          ${r.b==='G'?'<button class="btn sm"><span style="color:#15803D">✓</span> Accepted</button><button class="btn sm">Edit</button>':''}
+          ${r.b==='A'?'<button class="btn sm pri">✓ Approve as parsed</button><button class="btn sm">Edit interpretation</button><button class="btn sm">Send back</button>':''}
+          ${r.b==='R'?'<button class="btn sm pri">Map SKU manually</button><button class="btn sm">Define promo</button><button class="btn sm dgr">Exclude from period</button>':''}
+          ${r.b==='N'?'<button class="btn sm pri">✓ Record, exclude from denominator</button><button class="btn sm">Reclassify as verifiable</button>':''}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---- conflicts ---- */
+function cfgConflicts(){
+  const resolved = Object.keys(S.conflictPick).length;
+  return `
+  <div class="card pad" style="margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <span class="sev crit"><b></b>${CONFLICTS.length-resolved} UNRESOLVED</span>
+    <span style="font-size:13px;color:var(--muted);font-weight:700">Every conflict needs a chosen winner before the period can be locked. Nothing is auto-picked for you except exact duplicates.</span>
+    <div style="margin-left:auto"><span class="bar" style="width:150px;display:inline-block;vertical-align:middle"><i style="width:${resolved/CONFLICTS.length*100}%;background:#22A366"></i></span>
+      <b style="margin-left:9px">${resolved}/${CONFLICTS.length}</b></div>
+  </div>
+
+  ${CONFLICTS.map(c=>{
+    const picked = S.conflictPick[c.id];
+    return `<div class="card" style="margin-bottom:12px;border-left:4px solid ${picked!==undefined?'#22A366':c.sev==='crit'?'#DC2626':c.sev==='warn'?'#F59E0B':'#387FEF'}">
+      <div class="pad">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:9px;flex-wrap:wrap">
+          <span class="tag ${picked!==undefined?'t-grn':c.sev==='crit'?'t-red':c.sev==='warn'?'t-amb':'t-blu'}">${picked!==undefined?'RESOLVED':c.type.replace(/_/g,' ')}</span>
+          <b style="font-size:14.5px">${c.title}</b>
+          <span style="margin-left:auto;font-size:12.5px;font-weight:700;color:var(--muted)">${c.sku}${c.plat?' · '+PLAT[c.plat].n:''}</span>
+        </div>
+        <div class="grid2" style="margin-bottom:12px">
+          ${[['A',c.a],['B',c.b]].map(([tag,x])=>`<div style="border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:#FBFCFE">
+            <div style="display:flex;gap:7px;align-items:center;margin-bottom:6px">
+              <span style="width:20px;height:20px;border-radius:6px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:900">${tag}</span>
+              <b style="font-size:12.5px">${x.src}</b></div>
+            <div class="kv" style="padding:5px 0"><span class="k">Dates</span><span class="v">${x.when}</span></div>
+            <div class="kv" style="padding:5px 0"><span class="k">Value</span><span class="v mono" style="font-size:11.5px">${x.val}</span></div>
+            <div class="kv" style="padding:5px 0"><span class="k">Entered by</span><span class="v" style="font-size:12px">${x.by}</span></div>
+          </div>`).join('')}
+        </div>
+        <div class="meta" style="margin-bottom:7px">CHOOSE THE FINAL VALUE</div>
+        <div style="display:grid;gap:8px">
+          ${c.opts.map((o,i)=>`<div class="radio ${picked===i?'on':''}" onclick="S.conflictPick['${c.id}']=${i};render()">
+            <span class="rb"></span><div><b style="font-size:13px">${o}</b></div></div>`).join('')}
+        </div>
+      </div>
+    </div>`;}).join('')}
+
+  <div class="sec-h">Conflict types the system detects</div>
+  <div class="card pad">
+    <table><thead><tr><th>Type</th><th>Trigger</th><th>Default handling</th><th>Blocks lock?</th></tr></thead><tbody>
+    ${[['Exact duplicate','Same SKU × platform × dates × value, twice','Auto-dedupe, logged','No'],
+       ['Overlapping different values','Same SKU × platform, overlapping dates, different depth','Ask — with a “split the timeline” option','Yes'],
+       ['Manual vs bulk','A manual entry and an uploaded row cover the same SKU','Ask — precedence rule shown as the default','Yes'],
+       ['Partial date overlap','Manual 1–10, upload 5–20','Ask — offer boundary split at day 5 and day 11','Yes'],
+       ['Scope mismatch','Text says “Amazon Only”, grid marks 6 platforms Yes','Ask — text vs grid','Yes'],
+       ['Platform-cell override','Platform column holds promo text, not Yes/No','Treat as platform-specific override, flag amber','No'],
+       ['MRP conflict','MRP in the text ≠ catalog MRP','Default to catalog, ask to confirm','No'],
+       ['Cross-period spill','Commitment starts before or ends after the period','Clip to period, offer amendment on the locked neighbour','Yes'],
+       ['Re-upload of a reviewed file','Same file uploaded again after review','Diff view — only changed rows re-enter review','No'],
+       ['Same SKU, two brands/BUs','Row-level brand disagrees with catalog','Catalog wins, mismatch logged for the catalog team','No'],
+       ['Multi-SKU cell','One cell names two or more packs','Explode into separate lines, confirm each','No'],
+       ['Committed on unlisted SKU','No listing history on that platform','Allowed, but pre-flagged so it is not read as a pricing failure','No'],
+      ].map(r=>`<tr><td style="font-weight:700">${r[0]}</td><td style="color:var(--muted);font-weight:700">${r[1]}</td>
+      <td style="font-weight:700">${r[2]}</td><td>${r[3]==='Yes'?'<span class="tag t-red">YES</span>':'<span class="tag t-gry">NO</span>'}</td></tr>`).join('')}
+    </tbody></table>
+  </div>`;
+}
+
+/* ---- coverage ---- */
+function cfgCoverage(){
+  return `
+  <div class="note amb" style="margin-bottom:16px"><b>Coverage checks run before approval, not after.</b>
+    These are the failures that would otherwise show up on the dashboard as “non-compliant” when the real problem is
+    upstream — and they are much cheaper to fix in the last week of the previous month.</div>
+  ${[
+    {t:'3 SKUs committed on platforms where they have never been listed',s:'crit',
+     d:'NESPLUS Flakes 475g on Flipkart · FRISKIES Meaty Grill 6×1kg on Zepto · NESTEA Peach 400g on FK Minutes',
+     a:'These will read as 100% non-compliant for the whole period. Either get the listing live or drop the commitment.'},
+    {t:'38 bundle tiers (PO2 / PO3) have no mapped bundle SKU',s:'warn',
+     d:'Virtual bundles are separate listings on Blinkit, Zepto and Swiggy. Without a mapped SKU the tier cannot be measured.',
+     a:'Map them in Catalog System, or accept partial measurement on the singles tier only.'},
+    {t:'2 SKUs have thin crawl coverage in committed geographies',s:'warn',
+     d:'SUPERCOAT ADULT Chicken 20kg on Amazon — tracked in 41 of 1,934 pincodes.',
+     a:'Compliance will be computed on a small base. Flagged on the dashboard so the number is not over-read.'},
+    {t:'Event calendar has 4 of 5 September events confirmed',s:'info',
+     d:'“Flipkart Big Billion pre-sale” has provisional dates. 17 commitments reference event days on Flipkart.',
+     a:'Confirm before lock, or those 17 lines fall back to their BAU depth.'},
+    {t:'MRP revisions detected mid-period for 6 SKUs',s:'info',
+     d:'A % commitment stays stable across an MRP change; an absolute ₹ commitment does not.',
+     a:'Absolute commitments will be re-based daily against the live MRP, and the revision date is annotated on the drilldown chart.'},
+  ].map(c=>`<div class="card pad" style="margin-bottom:12px;border-left:4px solid ${c.s==='crit'?'#DC2626':c.s==='warn'?'#F59E0B':'#387FEF'}">
+    <div style="display:flex;gap:9px;align-items:center;margin-bottom:7px">
+      <span class="tag ${c.s==='crit'?'t-red':c.s==='warn'?'t-amb':'t-blu'}">${c.s==='crit'?'BLOCKS LOCK':c.s==='warn'?'REVIEW':'FYI'}</span>
+      <b style="font-size:14.5px">${c.t}</b></div>
+    <div style="font-size:12.8px;color:var(--muted);font-weight:700;margin-bottom:8px">${c.d}</div>
+    <div class="note" style="padding:10px 12px">${c.a}</div>
+    <div style="display:flex;gap:7px;margin-top:10px"><button class="btn sm pri">Resolve</button>
+      <button class="btn sm">Acknowledge &amp; continue</button></div></div>`).join('')}`;
+}
+
+/* ---- lock ---- */
+function cfgLock(){
+  const resolved = Object.keys(S.conflictPick).length, ok = resolved===CONFLICTS.length;
+  const check = (done,txt,sub)=>`<div style="display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line-2)">
+    <span style="width:22px;height:22px;border-radius:50%;flex:0 0 22px;display:grid;place-items:center;
+      background:${done?'#F0FDF4':'#FEF2F2'};color:${done?'#15803D':'#DC2626'};border:1px solid ${done?'#BBF7D0':'#FBD5D5'}">${done?'✓':'!'}</span>
+    <div><b style="font-size:13px">${txt}</b><div style="font-size:12px;color:var(--muted);font-weight:700">${sub}</div></div></div>`;
+  return `
+  <div class="split">
+    <div class="card pad">
+      <b style="font-size:15px">Pre-lock checklist</b>
+      <div style="height:8px"></div>
+      ${check(true,'All 118 rows parsed','139 commitment lines after multi-SKU row explosion')}
+      ${check(true,'74 understood rows accepted','auto-accepted, 10 spot-checked by the maker')}
+      ${check(true,'29 amber rows approved','each carries the assumption that was approved')}
+      ${check(false,'15 red rows still open','they will be excluded from the period unless resolved')}
+      ${check(ok,`${resolved} of ${CONFLICTS.length} conflicts resolved`, ok?'a winner has been chosen for every conflict':'pick a winner on the Conflicts tab')}
+      ${check(false,'1 coverage check blocks lock','3 SKUs committed on platforms where they are not listed')}
+      ${check(true,'Event calendar linked','4 of 5 September events confirmed')}
+      ${check(true,'Tolerance band set','±1.0 pt')}
+      <div style="height:16px"></div>
+      <div class="meta" style="margin-bottom:7px">SUBMIT FOR APPROVAL</div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <button class="btn pri" ${ok?'':'disabled'} onclick="openLockModal()">${I.lock} Submit to checker</button>
+        <button class="btn">Save and come back</button>
+      </div>
+      ${ok?'':'<div class="note red" style="margin-top:12px">Submission is blocked until every conflict has a chosen winner. Resolve them on the <b>Conflicts</b> tab.</div>'}
+    </div>
+    <div>
+      <div class="card pad" style="margin-bottom:14px">
+        <b style="font-size:14.5px">What locking does</b><div style="height:8px"></div>
+        <div class="kv"><span class="k">Freezes</span><span class="v">A versioned snapshot of every commitment line</span></div>
+        <div class="kv"><span class="k">Enables</span><span class="v">Committed-vs-actual on the dashboard</span></div>
+        <div class="kv"><span class="k">Backfills</span><span class="v">Recomputes days already elapsed in the period</span></div>
+        <div class="kv"><span class="k">Notifies</span><span class="v">Category leads + the platform KAM group</span></div>
+        <div class="kv"><span class="k">Records</span><span class="v">Snapshot hash, approver, timestamp</span></div>
+      </div>
+      <div class="note amb"><b>Locking late is allowed, and it is visible.</b> If a period is locked on the 9th, the
+        first eight days are backfilled and the dashboard carries a “locked late” marker for the period. Silent
+        backfill would let a team lock in the shape of the month they already know they had.</div>
+      <div style="height:12px"></div>
+      <div class="note"><b>After lock: amendments only.</b> A promo pulled mid-month becomes a new version with an
+        effective-from date. Days before that date are still judged against the earlier version, so no compliance
+        number ever changes retrospectively.</div>
+    </div>
+  </div>`;
+}
+function openLockModal(){
+  openModal(`<div style="padding:22px 24px">
+    <div style="display:flex;align-items:flex-start"><div>
+      <div class="meta">SEP 2026 · SUBMIT FOR APPROVAL</div>
+      <h3 style="margin:5px 0 0;font-size:20px;letter-spacing:-.4px">Send to checker for lock</h3></div>
+      <button class="x" onclick="closeAll()">${I.xm}</button></div>
+    <div style="height:16px"></div>
+    <div class="grid2" style="gap:12px">
+      <div class="card pad"><div class="meta">COMMITMENT LINES</div><div style="font-size:25px;font-weight:900;letter-spacing:-.8px">124</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:700">15 red rows excluded</div></div>
+      <div class="card pad"><div class="meta">PRICE-VERIFIABLE</div><div style="font-size:25px;font-weight:900;letter-spacing:-.8px">103</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:700">21 recorded, held out of denominator</div></div>
+    </div>
+    <div style="height:14px"></div>
+    <div><label class="fl">Checker</label>
+      <select><option>Priya Nair — Trade Marketing Lead</option><option>Arun Menon — Category Head, Beverages</option><option>Meera Iyer — National Ecom Lead</option></select></div>
+    <div style="height:12px"></div>
+    <div><label class="fl">Note to checker</label>
+      <textarea rows="3" placeholder="e.g. Zepto Mega Sale dates confirmed with KAM on 08 Aug. 15 red rows are Purina bundle tiers pending catalog mapping.">
+</textarea></div>
+    <div style="height:14px"></div>
+    <div class="note"><b>The checker sees a diff, not the whole file.</b> Only what changed since the last locked
+      period — new SKUs, changed depths, dropped commitments — plus every amber assumption the maker approved.</div>
+    <div style="display:flex;gap:9px;margin-top:16px;justify-content:flex-end">
+      <button class="btn" onclick="closeAll()">Cancel</button>
+      <button class="btn pri" onclick="closeAll()">${I.lock} Submit for approval</button></div>
+  </div>`);
+}
+
+/* ---- manual entry ---- */
+function openManual(){
+  openDrawer(`<div class="dh"><div><div class="meta">CONFIGURATOR · MANUAL ENTRY</div>
+      <h2 style="margin:5px 0 0;font-size:20px;letter-spacing:-.5px">Add a committed promo</h2></div>
+      <button class="x" onclick="closeAll()">${I.xm}</button></div>
+    <div class="db">
+      <div class="note" style="margin-bottom:16px">Manual entries go through exactly the same parse, conflict and lock
+        gates as an uploaded row. The only difference is that you are typing the promo instead of the file doing it.</div>
+      <div class="grid2">
+        <div><label class="fl">Period</label><select><option>Sep 2026 (in review)</option><option>Oct 2026 (draft)</option></select></div>
+        <div><label class="fl">Activity type</label><select><option>Consumer Promotion</option><option>Trade Scheme</option><option>Bank / Card offer</option></select></div>
+      </div>
+      <div style="height:12px"></div>
+      <div><label class="fl">SKU</label><input type="text" value="NESCAFÉ Gold 100g Plain Jar" /></div>
+      <div style="height:4px"></div>
+      <div style="font-size:11.5px;color:var(--green);font-weight:700">✓ Matched · NESIN-NG-0100 · MRP ₹900 · listed on 6 platforms</div>
+      <div style="height:12px"></div>
+      <div><label class="fl">Promo — type it the way you'd write it in the file</label>
+        <input type="text" value="INR 110 off from 1-7 days and INR 80 off for rest of the month" /></div>
+      <div style="height:10px"></div>
+      <div class="card pad" style="background:#FBFCFE">
+        <div class="meta" style="margin-bottom:7px">LIVE INTERPRETATION</div>
+        <div class="tl" style="margin-bottom:9px">
+          <div style="flex:7;background:#2F6ED0">₹110 off · 12.2%</div><div style="flex:23;background:#7BA7E8">₹80 off · 8.9%</div></div>
+        <div class="kv"><span class="k">01–07 Sep</span><span class="v">₹110 off → 12.2% of MRP ₹900</span></div>
+        <div class="kv"><span class="k">08–30 Sep</span><span class="v">₹80 off → 8.9% of MRP ₹900</span></div>
+        <div class="kv"><span class="k">Confidence</span><span class="v"><span class="tag t-grn">95% — UNDERSTOOD</span></span></div>
+      </div>
+      <div style="height:12px"></div>
+      <div class="grid2">
+        <div><label class="fl">Platforms</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;padding-top:2px">
+            ${PORDER.map((k,i)=>`<span class="tag ${i<5?'t-blu':'t-gry'}" style="cursor:pointer">${PLAT[k].n}</span>`).join('')}</div></div>
+        <div><label class="fl">Geography</label><select><option>PAN INDIA</option><option>South zone only</option><option>North / East / West</option><option>Pick cities…</option></select></div>
+      </div>
+      <div style="height:12px"></div>
+      <div class="grid2">
+        <div><label class="fl">Starts</label><input type="date" value="2026-09-01"/></div>
+        <div><label class="fl">Ends</label><input type="date" value="2026-09-30"/></div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="note amb"><b>Conflict pre-check.</b> A bulk-uploaded row already covers this SKU × Zepto for
+        01–30 Sep at a different depth. Saving this entry will raise conflict <b>C1</b> for resolution before lock —
+        it will not silently overwrite the file.</div>
+      <div style="display:flex;gap:9px;margin-top:18px"><button class="btn pri" onclick="closeAll()">Save commitment</button>
+        <button class="btn" onclick="closeAll()">Cancel</button></div>
+    </div>`);
+}
+
+/* ============================================================================
+   VIEW 6 — EVENT CALENDAR
+============================================================================ */
+function vCalendar(){
+  const days=31;
+  const track = e =>`<div style="position:relative;height:38px;margin-bottom:7px">
+    <div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(${days},1fr);gap:2px">
+      ${Array.from({length:days},(_,i)=>`<div style="background:${i%7===0||i%7===1?'#EEF1F7':'#FBFCFE'};border-radius:3px"></div>`).join('')}</div>
+    <div style="position:absolute;left:${(e.s-1)/days*100}%;width:${(e.e-e.s+1)/days*100}%;top:0;bottom:0;
+      background:${e.c};border-radius:7px;display:flex;align-items:center;padding:0 9px;color:#fff;font-size:11px;font-weight:900;
+      box-shadow:0 2px 8px ${e.c}55;overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="${e.n}"><span style="overflow:hidden;text-overflow:ellipsis">${e.n}</span></div></div>`;
+  return `
+  <div class="hero"><div class="eyebrow">SETTINGS · EVENT CALENDAR</div>
+    <h1>“On event days” has to mean something.</h1>
+    <p>37% of the committed promos in the uploaded file are conditional on event days. Without a calendar they cannot be measured — with one, they resolve automatically at parse time.</p></div>
+
+  <div class="card pad" style="margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <b style="font-size:15px">August 2026</b>
+    <span class="tag t-grn">5 EVENTS CONFIRMED</span>
+    <span class="tag t-amb">1 PROVISIONAL (SEP)</span>
+    <span style="color:var(--muted);font-size:12.5px;font-weight:700">185 commitment lines across Aug–Nov reference event days</span>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn sm">${I.down} Import from platform KAM sheet</button>
+      <button class="btn sm pri">${I.plus} Add event</button></div>
+  </div>
+
+  <div class="card pad" style="margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:repeat(31,1fr);gap:2px;margin-bottom:8px">
+      ${Array.from({length:31},(_,i)=>`<div style="text-align:center;font-size:9.5px;font-weight:900;color:${i%7===0||i%7===1?'#DC2626':'#8A97AB'}">${i+1}</div>`).join('')}</div>
+    ${EVENTS.map(track).join('')}
+    <div style="height:8px"></div>
+    <div class="legend"><span>Shaded columns are weekends (Sat + Sun, per client setting)</span>
+      <span style="margin-left:auto"><button class="btn sm">Change weekend definition</button></span></div>
+  </div>
+
+  <div class="split">
+    <div class="card" style="overflow:hidden">
+      <div class="pad" style="border-bottom:1px solid var(--line)"><b>Events</b></div>
+      <table><thead><tr><th>Event</th><th>Platforms</th><th>Dates</th>
+        <th style="text-align:right">Commitments using it</th><th>Status</th><th style="width:24px"></th></tr></thead>
+      <tbody>${EVENTS.map(e=>`<tr class="clickable"><td style="font-weight:700">${e.n}</td>
+        <td><div style="display:flex;gap:4px">${e.p.map(k=>`<i style="width:19px;height:19px;border-radius:5px;background:${PLAT[k].bg};color:${PLAT[k].fg};display:grid;place-items:center;font-size:10.5px;font-weight:900;font-style:normal" title="${PLAT[k].n}">${PLAT[k].s}</i>`).join('')}</div></td>
+        <td class="mono" style="font-size:12px">${String(e.s).padStart(2,'0')}–${String(e.e).padStart(2,'0')} Aug</td>
+        <td class="tnum">${e.used}</td><td><span class="tag t-grn">CONFIRMED</span></td>
+        <td style="color:#B6C0D0">${I.chev}</td></tr>`).join('')}
+        <tr class="clickable" style="background:#FFFBEB"><td style="font-weight:700">Flipkart Big Billion pre-sale</td>
+        <td><i style="width:19px;height:19px;border-radius:5px;background:${PLAT.FLK.bg};color:${PLAT.FLK.fg};display:grid;place-items:center;font-size:10.5px;font-weight:900;font-style:normal">F</i></td>
+        <td class="mono" style="font-size:12px">18–22 Sep?</td><td class="tnum">17</td>
+        <td><span class="tag t-amb">PROVISIONAL</span></td><td style="color:#B6C0D0">${I.chev}</td></tr>
+      </tbody></table>
+    </div>
+    <div>
+      <div class="card pad" style="margin-bottom:14px">
+        <b style="font-size:14.5px">How an event-day promo resolves</b>
+        <div style="height:10px"></div>
+        <div class="raw" style="margin-bottom:10px">“10% &amp; 15% on event days”</div>
+        <div class="kv"><span class="k">Base depth (BAU)</span><span class="v">10%</span></div>
+        <div class="kv"><span class="k">Event depth</span><span class="v">15%</span></div>
+        <div class="kv"><span class="k">Event days resolved</span><span class="v">05–09 Aug, 28–30 Aug</span></div>
+        <div class="kv"><span class="k">Days at 15%</span><span class="v">8</span></div>
+        <div class="kv"><span class="k">Days at 10%</span><span class="v">23</span></div>
+        <div style="height:10px"></div>
+        <div class="note"><b>Convention:</b> where two values are given with no other qualifier, the <b>lower is BAU and
+          the higher is the event depth</b>. The parser states this assumption on the row, which is exactly why those
+          rows land in amber rather than green — the reading is almost always right, and it is never assumed silently.</div>
+      </div>
+      <div class="note amb"><b>If an event isn't confirmed before lock</b>, commitments referencing it fall back to
+        their BAU depth and the affected lines are marked on the dashboard, so an unconfirmed calendar can never
+        quietly manufacture a compliance failure.</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================================
+   BOOT
+============================================================================ */
+function render(){
+  const v = {overview:vOverview,matrix:vMatrix,deviations:vDeviations,locations:vLocations,
+             configurator:vConfigurator,calendar:vCalendar}[S.tab];
+  document.getElementById('view').innerHTML = v();
+}
+renderSidebar(); renderTopbar(); renderSubbar(); render();
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAll(); });
+</script>
+
+
+<a href="index.html" class="egn-home" aria-label="Back to all prototypes">&larr;&nbsp; All prototypes</a>
+<style>
+.egn-home{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;
+  padding:9px 15px;border-radius:22px;font:600 12.5px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.01em;background:#0E1729;color:#fff;text-decoration:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.18),0 14px 34px -12px rgba(0,0,0,.42);
+  border:1px solid rgba(255,255,255,.14)}
+.egn-home:hover{background:#1B2740}
+@media print{.egn-home{display:none}}
+</style>
+
+</body>
+</html>

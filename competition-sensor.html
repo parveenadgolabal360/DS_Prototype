@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+  <title>Competition Sensor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDF0F9; --ground-2:#E4E9F6;
+  --surface:#FFFFFF; --surface-2:#F7F9FD; --surface-3:#EFF3FB;
+  --rail:#0E1729; --rail-ink:#C7D0E4; --rail-ink-dim:#7A87A3; --rail-active:#1B2740;
+  --ink:#0E1729; --ink-2:#4A566E; --ink-3:#8590A8;
+  --line:#E2E7F2; --line-strong:#CFD7E8;
+  --accent:#2563EB; --accent-soft:#E7EEFE;
+  --loss:#DC2626; --loss-soft:#FCEBEB;
+  --gain:#0D9488; --gain-soft:#E3F4F2;
+  --s1:#1D4ED8; --s2:#B45309; --s3:#BE185D;      /* validated 3-hue categorical */
+  --up:#B45309; --up-soft:#FBF0E1;
+  --down:#1D4ED8; --down-soft:#E8EEFE;
+  --unk:#475569; --unk-soft:#EDF0F5;
+  --grid:#EDF1F8;
+  --shadow:0 1px 2px rgba(14,23,41,.05), 0 6px 18px -10px rgba(14,23,41,.14);
+  --shadow-lift:0 2px 4px rgba(14,23,41,.07), 0 14px 34px -14px rgba(14,23,41,.22);
+  --r:13px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#0B111D; --ground-2:#0E1626; --surface:#131C2C; --surface-2:#182234; --surface-3:#1D283C;
+  --rail:#080D16; --rail-ink:#AFBBD3; --rail-ink-dim:#69768F; --rail-active:#18233A;
+  --ink:#EAEFF9; --ink-2:#A7B3C9; --ink-3:#7684A0; --line:#243046; --line-strong:#324158;
+  --accent:#5B8DEF; --accent-soft:#1B2A47;
+  --loss:#EF4444; --loss-soft:#2C1719; --gain:#0D9488; --gain-soft:#0F2A2A;
+  --s1:#3B82F6; --s2:#D97706; --s3:#EC4899;
+  --up:#D97706; --up-soft:#2C2213; --down:#3B82F6; --down-soft:#152341; --unk:#94A3B8; --unk-soft:#1E2839;
+  --grid:#1E293C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 14px 34px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --ground:#0B111D; --ground-2:#0E1626; --surface:#131C2C; --surface-2:#182234; --surface-3:#1D283C;
+  --rail:#080D16; --rail-ink:#AFBBD3; --rail-ink-dim:#69768F; --rail-active:#18233A;
+  --ink:#EAEFF9; --ink-2:#A7B3C9; --ink-3:#7684A0; --line:#243046; --line-strong:#324158;
+  --accent:#5B8DEF; --accent-soft:#1B2A47;
+  --loss:#EF4444; --loss-soft:#2C1719; --gain:#0D9488; --gain-soft:#0F2A2A;
+  --s1:#3B82F6; --s2:#D97706; --s3:#EC4899;
+  --up:#D97706; --up-soft:#2C2213; --down:#3B82F6; --down-soft:#152341; --unk:#94A3B8; --unk-soft:#1E2839;
+  --grid:#1E293C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 14px 34px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;letter-spacing:-.018em;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:none}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+svg{display:block;width:100%;height:auto}
+
+/* chrome */
+.app{display:flex;min-height:100vh;background:linear-gradient(90deg,var(--rail) 0 224px,var(--ground) 224px)}
+.rail{width:224px;flex:none;background:var(--rail);color:var(--rail-ink);padding:16px 0 28px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.rail::-webkit-scrollbar{width:6px}.rail::-webkit-scrollbar-thumb{background:#FFFFFF1F;border-radius:20px}
+.rail-brand{display:flex;gap:10px;align-items:center;padding:4px 16px 18px}
+.rail-mark{width:30px;height:30px;border-radius:8px;flex:none;background:linear-gradient(140deg,#3B82F6,#1D4ED8);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px}
+.rail-brand b{display:block;font-size:14.5px;color:#fff;line-height:1.15}
+.rail-brand span{font-size:10.5px;color:var(--rail-ink-dim)}
+.rail-sec{padding:15px 16px 6px;font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--rail-ink-dim)}
+.rail-item{display:flex;align-items:center;gap:9px;margin:0 8px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--rail-ink);width:calc(100% - 16px);text-align:left}
+.rail-item:hover{background:#FFFFFF12}
+.rail-item.is-on{background:var(--rail-active);color:#fff;font-weight:600;box-shadow:inset 2.5px 0 0 var(--accent)}
+.rail-item .dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;flex:none}
+.rail-item .tag{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.05em;background:#2563EB;color:#fff;border-radius:4px;padding:1px 5px}
+.rail-client{margin:0 12px 4px;padding:9px 11px;border-radius:9px;background:#FFFFFF0F;border:1px solid #FFFFFF14}
+.rail-client b{color:#fff;font-size:13px;font-weight:600}
+
+/* ── prototype switcher ── */
+a.rail-item{text-decoration:none}
+.rail-item .go{margin-left:auto;font-size:11px;opacity:.45;flex:none}
+.rail-item.here{background:#FFFFFF14;color:#fff;font-weight:600;cursor:default}
+.rail-item.here .go{opacity:0}
+.rail-note{padding:2px 16px 8px;font-size:10.5px;line-height:1.45;color:var(--rail-ink-dim)}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 22px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.topbar h1{font-size:16.5px;font-weight:600}
+.crumb{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-3);margin-right:auto}
+.crumb b{color:var(--ink);font-weight:600;font-size:12.5px}
+.ctrl{display:flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:9px;padding:6px 11px;background:var(--surface);font-size:12px}
+.ctrl .eyebrow{font-size:9px}.ctrl b{font-weight:600;font-size:12.5px}
+.icon-btn{width:32px;height:32px;border-radius:9px;border:1px solid var(--line-strong);display:grid;place-items:center;font-size:14px;color:var(--ink-2)}
+.icon-btn:hover{background:var(--surface-3)}
+.canvas{padding:20px 22px 26px;display:flex;flex-direction:column;gap:16px;max-width:1460px;width:100%}
+.screen[hidden]{display:none}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:16px 18px 12px;flex-wrap:wrap}
+.card-hd h2{font-size:14.5px;font-weight:600}
+.card-hd p{margin:3px 0 0;font-size:12.2px;color:var(--ink-2);max-width:78ch}
+.card-hd .right{margin-left:auto;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.footnote{font-size:11.4px;color:var(--ink-3);padding:10px 18px 16px;border-top:1px solid var(--line)}
+.seg{display:inline-flex;background:var(--surface-3);border-radius:9px;padding:3px;gap:2px}
+.seg button{padding:5px 11px;border-radius:7px;font-size:11.8px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.seg button.is-on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.p-good{background:var(--gain-soft);color:var(--gain)}
+.p-bad{background:var(--loss-soft);color:var(--loss)}
+.p-warn{background:var(--up-soft);color:var(--up)}
+.p-info{background:var(--down-soft);color:var(--down)}
+.p-mute{background:var(--unk-soft);color:var(--unk)}
+.swatch{width:9px;height:9px;border-radius:3px;flex:none;display:inline-block}
+.dn{color:var(--loss);font-weight:600}.up{color:var(--gain);font-weight:600}.muted{color:var(--ink-3)}
+
+/* hero band */
+.band{display:grid;grid-template-columns:minmax(300px,1.25fr) minmax(0,2fr);gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.band-lead{padding:18px 22px;border-right:1px solid var(--line)}
+.band-v{font-size:34px;font-weight:600;letter-spacing:-.035em;line-height:1.08;margin-top:5px}
+.band-v small{font-size:14px;font-weight:500;color:var(--ink-3);letter-spacing:0;margin-left:4px}
+.band-sub{font-size:12.4px;color:var(--ink-2);margin-top:8px;max-width:44ch}
+.band-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line)}
+.btile{background:var(--surface);padding:14px 15px;display:flex;flex-direction:column;gap:2px}
+.btile .k{font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.btile .v{font-size:21px;font-weight:600;letter-spacing:-.03em;margin-top:4px}
+.btile .d{font-size:11px;color:var(--ink-3);margin-top:1px}
+@media (max-width:1080px){.band{grid-template-columns:1fr}.band-lead{border-right:none;border-bottom:1px solid var(--line)}.band-tiles{grid-template-columns:1fr 1fr}}
+
+/* tables */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.6px}
+th{text-align:left;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:9px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+th.r,td.r{text-align:right}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover{background:var(--surface-2)}
+tbody tr.row.is-on{background:var(--accent-soft)}
+.bar-mini{display:block;position:relative;height:6px;border-radius:20px;background:var(--surface-3);min-width:56px;overflow:hidden}
+.bar-mini i{position:absolute;inset:0 auto 0 0;border-radius:20px}
+.geo{font-size:11px;color:var(--ink-3)}
+
+/* progress */
+.prog{display:block;position:relative;height:10px;border-radius:20px;background:var(--surface-3);overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;border-radius:20px;background:var(--gain)}
+.prog b{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.35}
+
+/* chart bits */
+.chartwrap{padding:4px 14px 8px;overflow-x:auto}
+.ax{font-size:10px;fill:var(--ink-3)}
+.gl{stroke:var(--grid);stroke-width:1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 12px;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+
+/* allocator */
+.alloc{display:grid;grid-template-columns:150px minmax(0,1fr) 96px;gap:12px;align-items:center;padding:9px 18px}
+.alloc .an{font-size:12.6px;font-weight:600;display:flex;align-items:center;gap:7px}
+.alloctrack{position:relative;height:26px;background:var(--surface-3);border-radius:6px;overflow:hidden}
+.alloctrack .cur{position:absolute;top:0;bottom:13px;left:0;border-radius:5px 5px 0 0;background:var(--unk);opacity:.5}
+.alloctrack .rec{position:absolute;top:13px;bottom:0;left:0;border-radius:0 0 5px 5px}
+.allockey{display:flex;gap:16px;padding:2px 18px 10px;font-size:11px;color:var(--ink-3)}
+.allockey span{display:flex;align-items:center;gap:6px}
+.delta-chip{font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+
+/* NPD */
+.npdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;padding:2px 18px 16px}
+.npd{border:1px solid var(--line);border-radius:11px;padding:12px 13px;background:var(--surface-2);text-align:left;display:flex;flex-direction:column;gap:3px}
+.npd:hover{border-color:var(--line-strong);box-shadow:var(--shadow-lift)}
+.npd.is-on{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.npd .nm{font-size:13px;font-weight:600}
+.npd .br{font-size:11px;color:var(--ink-3)}
+.npd .vel{font-size:19px;font-weight:600;letter-spacing:-.03em;margin-top:5px}
+.npd .sub{font-size:10.8px;color:var(--ink-3)}
+.bio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0;border-top:1px solid var(--line)}
+.biol{padding:16px 18px;border-right:1px solid var(--line)}
+.bior{padding:16px 18px;min-width:0}
+.biohero{height:118px;border-radius:11px;display:grid;place-items:center;font-size:34px;margin-bottom:12px;
+  background:linear-gradient(135deg,var(--accent-soft),var(--surface-3))}
+.speclist{display:grid;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.specrow{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:8px 11px;font-size:12px;border-bottom:1px solid var(--line)}
+.specrow:last-child{border-bottom:none}
+.specrow .sk{color:var(--ink-3);font-size:11px}
+.claims{width:100%;border-collapse:collapse;font-size:12px}
+.claims td{padding:7px 9px;border-bottom:1px solid var(--line)}
+.yes{color:var(--gain);font-weight:700}.no{color:var(--loss);font-weight:700}
+.adgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.adcard{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);text-align:left}
+.adthumb{height:74px;position:relative;display:grid;place-items:center;background:linear-gradient(140deg,var(--surface-3),var(--accent-soft))}
+.adthumb .play{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:12px}
+.adthumb .src{position:absolute;top:6px;left:6px;font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:4px;background:var(--ink);color:var(--surface)}
+.admeta{padding:8px 10px;font-size:11px;color:var(--ink-2)}
+.admeta b{display:block;font-size:11.8px;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+/* semantic alert */
+.nlbox{margin:2px 18px 10px;border:1.5px solid var(--accent);border-radius:11px;background:var(--surface);padding:12px 14px}
+.nlbox textarea{width:100%;border:none;background:none;resize:vertical;min-height:52px;font-size:14.5px;line-height:1.5;outline:none}
+.nlbox textarea::placeholder{color:var(--ink-3)}
+.nlrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;border-top:1px solid var(--line);padding-top:9px}
+.btn{padding:7px 14px;border-radius:9px;font-size:12.5px;font-weight:600;background:var(--accent);color:#fff}
+.btn.ghost{background:var(--surface-3);color:var(--ink-2)}
+.chipex{font-size:11.5px;padding:4px 10px;border-radius:20px;background:var(--surface-3);color:var(--ink-2);border:1px solid var(--line)}
+.chipex:hover{border-color:var(--accent);color:var(--accent)}
+.parse{margin:0 18px 14px;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.parse-hd{padding:9px 13px;background:var(--surface-2);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line)}
+.parse-body{padding:12px 13px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px}
+.tok{padding:3px 9px;border-radius:7px;font-weight:600;font-size:12.5px}
+.tok.m{background:var(--down-soft);color:var(--down)}
+.tok.o{background:var(--surface-3);color:var(--ink-2)}
+.tok.v{background:var(--up-soft);color:var(--up)}
+.tok.x{background:var(--gain-soft);color:var(--gain)}
+.tok.s{background:var(--unk-soft);color:var(--unk)}
+.blast{margin:0 18px 14px;padding:11px 14px;border-radius:10px;font-size:12.3px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.blast b{font-size:15px}
+
+/* reviews */
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.feedcol{padding:14px 18px}
+.feedcol:first-child{border-right:1px solid var(--line)}
+.theme{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--surface-2)}
+.theme .th{display:flex;align-items:center;gap:8px;font-size:12.8px;font-weight:600}
+.theme .tm{font-size:11.3px;color:var(--ink-3);margin-top:3px}
+.theme .tb{margin-top:8px}
+@media (max-width:900px){.feed{grid-template-columns:1fr}.feedcol:first-child{border-right:none;border-bottom:1px solid var(--line)}.bio{grid-template-columns:1fr}.biol{border-right:none;border-bottom:1px solid var(--line)}}
+
+/* release notes */
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;padding:2px 18px 16px}
+.rel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.relvid{height:120px;position:relative;display:grid;place-items:center;background:linear-gradient(140deg,var(--accent-soft),var(--surface-3));border-bottom:1px solid var(--line)}
+.relbody{padding:12px 14px}
+.relbody h3{font-size:13.4px;font-weight:600}
+.relbody p{margin:5px 0 0;font-size:11.8px;color:var(--ink-2)}
+.relfoot{display:flex;align-items:center;gap:9px;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface-2);font-size:12px}
+.cbx{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:11px;color:transparent;flex:none}
+.cbx.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.tooltip{position:fixed;z-index:90;pointer-events:none;background:var(--rail);color:#fff;border-radius:8px;padding:8px 11px;font-size:11.5px;line-height:1.45;box-shadow:var(--shadow-lift);opacity:0;transition:opacity .1s;max-width:250px}
+.tooltip.on{opacity:1}
+.tooltip b{display:block;font-size:12px;margin-bottom:2px}
+.tooltip s{display:block;text-decoration:none;color:#A9B6D0}
+.note{margin:0 18px 14px;padding:9px 12px;border-radius:9px;background:var(--up-soft);border:1px solid color-mix(in srgb,var(--up) 22%,transparent);font-size:11.6px;color:var(--ink-2)}
+.note b{color:var(--up)}
+@media (max-width:860px){.rail{display:none}.canvas{padding:14px}}
+
+/* control tower */
+.pauselist{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;padding:2px 18px 16px}
+.pausecard{border:1px solid var(--line);border-left:3px solid var(--loss);border-radius:11px;padding:13px 15px;background:var(--surface-2)}
+.pausecard .ph{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.pausecard .ph b{font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}
+.pausecard .ph .pill{margin-left:auto}
+.pausecard h3{font-size:13.6px;font-weight:600}
+.pausecard p{margin:6px 0 10px;font-size:12.1px;color:var(--ink-2)}
+.prow{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:12px}
+.prow .pk{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding-top:1px}
+.pausebtn{margin-top:11px;width:100%;background:var(--loss)}
+
+/* price candidates */
+.candgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:10px;padding:2px 18px 14px}
+.cand{position:relative;border:1px solid var(--line);border-radius:11px;padding:13px 14px;background:var(--surface-2)}
+.cand.is-on{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.candtag{position:absolute;top:-8px;left:13px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--accent);color:#fff;border-radius:4px;padding:2px 7px}
+.candp{font-size:25px;font-weight:600;letter-spacing:-.03em}
+.candl{font-size:11.8px;color:var(--ink-2);margin:1px 0 8px}
+.candrows{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;display:grid;gap:5px}
+.candrows div{display:flex;justify-content:space-between;gap:10px;font-size:11.8px;color:var(--ink-3)}
+.candrows b{color:var(--ink);font-weight:600;font-size:12.4px}
+
+/* approval flow */
+.flowwrap{display:flex;align-items:stretch;gap:6px;padding:2px 18px 12px;flex-wrap:wrap}
+.flowstep{flex:1 1 190px;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:var(--surface-2)}
+.flowstep .fi{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;font-size:13px;background:var(--surface-3)}
+.flowstep b{display:block;font-size:12.5px;font-weight:600}
+.flowstep span{display:block;font-size:11.2px;color:var(--ink-3);margin-top:2px}
+.flowstep.done{border-color:color-mix(in srgb,var(--gain) 45%,transparent);background:var(--gain-soft)}
+.flowstep.done .fi{background:var(--gain);color:#fff;font-weight:700}
+.flowstep.next{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.flowarrow{align-self:center;color:var(--ink-3);font-size:13px}
+.approvebar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 18px 14px;padding:12px 15px;border:1px solid var(--line-strong);border-radius:11px;background:var(--surface)}
+.approvebar .apx{display:flex;flex-direction:column;gap:1px;font-size:12px}
+.approvebar .apx b{font-size:14px;font-weight:600}
+.approvebar .apx .muted{font-size:11.2px}
+.approvebar .btn:last-of-type{margin-left:auto}
+@media (max-width:640px){.approvebar .btn:last-of-type{margin-left:0}}
+
+/* competitor set */
+.setgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:10px;padding:2px 18px 14px}
+.setcard{border:1px solid var(--line);border-radius:11px;background:var(--surface-2);overflow:hidden;opacity:.55}
+.setcard.on{opacity:1;border-color:var(--line-strong)}
+.setcard.tgt{border-color:var(--loss);box-shadow:inset 0 0 0 1px var(--loss)}
+.setmain{display:flex;gap:10px;align-items:flex-start;padding:12px 13px 10px;width:100%;text-align:left}
+.setmain b{display:block;font-size:13.2px;font-weight:600}
+.setmain .sm{display:block;font-size:11.2px;color:var(--ink-3);margin-top:2px}
+.settgt{width:100%;padding:8px 13px;border-top:1px solid var(--line);font-size:11.5px;font-weight:600;color:var(--ink-3);text-align:left;background:var(--surface)}
+.settgt.on{background:var(--loss);color:#fff}
+.settgt[disabled]{opacity:.4;cursor:default}
+.cbx{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:11px;color:transparent;flex:none;margin-top:1px}
+.cbx.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* map */
+.maplayout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:0;border-top:1px solid var(--line)}
+.mapbox{padding:8px 10px 4px}
+.mapbox svg{max-width:540px;margin:0 auto}
+.mapside{border-left:1px solid var(--line);padding:14px 16px}
+.sideh{font-size:9.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.siderow{display:grid;grid-template-columns:1fr 62px 78px;gap:8px;align-items:center;width:100%;text-align:left;
+  padding:8px 9px;border-radius:9px;border:1px solid transparent;font-size:12.4px}
+.siderow:hover{background:var(--surface-2);border-color:var(--line)}
+.siderow.on{background:var(--accent-soft);border-color:var(--accent)}
+.siderow .sn{font-weight:600}
+.siderow .sn em{display:block;font-style:normal;font-size:10.6px;color:var(--ink-3);font-weight:400}
+.siderow .sv,.siderow .sw{text-align:right;font-size:12px}
+.map-dot{cursor:pointer;transition:fill-opacity .12s}
+.map-dot:hover{fill-opacity:.55}
+.map-lab{font-size:10px;fill:var(--ink-2)}
+@media (max-width:1080px){.maplayout{grid-template-columns:1fr}.mapside{border-left:none;border-top:1px solid var(--line)}}
+
+/* requirement list */
+.reqgrid{display:grid;gap:0;border-top:1px solid var(--line)}
+.req{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.req:last-child{border-bottom:none}
+.rq{width:24px;height:24px;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;
+  font-size:12px;font-weight:700}
+.rb b{font-size:13.2px;font-weight:600}
+.rh{display:block;font-size:12px;color:var(--ink-2);margin-top:2px}
+.rr{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:7px;font-size:11.5px;color:var(--ink-3)}
+.rr b{color:var(--ink);font-weight:600;font-size:12.3px}
+
+/* promo calendar */
+.calwrap{overflow-x:auto;padding:2px 18px 12px}
+.cal{min-width:840px}
+.calrow{display:grid;grid-template-columns:156px repeat(26,minmax(0,1fr));gap:2px;align-items:center;margin-bottom:2px}
+.calname{font-size:12px;font-weight:600;padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.calname em{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-left:5px}
+.calrow.isus .calname{color:var(--s1)}
+.calrow.istgt .calname{color:var(--loss)}
+.calh{font-size:8.5px;color:var(--ink-3);text-align:center}
+.calcell{height:22px;border-radius:3px;background:var(--surface-3)}
+.calrow.calmark{margin-top:6px}
+.calrow.calmark .calname{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.calrow.calmark .calcell{height:16px;background:none;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ink-3)}
+.calrow.calmark .calcell.flag{background:var(--up-soft);border:1px solid var(--up);color:var(--up)}
+</style>
+
+<div class="app">
+  <nav class="rail">
+    <div class="rail-brand"><div class="rail-mark">e</div><div><b>eGenie</b><span>Digital Shelf</span></div></div>
+    <div class="rail-sec" style="padding-top:0">Client</div>
+    <div class="rail-client"><b>Perfetti Van Melle</b></div>
+    <div class="rail-sec">Competition Sensor</div>
+    <button class="rail-item is-on" data-s="index"><span class="dot"></span>Index &amp; growth<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="map"><span class="dot"></span>Penetration map<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="target"><span class="dot"></span>City targets<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="diag"><span class="dot"></span>Reverse diagnosis<span class="tag">NEW</span></button>
+    <button class="rail-item" data-s="promo"><span class="dot"></span>Promo calendar<span class="tag">NEW</span></button>
+
+    <div class="rail-sec">Prototype switcher</div>
+    <div class="rail-note">Every eGenie prototype, reachable from any of them.</div>
+    <a class="rail-item" href="exec-summary.html" target="_blank" rel="noopener"><span class="dot"></span>Executive Summary — Share<span class="go">↗</span></a>
+    <a class="rail-item" href="modules.html" target="_blank" rel="noopener"><span class="dot"></span>Module Set — 8 modules<span class="go">↗</span></a>
+    <a class="rail-item" href="supply-risk.html" target="_blank" rel="noopener"><span class="dot"></span>Supply Risk &amp; Velocity<span class="go">↗</span></a>
+    <a class="rail-item" href="promo-tracker.html" target="_blank" rel="noopener"><span class="dot"></span>Promo Tracker<span class="go">↗</span></a>
+    <span class="rail-item here"><span class="dot"></span>Competition Sensor<span class="go">●</span></span>
+    <a class="rail-item" href="competition-sensor-v1.html" target="_blank" rel="noopener"><span class="dot"></span>Competition Sensor v1<span class="go">↗</span></a>
+    <a class="rail-item" href="persona-insights.html" target="_blank" rel="noopener"><span class="dot"></span>Persona Insights<span class="go">↗</span></a>
+    <a class="rail-item" href="response.html" target="_blank" rel="noopener"><span class="dot"></span>Response to Demo II<span class="go">↗</span></a>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <h1 id="scrTitle">Index &amp; growth</h1>
+      <div class="crumb" id="crumb"></div>
+      <div class="ctrl"><span class="eyebrow">Target</span><b id="tgtName">—</b></div>
+      <div class="ctrl"><span class="eyebrow">Period</span><b>MAT Aug '26</b></div>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+    </header>
+
+    <div class="canvas">
+
+      <section class="card" id="setCard">
+        <div class="card-hd">
+          <div><h2>Competitor set</h2>
+            <p>The set is a client decision, not ours — every index, gap and diagnosis below is computed against exactly these brands.
+              Pick the <b>target</b> to index against, and the multiple you are chasing.</p></div>
+          <div class="right">
+            <span class="eyebrow" style="margin-right:2px">Chasing</span>
+            <div class="seg" id="multSeg">
+              <button data-m="1">Parity 1.00×</button>
+              <button data-m="1.25" class="is-on">1.25×</button>
+              <button data-m="1.5">1.50×</button></div>
+          </div>
+        </div>
+        <div class="setgrid" id="setGrid"></div>
+        <div class="footnote" id="setNote"></div>
+      </section>
+
+      <!-- ══════════ INDEX & GROWTH ══════════ -->
+      <div class="screen" id="s-index">
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">Our index against the target · value share</div>
+            <div class="band-v num" id="ixHero">—</div>
+            <div class="band-sub" id="ixSub">—</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Value growth</span><span class="v num" id="ixVal">—</span><span class="d" id="ixValD">—</span></div>
+            <div class="btile"><span class="k">Volume growth</span><span class="v num" id="ixVol">—</span><span class="d" id="ixVolD">—</span></div>
+            <div class="btile"><span class="k">ACV %</span><span class="v num" id="ixAcv">—</span><span class="d" id="ixAcvD">—</span></div>
+            <div class="btile"><span class="k">Gap to target</span><span class="v num dn" id="ixGap">—</span><span class="d" id="ixGapD">—</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Index table</h2>
+              <p>Read like a Nielsen index: <b>100 = level with the target</b>. Above 100 we are ahead on that measure, below 100 we
+                are behind. The last column is what the number would have to become to hit the multiple selected above — and it says
+                so plainly when that is arithmetically impossible.</p></div>
+            <div class="right"><span class="pill p-mute" id="ixPill">—</span></div>
+          </div>
+          <div class="tablewrap" id="ixWrap"></div>
+          <div class="footnote" id="ixNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Where the growth is coming from</h2>
+              <p>Value growth splits into two parts that need completely different responses: volume — selling more units, usually by
+                being in more places — and price/mix. A brand growing on price is one discount away from flat.</p></div>
+            <div class="right"><span class="eyebrow">Bars = value growth ·</span><span class="eyebrow">dot = ACV points added</span></div>
+          </div>
+          <div class="chartwrap"><svg id="grChart" viewBox="0 0 1180 340" role="img" aria-label="Value growth split into volume and price mix contribution for each brand, with ACV points added"></svg></div>
+          <div class="legend" id="grLegend"></div>
+          <div class="footnote" id="grNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ PENETRATION MAP ══════════ -->
+      <div class="screen" id="s-map" hidden>
+        <section class="card">
+          <div class="card-hd">
+            <div><h2 id="mpT">Where they are and we are not</h2>
+              <p>Every tracked city, sized by category value and coloured by who leads it. This is the target competitor's footprint
+                against ours — the question "where are they winning" answered before "why".</p></div>
+            <div class="right"><div class="seg" id="mpSeg">
+              <button data-v="lead" class="is-on">Who leads</button>
+              <button data-v="acv">ACV gap</button>
+              <button data-v="pen">Their penetration</button></div></div>
+          </div>
+          <div class="maplayout">
+            <div class="mapbox"><svg id="cMap" viewBox="0 0 520 560" role="img" aria-label="Map of tracked Indian cities showing which brand leads each"></svg></div>
+            <div class="mapside" id="mapSide"></div>
+          </div>
+          <div class="legend" id="mpLegend"></div>
+          <div class="footnote" id="mpNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ CITY TARGETS ══════════ -->
+      <div class="screen" id="s-target" hidden>
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Named city targets</h2>
+              <p>"Beat them in Jalandhar" is a real instruction, so it gets a real screen. Every city the target leads, ranked by what
+                closing the gap is worth, with the size of the gap in points and in rupees.</p></div>
+            <div class="right"><div class="seg" id="tgSeg">
+              <button data-r="value" class="is-on">By value at stake</button>
+              <button data-r="gap">By smallest gap</button></div></div>
+          </div>
+          <div class="tablewrap" id="tgWrap"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2 id="tdT">The target</h2>
+              <p id="tdP">—</p></div>
+            <div class="right"><span class="pill p-bad" id="tdPill">—</span></div>
+          </div>
+          <div class="reqgrid" id="reqGrid"></div>
+          <div class="footnote" id="tdNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ REVERSE DIAGNOSIS ══════════ -->
+      <div class="screen" id="s-diag" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow" id="dgEye">—</div>
+            <div class="band-v num dn" id="dgHero">—</div>
+            <div class="band-sub" id="dgSub">—</div>
+          </div>
+          <div class="band-tiles" id="dgTiles"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Why they are ahead — decomposed</h2>
+              <p>The same precedence ladder the executive summary uses, run in reverse. Each rung is charged once, measured after the
+                rung above it has been repaired, so the parts add to the whole gap instead of overlapping.</p></div>
+            <div class="right"><span class="pill p-mute" id="dgPill">—</span></div>
+          </div>
+          <div class="chartwrap"><svg id="dgChart" viewBox="0 0 1180 300" role="img" aria-label="The share gap decomposed into ranked causes"></svg></div>
+          <div class="tablewrap" id="dgWrap"></div>
+          <div class="footnote" id="dgNote"></div>
+        </section>
+      </div>
+
+      <!-- ══════════ PROMO CALENDAR ══════════ -->
+      <div class="screen" id="s-promo" hidden>
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Promotion calendar — us against the set</h2>
+              <p>Twenty-six weeks of observed shelf discounting, by brand and by region. Cell darkness is depth. What matters is not
+                any single week but the pattern: where they went unanswered, and where we spent against each other.</p></div>
+            <div class="right"><div class="seg" id="rgSeg">
+              <button data-r="National" class="is-on">National</button>
+              <button data-r="North">North</button>
+              <button data-r="South">South</button>
+              <button data-r="West">West</button>
+              <button data-r="East">East</button></div></div>
+          </div>
+          <div class="calwrap" id="calWrap"></div>
+          <div class="legend" id="calLegend"></div>
+          <div class="footnote" id="calNote"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd"><div><h2>Unanswered weeks</h2>
+            <p>Weeks the target promoted at depth and we did not respond anywhere in the region, with what it cost in share.</p></div></div>
+          <div class="tablewrap" id="unWrap"></div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="tooltip" id="tip" role="status"></div>
+
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+const cvar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const money = x => Math.abs(x) >= 0.10 ? "₹" + x.toFixed(2) + " Cr" : "₹" + (x * 100).toFixed(1) + " L";
+const sgn = x => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(1);
+function hash(str){ let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h,16777619);} return h>>>0; }
+function rng(seed){ let a = hash(seed); return () => { a |= 0; a = a + 0x6D2B79F5 | 0;
+  let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+  return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const tip = $("#tip");
+function showTip(e, html){ tip.innerHTML = html; tip.classList.add("on");
+  const r = tip.getBoundingClientRect();
+  tip.style.left = Math.min(innerWidth - r.width - 10, Math.max(10, e.clientX + 14)) + "px";
+  tip.style.top  = Math.max(10, e.clientY - r.height - 12) + "px"; }
+const hideTip = () => tip.classList.remove("on");
+addEventListener("scroll", hideTip, { passive:true });
+
+/* ═════════ DATA ═════════ */
+const BRANDS = [
+  { id:"us", n:"Perfetti Van Melle", us:true, val:18.4, vol:19.8, acv:71.2, acvD:1.2,  pi:104, promo:9.2,  sos:33.9, vg:6.1,  qg:1.2,  rate:4.31, sku:186 },
+  { id:"z",  n:"Zesta Confectionery",         val:22.6, vol:21.1, acv:84.5, acvD:8.4,  pi:112, promo:12.4, sos:38.2, vg:14.8, qg:11.9, rate:4.24, sku:214 },
+  { id:"f",  n:"Frooza Foods",                val:11.2, vol:12.6, acv:58.4, acvD:11.6, pi:92,  promo:15.1, sos:17.4, vg:22.4, qg:24.8, rate:4.48, sku:96  },
+  { id:"m",  n:"Minto Max",                   val:8.9,  vol:7.4,  acv:44.1, acvD:2.1,  pi:126, promo:6.8,  sos:12.1, vg:9.2,  qg:4.1,  rate:4.19, sku:71  },
+  { id:"c",  n:"Cocoloco Foods",              val:6.3,  vol:6.9,  acv:39.7, acvD:-1.8, pi:96,  promo:11.2, sos:8.6,  vg:-2.4, qg:-4.8, rate:3.94, sku:64  },
+  { id:"n",  n:"Nimbo Naturals",              val:5.1,  vol:5.8,  acv:31.2, acvD:9.9,  pi:88,  promo:18.6, sos:6.2,  vg:31.5, qg:36.2, rate:4.52, sku:48  },
+];
+const US = BRANDS[0];
+const CATEGORY_CR = 1840;              /* annualised category value across tracked platforms, ₹ Cr */
+const CITIES = [
+  { n:"Delhi NCR", t:1, x:77.21, y:28.61, w:11.2, rg:"North" }, { n:"Mumbai", t:1, x:72.88, y:19.08, w:10.4, rg:"West" },
+  { n:"Bengaluru", t:1, x:77.59, y:12.97, w:9.6, rg:"South" },  { n:"Hyderabad", t:1, x:78.49, y:17.39, w:7.1, rg:"South" },
+  { n:"Chennai", t:1, x:80.27, y:13.08, w:6.4, rg:"South" },    { n:"Kolkata", t:1, x:88.36, y:22.57, w:5.8, rg:"East" },
+  { n:"Pune", t:1, x:73.86, y:18.52, w:5.2, rg:"West" },        { n:"Ahmedabad", t:1, x:72.57, y:23.02, w:4.6, rg:"West" },
+  { n:"Lucknow", t:2, x:80.95, y:26.85, w:3.1, rg:"North" },    { n:"Jaipur", t:2, x:75.79, y:26.91, w:3.0, rg:"North" },
+  { n:"Nagpur", t:2, x:79.09, y:21.15, w:2.4, rg:"West" },      { n:"Indore", t:2, x:75.86, y:22.72, w:2.3, rg:"West" },
+  { n:"Surat", t:2, x:72.83, y:21.17, w:2.5, rg:"West" },       { n:"Bhopal", t:2, x:77.41, y:23.26, w:1.9, rg:"West" },
+  { n:"Coimbatore", t:2, x:76.96, y:11.02, w:1.8, rg:"South" }, { n:"Kochi", t:2, x:76.27, y:9.93, w:1.7, rg:"South" },
+  { n:"Chandigarh", t:2, x:76.78, y:30.73, w:1.9, rg:"North" }, { n:"Patna", t:2, x:85.14, y:25.59, w:1.6, rg:"East" },
+  { n:"Visakhapatnam", t:2, x:83.22, y:17.69, w:1.5, rg:"South" }, { n:"Guwahati", t:2, x:91.74, y:26.14, w:1.1, rg:"East" },
+  { n:"Ludhiana", t:3, x:75.86, y:30.90, w:1.2, rg:"North" },   { n:"Jalandhar", t:3, x:75.58, y:31.33, w:0.9, rg:"North" },
+  { n:"Aligarh", t:3, x:78.09, y:27.90, w:0.7, rg:"North" },    { n:"Kanpur", t:3, x:80.35, y:26.45, w:1.1, rg:"North" },
+  { n:"Nashik", t:3, x:73.79, y:19.99, w:1.0, rg:"West" },      { n:"Rajkot", t:3, x:70.80, y:22.30, w:0.9, rg:"West" },
+  { n:"Meerut", t:3, x:77.71, y:28.98, w:0.8, rg:"North" },     { n:"Varanasi", t:3, x:82.99, y:25.32, w:0.8, rg:"East" },
+  { n:"Jodhpur", t:3, x:73.02, y:26.24, w:0.7, rg:"North" },    { n:"Amritsar", t:3, x:74.87, y:31.63, w:0.8, rg:"North" },
+];
+const INDIA = [[74.0,34.5],[77.0,35.5],[78.9,34.3],[79.5,32.5],[81.0,30.3],[84.0,27.5],[88.2,27.9],[89.0,26.8],
+ [92.0,27.5],[95.5,28.5],[97.4,28.2],[96.5,27.3],[97.3,24.5],[94.5,24.0],[93.3,22.0],[92.5,21.9],[91.5,22.8],
+ [89.0,21.7],[87.0,21.5],[85.0,19.5],[82.5,17.0],[80.3,15.8],[80.1,13.1],[79.8,10.3],[78.2,8.9],[77.5,8.1],
+ [76.5,9.5],[75.0,12.0],[74.0,14.5],[73.5,16.0],[72.8,19.1],[72.9,20.9],[72.6,21.6],[72.2,21.1],[70.9,20.8],[69.2,22.2],[68.3,23.6],[70.3,24.2],
+ [71.2,24.7],[70.0,26.5],[72.0,28.0],[73.9,30.0],[74.5,32.5]];
+const LON0 = 68.0, LON1 = 98.0, LAT0 = 7.5, LAT1 = 36.5, MAPW = 520, MAPH = 560, MPAD = 26;
+const mx = lon => MPAD + (lon - LON0) / (LON1 - LON0) * (MAPW - MPAD * 2);
+const my = lat => MPAD + (LAT1 - lat) / (LAT1 - LAT0) * (MAPH - MPAD * 2);
+
+const state = { screen:"index", set:new Set(["z","f","m","c","n"]), tgt:"z", mult:1.25,
+                mapView:"lead", city:"Jalandhar", tgRank:"value", region:"National" };
+const B = id => BRANDS.find(b => b.id === id);
+
+/* per-city picture for us vs a competitor — deterministic */
+function cityRow(ct, cid){
+  const t = B(cid), r = rng("c" + ct.n + cid);
+  const skew = (r() - 0.42) * 2;                                   /* local strength swing */
+  const ours = Math.max(4, US.val * (1 + skew * 0.20 + (ct.t === 1 ? 0.08 : ct.t === 3 ? -0.10 : 0)));
+  const them = Math.max(4, t.val * (1 - skew * 0.17 + (ct.t === 3 ? 0.12 : 0)));
+  const acvUs = Math.min(98, Math.max(22, US.acv * (1 + skew * 0.20 + (ct.t === 1 ? 0.10 : -0.10))));
+  const acvTh = Math.min(98, Math.max(22, t.acv * (1 - skew * 0.16 + (ct.t === 3 ? 0.08 : 0))));
+  const pen = Math.min(96, Math.max(14, acvTh * (0.72 + r() * 0.28)));
+  const sosUs = Math.max(6, US.sos * (1 + skew * 0.26)), sosTh = Math.max(6, t.sos * (1 - skew * 0.18));
+  const skuUs = Math.round(US.sku * (0.34 + r() * 0.24)), skuTh = Math.round(t.sku * (0.30 + r() * 0.30));
+  const piUs = Math.round(US.pi * (0.96 + r() * 0.10));
+  const cr = CATEGORY_CR * ct.w / 100;
+  const osaUs = 62 + acvUs * 0.32, osaTh = 62 + acvTh * 0.32;
+  const unans = 2 + Math.floor(r() * 8);
+  return { ...ct, cid, ours, them, gap:ours - them, acvUs, acvTh, pen, sosUs, sosTh, skuUs, skuTh, piUs,
+           osaUs, osaTh, unans, cr, worth: cr * Math.max(0, them - ours) / 100 };
+}
+const grid = cid => CITIES.map(c => cityRow(c, cid));
+
+/* reverse diagnosis — precedence ladder, single attribution */
+const RUNGS = [
+  { k:"avail",  n:"Availability",             own:"Supply Planning / CAM",
+    ev:(r,t) => `on shelf in ${r.osaUs.toFixed(0)}% of crawls against their ${r.osaTh.toFixed(0)}%`,
+    fix:r => `Raise the priority replenishment list to cover this city — ${Math.max(3, Math.round((r.osaTh - r.osaUs) / 2))} of their winning SKU cells are ones we were simply not on shelf for` },
+  { k:"assort", n:"Assortment",               own:"CAM",
+    ev:(r,t) => `${Math.max(0, r.skuTh - r.skuUs)} more SKUs listed here than us`,
+    fix:r => `List the ${Math.min(12, Math.max(3, r.skuTh - r.skuUs))} SKUs already ranging in comparable cities — a listing request, not new production` },
+  { k:"acv",    n:"Distribution / ACV",       own:"CAM",
+    ev:(r,t) => `${(r.acvTh - r.acvUs).toFixed(1)}pt of ACV ahead — they are in stores we are not`,
+    fix:r => `Dark-store onboarding in the clusters where their ACV runs ${(r.acvTh - r.acvUs).toFixed(0)}pt ahead of ours` },
+  { k:"price",  n:"Price & promotion",        own:"Revenue / CAM",
+    ev:(r,t) => `our price index ${r.piUs} against the category, and they ran ${r.unans} unanswered promo weeks here`,
+    fix:r => `Match on two of the ${r.unans} unanswered weeks rather than all of them — the calendar shows which two carry the volume` },
+  { k:"vis",    n:"Visibility / share of search", own:"Media",
+    ev:(r,t) => `${(r.sosTh - r.sosUs).toFixed(1)}pt behind on share of search in this city`,
+    fix:r => `City-level bid modifier on the four keywords where they hold rank 1–3 and we hold 8 or worse` },
+  { k:"content",n:"Content & ratings",        own:"Catalog",
+    ev:(r,t) => `content score at parity, our rating ${US.rate.toFixed(2)} against their ${t.rate.toFixed(2)}`,
+    fix:r => `No action — this rung is not the constraint here, and saying so is what keeps the list worth reading` },
+];
+
+/* promo calendar */
+const WEEKS = 26;
+function promoGrid(region){
+  const ids = ["us", ...BRANDS.filter(b => !b.us && state.set.has(b.id)).map(b => b.id)];
+  return ids.map(id => {
+    const b = B(id), r = rng("pm" + id + region);
+    const cells = [];
+    for (let w = 0; w < WEEKS; w++){
+      const seasonal = (w % 13 < 3 ? 1.5 : 1) * (w > 20 ? 1.35 : 1);
+      const on = r() < (b.promo / 100) * 3.1 * seasonal;
+      cells.push(on ? Math.round((b.promo * 0.6 + r() * b.promo * 1.5) * 10) / 10 : 0);
+    }
+    return { id, n:b.n, us:!!b.us, cells };
+  });
+}
+
+/* ═════════ COMPETITOR SET ═════════ */
+function renderSet(){
+  $("#setGrid").innerHTML = BRANDS.filter(b => !b.us).map(b => {
+    const inSet = state.set.has(b.id), isT = state.tgt === b.id;
+    return `<div class="setcard${inSet ? " on" : ""}${isT ? " tgt" : ""}">
+      <button class="setmain" data-b="${b.id}">
+        <span class="cbx${inSet ? " on" : ""}">✓</span>
+        <span><b>${esc(b.n)}</b><span class="sm">${b.val.toFixed(1)}pt value share · ${b.acv.toFixed(1)}% ACV · ${sgn(b.vg)}% value growth</span></span>
+      </button>
+      <button class="settgt${isT ? " on" : ""}" data-t="${b.id}" ${inSet ? "" : "disabled"}>${isT ? "Target ●" : "Set as target"}</button>
+    </div>`; }).join("");
+  $("#setGrid").querySelectorAll(".setmain").forEach(el => el.addEventListener("click", () => {
+    const id = el.dataset.b;
+    if (state.set.has(id)){ if (state.set.size <= 1) return; state.set.delete(id); if (state.tgt === id) state.tgt = [...state.set][0]; }
+    else state.set.add(id);
+    renderAll(); }));
+  $("#setGrid").querySelectorAll(".settgt").forEach(el => el.addEventListener("click", () => {
+    if (!state.set.has(el.dataset.t)) return; state.tgt = el.dataset.t; renderAll(); }));
+  const t = B(state.tgt);
+  $("#tgtName").textContent = t.n;
+  $("#setNote").innerHTML = `${state.set.size} brands in the set, indexed against <b>${esc(t.n)}</b> at <b>${state.mult.toFixed(2)}×</b>.
+    Changing the set changes every number on every screen below — the index, the map, the city targets and the diagnosis all recompute,
+    because a competitive number that does not name its comparison set is not a number.`;
+}
+
+/* ═════════ INDEX & GROWTH ═════════ */
+const METRICS = [
+  { k:"val",  n:"Value share",       u:"pt", hi:true,  cap:100 },
+  { k:"vol",  n:"Volume share",      u:"pt", hi:true,  cap:100 },
+  { k:"acv",  n:"ACV %",             u:"%",  hi:true,  cap:100 },
+  { k:"sos",  n:"Share of search",   u:"%",  hi:true,  cap:100 },
+  { k:"sku",  n:"SKUs listed",       u:"",   hi:true,  cap:null },
+  { k:"rate", n:"Average rating",    u:"",   hi:true,  cap:5 },
+  { k:"pi",   n:"Price index",       u:"",   hi:null,  cap:null },
+  { k:"promo",n:"Promo intensity",   u:"%",  hi:null,  cap:100 },
+];
+function renderIndex(){
+  const t = B(state.tgt);
+  const ix = m => US[m.k] / t[m.k] * 100;
+  const vIx = ix(METRICS[0]);
+  $("#ixHero").textContent = (vIx / 100).toFixed(2) + "×";
+  $("#ixHero").style.color = cvar(vIx >= 100 ? "--gain" : "--loss");
+  $("#ixSub").innerHTML = `${US.val.toFixed(1)}pt of value share against <b>${esc(t.n)}</b>'s ${t.val.toFixed(1)}pt.
+    To reach the <b>${state.mult.toFixed(2)}×</b> target we would need <b>${(t.val * state.mult).toFixed(1)}pt</b> —
+    ${(t.val * state.mult - US.val).toFixed(1)}pt more than we hold, worth <b>${money(CATEGORY_CR * (t.val * state.mult - US.val) / 100)}</b> a year.`;
+  $("#ixVal").innerHTML = sgn(US.vg) + "<small>%</small>";
+  $("#ixVal").className = "v num " + (US.vg >= t.vg ? "up" : "dn");
+  $("#ixValD").textContent = "target " + sgn(t.vg) + "% · index " + (US.vg / t.vg * 100).toFixed(0);
+  $("#ixVol").innerHTML = sgn(US.qg) + "<small>%</small>";
+  $("#ixVol").className = "v num " + (US.qg >= t.qg ? "up" : "dn");
+  $("#ixVolD").textContent = "target " + sgn(t.qg) + "% · this is the gap that matters";
+  $("#ixAcv").innerHTML = US.acv.toFixed(1) + "<small>%</small>";
+  $("#ixAcvD").textContent = "target " + t.acv.toFixed(1) + "% · they added " + t.acvD.toFixed(1) + "pt this year, we added " + US.acvD.toFixed(1);
+  const gapPt = t.val * state.mult - US.val;
+  $("#ixGap").innerHTML = gapPt.toFixed(1) + "<small>pt</small>";
+  $("#ixGapD").textContent = money(CATEGORY_CR * gapPt / 100) + " of annual category value";
+
+  $("#ixPill").textContent = "vs " + t.n + " · " + state.mult.toFixed(2) + "×";
+  const inSet = BRANDS.filter(b => !b.us && state.set.has(b.id));
+  $("#ixWrap").innerHTML = `<table><thead><tr><th>Measure</th><th class="r">Us</th>
+      <th class="r">${esc(t.n)}</th>${inSet.filter(b => b.id !== t.id).map(b => `<th class="r">${esc(b.n.split(" ")[0])}</th>`).join("")}
+      <th class="r">Index vs target</th><th class="r">Needed for ${state.mult.toFixed(2)}×</th><th>Read</th></tr></thead>
+    <tbody>${METRICS.map(m => {
+      const v = ix(m), need = t[m.k] * state.mult, dec = m.k === "rate" ? 2 : m.k === "sku" ? 0 : 1;
+      const impossible = m.cap !== null && need > m.cap;
+      const good = m.hi === null ? null : (m.hi ? v >= 100 : v <= 100);
+      return `<tr>
+        <td><b>${esc(m.n)}</b></td>
+        <td class="r num" style="font-weight:600">${US[m.k].toFixed(dec)}${m.u}</td>
+        <td class="r num">${t[m.k].toFixed(dec)}${m.u}</td>
+        ${inSet.filter(b => b.id !== t.id).map(b => `<td class="r num muted">${b[m.k].toFixed(dec)}${m.u}</td>`).join("")}
+        <td class="r num" style="font-weight:700;color:${good === null ? cvar("--ink") : cvar(good ? "--gain" : "--loss")}">${v.toFixed(0)}</td>
+        <td class="r num">${impossible ? `<span class="muted">${need.toFixed(dec)} — impossible</span>` : need.toFixed(dec) + m.u}</td>
+        <td>${m.hi === null ? `<span class="pill p-mute">Context, not a target</span>`
+             : good ? `<span class="pill p-good">Ahead of target</span>`
+             : impossible ? `<span class="pill p-warn">Cap is ${m.cap}${m.u} — pick another lever</span>`
+             : `<span class="pill p-bad">${(need - US[m.k]).toFixed(dec)}${m.u} to find</span>`}</td></tr>`;
+    }).join("")}</tbody></table>`;
+  const imp = METRICS.filter(m => m.cap !== null && t[m.k] * state.mult > m.cap).length;
+  $("#ixNote").innerHTML = `${imp === 0 ? "Every target on this table is arithmetically reachable at " + state.mult.toFixed(2) + "×."
+    : imp + " of these targets " + (imp === 1 ? "is" : "are") + " arithmetically out of reach at " + state.mult.toFixed(2) + "× — an ACV or share figure cannot exceed 100 and a rating cannot exceed 5."} A competitive target that quietly requires an impossible number is the most common way an ambitious plan becomes an
+    unaccountable one, so the table says it on the row rather than in a footnote. <b>Price index and promo intensity carry no arrow</b>:
+    being above or below the target on those is a strategy choice, not a score.`;
+
+  renderGrowth();
+}
+
+function renderGrowth(){
+  const svg = $("#grChart"), t = B(state.tgt);
+  const rows = [US, ...BRANDS.filter(b => !b.us && state.set.has(b.id))];
+  const W = 1180, H = 340, L = 168, R = 96, T = 24, B0 = 262;
+  const vals = rows.flatMap(b => [b.vg, b.qg, b.vg - b.qg, 0]);
+  const hi = Math.max(...vals) * 1.12, lo = Math.min(...vals, 0) * 1.25 - 1;
+  const x = v => L + (v - lo) / (hi - lo) * (W - L - R);
+  const bh = (B0 - T) / rows.length, bar = Math.min(30, bh * 0.42);
+  let g = "";
+  for (let k = 0; k <= 5; k++){ const v = lo + (hi - lo) * k / 5;
+    g += `<line class="gl" x1="${x(v).toFixed(1)}" y1="${T}" x2="${x(v).toFixed(1)}" y2="${B0}"/>
+          <text class="ax num" x="${x(v).toFixed(1)}" y="${B0+18}" text-anchor="middle">${v.toFixed(0)}%</text>`; }
+  g += `<line x1="${x(0).toFixed(1)}" y1="${T}" x2="${x(0).toFixed(1)}" y2="${B0}" stroke="${cvar("--line-strong")}" stroke-width="1.4"/>`;
+  rows.forEach((b, i) => {
+    const cy = T + bh * i + bh / 2, q = b.qg, pm = b.vg - b.qg;
+    const x0 = x(0), xq = x(q), xv = x(b.vg);
+    g += `<text class="ax" x="${L-12}" y="${(cy+4).toFixed(1)}" text-anchor="end" font-weight="${b.us?700:500}"
+            fill="${cvar(b.us ? "--ink" : b.id === t.id ? "--loss" : "--ink-2")}" font-size="12">${esc(b.n)}</text>`;
+    g += `<rect x="${Math.min(x0,xq).toFixed(1)}" y="${(cy-bar/2).toFixed(1)}" width="${Math.abs(xq-x0).toFixed(1)}" height="${bar}"
+            rx="2" fill="${cvar("--s1")}" fill-opacity="${b.us ? ".95" : ".62"}"/>`;
+    g += `<rect x="${Math.min(xq,xv).toFixed(1)}" y="${(cy-bar/2).toFixed(1)}" width="${Math.abs(xv-xq).toFixed(1)}" height="${bar}"
+            rx="2" fill="${cvar("--s2")}" fill-opacity="${b.us ? ".95" : ".62"}"/>`;
+    g += `<text class="ax num" x="${(xv + (b.vg>=0?8:-8)).toFixed(1)}" y="${(cy+4).toFixed(1)}" text-anchor="${b.vg>=0?"start":"end"}"
+            font-weight="700" font-size="11.5" fill="${cvar(b.vg>=0?"--ink":"--loss")}">${sgn(b.vg)}%</text>`;
+    g += `<circle cx="${x(b.acvD).toFixed(1)}" cy="${(cy - bar/2 - 7).toFixed(1)}" r="4.5" fill="${cvar("--s3")}"
+            stroke="${cvar("--surface")}" stroke-width="1.6"><title>${esc(b.n)} added ${b.acvD.toFixed(1)}pt of ACV</title></circle>`;
+  });
+  svg.innerHTML = g;
+  $("#grLegend").innerHTML = `<span><i class="swatch" style="background:var(--s1)"></i>Volume contribution</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Price / mix contribution</span>
+    <span><i class="swatch" style="background:var(--s3);border-radius:50%"></i>ACV points added this year</span>`;
+  const usPM = (US.vg - US.qg) / US.vg * 100, tPM = (t.vg - t.qg) / t.vg * 100;
+  $("#grNote").innerHTML = `Our ${sgn(US.vg)}% value growth is <b>${usPM.toFixed(0)}% price and mix</b> on ${sgn(US.qg)}% of volume.
+    ${esc(t.n)}'s ${sgn(t.vg)}% is <b>${(100-tPM).toFixed(0)}% volume</b>, and the ${t.acvD.toFixed(1)} points of ACV they added this year
+    explain most of it — they are growing by being in more places, not by pricing harder. That distinction decides the response:
+    <b>you cannot out-price distribution.</b> Matching their discount would cost margin and leave the ACV gap exactly where it is.`;
+}
+
+/* ═════════ MAP ═════════ */
+function renderMap(){
+  const t = B(state.tgt), G = grid(state.tgt), svg = $("#cMap");
+  const maxW = Math.max(...G.map(c => c.cr));
+  const rOf = v => 4.5 + Math.sqrt(v / maxW) * 21;
+  let g = `<path d="${INDIA.map((p, i) => (i ? "L" : "M") + mx(p[0]).toFixed(1) + " " + my(p[1]).toFixed(1)).join(" ")} Z"
+    fill="${cvar("--surface-3")}" stroke="${cvar("--line-strong")}" stroke-width="1.2" stroke-linejoin="round"/>`;
+  const colOf = c => state.mapView === "lead" ? cvar(c.gap >= 0 ? "--gain" : "--loss")
+                   : state.mapView === "acv"  ? cvar(c.acvUs >= c.acvTh ? "--gain" : "--loss")
+                   : cvar("--s3");
+  const opOf = c => state.mapView === "pen" ? Math.min(.62, .12 + c.pen / 160) : (state.city === c.n ? .5 : .26);
+  G.slice().sort((a, b) => b.cr - a.cr).forEach(c => {
+    const col = colOf(c), r = rOf(c.cr), on = state.city === c.n;
+    g += `<circle class="map-dot" data-c="${esc(c.n)}" cx="${mx(c.x).toFixed(1)}" cy="${my(c.y).toFixed(1)}" r="${r.toFixed(1)}"
+      fill="${col}" fill-opacity="${opOf(c).toFixed(2)}" stroke="${col}" stroke-width="${on ? 2.6 : 1.5}"/>`; });
+  G.filter(c => c.t === 1 || c.n === state.city).forEach(c =>
+    g += `<text class="map-lab" x="${(mx(c.x) + rOf(c.cr) + 4).toFixed(1)}" y="${(my(c.y) + 3.5).toFixed(1)}"
+      font-weight="${c.n === state.city ? 700 : 500}">${esc(c.n)}</text>`);
+  svg.innerHTML = g;
+  svg.querySelectorAll(".map-dot").forEach(el => {
+    const c = G.find(x => x.n === el.dataset.c);
+    el.addEventListener("click", () => { state.city = c.n; renderMap(); renderTargets(); renderDiag(); });
+    el.addEventListener("mousemove", e => showTip(e, `<b>${esc(c.n)}</b><s>Tier ${c.t} · ${esc(c.rg)} · category ${money(c.cr)}</s>
+      Us ${c.ours.toFixed(1)}pt · them ${c.them.toFixed(1)}pt<br>ACV ${c.acvUs.toFixed(0)}% vs ${c.acvTh.toFixed(0)}%<br>
+      <s style="margin-top:4px">their household penetration ${c.pen.toFixed(0)}%</s>`));
+    el.addEventListener("mouseleave", hideTip);
+  });
+
+  const lead = G.filter(c => c.gap >= 0).length;
+  const worst = G.slice().sort((a, b) => b.worth - a.worth).slice(0, 8);
+  $("#mapSide").innerHTML = `<div class="sideh">Where ${esc(t.n)} is ahead</div>
+    ${worst.map(c => `<button class="siderow${c.n === state.city ? " on" : ""}" data-c="${esc(c.n)}">
+      <span class="sn">${esc(c.n)}<em>Tier ${c.t} · ${esc(c.rg)}</em></span>
+      <span class="sv num dn">${(c.them - c.ours).toFixed(1)}pt</span>
+      <span class="sw num">${money(c.worth)}</span></button>`).join("")}`;
+  $("#mapSide").querySelectorAll(".siderow").forEach(el => el.addEventListener("click", () => {
+    state.city = el.dataset.c; renderMap(); renderTargets(); renderDiag(); }));
+  $("#mpLegend").innerHTML = state.mapView === "pen"
+    ? `<span><i class="swatch" style="background:var(--s3)"></i>Their household penetration — darker is deeper</span>
+       <span>Bubble size = category value in the city</span>`
+    : `<span><i class="swatch" style="background:var(--gain)"></i>We lead</span>
+       <span><i class="swatch" style="background:var(--loss)"></i>${esc(t.n)} leads</span>
+       <span>Bubble size = category value in the city</span>`;
+  $("#mpT").textContent = state.mapView === "pen" ? "Their penetration, city by city"
+    : state.mapView === "acv" ? "ACV gap — where they are stocked and we are not" : "Where they are and we are not";
+  $("#mpNote").innerHTML = `We lead <b>${lead} of ${G.length}</b> tracked cities. ${esc(t.n)} leads the other ${G.length - lead},
+    worth <b>${money(G.reduce((a, c) => a + c.worth, 0))}</b> a year at current category values. Their strength is concentrated in
+    <b>Tier 3</b>, where they hold ${(G.filter(c=>c.t===3).reduce((a,c)=>a+c.acvTh,0)/G.filter(c=>c.t===3).length).toFixed(0)}% ACV
+    against our ${(G.filter(c=>c.t===3).reduce((a,c)=>a+c.acvUs,0)/G.filter(c=>c.t===3).length).toFixed(0)}% —
+    the same shape the national ACV gap has, only sharper. Click a city to make it the target.`;
+}
+
+/* ═════════ CITY TARGETS ═════════ */
+function renderTargets(){
+  const t = B(state.tgt), G = grid(state.tgt).filter(c => c.gap < 0);
+  const rows = G.slice().sort((a, b) => state.tgRank === "value" ? b.worth - a.worth : (a.them - a.ours) - (b.them - b.ours));
+  $("#tgWrap").innerHTML = `<table><thead><tr><th>City</th><th>Tier</th><th>Region</th>
+      <th class="r">Us</th><th class="r">${esc(t.n.split(" ")[0])}</th><th class="r">Gap</th>
+      <th class="r">ACV gap</th><th class="r">SoS gap</th><th class="r">SKU gap</th>
+      <th class="r">Worth a year</th><th>Set target</th></tr></thead>
+    <tbody>${rows.map(c => `<tr class="row${c.n === state.city ? " is-on" : ""}" data-c="${esc(c.n)}">
+      <td><b>${esc(c.n)}</b></td><td>Tier ${c.t}</td><td>${esc(c.rg)}</td>
+      <td class="r num">${c.ours.toFixed(1)}pt</td><td class="r num">${c.them.toFixed(1)}pt</td>
+      <td class="r num dn" style="font-weight:600">−${(c.them - c.ours).toFixed(1)}pt</td>
+      <td class="r num" style="color:${cvar(c.acvTh > c.acvUs ? "--loss" : "--gain")}">${(c.acvUs - c.acvTh).toFixed(1)}pt</td>
+      <td class="r num" style="color:${cvar(c.sosTh > c.sosUs ? "--loss" : "--gain")}">${(c.sosUs - c.sosTh).toFixed(1)}pt</td>
+      <td class="r num" style="color:${cvar(c.skuTh > c.skuUs ? "--loss" : "--gain")}">${c.skuUs - c.skuTh}</td>
+      <td class="r num" style="font-weight:600">${money(c.worth)}</td>
+      <td><span class="pill ${c.n === state.city ? "p-info" : "p-mute"}">${c.n === state.city ? "Selected" : "Select"}</span></td></tr>`).join("")}</tbody></table>`;
+  $("#tgWrap").querySelectorAll("tr.row").forEach(tr => tr.addEventListener("click", () => {
+    state.city = tr.dataset.c; renderTargets(); renderDiag(); renderMap(); }));
+
+  const c = grid(state.tgt).find(x => x.n === state.city) || rows[0];
+  state.city = c.n;
+  const need = c.them - c.ours;
+  const REQ = [
+    { k:"ACV %", now:c.acvUs.toFixed(1) + "%", req:Math.min(96, c.acvTh + 1).toFixed(1) + "%", own:"CAM · " + c.rg, wk:8,
+      how:`onboard the dark stores here where they are listed and we are not — ${(Math.min(96, c.acvTh + 1) - c.acvUs).toFixed(1)} points of ACV` },
+    { k:"SKUs listed", now:c.skuUs, req:c.skuUs + Math.min(12, Math.max(3, c.skuTh - c.skuUs)), own:"CAM · " + c.rg, wk:4,
+      how:`list the ${Math.min(12, Math.max(3, c.skuTh - c.skuUs))} SKUs already ranging in comparable cities — a listing request, not new production` },
+    { k:"On-shelf availability", now:c.osaUs.toFixed(0) + "%", req:Math.max(92, Math.ceil(c.osaTh)) + "%", own:"Supply Planning", wk:6,
+      how:"raise the priority replenishment list; the MOQ change already cleared the gate" },
+    { k:"Share of search", now:c.sosUs.toFixed(1) + "%", req:(c.sosTh + 2).toFixed(1) + "%", own:"Media", wk:3,
+      how:"city-level bid modifier on the four keywords where they hold rank 1–3" },
+    { k:"Promo answer", now:c.unans + " unanswered weeks", req:"≤ 2", own:"Revenue / CAM", wk:2,
+      how:"match on the two weeks that carry the volume, not on every week they discount" },
+  ];
+  $("#tdT").textContent = `Beat ${t.n} in ${c.n}`;
+  $("#tdP").innerHTML = `A ${need.toFixed(1)}pt gap on a ${money(c.cr)} category. Below is what has to become true for the gap to close —
+    each line with its current value, the value it needs, who owns it and how long it takes. Nothing here is a slogan; every row is a
+    number someone can be held to.`;
+  $("#tdPill").textContent = `−${need.toFixed(1)}pt · ${money(c.worth)} at stake`;
+  $("#reqGrid").innerHTML = REQ.map((q, i) => `<div class="req">
+      <span class="rq">${i + 1}</span>
+      <div class="rb"><b>${esc(q.k)}</b><span class="rh">${esc(q.how)}</span>
+        <div class="rr"><span>now <b class="num">${esc(String(q.now))}</b></span><span>needs <b class="num">${esc(String(q.req))}</b></span>
+          <span>${esc(q.own)}</span><span class="pill p-mute">${q.wk} wks</span></div></div>
+    </div>`).join("");
+  $("#tdNote").innerHTML = `Modelled recovery if all five land: <b class="up">${money(c.worth * 0.72)}</b> of the ${money(c.worth)} at stake,
+    over ${Math.max(...REQ.map(q => q.wk))} weeks — not all of it, because ${esc(t.n)} does not stand still and roughly a quarter of the gap
+    is brand preference no lever on this page moves. Committing to the full ${money(c.worth)} would be the more impressive number and the
+    less useful one.`;
+}
+
+/* ═════════ REVERSE DIAGNOSIS ═════════ */
+function diagFor(){
+  const t = B(state.tgt), c = grid(state.tgt).find(x => x.n === state.city) || grid(state.tgt)[0];
+  const gap = Math.max(0.4, c.them - c.ours);
+  const r = rng("dg" + c.n + state.tgt);
+  const raw = [
+    Math.max(0, (c.acvTh - c.acvUs)) * 0.030 + 0.10,                    /* availability */
+    Math.max(0, (c.skuTh - c.skuUs)) * 0.010 + 0.06,                    /* assortment */
+    Math.max(0, (c.acvTh - c.acvUs)) * 0.022 + 0.05,                    /* distribution */
+    Math.max(0, (t.promo - US.promo)) * 0.055 + r() * 0.25,             /* price & promo */
+    Math.max(0, (c.sosTh - c.sosUs)) * 0.020 + 0.04,                    /* visibility */
+    0.03,                                                                /* content */
+  ];
+  const s = raw.reduce((a, x) => a + x, 0);
+  const parts = raw.map(x => x / s * gap);
+  return { c, t, gap, rows: RUNGS.map((g, i) => ({ ...g, pt: parts[i] })).sort((a, b) => b.pt - a.pt) };
+}
+function renderDiag(){
+  const D = diagFor(), c = D.c, t = D.t;
+  c.unans = c.unans || 6;
+  $("#dgEye").textContent = `${c.n} · gap to ${t.n}`;
+  $("#dgHero").textContent = "−" + D.gap.toFixed(2) + "pt";
+  $("#dgSub").innerHTML = `They are ahead here, and the question is not <em>whether</em> but <em>why</em>. The ladder below charges every
+    tenth of that gap to exactly one cause, in the order a cause can actually be repaired — so the parts add to
+    <b>${D.gap.toFixed(2)}pt</b> rather than overlapping into a larger, comfortable number.`;
+  $("#dgTiles").innerHTML = D.rows.slice(0, 4).map(x => `
+    <div class="btile"><span class="k">${esc(x.n)}</span><span class="v num dn">${x.pt.toFixed(2)}<small>pt</small></span>
+      <span class="d">${(x.pt / D.gap * 100).toFixed(0)}% of the gap · ${esc(x.own)}</span></div>`).join("");
+  $("#dgPill").textContent = c.n + " · vs " + t.n;
+
+  const svg = $("#dgChart"), W = 1180, H = 300, L = 210, R = 240, T = 22, B0 = 262;
+  const hi = D.rows[0].pt * 1.1, bh = (B0 - T) / D.rows.length, bar = Math.min(28, bh * 0.5);
+  const x = v => L + v / hi * (W - L - R);
+  let g = "";
+  for (let k = 0; k <= 4; k++){ const v = hi * k / 4;
+    g += `<line class="gl" x1="${x(v).toFixed(1)}" y1="${T}" x2="${x(v).toFixed(1)}" y2="${B0}"/>
+          <text class="ax num" x="${x(v).toFixed(1)}" y="${B0+18}" text-anchor="middle">${v.toFixed(2)}pt</text>`; }
+  let cum = 0;
+  D.rows.forEach((row, i) => {
+    const cy = T + bh * i + bh / 2; cum += row.pt;
+    g += `<text class="ax" x="${L-12}" y="${(cy+4).toFixed(1)}" text-anchor="end" font-size="12" font-weight="600">${esc(row.n)}</text>
+          <rect x="${L}" y="${(cy-bar/2).toFixed(1)}" width="${(x(row.pt)-L).toFixed(1)}" height="${bar}" rx="3"
+            fill="${cvar(i === 0 ? "--loss" : "--s1")}" fill-opacity="${i === 0 ? ".85" : (0.62 - i * 0.07).toFixed(2)}"/>
+          <text class="ax num" x="${(x(row.pt)+8).toFixed(1)}" y="${(cy+4).toFixed(1)}" font-weight="700" font-size="11.5">${row.pt.toFixed(2)}pt</text>
+          <text class="ax num" x="${(x(row.pt)+58).toFixed(1)}" y="${(cy+4).toFixed(1)}" font-size="11">cumulative ${cum.toFixed(2)}pt · ${(cum/D.gap*100).toFixed(0)}%</text>`;
+  });
+  svg.innerHTML = g;
+
+  $("#dgWrap").innerHTML = `<table><thead><tr><th>#</th><th>Cause</th><th class="r">Gap charged</th><th class="r">Share of gap</th>
+      <th>Evidence</th><th>Prescription</th><th>Owner</th></tr></thead>
+    <tbody>${D.rows.map((row, i) => `<tr>
+      <td class="num">${i + 1}</td><td><b>${esc(row.n)}</b></td>
+      <td class="r num dn" style="font-weight:600">${row.pt.toFixed(2)}pt</td>
+      <td class="r num">${(row.pt / D.gap * 100).toFixed(0)}%</td>
+      <td style="font-size:12px;color:var(--ink-2)">${esc(row.ev(c, t))}</td>
+      <td style="font-size:12px">${esc(row.fix(c))}</td>
+      <td>${esc(row.own)}</td></tr>`).join("")}
+      <tr><td></td><td style="font-weight:700">Total</td><td class="r num dn" style="font-weight:700">${D.gap.toFixed(2)}pt</td>
+        <td class="r num" style="font-weight:700">100%</td><td colspan="3" class="muted">single attribution — no unit of gap counted twice</td></tr>
+    </tbody></table>`;
+  $("#dgNote").innerHTML = `<b>The prescription is ranked, not exhaustive.</b> ${esc(D.rows[0].n)} carries
+    ${(D.rows[0].pt / D.gap * 100).toFixed(0)}% of the gap in ${esc(c.n)} and is owned by ${esc(D.rows[0].own)} — fixing it first is worth
+    more than the bottom three combined, and the bottom rung says explicitly that it is <em>not</em> the problem here. A diagnosis that
+    finds six causes and recommends acting on all six has not diagnosed anything.`;
+}
+
+/* ═════════ PROMO CALENDAR ═════════ */
+function renderPromo(){
+  const t = B(state.tgt), rows = promoGrid(state.region);
+  const maxD = Math.max(...rows.flatMap(r => r.cells), 1);
+  const wkLab = i => "W" + (i + 1);
+  const us = rows.find(r => r.us), them = rows.find(r => r.id === state.tgt);
+  const unanswered = [], collided = [];
+  for (let w = 0; w < WEEKS; w++){
+    if (them.cells[w] > 0 && us.cells[w] === 0) unanswered.push(w);
+    if (them.cells[w] > 0 && us.cells[w] > 0) collided.push(w); }
+  $("#calWrap").innerHTML = `<div class="cal">
+    <div class="calrow calhead"><div class="calname"></div>${Array.from({length:WEEKS},(_,i)=>`<div class="calh">${wkLab(i)}</div>`).join("")}</div>
+    ${rows.map(r => `<div class="calrow${r.us ? " isus" : ""}${r.id === state.tgt ? " istgt" : ""}">
+      <div class="calname">${esc(r.n)}${r.us ? `<em>us</em>` : r.id === state.tgt ? `<em>target</em>` : ""}</div>
+      ${r.cells.map((v, w) => `<div class="calcell" data-t="${esc(r.n)} · ${wkLab(w)}${v ? " · " + v.toFixed(1) + "% depth" : " · no promotion"}"
+        style="background:${v ? `color-mix(in srgb, ${r.us ? "var(--s1)" : "var(--loss)"} ${(18 + v / maxD * 78).toFixed(0)}%, var(--surface-3))` : "var(--surface-3)"}"></div>`).join("")}
+    </div>`).join("")}
+    <div class="calrow calmark"><div class="calname">Unanswered</div>
+      ${Array.from({length:WEEKS},(_,w)=>`<div class="calcell ${unanswered.includes(w) ? "flag" : ""}">${unanswered.includes(w) ? "!" : ""}</div>`).join("")}</div>
+  </div>`;
+  $("#calWrap").querySelectorAll(".calcell[data-t]").forEach(el => {
+    el.addEventListener("mousemove", e => showTip(e, esc(el.dataset.t)));
+    el.addEventListener("mouseleave", hideTip); });
+  $("#calLegend").innerHTML = `<span><i class="swatch" style="background:var(--s1)"></i>Our promotion — darker is deeper</span>
+    <span><i class="swatch" style="background:var(--loss)"></i>Competitor promotion</span>
+    <span><i class="swatch" style="background:var(--up-soft);border:1px solid var(--up)"></i>Week they promoted and we did not</span>`;
+  $("#calNote").innerHTML = `In ${esc(state.region === "National" ? "the national picture" : state.region)},
+    ${esc(t.n)} promoted in <b>${them.cells.filter(v=>v>0).length} of ${WEEKS}</b> weeks and we answered in <b>${collided.length}</b> of them.
+    <b class="dn">${unanswered.length} weeks went unanswered.</b> The interesting number is not the count — it is that
+    ${collided.length} of our promotion weeks landed on top of theirs, where the discount buys share from a competitor already discounting,
+    which is the most expensive week in the calendar to be in.`;
+
+  const r2 = rng("un" + state.region + state.tgt);
+  const un = unanswered.map(w => {
+    const cost = +(0.04 + r2() * 0.16).toFixed(3), depth = them.cells[w];
+    return { w, depth, cost, cities: 3 + Math.floor(r2() * 9) }; }).sort((a, b) => b.cost - a.cost);
+  $("#unWrap").innerHTML = `<table><thead><tr><th>Week</th><th class="r">Their depth</th><th class="r">Cities affected</th>
+      <th class="r">Share cost</th><th class="r">Value cost that week</th><th>Read</th></tr></thead>
+    <tbody>${un.map(u => `<tr>
+      <td><b>${wkLab(u.w)}</b></td><td class="r num">${u.depth.toFixed(1)}%</td><td class="r num">${u.cities}</td>
+      <td class="r num dn">−${u.cost.toFixed(3)}pt</td>
+      <td class="r num dn" style="font-weight:600">${money(CATEGORY_CR / 52 * u.cost / 100)}</td>
+      <td>${u.cost > 0.14 ? `<span class="pill p-bad">Answer this one</span>`
+           : u.cost > 0.09 ? `<span class="pill p-warn">Worth a counter</span>` : `<span class="pill p-mute">Let it go</span>`}</td></tr>`).join("")}
+      <tr><td style="font-weight:700">Total</td><td></td><td class="r num">${un.reduce((a,u)=>a+u.cities,0)}</td>
+        <td class="r num dn" style="font-weight:700">−${un.reduce((a,u)=>a+u.cost,0).toFixed(3)}pt</td>
+        <td class="r num dn" style="font-weight:700">${money(CATEGORY_CR / 52 * un.reduce((a,u)=>a+u.cost,0) / 100)}</td>
+        <td class="muted">answering the top ${un.filter(u=>u.cost>0.14).length} recovers ${(un.filter(u=>u.cost>0.14).reduce((a,u)=>a+u.cost,0)/un.reduce((a,u)=>a+u.cost,0)*100).toFixed(0)}% of it</td></tr>
+    </tbody></table>`;
+}
+
+/* ═════════ SHELL ═════════ */
+const TITLES = { index:"Index & growth", map:"Penetration map", target:"City targets",
+                 diag:"Reverse diagnosis", promo:"Promo calendar" };
+const CRUMB = { index:"Indexed against a named competitor, at a named multiple",
+                map:"Their footprint against ours, city by city",
+                target:"Beat a named competitor in a named city",
+                diag:"They are ahead here — this is why, and this is the order to fix it",
+                promo:"Twenty-six weeks of discounting, ours against theirs" };
+function renderAll(){
+  renderSet();
+  if (state.screen === "index") renderIndex();
+  if (state.screen === "map") renderMap();
+  if (state.screen === "target") renderTargets();
+  if (state.screen === "diag") renderDiag();
+  if (state.screen === "promo") renderPromo();
+}
+function show(k){
+  state.screen = k;
+  ["index","map","target","diag","promo"].forEach(s => $("#s-" + s).hidden = s !== k);
+  document.querySelectorAll(".rail-item[data-s]").forEach(b => b.classList.toggle("is-on", b.dataset.s === k));
+  $("#scrTitle").textContent = TITLES[k];
+  $("#crumb").innerHTML = `Perfetti Van Melle <span>›</span> <b>${esc(CRUMB[k])}</b>`;
+  renderAll();
+  scrollTo({ top:0, behavior:"smooth" });
+}
+document.querySelectorAll(".rail-item[data-s]").forEach(b => b.addEventListener("click", () => show(b.dataset.s)));
+$("#multSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.mult = +b.dataset.m; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderAll(); });
+$("#mpSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.mapView = b.dataset.v; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderMap(); });
+$("#tgSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.tgRank = b.dataset.r; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderTargets(); });
+$("#rgSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  state.region = b.dataset.r; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderPromo(); });
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  renderAll();
+});
+show("index");
+})();
+</script>
+
+</body>
+</html>
