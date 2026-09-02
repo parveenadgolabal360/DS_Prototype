@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
-  <title>Competition Sensor</title>
+  <title>Competition Sensor — Reckitt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -290,6 +290,34 @@ tbody tr.row.is-on{background:var(--accent-soft)}
 .approvebar .btn:last-of-type{margin-left:auto}
 @media (max-width:640px){.approvebar .btn:last-of-type{margin-left:0}}
 
+/* ── section accordion strip ── */
+.accbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.acc{background:var(--surface);padding:12px 14px 11px;text-align:left;display:flex;flex-direction:column;gap:2px;
+  position:relative;transition:background .12s}
+.acc:hover{background:var(--surface-2)}
+.acc .an{font-size:12.9px;font-weight:600;line-height:1.25;display:flex;align-items:center;gap:6px}
+.acc .ad{font-size:10.7px;color:var(--ink-3);line-height:1.4}
+.acc .av{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:3px}
+.acc.is-on{background:var(--accent-soft)}
+.acc.is-on .an{color:var(--accent)}
+.acc.is-on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.5px;background:var(--accent)}
+.acc .chev{margin-left:auto;font-size:10px;opacity:.45;transition:transform .15s}
+.acc.is-on .chev{transform:rotate(90deg);opacity:1}
+@media (max-width:760px){.accbar{grid-template-columns:1fr 1fr}}
+
+/* ── battlefield cards ── */
+.bfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:10px;padding:2px 18px 16px}
+.bf{border:1px solid var(--line);border-radius:11px;padding:13px 14px;background:var(--surface-2);
+  display:flex;flex-direction:column;gap:3px}
+.bf .bk{font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.bf .bv{font-size:24px;font-weight:600;letter-spacing:-.03em;margin-top:3px}
+.bf .bl{font-size:11.3px;color:var(--ink-2)}
+.bf .bd{font-size:11px;color:var(--ink-3);margin-top:auto;padding-top:8px}
+.bf.win{border-left:3px solid var(--gain)}
+.bf.lose{border-left:3px solid var(--loss)}
+.bf.par{border-left:3px solid var(--unk)}
+
 /* competitor set */
 .setgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:10px;padding:2px 18px 14px}
 .setcard{border:1px solid var(--line);border-radius:11px;background:var(--surface-2);overflow:hidden;opacity:.55}
@@ -347,30 +375,84 @@ tbody tr.row.is-on{background:var(--accent-soft)}
 .calrow.calmark .calname{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .calrow.calmark .calcell{height:16px;background:none;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ink-3)}
 .calrow.calmark .calcell.flag{background:var(--up-soft);border:1px solid var(--up);color:var(--up)}
+/* NPD */
+.npdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;padding:2px 18px 16px}
+.npd{border:1px solid var(--line);border-radius:11px;padding:12px 13px;background:var(--surface-2);text-align:left;display:flex;flex-direction:column;gap:3px}
+.npd:hover{border-color:var(--line-strong);box-shadow:var(--shadow-lift)}
+.npd.is-on{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.npd .nm{font-size:13px;font-weight:600}
+.npd .br{font-size:11px;color:var(--ink-3)}
+.npd .vel{font-size:19px;font-weight:600;letter-spacing:-.03em;margin-top:5px}
+.npd .sub{font-size:10.8px;color:var(--ink-3)}
+.bio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0;border-top:1px solid var(--line)}
+.biol{padding:16px 18px;border-right:1px solid var(--line)}
+.bior{padding:16px 18px;min-width:0}
+.biohero{height:118px;border-radius:11px;display:grid;place-items:center;font-size:34px;margin-bottom:12px;
+  background:linear-gradient(135deg,var(--accent-soft),var(--surface-3))}
+.speclist{display:grid;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.specrow{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:8px 11px;font-size:12px;border-bottom:1px solid var(--line)}
+.specrow:last-child{border-bottom:none}
+.specrow .sk{color:var(--ink-3);font-size:11px}
+.claims{width:100%;border-collapse:collapse;font-size:12px}
+.claims td{padding:7px 9px;border-bottom:1px solid var(--line)}
+.yes{color:var(--gain);font-weight:700}.no{color:var(--loss);font-weight:700}
+.adgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.adcard{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);text-align:left}
+.adthumb{height:74px;position:relative;display:grid;place-items:center;background:linear-gradient(140deg,var(--surface-3),var(--accent-soft))}
+.adthumb .play{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:12px}
+.adthumb .src{position:absolute;top:6px;left:6px;font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:4px;background:var(--ink);color:var(--surface)}
+.admeta{padding:8px 10px;font-size:11px;color:var(--ink-2)}
+.admeta b{display:block;font-size:11.8px;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+/* reviews */
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.feedcol{padding:14px 18px}
+.feedcol:first-child{border-right:1px solid var(--line)}
+.theme{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--surface-2)}
+.theme .th{display:flex;align-items:center;gap:8px;font-size:12.8px;font-weight:600}
+.theme .tm{font-size:11.3px;color:var(--ink-3);margin-top:3px}
+.theme .tb{margin-top:8px}
+@media (max-width:900px){.feed{grid-template-columns:1fr}.feedcol:first-child{border-right:none;border-bottom:1px solid var(--line)}.bio{grid-template-columns:1fr}.biol{border-right:none;border-bottom:1px solid var(--line)}}
+/* ── alert drawer ── */
+.bell{position:relative}
+.bell .dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--loss);
+  border:1.5px solid var(--surface)}
+.scrim{position:fixed;inset:0;background:rgba(8,13,22,.42);opacity:0;pointer-events:none;transition:opacity .18s;z-index:120}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(720px,94vw);background:var(--ground);z-index:130;
+  transform:translateX(100%);transition:transform .22s cubic-bezier(.4,0,.2,1);overflow-y:auto;
+  box-shadow:-8px 0 40px -12px rgba(0,0,0,.4);border-left:1px solid var(--line)}
+.drawer.on{transform:none}
+.drawer-hd{position:sticky;top:0;z-index:2;background:var(--surface);border-bottom:1px solid var(--line);
+  padding:15px 18px;display:flex;align-items:center;gap:12px}
+.drawer-hd h2{font-size:15px;font-weight:600}
+.drawer-hd p{margin:3px 0 0;font-size:11.8px;color:var(--ink-3)}
+.drawer-body{padding:14px 0 28px;display:flex;flex-direction:column;gap:14px}
+.drawer-body .card{margin:0 14px}
+.drawer-x{margin-left:auto;width:30px;height:30px;border-radius:8px;border:1px solid var(--line-strong);
+  display:grid;place-items:center;font-size:15px;color:var(--ink-2);flex:none}
+.drawer-x:hover{background:var(--surface-3)}
+.scopechip{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+
 </style>
 
 <div class="app">
   <nav class="rail">
     <div class="rail-brand"><div class="rail-mark">e</div><div><b>eGenie</b><span>Digital Shelf</span></div></div>
     <div class="rail-sec" style="padding-top:0">Client</div>
-    <div class="rail-client"><b>Perfetti Van Melle</b></div>
+    <div class="rail-client"><b>Reckitt</b></div>
     <div class="rail-sec">Competition Sensor</div>
-    <button class="rail-item is-on" data-s="index"><span class="dot"></span>Index &amp; growth<span class="tag">NEW</span></button>
-    <button class="rail-item" data-s="map"><span class="dot"></span>Penetration map<span class="tag">NEW</span></button>
-    <button class="rail-item" data-s="target"><span class="dot"></span>City targets<span class="tag">NEW</span></button>
-    <button class="rail-item" data-s="diag"><span class="dot"></span>Reverse diagnosis<span class="tag">NEW</span></button>
-    <button class="rail-item" data-s="promo"><span class="dot"></span>Promo calendar<span class="tag">NEW</span></button>
+    <div class="rail-note">Six views, switched from the strip at the top of the page.</div>
 
     <div class="rail-sec">Prototype switcher</div>
     <div class="rail-note">Every eGenie prototype, reachable from any of them.</div>
-    <a class="rail-item" href="exec-summary.html" target="_blank" rel="noopener"><span class="dot"></span>Executive Summary — Share<span class="go">↗</span></a>
-    <a class="rail-item" href="modules.html" target="_blank" rel="noopener"><span class="dot"></span>Module Set — 8 modules<span class="go">↗</span></a>
-    <a class="rail-item" href="supply-risk.html" target="_blank" rel="noopener"><span class="dot"></span>Supply Risk &amp; Velocity<span class="go">↗</span></a>
-    <a class="rail-item" href="promo-tracker.html" target="_blank" rel="noopener"><span class="dot"></span>Promo Tracker<span class="go">↗</span></a>
+    <a class="rail-item" href="executive-summary.html" target="_blank" rel="noopener"><span class="dot"></span>Executive Summary — Share<span class="go">↗</span></a>
+    <a class="rail-item" href="control-tower.html" target="_blank" rel="noopener"><span class="dot"></span>Control Tower<span class="go">↗</span></a>
+    <a class="rail-item" href="availability-supply.html" target="_blank" rel="noopener"><span class="dot"></span>Availability &amp; Supply<span class="go">↗</span></a>
+    <a class="rail-item" href="promotions.html" target="_blank" rel="noopener"><span class="dot"></span>Promotions<span class="go">↗</span></a>
     <span class="rail-item here"><span class="dot"></span>Competition Sensor<span class="go">●</span></span>
-    <a class="rail-item" href="competition-sensor-v1.html" target="_blank" rel="noopener"><span class="dot"></span>Competition Sensor v1<span class="go">↗</span></a>
+    <a class="rail-item" href="index.html" target="_blank" rel="noopener"><span class="dot"></span>Competition Sensor v1<span class="go">↗</span></a>
     <a class="rail-item" href="persona-insights.html" target="_blank" rel="noopener"><span class="dot"></span>Persona Insights<span class="go">↗</span></a>
-    <a class="rail-item" href="response.html" target="_blank" rel="noopener"><span class="dot"></span>Response to Demo II<span class="go">↗</span></a>
   </nav>
 
   <div class="main">
@@ -379,6 +461,7 @@ tbody tr.row.is-on{background:var(--accent-soft)}
       <div class="crumb" id="crumb"></div>
       <div class="ctrl"><span class="eyebrow">Target</span><b id="tgtName">—</b></div>
       <div class="ctrl"><span class="eyebrow">Period</span><b>MAT Aug '26</b></div>
+      <button class="icon-btn bell" id="alertBell" title="Alerts" aria-label="Alerts">🔔<span class="dot"></span></button>
       <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">◐</button>
     </header>
 
@@ -401,8 +484,33 @@ tbody tr.row.is-on{background:var(--accent-soft)}
         <div class="footnote" id="setNote"></div>
       </section>
 
+
+      <div class="accbar" id="accBar"></div>
+
+      <!-- ══════════ BATTLEFIELDS ══════════ -->
+      <div class="screen" id="s-battle" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow" id="bfEye">—</div>
+            <div class="band-v num" id="bfHero">—</div>
+            <div class="band-sub" id="bfSub">—</div>
+          </div>
+          <div class="band-tiles" id="bfTiles"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Eight battlefields</h2>
+              <p>Every dimension we compete on, each read the same way: our number, the leader's number, and who is ahead. This is the entry point — pick a losing battlefield and the sections along the top take it apart.</p></div>
+            <div class="right"><span class="pill p-mute" id="bfPill">—</span></div>
+          </div>
+          <div class="bfgrid" id="bfGrid"></div>
+          <div class="footnote" id="bfNote"></div>
+        </section>
+      </div>
+
       <!-- ══════════ INDEX & GROWTH ══════════ -->
-      <div class="screen" id="s-index">
+      <div class="screen" id="s-index" hidden>
         <section class="band">
           <div class="band-lead">
             <div class="eyebrow">Our index against the target · value share</div>
@@ -443,7 +551,7 @@ tbody tr.row.is-on{background:var(--accent-soft)}
       </div>
 
       <!-- ══════════ PENETRATION MAP ══════════ -->
-      <div class="screen" id="s-map" hidden>
+      <div class="screen" id="s-geo" hidden>
         <section class="card">
           <div class="card-hd">
             <div><h2 id="mpT">Where they are and we are not</h2>
@@ -461,11 +569,7 @@ tbody tr.row.is-on{background:var(--accent-soft)}
           <div class="legend" id="mpLegend"></div>
           <div class="footnote" id="mpNote"></div>
         </section>
-      </div>
-
-      <!-- ══════════ CITY TARGETS ══════════ -->
-      <div class="screen" id="s-target" hidden>
-        <section class="card">
+      <section class="card">
           <div class="card-hd">
             <div><h2>Named city targets</h2>
               <p>"Beat them in Jalandhar" is a real instruction, so it gets a real screen. Every city the target leads, ranked by what
@@ -486,6 +590,7 @@ tbody tr.row.is-on{background:var(--accent-soft)}
           <div class="reqgrid" id="reqGrid"></div>
           <div class="footnote" id="tdNote"></div>
         </section>
+      
       </div>
 
       <!-- ══════════ REVERSE DIAGNOSIS ══════════ -->
@@ -512,6 +617,36 @@ tbody tr.row.is-on{background:var(--accent-soft)}
         </section>
       </div>
 
+
+      <!-- ══════════ NEW LAUNCHES ══════════ -->
+      <div class="screen" id="s-npd" hidden>
+        <section class="band">
+          <div class="band-lead">
+            <div class="eyebrow">First seen · last 30 days</div>
+            <div class="band-v num">14</div>
+            <div class="band-sub">new competitor SKUs detected by the crawl across 9 platforms. Three are scaling faster
+              than the category's normal launch curve. These are the entrants the established set does not warn you about.</div>
+          </div>
+          <div class="band-tiles">
+            <div class="btile"><span class="k">Scaling fast</span><span class="v num dn">3</span><span class="d">&gt;2× the launch benchmark</span></div>
+            <div class="btile"><span class="k">Share taken</span><span class="v num dn">0.19<small>pt</small></span><span class="d">from cells we compete in</span></div>
+            <div class="btile"><span class="k">Cells we don't carry</span><span class="v num">5</span><span class="d">format or claim gap</span></div>
+            <div class="btile"><span class="k">Ads retrieved</span><span class="v num">27</span><span class="d">YouTube &amp; Meta · by connector</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <div><h2>Detected launches</h2>
+              <p>Pick one to open its bio. Everything in the bio is assembled automatically from the detailed PDP crawl
+                plus the ads connector — no manual report.</p></div>
+            <div class="right"><span class="pill p-mute">Illustrative data · fictional brands</span></div>
+          </div>
+          <div class="npdgrid" id="npdGrid"></div>
+          <div class="bio" id="bioPane"></div>
+        </section>
+      </div>
+
       <!-- ══════════ PROMO CALENDAR ══════════ -->
       <div class="screen" id="s-promo" hidden>
         <section class="card">
@@ -532,6 +667,15 @@ tbody tr.row.is-on{background:var(--accent-soft)}
         </section>
 
         <section class="card">
+          <div class="card-hd"><div><h2>Estimated competitor ad investment</h2>
+            <p>Modelled from crawl history — sponsored-slot occupancy × observed slot rates, indexed to our own spend
+              at 100. Directional, not billed spend, and the axis says so.</p></div></div>
+          <div class="chartwrap"><svg id="compChart" viewBox="0 0 1180 300" role="img" aria-label="Estimated competitor advertising investment index over twelve weeks"></svg></div>
+          <div class="legend" id="compLegend"></div>
+          <div class="footnote" id="compNote"></div>
+        </section>
+
+        <section class="card">
           <div class="card-hd"><div><h2>Unanswered weeks</h2>
             <p>Weeks the target promoted at depth and we did not respond anywhere in the region, with what it cost in share.</p></div></div>
           <div class="tablewrap" id="unWrap"></div>
@@ -541,6 +685,59 @@ tbody tr.row.is-on{background:var(--accent-soft)}
     </div>
   </div>
 </div>
+<div class="scrim" id="alertScrim"></div>
+<aside class="drawer" id="alertDrawer" role="dialog" aria-label="Alerts and reviews" aria-modal="true">
+  <div class="drawer-hd">
+    <div><h2>Alerts &amp; reviews</h2>
+      <p>One engine. Write the rule where you spotted the problem — it arrives pre-scoped to this view.</p></div>
+    <span class="scopechip" id="alertScope">—</span>
+    <button class="drawer-x" id="alertClose" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body">
+    <section class="card">
+          <div class="card-hd">
+            <div><h2>Text to alert</h2>
+              <p>Type the alert as a sentence. The parser turns it into a rule you can see and edit — so the fluency never costs you the ability to check what was actually set.</p></div>
+            <div class="right"><span class="pill p-info">Semantic parser</span></div>
+          </div>
+          <div class="nlbox">
+            <textarea id="nlInput" spellcheck="false" placeholder="e.g. tell me when cover drops under two weeks and no PO has been raised on Blinkit"></textarea>
+            <div class="nlrow">
+              <button class="btn" id="nlParse">Parse</button>
+              <span class="muted" style="font-size:11.5px">or try:</span>
+              <button class="chipex" data-ex="tell me when cover drops under two weeks and no PO has been raised on Blinkit">cover under 2 weeks, no PO</button>
+              <button class="chipex" data-ex="alert me if content score falls below 60 on any MSL sku">content below 60 on MSL</button>
+              <button class="chipex" data-ex="notify me when a competitor discounts deeper than 30% and we have no promo on the calendar">competitor dip, no promo</button>
+              <button class="chipex" data-ex="warn me when fill rate is under 85 percent on zepto">fill rate under 85% on Zepto</button>
+            </div>
+          </div>
+          <div class="parse">
+            <div class="parse-hd">Parsed rule — editable</div>
+            <div class="parse-body" id="parseBody"></div>
+          </div>
+          <div class="blast" id="blast"></div>
+          <div class="footnote">The impact preview runs the rule against live data <i>before</i> it is saved and names the matches. Alert fatigue is the single reason alerting features get switched off; showing the blast radius up front is a two-line calculation that protects the whole feature.</div>
+        </section>
+    <section class="card">
+          <div class="card-hd"><div><h2>Saved rules</h2>
+            <p>Every rule shows what it matches now beside what it fired over 30 days, so drift is visible without opening anything.</p></div></div>
+          <div class="tablewrap" id="rulesWrap"></div>
+        </section>
+    <section class="card">
+          <div class="card-hd">
+            <div><h2>Review brand feed</h2>
+              <p>Not a rating number — the themes underneath it. What our products are failing on, and what is working for the competitor set, from the same review corpus.</p></div>
+            <div class="right"><span class="pill p-mute">Aggregated themes · no verbatims shown</span></div>
+          </div>
+          <div class="feed">
+            <div class="feedcol"><div class="eyebrow" style="margin-bottom:10px">Where we are failing</div><div id="feedUs"></div></div>
+            <div class="feedcol"><div class="eyebrow" style="margin-bottom:10px">What is working for the competitor set</div><div id="feedThem"></div></div>
+          </div>
+          <div class="footnote">Themes are clustered from review text and sized by share of mentions. Sentiment delta is the movement versus the previous 90 days — a theme that is shrinking is as informative as one that is growing.</div>
+        </section>
+  </div>
+</aside>
+
 <div class="tooltip" id="tip" role="status"></div>
 
 <script>
@@ -565,15 +762,15 @@ addEventListener("scroll", hideTip, { passive:true });
 
 /* ═════════ DATA ═════════ */
 const BRANDS = [
-  { id:"us", n:"Perfetti Van Melle", us:true, val:18.4, vol:19.8, acv:71.2, acvD:1.2,  pi:104, promo:9.2,  sos:33.9, vg:6.1,  qg:1.2,  rate:4.31, sku:186 },
-  { id:"z",  n:"Zesta Confectionery",         val:22.6, vol:21.1, acv:84.5, acvD:8.4,  pi:112, promo:12.4, sos:38.2, vg:14.8, qg:11.9, rate:4.24, sku:214 },
-  { id:"f",  n:"Frooza Foods",                val:11.2, vol:12.6, acv:58.4, acvD:11.6, pi:92,  promo:15.1, sos:17.4, vg:22.4, qg:24.8, rate:4.48, sku:96  },
-  { id:"m",  n:"Minto Max",                   val:8.9,  vol:7.4,  acv:44.1, acvD:2.1,  pi:126, promo:6.8,  sos:12.1, vg:9.2,  qg:4.1,  rate:4.19, sku:71  },
-  { id:"c",  n:"Cocoloco Foods",              val:6.3,  vol:6.9,  acv:39.7, acvD:-1.8, pi:96,  promo:11.2, sos:8.6,  vg:-2.4, qg:-4.8, rate:3.94, sku:64  },
-  { id:"n",  n:"Nimbo Naturals",              val:5.1,  vol:5.8,  acv:31.2, acvD:9.9,  pi:88,  promo:18.6, sos:6.2,  vg:31.5, qg:36.2, rate:4.52, sku:48  },
+  { id:"us", n:"Reckitt", us:true, val:18.4, vol:19.8, acv:71.2, acvD:1.2,  pi:104, promo:9.2,  sos:33.9, vg:6.1,  qg:1.2,  rate:4.31, sku:186 },
+  { id:"z",  n:"Hindustan Unilever",         val:22.6, vol:21.1, acv:84.5, acvD:8.4,  pi:112, promo:12.4, sos:38.2, vg:14.8, qg:11.9, rate:4.24, sku:214 },
+  { id:"f",  n:"ITC",                val:11.2, vol:12.6, acv:58.4, acvD:11.6, pi:92,  promo:15.1, sos:17.4, vg:22.4, qg:24.8, rate:4.48, sku:96  },
+  { id:"m",  n:"Godrej Consumer",                   val:8.9,  vol:7.4,  acv:44.1, acvD:2.1,  pi:126, promo:6.8,  sos:12.1, vg:9.2,  qg:4.1,  rate:4.19, sku:71  },
+  { id:"c",  n:"Dabur",              val:6.3,  vol:6.9,  acv:39.7, acvD:-1.8, pi:96,  promo:11.2, sos:8.6,  vg:-2.4, qg:-4.8, rate:3.94, sku:64  },
+  { id:"n",  n:"SC Johnson",              val:5.1,  vol:5.8,  acv:31.2, acvD:9.9,  pi:88,  promo:18.6, sos:6.2,  vg:31.5, qg:36.2, rate:4.52, sku:48  },
 ];
 const US = BRANDS[0];
-const CATEGORY_CR = 1840;              /* annualised category value across tracked platforms, ₹ Cr */
+const CATEGORY_CR = 1840;              /* annualised home & health category value across tracked platforms, ₹ Cr */
 const CITIES = [
   { n:"Delhi NCR", t:1, x:77.21, y:28.61, w:11.2, rg:"North" }, { n:"Mumbai", t:1, x:72.88, y:19.08, w:10.4, rg:"West" },
   { n:"Bengaluru", t:1, x:77.59, y:12.97, w:9.6, rg:"South" },  { n:"Hyderabad", t:1, x:78.49, y:17.39, w:7.1, rg:"South" },
@@ -600,7 +797,7 @@ const LON0 = 68.0, LON1 = 98.0, LAT0 = 7.5, LAT1 = 36.5, MAPW = 520, MAPH = 560,
 const mx = lon => MPAD + (lon - LON0) / (LON1 - LON0) * (MAPW - MPAD * 2);
 const my = lat => MPAD + (LAT1 - lat) / (LAT1 - LAT0) * (MAPH - MPAD * 2);
 
-const state = { screen:"index", set:new Set(["z","f","m","c","n"]), tgt:"z", mult:1.25,
+const state = { screen:"battle", set:new Set(["z","f","m","c","n"]), tgt:"z", mult:1.25,
                 mapView:"lead", city:"Jalandhar", tgRank:"value", region:"National" };
 const B = id => BRANDS.find(b => b.id === id);
 
@@ -684,7 +881,7 @@ function renderSet(){
   $("#tgtName").textContent = t.n;
   $("#setNote").innerHTML = `${state.set.size} brands in the set, indexed against <b>${esc(t.n)}</b> at <b>${state.mult.toFixed(2)}×</b>.
     Changing the set changes every number on every screen below — the index, the map, the city targets and the diagnosis all recompute,
-    because a competitive number that does not name its comparison set is not a number.`;
+    because a competitive number that does not name its comparison set is not a number. <b>Every figure on these screens is illustrative</b> — modelled for design review, not measured.`;
 }
 
 /* ═════════ INDEX & GROWTH ═════════ */
@@ -1008,32 +1205,266 @@ function renderPromo(){
     </tbody></table>`;
 }
 
+/* ═════════ BATTLEFIELDS ═════════ */
+const BATTLE = [
+  { k:"osa",   n:"On-shelf availability", u:"%",  ours:88.4, get:t => 78.0 + (t.acv - 60) * 0.05, hi:true,  d:+1.4 },
+  { k:"val",   n:"Value share",           u:"pt", ours:US.val, get:t => t.val,   hi:true,  d:-0.31 },
+  { k:"sos",   n:"Organic share of search", u:"%", ours:14.5, get:t => t.sos * 0.42, hi:true, d:-0.9 },
+  { k:"paid",  n:"Paid share of search",  u:"%",  ours:19.4, get:t => t.sos * 0.58, hi:true,  d:+1.1 },
+  { k:"promo", n:"Promotion intensity",   u:"%",  ours:US.promo, get:t => t.promo, hi:null, d:-0.9 },
+  { k:"rate",  n:"Average rating",        u:"",   ours:US.rate, get:t => t.rate,  hi:true,  d:+0.04 },
+  { k:"pi",    n:"Price index",           u:"",   ours:US.pi,   get:t => t.pi,    hi:null,  d:-2.0 },
+  { k:"acv",   n:"Distribution · ACV",    u:"%",  ours:US.acv,  get:t => t.acv,   hi:true,  d:+1.2 },
+];
+function bfRows(){
+  const t = B(state.tgt);
+  return BATTLE.map(m => {
+    const theirs = m.get(t);
+    const dec = m.k === "rate" ? 2 : 1;
+    const verdict = m.hi === null ? "par"
+      : Math.abs(m.ours - theirs) / Math.max(theirs, 0.001) < 0.012 ? "par"
+      : (m.ours > theirs) === !!m.hi ? "win" : "lose";
+    return { ...m, theirs, dec, verdict, leader:t.n };
+  });
+}
+function renderBattle(){
+  const rows = bfRows(), t = B(state.tgt);
+  const wins = rows.filter(r => r.verdict === "win").length;
+  const loses = rows.filter(r => r.verdict === "lose").length;
+  const worst = rows.filter(r => r.verdict === "lose")
+    .sort((a, b) => (b.theirs - b.ours) / Math.max(b.theirs, .001) - (a.theirs - a.ours) / Math.max(a.theirs, .001))[0];
+  $("#bfEye").textContent = "Battlefields won · against " + t.n;
+  $("#bfHero").textContent = wins + " of " + rows.length;
+  $("#bfHero").style.color = cvar(wins > loses ? "--gain" : "--loss");
+  $("#bfSub").innerHTML = `We lead on <b>${wins}</b>, lose <b>${loses}</b> and sit at parity on
+    <b>${rows.length - wins - loses}</b>. The biggest pressure is <b>${esc(worst ? worst.n.toLowerCase() : "—")}</b>${worst
+    ? ` — ${esc(t.n)} at ${worst.theirs.toFixed(worst.dec)}${worst.u} against our ${worst.ours.toFixed(worst.dec)}${worst.u}` : ""}.
+    Two of these are strategy choices rather than scores, and are marked as such.`;
+  $("#bfTiles").innerHTML = rows.slice(0, 4).map(r => `
+    <div class="btile"><span class="k">${esc(r.n)}</span>
+      <span class="v num" style="color:${cvar(r.verdict === "win" ? "--gain" : r.verdict === "lose" ? "--loss" : "--ink")}">${r.ours.toFixed(r.dec)}<small>${r.u}</small></span>
+      <span class="d">${esc(t.n.split(" ")[0])} ${r.theirs.toFixed(r.dec)}${r.u}</span></div>`).join("");
+  $("#bfPill").textContent = "vs " + t.n;
+  const LAB = { win:["Ahead", "p-good"], lose:["Behind", "p-bad"], par:["Strategy choice", "p-mute"] };
+  $("#bfGrid").innerHTML = rows.map(r => {
+    const [lab, tone] = LAB[r.verdict];
+    return `<div class="bf ${r.verdict}">
+      <span class="bk">${esc(r.n)}</span>
+      <span class="bv num">${r.ours.toFixed(r.dec)}${r.u}</span>
+      <span class="bl">${esc(r.leader)} <b class="num">${r.theirs.toFixed(r.dec)}${r.u}</b></span>
+      <span class="pill ${tone}" style="align-self:flex-start;margin-top:7px">${lab}</span>
+      <span class="bd num">${r.d >= 0 ? "+" : "−"}${Math.abs(r.d).toFixed(r.k === "rate" ? 2 : 1)}${r.u} vs prior period</span>
+    </div>`; }).join("");
+  $("#bfNote").innerHTML = `<b>Promotion intensity and price index carry no verdict.</b> Being above or below the target on
+    those is a decision someone made, not a score to chase — the same rule the index table applies. Everything else is
+    directional: higher is better, and the card says who is ahead rather than making you compare two numbers yourself.`;
+}
+
+/* ═════════ ESTIMATED COMPETITOR AD SPEND (moved from Investment) ═════════ */
+const COMPSPEND = {
+  weeks:["W20","W21","W22","W23","W24","W25","W26","W27","W28","W29","W30","W31"],
+  series:[
+    { n:"Us", tok:"--s1", v:[100,102,99,104,101,103,106,108,105,110,112,109] },
+    { n:"Domex", tok:"--s2", v:[62,64,68,71,78,84,92,101,114,126,138,147] },
+    { n:"Good Knight", tok:"--s3", v:[88,86,84,87,85,83,86,84,82,85,83,81] }
+  ],
+  others:[44,45,43,46,44,45,47,46,45,47,46,45]
+};
+function renderCompChart(){
+  const svg = $("#compChart"), D = COMPSPEND;
+  const W = 1180, L = 60, R = 120, T = 22, B = 240;
+  const n = D.weeks.length;
+  const hi = Math.max(...D.series.flatMap(s => s.v), ...D.others) * 1.12;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 3; k++){ const v = hi * k / 3;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-9}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(0)}</text>`; }
+  D.weeks.forEach((w, i) => { if (i % 2 === 0)
+    g += `<text class="ax" x="${x(i).toFixed(1)}" y="${B+18}" text-anchor="middle">${w}</text>`; });
+  /* all-other-competitors band, deliberately neutral */
+  g += `<path d="${D.others.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+          fill="none" stroke="${cvar("--line-strong")}" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <text class="ax" x="${(x(n-1)+8).toFixed(1)}" y="${(y(D.others[n-1])+3.5).toFixed(1)}">All others</text>`;
+  D.series.forEach(s => {
+    const col = cvar(s.tok);
+    g += `<path d="${s.v.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}"
+            fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="${x(n-1).toFixed(1)}" cy="${y(s.v[n-1]).toFixed(1)}" r="3.4" fill="${col}"/>
+          <text x="${(x(n-1)+8).toFixed(1)}" y="${(y(s.v[n-1])+3.5).toFixed(1)}" font-size="11" font-weight="600" fill="${col}">${esc(s.n)} ${s.v[n-1]}</text>`;
+  });
+  g += `<text class="ax" x="14" y="${((T+B)/2).toFixed(1)}" transform="rotate(-90 14 ${((T+B)/2).toFixed(1)})" text-anchor="middle">estimated investment index (us at W20 = 100)</text>`;
+  svg.innerHTML = g;
+  $("#compLegend").innerHTML = D.series.map(s =>
+    `<span><i class="swatch" style="background:var(${s.tok})"></i>${esc(s.n)}</span>`).join("") +
+    `<span><i class="swatch" style="background:var(--line-strong)"></i>All other competitors</span>`;
+  $("#compNote").innerHTML = `<b>Domex has more than doubled</b> its estimated ad investment in twelve weeks, from an index of 62 to 147 —
+    and their share gain of +0.31pt lands in the same window. Good Knight is flat and gaining share anyway, which says their gain is product-led,
+    not media-led. That distinction is the point of the chart: it tells you which competitor you can outspend and which you cannot.`;
+}
+
+
+/* ═════════ NEW LAUNCHES (moved from the Module Set) ═════════ */
+const NPD = [
+  { id:"n1", nm:"Suvira Power Toilet Gel 500ml", br:"Suvira", cat:"Toilet Care", seen:"02 Aug", plat:"Blinkit · Zepto", vel:2.8, share:0.09, fast:true,
+    price:"₹99", ppu:"₹19.8 / 100ml", pack:"500ml bottle", mfr:"Suvira Homecare Pvt Ltd, Baddi",
+    desc:"A thick blue toilet gel at a ₹99 opening price, merchandised against the 500ml pack size we lead.",
+    ing:"Hydrochloric acid (10%), non-ionic surfactant, thickener, colourant, fragrance.",
+    claims:[["Kills 99.9% germs", true, true],["Thick-cling gel", true, true],["Plant-derived surfactant", false, true],["₹99 entry price", true, false],["Septic-tank safe", false, true]],
+    rating:4.42, revs:1840, themes:[["Cling on the bowl is good",38],["Bottle nozzle drips",21],["Good value at ₹99",17]],
+    ads:[["YouTube","Suvira — 15s bumper","0:15","first seen 04 Aug"],["Meta","Carousel — 3 variants","—","first seen 07 Aug"]] },
+  { id:"n2", nm:"Nirmal Floor Concentrate 200ml", br:"Nirmal Home", cat:"Floor Care", seen:"29 Jul", plat:"Zepto · Instamart", vel:3.4, share:0.06, fast:true,
+    price:"₹149", ppu:"makes 10 L", pack:"200ml concentrate", mfr:"Nirmal Home Products Ltd, Vapi",
+    desc:"A dilute-at-home floor concentrate sold on pack-size economics rather than price — a format we do not carry.",
+    ing:"Benzalkonium chloride (2.5%), non-ionic surfactants, chelating agent, pine fragrance, water.",
+    claims:[["Makes 10 L from 200ml", true, false],["No added colour", true, false],["Kills 99.9% germs", true, true],["Refill-first pack", true, false],["Safe on marble", true, true]],
+    rating:4.61, revs:920, themes:[["Concentrate lasts a long time",44],["Dilution ratio confusing",19],["Fragrance mild and clean",15]],
+    ads:[["YouTube","Nirmal — refill maths 20s","0:20","first seen 31 Jul"],["Meta","Reel — under-sink format","0:09","first seen 02 Aug"]] },
+  { id:"n3", nm:"Aquaveil Pocket Sanitiser Mist", br:"Aquaveil", cat:"Hand Hygiene", seen:"11 Aug", plat:"Blinkit", vel:2.1, share:0.03, fast:true,
+    price:"₹129", ppu:"₹258 / 100ml", pack:"50ml mist spray", mfr:"Aquaveil Labs, Sri City",
+    desc:"A non-sticky alcohol mist in a slim pocket spray — a delivery format entirely absent from our range.",
+    ing:"Ethyl alcohol (70%), glycerin, aloe barbadensis extract, tocopheryl acetate, purified water.",
+    claims:[["70% alcohol", true, true],["Mist spray format", true, false],["Non-sticky finish", true, false],["Pocket size", true, false],["Dermatologically tested", true, true]],
+    rating:4.28, revs:410, themes:[["Dries without stickiness",41],["Spray nozzle clogs",26],["Premium at ₹129",13]],
+    ads:[["Meta","Static — handbag moment","—","first seen 13 Aug"],["YouTube","Mist demo 6s bumper","0:06","first seen 14 Aug"]] },
+  { id:"n4", nm:"Kavach Herbal Vaporiser Combo", br:"Kavach", cat:"Pest Control", seen:"18 Jul", plat:"Instamart", vel:0.9, share:0.01, fast:false,
+    price:"₹199", ppu:"₹4.4 / night", pack:"machine + 45ml refill", mfr:"Kavach Consumer Care, Pune",
+    desc:"A citronella-led vaporiser combo at a mid price point, scaling slower than the category launch curve.",
+    ing:"Prallethrin (0.88%), citronella oil, eucalyptus oil, stabiliser, deodorised kerosene.",
+    claims:[["Herbal fragrance", true, false],["45-night refill", true, true],["Low odour", true, true],["Child-safe cap", false, true],["Machine included", true, true]],
+    rating:3.94, revs:260, themes:[["Fragrance is pleasant",47],["Weaker on heavy nights",22],["Machine heats up",18]],
+    ads:[["Meta","Static — value combo","—","first seen 22 Jul"]] },
+  { id:"n5", nm:"Suvira Antiseptic Wipes 40s", br:"Suvira", cat:"Hand Hygiene", seen:"06 Aug", plat:"Blinkit · FK Minutes", vel:1.4, share:0.02, fast:false,
+    price:"₹79", ppu:"₹1.98 / wipe", pack:"40 wipes flow-pack", mfr:"Suvira Homecare Pvt Ltd, Baddi",
+    desc:"A flow-pack antiseptic wipe at a ₹79 entry price, competing directly in a cell we lead.",
+    ing:"Benzalkonium chloride (0.13%), purified water, glycerin, aloe extract, preservative.",
+    claims:[["Kills 99.9% germs", true, true],["Flow-pack 40s", true, false],["Alcohol free", true, false],["Skin-safe", true, true],["Resealable lid", true, true]],
+    rating:4.11, revs:640, themes:[["Wipes are thick enough",35],["Pack dries out once opened",24],["Good at ₹79",20]],
+    ads:[["YouTube","Wipe demo 10s","0:10","first seen 09 Aug"],["Meta","Reel — school-bag moment","0:12","first seen 10 Aug"]] }
+];
+let npdSel = "n2";
+
+function renderNPD(){
+  $("#npdGrid").innerHTML = NPD.map(p => `
+    <button class="npd${p.id === npdSel ? " is-on" : ""}" data-n="${p.id}">
+      <span class="nm">${esc(p.nm)}</span>
+      <span class="br">${esc(p.br)} · ${esc(p.cat)} · first seen ${esc(p.seen)}</span>
+      <span class="vel num" style="color:var(${p.fast ? "--loss" : "--ink"})">${p.vel.toFixed(1)}×</span>
+      <span class="sub">launch benchmark · ${p.share.toFixed(2)}pt taken · ${esc(p.plat)}</span>
+      ${p.fast ? `<span class="pill p-bad" style="align-self:flex-start;margin-top:7px">Scaling fast</span>`
+               : `<span class="pill p-mute" style="align-self:flex-start;margin-top:7px">Normal curve</span>`}
+    </button>`).join("");
+  $("#npdGrid").querySelectorAll(".npd").forEach(b => b.addEventListener("click", () => { npdSel = b.dataset.n; renderNPD(); }));
+
+  const p = NPD.find(x => x.id === npdSel);
+  const emoji = { "Toilet Care":"🧴", "Floor Care":"🧽", "Hand Hygiene":"🧼", "Pest Control":"🦟", "Air Care":"🌬️" }[p.cat] || "🧴";
+  $("#bioPane").innerHTML = `
+    <div class="biol">
+      <div class="biohero">${emoji}</div>
+      <h3 style="font-size:15.5px">${esc(p.nm)}</h3>
+      <p style="font-size:12.4px;color:var(--ink-2);margin:6px 0 12px">${esc(p.desc)}</p>
+      <div class="speclist">
+        <div class="specrow"><span class="sk">Brand</span><span>${esc(p.br)}</span></div>
+        <div class="specrow"><span class="sk">Manufacturer</span><span>${esc(p.mfr)}</span></div>
+        <div class="specrow"><span class="sk">Pack &amp; price</span><span>${esc(p.pack)} · <b>${esc(p.price)}</b> · ${esc(p.ppu)}</span></div>
+        <div class="specrow"><span class="sk">First seen</span><span>${esc(p.seen)} on ${esc(p.plat)}</span></div>
+        <div class="specrow"><span class="sk">Ingredients</span><span style="font-size:11.5px;color:var(--ink-2)">${esc(p.ing)}</span></div>
+        <div class="specrow"><span class="sk">Rating</span><span><b>${p.rating}</b> from ${p.revs.toLocaleString("en-IN")} reviews</span></div>
+      </div>
+      <div class="eyebrow" style="margin:16px 0 8px">Share velocity since launch</div>
+      <svg id="velChart" viewBox="0 0 420 150" role="img" aria-label="Share growth since launch versus the category benchmark"></svg>
+    </div>
+    <div class="bior">
+      <div class="eyebrow" style="margin-bottom:8px">Claims — head to head vs our nearest SKU</div>
+      <table class="claims"><thead><tr><th>Claim</th><th style="width:78px" class="r">Them</th><th style="width:78px" class="r">Us</th></tr></thead>
+        <tbody>${p.claims.map(([c, them, us]) => `<tr>
+          <td>${esc(c)}</td>
+          <td class="r ${them ? "yes" : "no"}">${them ? "✓" : "✗"}</td>
+          <td class="r ${us ? "yes" : "no"}">${us ? "✓" : "✗"}</td></tr>`).join("")}</tbody></table>
+
+      <div class="eyebrow" style="margin:16px 0 8px">Review themes</div>
+      ${p.themes.map(([t, pct]) => `<div class="theme" style="margin-bottom:6px">
+        <div class="th">${esc(t)}<span class="pill p-mute" style="margin-left:auto">${pct}% of mentions</span></div>
+        <span class="bar-mini tb"><i style="width:${pct}%;background:var(--s3)"></i></span></div>`).join("")}
+
+      <div class="eyebrow" style="margin:16px 0 0">Creative, retrieved by the ads connector</div>
+      <div class="adgrid">${p.ads.map(([src, title, dur, seen]) => `
+        <div class="adcard"><div class="adthumb"><span class="src">${esc(src)}</span><span class="play">▶</span></div>
+          <div class="admeta"><b>${esc(title)}</b>${esc(dur === "—" ? "static" : dur)} · ${esc(seen)}</div></div>`).join("")}</div>
+      <div class="note" style="margin:12px 0 0">
+        <b>Prototype note.</b> Creative plays in-app through the ads connector in the live product. In this prototype the
+        cards are placeholders — external media cannot load inside a published artifact.</div>
+    </div>`;
+  renderVel(p);
+}
+function renderVel(p){
+  const svg = $("#velChart"); if (!svg) return;
+  const W = 420, H = 150, L = 34, R = 12, T = 12, B = 118;
+  const n = 8;
+  const bench = Array.from({ length:n }, (_, i) => 0.012 * i);
+  const theirs = Array.from({ length:n }, (_, i) => 0.012 * i * p.vel * (0.55 + i / n * 0.6));
+  const hi = Math.max(...theirs, ...bench) * 1.2 || 0.1;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => B - v / hi * (B - T);
+  let g = "";
+  for (let k = 0; k <= 2; k++){ const v = hi * k / 2;
+    g += `<line class="gl" x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}"/>
+          <text class="ax num" x="${L-6}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(2)}</text>`; }
+  [0,3,7].forEach(i => g += `<text class="ax" x="${x(i).toFixed(1)}" y="${B+16}" text-anchor="middle">W${i+1}</text>`);
+  g += `<path d="${bench.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar("--line-strong")}" stroke-width="1.8" stroke-dasharray="4 3"/>`;
+  g += `<path d="${theirs.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ")}" fill="none" stroke="${cvar(p.fast?"--loss":"--s1")}" stroke-width="2.2" stroke-linejoin="round"/>`;
+  g += `<text class="ax" x="${(x(n-1)-2).toFixed(1)}" y="${(y(theirs[n-1])-8).toFixed(1)}" text-anchor="end" font-weight="600" fill="${cvar(p.fast?"--loss":"--s1")}">${esc(p.br)}</text>`;
+  g += `<text class="ax" x="${(x(n-1)-2).toFixed(1)}" y="${(y(bench[n-1])+14).toFixed(1)}" text-anchor="end">category launch benchmark</text>`;
+  svg.innerHTML = g;
+}
+
+/* ═════════ ACCORDION STRIP ═════════ */
+const SECTIONS = [
+  { id:"battle", n:"Battlefields",      d:"Where we win and lose",        v:() => { const r = bfRows(); return r.filter(x => x.verdict === "win").length + " of " + r.length + " ahead"; } },
+  { id:"index",  n:"Index & growth",    d:"Indexed against the target",   v:() => (US.val / B(state.tgt).val).toFixed(2) + "× the target" },
+  { id:"geo",    n:"Geography",         d:"Their footprint against ours", v:() => { const G = grid(state.tgt); return G.filter(c => c.gap < 0).length + " cities behind"; } },
+  { id:"diag",   n:"Reverse diagnosis", d:"Why they are ahead",           v:() => "−" + diagFor().gap.toFixed(2) + "pt in " + state.city },
+  { id:"promo",  n:"Promo & price",     d:"Their calendar against ours",  v:() => "26 weeks tracked" },
+  { id:"npd",    n:"New launches",      d:"Entrants the set misses",      v:() => "14 first seen" },
+];
+function renderAcc(){
+  $("#accBar").innerHTML = SECTIONS.map(s => `
+    <button class="acc${s.id === state.screen ? " is-on" : ""}" data-s="${s.id}">
+      <span class="an">${esc(s.n)}<span class="chev">›</span></span>
+      <span class="ad">${esc(s.d)}</span>
+      <span class="av" style="color:${s.id === state.screen ? cvar("--accent") : cvar("--ink-3")}">${esc(s.v())}</span>
+    </button>`).join("");
+  $("#accBar").querySelectorAll(".acc").forEach(b => b.addEventListener("click", () => show(b.dataset.s)));
+}
+
 /* ═════════ SHELL ═════════ */
-const TITLES = { index:"Index & growth", map:"Penetration map", target:"City targets",
-                 diag:"Reverse diagnosis", promo:"Promo calendar" };
-const CRUMB = { index:"Indexed against a named competitor, at a named multiple",
-                map:"Their footprint against ours, city by city",
-                target:"Beat a named competitor in a named city",
+const TITLES = { battle:"Battlefields", index:"Index & growth", geo:"Geography",
+                 diag:"Reverse diagnosis", promo:"Promo & price", npd:"New launches" };
+const CRUMB = { battle:"Every dimension we compete on, and who is ahead on each",
+                index:"Indexed against a named competitor, at a named multiple",
+                geo:"Their footprint against ours — and the named city fight",
                 diag:"They are ahead here — this is why, and this is the order to fix it",
-                promo:"Twenty-six weeks of discounting, ours against theirs" };
+                promo:"Twenty-six weeks of discounting and spend, ours against theirs",
+                npd:"Competitor launches, detected and profiled automatically" };
 function renderAll(){
   renderSet();
+  if (state.screen === "battle") renderBattle();
   if (state.screen === "index") renderIndex();
-  if (state.screen === "map") renderMap();
-  if (state.screen === "target") renderTargets();
+  if (state.screen === "geo"){ renderMap(); renderTargets(); }
   if (state.screen === "diag") renderDiag();
-  if (state.screen === "promo") renderPromo();
+  if (state.screen === "promo"){ renderPromo(); renderCompChart(); }
+  if (state.screen === "npd") renderNPD();
+  renderAcc();
 }
 function show(k){
   state.screen = k;
-  ["index","map","target","diag","promo"].forEach(s => $("#s-" + s).hidden = s !== k);
-  document.querySelectorAll(".rail-item[data-s]").forEach(b => b.classList.toggle("is-on", b.dataset.s === k));
+  ["battle","index","geo","diag","promo","npd"].forEach(s => $("#s-" + s).hidden = s !== k);
   $("#scrTitle").textContent = TITLES[k];
-  $("#crumb").innerHTML = `Perfetti Van Melle <span>›</span> <b>${esc(CRUMB[k])}</b>`;
+  $("#crumb").innerHTML = `Reckitt <span>›</span> <b>${esc(CRUMB[k])}</b>`;
   renderAll();
   scrollTo({ top:0, behavior:"smooth" });
 }
-document.querySelectorAll(".rail-item[data-s]").forEach(b => b.addEventListener("click", () => show(b.dataset.s)));
 $("#multSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
   state.mult = +b.dataset.m; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderAll(); });
 $("#mpSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
@@ -1042,13 +1473,144 @@ $("#tgSeg").addEventListener("click", e => { const b = e.target.closest("button"
   state.tgRank = b.dataset.r; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderTargets(); });
 $("#rgSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
   state.region = b.dataset.r; [...e.currentTarget.children].forEach(c => c.classList.toggle("is-on", c === b)); renderPromo(); });
+/* ═════════ ALERTS — one engine, opened as a drawer ═════════ */
+const LEX = {
+  metric:[
+    { re:/\b(weeks? of )?cover\b/i, m:"Weeks of cover", u:"wk" },
+    { re:/\bfill ?rate\b/i, m:"Fill rate", u:"%" },
+    { re:/\bcontent score\b/i, m:"Content score", u:"" },
+    { re:/\b(discount|dip|depth)\b/i, m:"Competitor dip depth", u:"%" },
+    { re:/\bshare of search|sos\b/i, m:"Share of search", u:"%" },
+    { re:/\brating\b/i, m:"Avg rating", u:"" },
+    { re:/\bout of stock|oos\b/i, m:"Days out of stock", u:"d" }
+  ],
+  op:[
+    { re:/\b(under|below|drops? (under|below)|less than|falls? below)\b/i, o:"falls below" },
+    { re:/\b(over|above|deeper than|more than|rises? above|exceeds?)\b/i, o:"rises above" }
+  ],
+  extra:[
+    { re:/\bno po\b|\bpo (has|is)? ?not (been )?raised\b/i, x:"and no PO has been raised" },
+    { re:/\bno promo\b|\bnot on the calendar\b/i, x:"and no promo is on the calendar" },
+    { re:/\bpo lands? after\b/i, x:"and the PO lands after the projected stockout" }
+  ],
+  scope:[
+    { re:/\bblinkit\b/i, s:"Blinkit" }, { re:/\bzepto\b/i, s:"Zepto" },
+    { re:/\binstamart|swiggy\b/i, s:"Swiggy Instamart" }, { re:/\bmsl\b/i, s:"MSL only" }
+  ]
+};
+const WORDNUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10 };
+function parseNL(txt){
+  const t = txt || "";
+  const metric = (LEX.metric.find(x => x.re.test(t)) || { m:"Weeks of cover", u:"wk" });
+  const op = (LEX.op.find(x => x.re.test(t)) || { o:"falls below" }).o;
+  let val = null;
+  const num = t.match(/(\d+(?:\.\d+)?)\s*(?:%|percent|weeks?|wk|days?)?/i);
+  if (num) val = parseFloat(num[1]);
+  if (val === null) { const w = Object.keys(WORDNUM).find(k => new RegExp("\\b"+k+"\\b","i").test(t)); if (w) val = WORDNUM[w]; }
+  if (val === null) val = metric.m === "Fill rate" ? 85 : metric.m === "Content score" ? 60 : 2;
+  const extras = LEX.extra.filter(x => x.re.test(t)).map(x => x.x);
+  const scopes = LEX.scope.filter(x => x.re.test(t)).map(x => x.s);
+  const sev = /\b(critical|urgent|immediately)\b/i.test(t) ? "Critical" : extras.length ? "High" : "Medium";
+  return { metric:metric.m, unit:metric.u, op, val, extras, scope: scopes.length ? scopes.join(" · ") : "All platforms", sev };
+}
+function blastFor(r){
+  const seed = rng(r.metric + r.op + r.val + r.extras.join() + r.scope);
+  const M = 300;
+  let base = r.metric === "Weeks of cover" ? 0.42 : r.metric === "Fill rate" ? 0.31
+    : r.metric === "Content score" ? 0.18 : r.metric === "Competitor dip depth" ? 0.12 : 0.24;
+  base *= r.extras.length ? 0.45 : 1;
+  base *= r.scope === "All platforms" ? 1 : 0.4;
+  const N = Math.max(1, Math.round(M * base * (0.75 + seed() * 0.5)));
+  return { N, M, pct: N / M };
+}
+function renderParse(){
+  const r = parseNL($("#nlInput").value);
+  $("#parseBody").innerHTML = `
+    <span class="tok s">WHEN</span>
+    <span class="tok m">${esc(r.metric)}</span>
+    <span class="tok o">${esc(r.op)}</span>
+    <span class="tok v">${r.val}${esc(r.unit)}</span>
+    ${r.extras.map(x => `<span class="tok x">${esc(x)}</span>`).join("")}
+    <span class="tok s">scoped to</span><span class="tok s">${esc(r.scope)}</span>
+    <span class="tok s">severity</span><span class="tok v">${esc(r.sev)}</span>`;
+  const b = blastFor(r);
+  const noisy = b.pct > 0.5;
+  $("#blast").style.background = noisy ? "var(--loss-soft)" : "var(--gain-soft)";
+  $("#blast").style.border = `1px solid color-mix(in srgb, var(${noisy ? "--loss" : "--gain"}) 25%, transparent)`;
+  $("#blast").innerHTML = `<b class="num" style="color:var(${noisy ? "--loss" : "--gain"})">${b.N} of ${b.M}</b>
+    <span>SKUs match this rule right now (${(b.pct*100).toFixed(0)}% of the portfolio in scope).</span>
+    ${noisy ? `<span class="pill p-bad">That is more than half the portfolio — this will be noisy</span>`
+            : `<span class="pill p-good">Sensible blast radius</span>`}
+    <button class="btn" style="margin-left:auto">Save rule</button>`;
+}
+const RULES = [
+  { n:"Cover falling with no PO raised", m:"Weeks of cover falls below 2wk · no PO", sc:"All platforms · MSL", sev:"Critical", now:14, fired:38, ch:"In-app · Task" },
+  { n:"Fill rate under 85% on Blinkit", m:"Fill rate falls below 85%", sc:"Blinkit", sev:"High", now:9, fired:22, ch:"Email · Task" },
+  { n:"Unplanned competitor dip", m:"Competitor dip depth rises above 25% · no promo", sc:"All platforms", sev:"High", now:6, fired:11, ch:"In-app" },
+  { n:"Content score below threshold", m:"Content score falls below 60", sc:"All platforms", sev:"Medium", now:31, fired:47, ch:"In-app" },
+  { n:"Days out of stock over 7", m:"Days out of stock rises above 7d", sc:"Zepto · Instamart", sev:"Critical", now:4, fired:19, ch:"In-app · Email · Task" }
+];
+const FEED_US = [
+  { t:"Leaks in transit", pct:38, d:+9, sku:"Harpic 1L, Lizol 2L", note:"spikes on Tier-2 routes; correlates with 1-star reviews on Instamart" },
+  { t:"Cap seal broken on arrival", pct:24, d:+4, sku:"Dettol Antiseptic Liquid 550ml", note:"mentions doubled since the closure changed in June" },
+  { t:"Fragrance too strong", pct:19, d:-3, sku:"Air Wick, Lizol Lavender", note:"declining — the reformulated batch is landing" },
+  { t:"Received near expiry", pct:12, d:+6, sku:"Strepsils", note:"concentrated in 4 dark stores, not a manufacturing issue" }
+];
+const FEED_THEM = [
+  { t:"Refill / concentrate format", pct:44, d:+12, sku:"Nirmal Home", note:"a format we do not carry in this pack size; drives repeat-purchase language" },
+  { t:"Plant-derived, no harsh chemicals", pct:29, d:+7, sku:"Nirmal Home, Suvira", note:"claim appears in 3 of 5 new launches this quarter" },
+  { t:"No residue on tiles", pct:22, d:+5, sku:"Aquaveil", note:"enzyme formulations, priced 2× our floor cleaner" },
+  { t:"Value at ₹79 / ₹99", pct:18, d:-2, sku:"Suvira", note:"the one theme where we still lead on sentiment" }
+];
+function renderAlerts(){
+  renderParse();
+  $("#rulesWrap").innerHTML = `<table><thead><tr>
+      <th>Rule</th><th>Condition</th><th>Scope</th><th>Severity</th>
+      <th class="r">Matching now</th><th class="r">Fired · 30d</th><th>Channels</th></tr></thead><tbody>
+    ${RULES.map(r => `<tr><td style="font-weight:600">${esc(r.n)}</td>
+      <td class="geo mono" style="font-size:11px">${esc(r.m)}</td>
+      <td class="geo">${esc(r.sc)}</td>
+      <td><span class="pill ${r.sev === "Critical" ? "p-bad" : r.sev === "High" ? "p-warn" : "p-mute"}">${esc(r.sev)}</span></td>
+      <td class="r num">${r.now}</td><td class="r num muted">${r.fired}</td>
+      <td class="geo">${esc(r.ch)}</td></tr>`).join("")}</tbody></table>`;
+
+  const themeHTML = (arr, tok) => arr.map(t => `<div class="theme">
+    <div class="th">${esc(t.t)}<span class="pill ${t.d > 0 ? "p-bad" : "p-good"}" style="margin-left:auto">${t.d > 0 ? "+" : ""}${t.d}pt</span></div>
+    <div class="tm">${t.pct}% of mentions · ${esc(t.sku)}</div>
+    <div class="tm" style="margin-top:4px">${esc(t.note)}</div>
+    <span class="bar-mini tb"><i style="width:${t.pct}%;background:var(${tok})"></i></span></div>`).join("");
+  $("#feedUs").innerHTML = themeHTML(FEED_US, "--loss");
+  $("#feedThem").innerHTML = themeHTML(FEED_THEM, "--s1");
+}
+
+/* ═════════ 5. RELEASE NOTES ═════════ */
+function openAlerts(){
+  $("#alertScope").textContent = TITLES[state.screen] || "Competition Sensor";
+  $("#alertScrim").classList.add("on");
+  $("#alertDrawer").classList.add("on");
+  renderAlerts();
+}
+function closeAlerts(){
+  $("#alertScrim").classList.remove("on");
+  $("#alertDrawer").classList.remove("on");
+}
+$("#alertBell").addEventListener("click", openAlerts);
+$("#alertClose").addEventListener("click", closeAlerts);
+$("#alertScrim").addEventListener("click", closeAlerts);
+$("#nlParse").addEventListener("click", renderParse);
+$("#nlInput").addEventListener("input", renderParse);
+document.querySelectorAll(".chipex").forEach(b => b.addEventListener("click", () => {
+  $("#nlInput").value = b.dataset.ex; renderParse(); }));
+$("#nlInput").value = "tell me when cover drops under two weeks and no PO has been raised on Blinkit";
+addEventListener("keydown", e => { if (e.key === "Escape") closeAlerts(); });
+
 $("#themeBtn").addEventListener("click", () => {
   const cur = document.documentElement.getAttribute("data-theme");
   const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
   document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
   renderAll();
 });
-show("index");
+show("battle");
 })();
 </script>
 

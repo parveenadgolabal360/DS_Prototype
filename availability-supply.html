@@ -1,0 +1,2141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231D4ED8'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3Ee%3C/text%3E%3C/svg%3E">
+  <title>Availability &amp; Supply — Reckitt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --nav:#131C33; --navtx:#A7B2CC; --navlbl:#65739A;
+  --ink:#101828; --ink2:#344054; --mut:#667085; --mut2:#98A2B3;
+  --line:#E7EBF3; --line2:#F0F3F9;
+  --blue:#2563EB; --blue-d:#1D4ED8; --blue-s:#EFF4FF;
+  --grn:#16A34A; --grn-s:#ECFDF3; --grn-b:#ABEFC6;
+  --amb:#F59E0B; --amb-d:#B54708; --amb-s:#FFFAEB; --amb-b:#FEDF89;
+  --org:#EA580C; --org-s:#FFF4ED; --org-b:#F9DBAF;
+  --red:#DC2626; --red-s:#FEF3F2; --red-b:#FECDCA; --red-d:#B42318;
+  --shadow:0 1px 2px rgba(16,24,40,.05);
+}
+html,body{height:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--ink);background:#F5F7FD;-webkit-font-smoothing:antialiased;font-size:14px}
+.mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* SIDEBAR */
+.sb{width:232px;flex:0 0 232px;background:var(--nav);color:#fff;display:flex;flex-direction:column;overflow-y:auto}
+.sb::-webkit-scrollbar{width:6px}.sb::-webkit-scrollbar-thumb{background:#2A3554;border-radius:3px}
+.sb-top{display:flex;align-items:center;gap:9px;padding:16px 14px 14px}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#4F7DF5,#7C5CF5);
+  display:flex;align-items:center;justify-content:center;flex:0 0 28px}
+.brandname{font-weight:700;font-size:14.5px;line-height:1.1}
+.brandsub{font-size:10px;color:var(--navlbl);margin-top:1px}
+.burger{margin-left:auto;color:#7C88A8;cursor:pointer}
+.sb-lbl{font-size:9.5px;letter-spacing:.09em;color:var(--navlbl);font-weight:600;padding:14px 16px 7px}
+.client{margin:0 12px;background:#fff;border-radius:10px;padding:10px 11px;display:flex;align-items:center;
+  color:var(--ink);font-weight:600;font-size:12.5px;cursor:pointer}
+.client svg{margin-left:auto;color:var(--mut2)}
+.allplat{margin:0 12px 8px;background:#fff;color:var(--ink);border-radius:9px;padding:8px;display:flex;
+  align-items:center;justify-content:center;gap:7px;font-weight:600;font-size:12px;cursor:pointer}
+.plats{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 12px}
+.plat{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.055);border-radius:8px;
+  padding:6px 7px;font-size:10.5px;color:#D3DAEC;cursor:pointer;border:1px solid transparent;overflow:hidden}
+.plat:hover{background:rgba(255,255,255,.1)}
+.plat.on{background:rgba(59,130,246,.22);border-color:rgba(96,165,250,.55);color:#fff}
+.pbadge{width:17px;height:17px;border-radius:5px;flex:0 0 17px;display:flex;align-items:center;
+  justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.pname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{padding:2px 10px}
+.nv{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--navtx);
+  font-size:12.5px;font-weight:500;cursor:pointer;position:relative;margin-bottom:1px}
+.nv:hover{background:rgba(255,255,255,.05);color:#fff}
+.nv.on{background:rgba(255,255,255,.08);color:#fff;font-weight:600}
+.nv.on:before{content:'';position:absolute;left:-10px;top:6px;bottom:6px;width:3px;background:#3B82F6;border-radius:0 3px 3px 0}
+.nv .bdg{margin-left:auto;background:#E5484D;color:#fff;font-size:9.5px;font-weight:700;border-radius:9px;padding:1px 6px}
+.nv svg{width:15px;height:15px;flex:0 0 15px;opacity:.85}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;background:#fff}
+.topbar{background:#fff;border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px;flex:0 0 auto}
+.ptitle{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+.ctl{border:1px solid var(--line);border-radius:11px;padding:7px 11px;display:flex;align-items:center;gap:9px;background:#fff}
+.ctl-lbl{font-size:8.5px;letter-spacing:.08em;color:var(--mut2);font-weight:600;display:block;margin-bottom:2px}
+.ctl-val{font-size:12px;font-weight:600}
+.pillsel{background:var(--blue-s);color:var(--blue-d);border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:600}
+.iconbtn{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:#fff;display:flex;
+  align-items:center;justify-content:center;color:var(--mut);cursor:pointer;position:relative;flex:0 0 32px}
+.iconbtn:hover{background:#F8FAFE}
+.dot9{position:absolute;top:-4px;right:-4px;background:#E5484D;color:#fff;font-size:8.5px;font-weight:700;
+  border-radius:8px;padding:1px 4px;border:2px solid #fff}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--nav);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.tgl{width:30px;height:17px;border-radius:9px;background:#D6DCE8;position:relative;cursor:pointer;flex:0 0 30px}
+.tgl:after{content:'';position:absolute;width:13px;height:13px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.18s}
+.tgl.on{background:var(--blue)}.tgl.on:after{left:15px}
+.subnav{background:#fff;border-bottom:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:8px;flex:0 0 auto;overflow-x:auto}
+.tab{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:20px;padding:6px 13px;
+  font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;background:#fff;white-space:nowrap}
+.tab:hover{background:#F8FAFE;border-color:#D3DCEE}
+.tab.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.tab .new{background:#E5484D;color:#fff;font-size:8.5px;font-weight:700;border-radius:6px;padding:1px 4px}
+.tab.on .new{background:rgba(255,255,255,.28)}
+.sn-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:18px;
+  padding:5px 11px;font-size:11.5px;color:var(--ink2);background:#fff;white-space:nowrap}
+.chip.amb{background:var(--amb-s);border-color:var(--amb-b);color:var(--amb-d)}
+.chip.red{background:var(--red-s);border-color:var(--red-b);color:var(--red-d);font-weight:600;cursor:pointer}
+.scroll{flex:1;overflow-y:auto;background:linear-gradient(180deg,#EDF1FB 0,#F6F8FE 260px,#FBFCFE 520px,#fff 900px)}
+.wrap{padding:20px 22px 40px;max-width:1720px}
+
+.eyebrow{font-size:9.5px;letter-spacing:.11em;font-weight:700;color:var(--mut2);margin-bottom:7px}
+.h1{font-size:25px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
+.hsub{font-size:12.5px;color:var(--mut);margin-top:6px}
+.hsub b{color:var(--ink2);font-weight:600}
+.herorow{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:16px}
+.card-hd{display:flex;align-items:center;gap:9px;padding:14px 16px;border-bottom:1px solid var(--line2)}
+.card-hd.nb{border-bottom:none;padding-bottom:4px}
+.sq{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 28px;font-size:13px}
+.sq.blue{background:var(--blue-s);color:var(--blue)}
+.sq.grad{background:linear-gradient(135deg,#4F7DF5,#7C5CF5);color:#fff}
+.sq.red{background:var(--red-s);color:var(--red)}
+.sq.amb{background:var(--amb-s);color:var(--amb-d)}
+.sq.grn{background:var(--grn-s);color:var(--grn)}
+.card-t{font-weight:600;font-size:14px}
+.card-s{font-size:11.5px;color:var(--mut);margin-top:1px}
+.bpill{border:1px solid var(--line);border-radius:14px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--ink2)}
+.bpill.b{background:var(--blue-s);border-color:#D3E1FE;color:var(--blue-d)}
+.bcrumb{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--mut)}
+.hd-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.hint{font-size:9.5px;letter-spacing:.08em;font-weight:600;color:var(--mut2)}
+
+.mgrid{display:grid;gap:12px;padding:16px}
+.mt{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff;min-width:0}
+.mt-l{font-size:11.5px;color:var(--mut);font-weight:500;display:flex;align-items:center;gap:5px}
+.mt-v{font-size:25px;font-weight:600;letter-spacing:-.03em;margin-top:5px;line-height:1.1}
+.mt-d{font-size:11.5px;margin-top:4px;font-weight:500}
+.mt-s{font-size:11px;color:var(--mut2);margin-top:3px}
+.up{color:var(--grn)}.dn{color:var(--red)}
+.soon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:16px 8px;min-height:112px}
+.soon i{font-size:12px;color:var(--mut2);font-style:italic}
+.plug{display:inline-flex;align-items:center;gap:4px;background:var(--amb-s);border:1px solid var(--amb-b);
+  color:var(--amb-d);font-size:9.5px;font-weight:700;letter-spacing:.05em;border-radius:6px;padding:3px 7px}
+.srctag{font-size:8.5px;font-weight:700;letter-spacing:.07em;border-radius:5px;padding:2px 5px;margin-left:auto}
+.src-crawl{background:var(--blue-s);color:var(--blue-d)}
+.src-feed{background:#F3F0FF;color:#6941C6}
+.src-soon{background:var(--amb-s);color:var(--amb-d)}
+
+.st{display:inline-flex;align-items:center;gap:5px;border-radius:16px;padding:3px 9px;font-size:10.5px;font-weight:600;white-space:nowrap}
+.st .d{width:6px;height:6px;border-radius:50%}
+.st-crit{background:var(--red-s);color:var(--red-d);border:1px solid var(--red-b)}.st-crit .d{background:var(--red)}
+.st-high{background:var(--org-s);color:#B93815;border:1px solid var(--org-b)}.st-high .d{background:var(--org)}
+.st-watch{background:var(--amb-s);color:var(--amb-d);border:1px solid var(--amb-b)}.st-watch .d{background:var(--amb)}
+.st-ok{background:var(--grn-s);color:#067647;border:1px solid var(--grn-b)}.st-ok .d{background:var(--grn)}
+
+.feeds{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line2)}
+.feed{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:11.5px;color:var(--ink2);background:#FCFDFF}
+.feed .d{width:6px;height:6px;border-radius:50%;background:var(--grn)}
+.feed.off{border-style:dashed;color:var(--mut2)}.feed.off .d{background:#D0D5DD}
+.feed b{font-weight:600}.feed .lnk{color:var(--blue);font-weight:600;cursor:pointer}
+
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:9.5px;letter-spacing:.07em;color:var(--mut2);font-weight:700;padding:9px 12px;
+  border-bottom:1px solid var(--line);white-space:nowrap;background:#FCFDFF}
+th.r,td.r{text-align:right}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:middle;white-space:nowrap}
+tbody tr{cursor:pointer}tbody tr:hover{background:#F8FAFE}
+.skn{font-weight:600;font-size:12.5px}
+.skc{font-size:10.5px;color:var(--mut2);margin-top:1px}
+.wh{font-size:11.5px;color:var(--ink2)}
+.wh small{display:block;color:var(--mut2);font-size:10.5px;margin-top:1px}
+.num{font-weight:600;font-variant-numeric:tabular-nums}
+.bar{height:5px;border-radius:3px;background:#EEF1F7;overflow:hidden;margin-top:4px;min-width:54px}
+.bar i{display:block;height:100%;border-radius:3px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font-size:11.5px;
+  font-weight:600;color:var(--ink2);cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn:hover{background:#F5F8FE;border-color:#CBD5E8}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}.btn.pri:hover{background:var(--blue-d)}
+.btn.lg{padding:8px 14px;font-size:12.5px;border-radius:9px}
+.fchips{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.fc{border:1px solid var(--line);border-radius:16px;padding:4px 11px;font-size:11.5px;font-weight:600;color:var(--ink2);cursor:pointer;background:#fff}
+.fc.on{background:var(--nav);border-color:var(--nav);color:#fff}
+
+/* segmented control */
+.seg{display:inline-flex;background:#F1F4FA;border-radius:10px;padding:3px;gap:2px}
+.seg span{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer}
+.seg span.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(16,24,40,.1)}
+
+/* accordions */
+.acc{border:1px solid var(--line);border-radius:12px;margin:0 16px 12px;overflow:hidden}
+.acc-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;background:#FCFDFF}
+.acc-hd:hover{background:#F7FAFE}
+.acc.crit .acc-hd{background:var(--red-s)}.acc.crit{border-color:var(--red-b)}
+.acc.high .acc-hd{background:var(--org-s)}.acc.high{border-color:var(--org-b)}
+.acc.watch .acc-hd{background:var(--amb-s)}.acc.watch{border-color:var(--amb-b)}
+.acc.ok .acc-hd{background:var(--grn-s)}.acc.ok{border-color:var(--grn-b)}
+.acc-t{font-weight:600;font-size:13px}
+.acc-c{font-size:11.5px;color:var(--mut);margin-top:1px}
+.acc-n{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.caret{transition:transform .18s}.acc.open .caret{transform:rotate(90deg)}
+.acc-bd{display:none;border-top:1px solid var(--line)}.acc.open .acc-bd{display:block}
+
+/* master-detail */
+.master{display:grid;grid-template-columns:268px 1fr;gap:0}
+.mlist{border-right:1px solid var(--line);max-height:560px;overflow-y:auto}
+.mlist::-webkit-scrollbar{width:6px}.mlist::-webkit-scrollbar-thumb{background:#DDE3EE;border-radius:3px}
+.srch{padding:10px 12px;border-bottom:1px solid var(--line2);position:sticky;top:0;background:#fff;z-index:2}
+.srch input{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12px;font-family:inherit;outline:none}
+.srch input:focus{border-color:var(--blue)}
+.li{padding:10px 12px;border-bottom:1px solid var(--line2);cursor:pointer;display:flex;align-items:center;gap:9px}
+.li:hover{background:#F8FAFE}
+.li.on{background:var(--blue-s);box-shadow:inset 3px 0 0 var(--blue)}
+.li-n{font-weight:600;font-size:12px;line-height:1.3}
+.li-s{font-size:10.5px;color:var(--mut2);margin-top:2px}
+.li-r{margin-left:auto;text-align:right;flex:0 0 auto}
+.li-d{font-size:12.5px;font-weight:700}
+
+/* charts */
+.legend{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--mut);padding:0 16px 10px}
+.lg{display:inline-flex;align-items:center;gap:5px}
+.lg .k{width:11px;height:11px;border-radius:3px}
+.lg .kl{width:16px;height:2px;border-radius:2px}
+svg{display:block;overflow:visible}
+.tip{position:fixed;z-index:99;background:#101828;color:#fff;border-radius:9px;padding:8px 11px;font-size:11.5px;
+  pointer-events:none;opacity:0;transition:opacity .1s;box-shadow:0 8px 24px rgba(16,24,40,.24);max-width:280px}
+.tip b{display:block;font-size:12px;margin-bottom:4px}
+.tip .r{display:flex;justify-content:space-between;gap:14px;color:#D0D5DD;line-height:1.7}
+.tip .r span:last-child{color:#fff;font-weight:600}
+
+/* insights */
+.ins2{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 16px}
+.inspanel{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.inspanel.g{border-color:var(--grn-b);background:#FBFEFC}
+.inspanel.r{border-color:var(--red-b);background:#FFFCFC}
+.ins-hd{font-size:10px;letter-spacing:.08em;font-weight:700;padding:9px 12px}
+.inspanel.g .ins-hd{color:#067647}.inspanel.r .ins-hd{color:var(--red-d)}
+.ins-row{border-top:1px solid var(--line2);padding:10px 12px;background:#fff}
+.ins-top{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;margin-bottom:8px}
+.ins-cells{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.ic{border:1px solid var(--line2);border-radius:8px;padding:7px 9px;background:#FCFDFF}
+.ic.dash{border-style:dashed;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.ic-l{font-size:8.5px;letter-spacing:.07em;font-weight:700;color:var(--mut2)}
+.ic-v{font-size:14px;font-weight:600;margin-top:2px}
+
+/* alert rules */
+.rule{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line2)}
+.rule:last-child{border-bottom:none}
+.rule-n{font-weight:600;font-size:12.5px}
+.rule-c{font-size:11.5px;color:var(--mut);margin-top:2px}
+.rule-c code{background:#F4F6FB;border-radius:4px;padding:1px 5px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink2)}
+.sw{width:34px;height:19px;border-radius:10px;background:#D6DCE8;position:relative;cursor:pointer;flex:0 0 34px}
+.sw:after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.18s}
+.sw.on{background:var(--grn)}.sw.on:after{left:17px}
+.tmpl{border:1px solid var(--line);border-radius:11px;padding:12px;cursor:pointer;background:#fff}
+.tmpl:hover{border-color:var(--blue);background:var(--blue-s)}
+.tmpl.on{border-color:var(--blue);background:var(--blue-s);box-shadow:0 0 0 2px rgba(37,99,235,.14)}
+.tmpl-n{font-weight:600;font-size:12.5px;margin-bottom:3px}
+.tmpl-d{font-size:11px;color:var(--mut);line-height:1.5}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:10px;letter-spacing:.07em;font-weight:700;color:var(--mut2);margin-bottom:5px}
+.fld select,.fld input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-size:12.5px;
+  font-family:inherit;background:#fff;outline:none;color:var(--ink)}
+.fld select:focus,.fld input:focus{border-color:var(--blue)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1.4fr .7fr .9fr;gap:10px}
+.prev{background:#F7F9FE;border:1px solid #E3EAF9;border-left:3px solid var(--blue);border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--ink2)}
+.prev b{color:var(--ink)}
+.chk{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink2);cursor:pointer;padding:6px 0}
+.chk i{width:16px;height:16px;border-radius:5px;border:1.5px solid #CBD5E8;display:inline-flex;align-items:center;
+  justify-content:center;font-style:normal;font-size:10px;color:#fff}
+.chk.on i{background:var(--blue);border-color:var(--blue)}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(16,24,40,.42);opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:580px;max-width:95vw;background:#fff;z-index:61;
+  transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;
+  box-shadow:-8px 0 32px rgba(16,24,40,.16)}
+.drawer.on{transform:none}
+.drawer.wide{width:660px}
+.dw-hd{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:12px}
+.dw-body{flex:1;overflow-y:auto;padding:16px 18px;background:#FBFCFE}
+.dw-ft{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;background:#fff}
+.why{background:#F7F9FE;border:1px solid #E3EAF9;border-left:3px solid var(--blue);border-radius:10px;
+  padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--ink2);margin-bottom:14px}
+.why b{color:var(--ink)}
+.why .calc{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mut);display:block;margin-top:9px;
+  white-space:pre-line;line-height:1.75;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.sec-t{font-size:10px;letter-spacing:.08em;font-weight:700;color:var(--mut2);margin:16px 0 8px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kvc{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff}
+.kvc .l{font-size:10.5px;color:var(--mut)}
+.kvc .v{font-size:16px;font-weight:600;margin-top:2px}
+
+footer{border-top:1px solid var(--line);padding:10px 20px;display:flex;align-items:center;gap:14px;font-size:11px;color:var(--mut2);background:#fff}
+footer .rt{margin-left:auto;display:flex;gap:14px}
+.live{display:inline-flex;align-items:center;gap:5px;color:var(--grn);font-weight:600}
+.live .d{width:6px;height:6px;border-radius:50%;background:var(--grn)}
+.ask{position:fixed;right:22px;bottom:22px;background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;border:none;
+  border-radius:24px;padding:11px 18px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;
+  cursor:pointer;box-shadow:0 8px 24px rgba(59,130,246,.4);font-family:inherit;z-index:50}
+.ph{padding:60px 20px;text-align:center;color:var(--mut2)}
+.ph b{display:block;color:var(--ink2);font-size:15px;margin-bottom:6px;font-weight:600}
+.two{align-items:start}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start}
+.gA{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.gB{display:grid;grid-template-columns:1fr 1.3fr;gap:16px;align-items:start}
+.dchip{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:700;letter-spacing:.03em}
+.d-ok{background:var(--grn-s);color:#067647;border:1px solid var(--grn-b)}
+.d-no{background:var(--red-s);color:var(--red-d);border:1px solid var(--red-b)}
+.d-wa{background:var(--amb-s);color:var(--amb-d);border:1px solid var(--amb-b)}
+.d-na{background:#F1F4FA;color:var(--mut2);border:1px solid var(--line)}
+.slot{display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid var(--line2);border-radius:9px;margin-bottom:5px;background:#FCFDFF}
+.slot.us{border-color:#A8C7FA;background:var(--blue-s)}
+.slot .n{width:22px;height:22px;border-radius:6px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--mut);flex:0 0 22px}
+.slot.us .n{background:var(--blue);color:#fff}
+.ast{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.ast .im{height:74px;display:flex;align-items:center;justify-content:center;font-size:22px;background:#F4F6FB;color:#B4BCCC}
+.ast .bd{padding:8px 9px}
+.cmp{overflow-x:auto}
+.cmp table{min-width:100%}
+.cmp th.lbl,.cmp td.lbl{position:sticky;left:0;background:#fff;z-index:1;border-right:1px solid var(--line);text-align:left;min-width:150px}
+.cmp th.lbl{background:#FCFDFF}
+.cmp td.best{background:var(--grn-s);font-weight:700;color:#067647}
+.cmp td.worst{background:var(--red-s);color:var(--red-d)}
+.cmp td.par{background:#F7F9FE;font-style:italic;color:var(--mut)}
+.calc{background:#F7F9FE;border:1px solid #E3EAF9;border-radius:12px;padding:14px}
+.calc .row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.calc label{font-size:10px;letter-spacing:.07em;font-weight:700;color:var(--mut2);flex:0 0 118px}
+.calc select,.calc input{flex:1;border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:12.5px;font-family:inherit;background:#fff}
+.out{background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.7;color:var(--ink2)}
+.out b{color:var(--ink);font-size:15px}
+.mini{font-size:10.5px;color:var(--mut2)}
+.pbar{height:6px;border-radius:3px;background:#EEF1F7;overflow:hidden;min-width:70px;display:flex}
+.pbar i{display:block;height:100%}
+@media(max-width:1240px){.ins2,.g2,.g3,.gA,.gB{grid-template-columns:1fr}}
+</style>
+
+
+<div class="app">
+<aside class="sb">
+  <div class="sb-top">
+    <div class="logo"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4z" fill="#fff" opacity=".95"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg></div>
+    <div><div class="brandname">eGenie</div><div class="brandsub">Digital Shelf</div></div>
+    <svg class="burger" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </div>
+  <div class="sb-lbl">CLIENT</div>
+  <div class="client">Reckitt<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+  <div class="sb-lbl">PLATFORMS</div>
+  <div class="allplat" onclick="setPlat('All Platforms')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18 15 15 0 010-18"/></svg>All Platforms</div>
+  <div class="plats" id="plats"></div>
+  <div class="sb-lbl">DASHBOARDS</div>
+  <div class="nav" id="dashnav"></div>
+  <div class="sb-lbl">E-GENIE AI</div>
+  <div class="nav">
+    <div class="nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4L12 3z"/></svg>Ask your e-genie</div>
+    <div class="nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 16M12 11.5L17.5 16"/></svg>Agent Framework</div>
+  </div>
+  <div class="sb-lbl">SETTINGS</div>
+  <div class="nav" style="padding-bottom:18px">
+    <div class="nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M9 20V4M14 20v-7M19 20V8"/></svg>Catalog System</div>
+    <div class="nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4L12 22l-9-9V3h10l7.6 7.6a2 2 0 010 2.8z"/></svg>Labels &amp; Tags</div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="ptitle" id="ptitle">Availability</div>
+    <div class="tb-right">
+      <div class="ctl"><span style="font-size:11.5px;font-weight:600">MSL</span><div class="tgl" onclick="this.classList.toggle('on')"></div></div>
+      <div class="ctl"><div><span class="ctl-lbl">TIME PERIOD</span><span class="pillsel">Last 7 Days ▾</span>
+        <span class="ctl-val mono" style="margin-left:5px">05 Aug'26 → 11 Aug'26</span></div></div>
+      <div class="ctl"><div><span class="ctl-lbl">COMPARE WITH</span><span class="pillsel">Previous Period ▾</span>
+        <span class="ctl-val mono" style="margin-left:5px">29 Jul'26 → 04 Aug'26</span></div></div>
+      <div class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+      <div class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></div>
+      <div class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg><span class="dot9" id="alertcount">9+</span></div>
+      <div class="avatar">T</div>
+    </div>
+  </header>
+  <nav class="subnav" id="subnav"></nav>
+  <div class="scroll" id="scroll"><div class="wrap" id="view"></div>
+    <footer><span>© 2026 eGenie · Digital Shelf</span><span class="mono" style="color:#B4BCCC">v2.2.0–beta</span>
+      <div class="rt"><span class="live"><span class="d"></span>Live</span><span>Help</span><span>Privacy</span><span>Terms</span><span>Status</span></div></footer>
+  </div>
+</main>
+</div>
+
+<button class="ask"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4L12 3z"/></svg>Ask e-genie</button>
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="tip" id="tip"></div>
+
+<script>
+/* ===================== DATA ===================== */
+const PLATFORMS=[{n:'Flipkart',s:'F',c:'#2874F0'},{n:'Swiggy Instamart',s:'S',c:'#FC8019'},
+ {n:'Amazon',s:'A',c:'#FF9900'},{n:'Zepto',s:'Z',c:'#7C3AED'},{n:'Flipkart Grocery',s:'F',c:'#2874F0'},
+ {n:'FK Minutes',s:'F',c:'#F59E0B'},{n:'Bigbasket',s:'B',c:'#84C225'},{n:'Blinkit',s:'B',c:'#F8CB46'},
+ {n:'Amazon Now',s:'A',c:'#FF9900'}];
+let seed=20260811;
+function rnd(){seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296}
+
+const SKUS=[
+ ['Harpic Power Plus Rose · 500ml','RB-HRP-1001','Harpic','Surface Care'],
+ ['Air Wick Freshmatic Refill · 250ml','RB-AWK-2214','Air Wick','Air Care'],
+ ['Dettol Antiseptic Liquid · 550ml','RB-DAL-3310','Dettol Antiseptic','Antiseptic & Wash'],
+ ['Dettol Bodywash Cool · 250ml','RB-DBW-4102','Dettol Bodywash','Antiseptic & Wash'],
+ ['Mortein Liquid Vaporiser Refill · 45ml','RB-MTN-5501','Mortein','Pest Control'],
+ ['Strepsils Sugar Free Lemon · 8s','RB-STP-6620','Strepsils','OTC Healthcare'],
+ ['Dettol Handwash Original · 200ml','RB-DHW-7140','Dettol Handwash','Antiseptic & Wash'],
+ ['Vanish Oxi Action Powder · 400g','RB-VNS-8802','Vanish','Air Care'],
+ ['Lizol Floor Cleaner Citrus · 975ml','RB-LZL-9015','Lizol','Surface Care'],
+ ['Veet Hair Removal Cream · 100g','RB-VEE-1120','Veet','Personal Care'],
+ ['Dettol Bodywash Original · 250ml','RB-DBW-1330','Dettol Bodywash','Antiseptic & Wash'],
+ ['Vanish Liquid · 800ml','RB-VNS-1540','Vanish','Air Care'],
+ ['Harpic Bathroom Cleaner · 500ml','RB-HRP-1760','Harpic','Surface Care'],
+ ['Mortein Mosquito Coil · 12s','RB-MTN-1985','Mortein','Pest Control']];
+const WH=['Bhiwandi DC','Bengaluru North DC','Gurugram Hub','Haringhata FC','Hyderabad DC','Kolkata Hub','Chennai DC','Pune DC'];
+const CITIES=['Aligarh','Moga','Delhi','Shillong','Vrindavan','Sawangi','Akola','Nildoh','Mumbai','Bengaluru','Hyderabad','Pune'];
+
+const inr=n=>'₹'+(n>=1e7?(n/1e7).toFixed(2)+' Cr':n>=1e5?(n/1e5).toFixed(1)+' L':Math.round(n).toLocaleString('en-IN'));
+const num=n=>Math.round(n).toLocaleString('en-IN');
+function trend(start,drift,n,noise){const o=[];let v=start;for(let i=0;i<n;i++){v=Math.max(.2,v+drift+(rnd()-.5)*noise);o.push(v)}return o}
+const RISK={crit:{k:'Critical',cls:'st-crit',col:'#DC2626'},high:{k:'High',cls:'st-high',col:'#EA580C'},
+  watch:{k:'Watch',cls:'st-watch',col:'#F59E0B'},ok:{k:'Healthy',cls:'st-ok',col:'#16A34A'},
+  oos:{k:'Out of stock',cls:'st-crit',col:'#7F1D1D'}};
+const BANDS=['ok','watch','high','crit','oos'];
+
+/* 12-week risk history patterns */
+const PATTERNS={
+ chronic:['ok','watch','high','ok','watch','crit','ok','watch','high','ok','watch','high'],
+ declining:['ok','ok','ok','ok','watch','watch','watch','high','high','crit','crit','crit'],
+ stable_ok:['ok','ok','ok','ok','watch','ok','ok','ok','ok','ok','ok','ok'],
+ recovering:['crit','crit','high','high','watch','watch','ok','ok','ok','ok','ok','ok'],
+ stable_risk:['high','crit','oos','crit','high','crit','oos','crit','high','high','crit','crit'],
+ slipping:['ok','ok','watch','ok','ok','watch','watch','watch','high','watch','high','high']};
+const PKEYS=['declining','stable_risk','chronic','slipping','chronic','declining','slipping','stable_ok','stable_ok','chronic','stable_ok','recovering','stable_ok','stable_ok'];
+
+const OOS=SKUS.map((s,i)=>{
+  const p=PLATFORMS[(i*3+1)%PLATFORMS.length];
+  const woc=[0,0.4,1.1,1.6,2.0,2.4,2.8,3.2,3.6,4.1,4.6,5.2,6.5,8.2][i];
+  const lead=[2.5,3.0,2.5,3.0,2.0,3.5,2.5,4.0,2.0,3.0,2.5,3.5,3.0,3.0][i];
+  const runRate=Math.round(900+rnd()*5200);
+  const onHand=Math.round(runRate*woc);
+  const fill=Math.round((60+rnd()*38)*10)/10;
+  const cut=Math.round(runRate*(1-fill/100)*2.4);
+  const projOos=Math.round(woc*7);
+  const poRaised=i!==1&&i!==6;
+  const poEta=Math.round(lead*7)+Math.round(rnd()*4)-1;
+  const exposure=poRaised?poEta-projOos:99;
+  const isOOS=woc<0.55;
+  const daysOOS=isOOS?[9,4][i]||6:0;
+  const oppLost=isOOS?Math.round(runRate/7*daysOOS*(30+rnd()*38)):0;
+  const risk=isOOS?'oos':projOos<=10?'crit':projOos<=18?'high':projOos<=28?'watch':'ok';
+  const hist=PATTERNS[PKEYS[i]];
+  return {i,sku:s[0],code:s[1],brand:s[2],cat:s[3],plat:p.n,pc:p.c,wh:WH[i%WH.length],city:CITIES[i%CITIES.length],
+    woc,daysCover:Math.round(woc*7),wocTrend:trend(woc+1.9,-0.24,8,.3),lead,runRate,onHand,fill,cut,projOos,
+    poRaised,poEta,exposure:poRaised?exposure:null,isOOS,daysOOS,oppLost,risk,hist,
+    episodes:hist.filter(b=>b==='high'||b==='crit'||b==='oos').length,
+    atRisk:Math.round(runRate*(exposure>0&&poRaised?exposure:0)/7*(28+rnd()*40)),
+    suggest:Math.round(runRate*(lead+2)/1000)*1000,
+    orders:[0,1,2,3].map(w=>{const o=Math.round(runRate*1.1);const c=Math.round(o*(fill/100)*(.93+rnd()*.12));
+      return {w:'W'+(19+w),ord:o,conf:c,rec:Math.round(c*(.95+rnd()*.05))}})};
+});
+
+const LOCS=CITIES.map((c,i)=>{
+  const hist=PATTERNS[['chronic','stable_risk','declining','stable_risk','slipping','stable_ok','chronic','slipping','stable_ok','recovering','stable_ok','declining'][i]];
+  return {name:c,sku:c,code:c,hist,episodes:hist.filter(b=>b==='high'||b==='crit'||b==='oos').length,
+   risk:hist[11],stores:Math.round(120+rnd()*680),skusAtRisk:Math.round(2+rnd()*11),
+   oppLost:Math.round(40000+rnd()*420000)};
+});
+
+/* ASP dips — SKU level, rolled to range & category */
+const DIPS=SKUS.map((s,i)=>{
+  const p=PLATFORMS[(i*2+3)%PLATFORMS.length];
+  const trail=Math.round(28+rnd()*92);
+  const depth=[22.4,18.9,16.2,14.7,12.8,11.3,9.6,8.4,6.9,5.2,15.8,10.4,7.7,13.1][i];
+  const aspNow=Math.round(trail*(1-depth/100)*10)/10;
+  const lift=Math.round(depth*(2.0+rnd()*1.5)*10)/10;
+  const rrB=Math.round(700+rnd()*3600), rrA=Math.round(rrB*(1+lift/100));
+  const burn=Math.round((lift/100)*3.1*10)/10;
+  const st=depth>15?'crit':depth>10?'high':depth>7?'watch':'ok';
+  const days=28,asp=[],units=[],dipAt=17; let a=trail;
+  for(let d=0;d<days;d++){
+    a=d<dipAt?trail*(.985+rnd()*.03):trail*(1-depth/100)*(.985+rnd()*.025);
+    asp.push(Math.round(a*10)/10);
+    const base=rrB/7;
+    units.push(Math.round(d<dipAt?base*(.86+rnd()*.28):base*(1+lift/100)*(.88+rnd()*.24)));
+  }
+  return {i,level:'SKU',sku:s[0],name:s[0],code:s[1],brand:s[2],cat:s[3],plat:p.n,trail,aspNow,depth,rrB,rrA,lift,burn,st,
+    asp,units,dipAt,days,dipStart:'25 Jul',status:depth>15?'Escalating':depth>8?'Active':'Recovering'};
+});
+function rollup(key){
+  const groups={};
+  DIPS.forEach(d=>{(groups[d[key]]=groups[d[key]]||[]).push(d)});
+  return Object.entries(groups).map(([k,v],i)=>{
+    const w=v.length;
+    const trail=Math.round(v.reduce((s,d)=>s+d.trail,0)/w);
+    const depth=Math.round(v.reduce((s,d)=>s+d.depth,0)/w*10)/10;
+    const lift=Math.round(v.reduce((s,d)=>s+d.lift,0)/w*10)/10;
+    const burn=Math.round(v.reduce((s,d)=>s+d.burn,0)/w*10)/10;
+    const rrB=v.reduce((s,d)=>s+d.rrB,0), rrA=v.reduce((s,d)=>s+d.rrA,0);
+    const asp=v[0].asp.map((_,j)=>Math.round(v.reduce((s,d)=>s+d.asp[j],0)/w*10)/10);
+    const units=v[0].units.map((_,j)=>v.reduce((s,d)=>s+d.units[j],0));
+    return {i,level:key==='cat'?'Category':'Range',name:k,sku:k,code:w+' SKUs',brand:k,cat:k,
+      plat:'All platforms',trail,aspNow:Math.round(trail*(1-depth/100)*10)/10,depth,rrB,rrA,lift,burn,
+      st:depth>15?'crit':depth>10?'high':depth>7?'watch':'ok',asp,units,dipAt:17,days:28,dipStart:'25 Jul',
+      status:depth>15?'Escalating':depth>8?'Active':'Recovering',members:w};
+  }).sort((a,b)=>b.depth-a.depth);
+}
+const CATS=rollup('cat'), RANGES=rollup('brand');
+
+/* ---------- ALERT ENGINE ---------- */
+const METRICS={
+ woc:{l:'Weeks of cover',u:'wk',get:r=>r.woc},
+ daysCover:{l:'Days of cover',u:'d',get:r=>r.daysCover},
+ fill:{l:'Fill rate',u:'%',get:r=>r.fill},
+ daysOOS:{l:'Days out of stock',u:'d',get:r=>r.daysOOS},
+ exposure:{l:'PO exposure gap',u:'d',get:r=>r.exposure===null?99:r.exposure},
+ runRate:{l:'Daily run-rate change',u:'%',get:r=>Math.round((r.wocTrend[7]/r.wocTrend[0]-1)*-100)},
+ depth:{l:'ASP dip depth',u:'%',get:r=>r.depth},
+ lift:{l:'Run-rate lift',u:'%',get:r=>r.lift},
+ burn:{l:'Cover burned',u:'wk',get:r=>r.burn}};
+const OPS={lt:{l:'falls below',f:(a,b)=>a<b},gt:{l:'rises above',f:(a,b)=>a>b},
+ lte:{l:'is at or below',f:(a,b)=>a<=b},gte:{l:'is at or above',f:(a,b)=>a>=b}};
+const EXTRAS={none:{l:'— no additional condition',f:()=>true},
+ nopo:{l:'and no PO has been raised',f:r=>!r.poRaised},
+ poLate:{l:'and a PO is raised but not received',f:r=>r.poRaised&&r.fill<85},
+ gap:{l:'and the PO lands after the projected stockout',f:r=>r.exposure>0},
+ nopromo:{l:'and no promo is on the calendar',f:r=>r.depth>0&&r.i%3!==0}};
+
+const TEMPLATES={
+ oos:[
+  {id:'t1',n:'Cover falling with no PO raised',d:'Weeks of cover drops below a threshold and nothing has been ordered yet. The classic silent stockout.',m:'woc',o:'lt',v:2,x:'nopo',sev:'crit'},
+  {id:'t2',n:'PO raised but fulfilment not received',d:'An order exists but fill rate is running short — the units are not arriving.',m:'fill',o:'lt',v:85,x:'poLate',sev:'high'},
+  {id:'t3',n:'Demand spike burning cover',d:'Daily run-rate jumps versus its trailing average and weeks of cover is falling as a result.',m:'runRate',o:'gt',v:25,x:'none',sev:'high'},
+  {id:'t4',n:'PO lands after projected stockout',d:'The exposure gap is positive — a standard-lead order cannot close it.',m:'exposure',o:'gt',v:0,x:'gap',sev:'crit'},
+  {id:'t5',n:'Cover lost, replenishment not received',d:'Already out of stock for more than N days with no replenishment landed.',m:'daysOOS',o:'gte',v:3,x:'none',sev:'crit'},
+  {id:'t6',n:'Days of cover below lead time',d:'Days of cover has fallen inside the warehouse lead-time window.',m:'daysCover',o:'lt',v:14,x:'none',sev:'high'}],
+ asp:[
+  {id:'a1',n:'ASP dips below trailing average',d:'Selling price falls more than X% under the 8-week trailing average.',m:'depth',o:'gt',v:10,x:'none',sev:'high'},
+  {id:'a2',n:'Unplanned price drop',d:'A dip is detected with no matching promo on the calendar — platform-funded discounting.',m:'depth',o:'gt',v:7,x:'nopromo',sev:'crit'},
+  {id:'a3',n:'Inventory acceleration',d:'Run-rate lift after a dip exceeds X%, burning cover faster than plan.',m:'lift',o:'gt',v:35,x:'none',sev:'high'},
+  {id:'a4',n:'Cover burned by discounting',d:'A dip has burned more than X weeks of cover.',m:'burn',o:'gt',v:1.5,x:'none',sev:'crit'},
+  {id:'a5',n:'Deep dip on a priority range',d:'Depth beyond the guardrail on any SKU in a watched range.',m:'depth',o:'gt',v:15,x:'none',sev:'crit'}]};
+
+let ALERTS=[
+ {id:1,scope:'oos',n:'Cover falling with no PO raised',m:'woc',o:'lt',v:2,x:'nopo',sev:'crit',on:true,ch:['app','task'],who:'All platforms · MSL only',fired:14},
+ {id:2,scope:'oos',n:'PO lands after projected stockout',m:'exposure',o:'gt',v:0,x:'gap',sev:'crit',on:true,ch:['app','email'],who:'All platforms',fired:9},
+ {id:3,scope:'oos',n:'Demand spike burning cover',m:'runRate',o:'gt',v:25,x:'none',sev:'high',on:false,ch:['app'],who:'Blinkit, Zepto',fired:6},
+ {id:4,scope:'asp',n:'Unplanned price drop',m:'depth',o:'gt',v:7,x:'nopromo',sev:'crit',on:true,ch:['app','task'],who:'All platforms',fired:11},
+ {id:5,scope:'asp',n:'Inventory acceleration',m:'lift',o:'gt',v:35,x:'none',sev:'high',on:true,ch:['app'],who:'Harpic, Mortein',fired:5}];
+let nextId=6;
+
+METRICS.lbb={l:'Lost Buy Box %',u:'%',get:r=>r.lbb};
+METRICS.priceGap={l:'Undercut vs our price',u:'%',get:r=>Math.max(0,Math.round((1-r.low/r.our)*100))};
+METRICS.lostVal={l:'Lost sell-out value',u:'₹',get:r=>r.lostVal};
+EXTRAS.is1p={l:'and the seller of record is 1P',f:r=>r.is1P!==undefined?!r.is1P:true};
+TEMPLATES.bb=[
+ {id:'b1',n:'Buy Box lost on a 1P listing',d:'We are the seller of record and the Buy Box has moved to a third party.',m:'lbb',o:'gt',v:10,x:'is1p',sev:'crit'},
+ {id:'b2',n:'Third party undercutting our price',d:'A reseller is listing below our PDP price by more than the threshold.',m:'priceGap',o:'gt',v:8,x:'none',sev:'high'},
+ {id:'b3',n:'Material sell-out being lost',d:'Estimated value lost while not holding the Buy Box exceeds the threshold.',m:'lostVal',o:'gt',v:200000,x:'none',sev:'crit'},
+ {id:'b4',n:'Buy Box held less than target',d:'Time holding the Buy Box has fallen below the agreed service level.',m:'lbb',o:'gt',v:25,x:'none',sev:'watch'}];
+ALERTS.push(
+ {id:100,scope:'bb',n:'Buy Box lost on a 1P listing',m:'lbb',o:'gt',v:10,x:'is1p',sev:'crit',on:true,ch:['app','task'],who:'All platforms',fired:8},
+ {id:101,scope:'bb',n:'Third party undercutting our price',m:'priceGap',o:'gt',v:8,x:'none',sev:'high',on:true,ch:['app','email'],who:'Marketplaces only',fired:13});
+nextId=102;
+
+function evalRule(r){
+  const set=r.scope==='oos'?OOS:r.scope==='bb'?BB:DIPS;
+  return set.filter(x=>{const mv=METRICS[r.m].get(x);
+    return OPS[r.o].f(mv,r.v)&&EXTRAS[r.x].f(x)});
+}
+const ruleText=r=>`${METRICS[r.m].l} ${OPS[r.o].l} ${r.v}${METRICS[r.m].u}${r.x!=='none'?' '+EXTRAS[r.x].l:''}`;
+
+/* ===================== CHART HELPERS ===================== */
+const tip=document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;
+  const b=tip.getBoundingClientRect();let x=e.clientX+14,y=e.clientY-10;
+  if(x+b.width>innerWidth-12)x=e.clientX-b.width-14;
+  if(y+b.height>innerHeight-12)y=innerHeight-b.height-12;
+  tip.style.left=x+'px';tip.style.top=y+'px'}
+function hideTip(){tip.style.opacity=0}
+
+function spark(v,col,w=88,h=26,fill=true){
+  const mn=Math.min(...v),mx=Math.max(...v),rg=(mx-mn)||1;
+  const X=i=>i/(v.length-1)*w,Y=d=>h-2-((d-mn)/rg)*(h-5);
+  const p=v.map((d,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(d).toFixed(1)}`).join(' ');
+  const id='g'+Math.random().toString(36).slice(2,8);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${fill?`<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0" stop-color="${col}" stop-opacity=".22"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+   <path d="${p} L${w} ${h} L0 ${h} Z" fill="url(#${id})"/>`:''}
+   <path d="${p}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function exposureChart(rows){
+  const W=980,LB=250,RB=86,H0=42,RH=30,H=H0+rows.length*RH+14,days=42,PW=W-LB-RB;
+  const X=d=>LB+(Math.min(d,days)/days)*PW;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let d=0;d<=days;d+=7){g+=`<line x1="${X(d)}" y1="${H0-16}" x2="${X(d)}" y2="${H-12}" stroke="#EEF1F7"/>
+    <text x="${X(d)}" y="${H0-22}" font-size="9.5" fill="#98A2B3" text-anchor="middle" font-weight="600">${d===0?'TODAY':'+'+d+'d'}</text>`}
+  g+=`<line x1="${X(0)}" y1="${H0-16}" x2="${X(0)}" y2="${H-12}" stroke="#101828" stroke-width="1.5"/>`;
+  rows.forEach((r,i)=>{
+    const y=H0+i*RH,cy=y+11,col=RISK[r.risk].col;
+    g+=`<text x="0" y="${cy+1}" font-size="11.5" fill="#101828" font-weight="600">${r.sku.length>30?r.sku.slice(0,29)+'…':r.sku}</text>
+        <text x="0" y="${cy+12}" font-size="9.5" fill="#98A2B3">${r.plat} · ${r.wh}</text>
+        <rect x="${LB}" y="${cy-6}" width="${PW}" height="12" rx="6" fill="#F4F6FB"/>`;
+    const oosX=X(r.projOos),poX=X(r.poEta);
+    g+=`<rect x="${LB}" y="${cy-6}" width="${Math.max(2,oosX-LB)}" height="12" rx="6" fill="${col}" fill-opacity=".9"/>`;
+    if(!r.poRaised){
+      g+=`<rect x="${oosX}" y="${cy-6}" width="${PW-(oosX-LB)}" height="12" fill="url(#hatch)"/>
+          <text x="${W-RB+6}" y="${cy+4}" font-size="10.5" fill="#B42318" font-weight="700">no PO</text>`;
+    } else if(r.exposure>0){
+      g+=`<rect x="${oosX}" y="${cy-6}" width="${Math.max(2,poX-oosX)}" height="12" fill="url(#hatch)"/>
+          <text x="${W-RB+6}" y="${cy+4}" font-size="10.5" fill="#B42318" font-weight="700">${r.exposure}d gap</text>`;
+    } else g+=`<text x="${W-RB+6}" y="${cy+4}" font-size="10.5" fill="#067647" font-weight="600">covered</text>`;
+    g+=`<circle cx="${oosX}" cy="${cy}" r="5" fill="#fff" stroke="${col}" stroke-width="2.5"/>`;
+    if(r.poRaised)g+=`<path d="M${poX} ${cy-6.5} L${poX+5.5} ${cy} L${poX} ${cy+6.5} L${poX-5.5} ${cy} Z" fill="#fff" stroke="#2563EB" stroke-width="2"/>`;
+    g+=`<rect class="lane" data-i="${r.i}" x="0" y="${y}" width="${W}" height="${RH}" fill="transparent" style="cursor:pointer"/>`;
+  });
+  g+=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+   <rect width="6" height="6" fill="#FEE4E2"/><line x1="0" y1="0" x2="0" y2="6" stroke="#F97066" stroke-width="2.4"/></pattern></defs>`;
+  return g+'</svg>';
+}
+
+function aspVelocity(d,idp){
+  const W=980,L=54,R=16,PH=118,VH=88,GAP=26,H=PH+GAP+VH+34,PW=W-L-R,n=d.days,X=i=>L+(i/(n-1))*PW;
+  const aMin=Math.min(...d.asp)*.9,aMax=Math.max(...d.asp)*1.06,aR=aMax-aMin;
+  const AY=v=>PH-((v-aMin)/aR)*(PH-14)-4;
+  const uMax=Math.max(...d.units)*1.15,UY=v=>PH+GAP+VH-(v/uMax)*(VH-8);
+  const dipX=X(d.dipAt);
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">
+   <rect x="${dipX}" y="0" width="${W-R-dipX}" height="${PH+GAP+VH}" fill="#FEF3F2" opacity=".72"/>
+   <line x1="${dipX}" y1="0" x2="${dipX}" y2="${PH+GAP+VH}" stroke="#F97066" stroke-width="1.5" stroke-dasharray="4 3"/>
+   <text x="${dipX+7}" y="12" font-size="9.5" fill="#B42318" font-weight="700">DIP DETECTED · ${d.dipStart}</text>`;
+  for(let k=0;k<=3;k++){const y=4+k*((PH-14)/3);
+    g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#F0F3F9"/>
+        <text x="${L-8}" y="${y+3}" font-size="9.5" fill="#98A2B3" text-anchor="end">₹${Math.round(aMax-(k/3)*aR)}</text>`}
+  g+=`<line x1="${L}" y1="${AY(d.trail)}" x2="${W-R}" y2="${AY(d.trail)}" stroke="#98A2B3" stroke-width="2" stroke-dasharray="5 4"/>`;
+  g+=`<path d="${d.asp.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${AY(v).toFixed(1)}`).join(' ')}" fill="none" stroke="#2563EB" stroke-width="2" stroke-linejoin="round"/>`;
+  const bw=Math.max(3,PW/n-3);
+  d.units.forEach((v,i)=>{const y=UY(v);g+=`<rect x="${X(i)-bw/2}" y="${y}" width="${bw}" height="${Math.max(1,(PH+GAP+VH)-y)}" rx="2.5" fill="${i<d.dipAt?'#93B4F7':'#2563EB'}"/>`});
+  g+=`<line x1="${L}" y1="${PH+GAP+VH}" x2="${W-R}" y2="${PH+GAP+VH}" stroke="#E7EBF3"/>
+      <text x="${L-8}" y="${PH+GAP+12}" font-size="9.5" fill="#98A2B3" text-anchor="end">${num(uMax)}</text>
+      <text x="${L-8}" y="${PH+GAP+VH+3}" font-size="9.5" fill="#98A2B3" text-anchor="end">0</text>
+      <text x="${L}" y="${PH+16}" font-size="9.5" fill="#667085" font-weight="700" letter-spacing=".07em">DAILY SELL-THROUGH · UNITS</text>`;
+  for(let i=0;i<n;i+=7)g+=`<text x="${X(i)}" y="${H-8}" font-size="9.5" fill="#98A2B3" text-anchor="middle">D-${n-i}</text>`;
+  for(let i=0;i<n;i++)g+=`<rect class="${idp}" data-i="${i}" x="${X(i)-PW/n/2}" y="0" width="${PW/n}" height="${PH+GAP+VH}" fill="transparent"/>`;
+  return g+'</svg>';
+}
+
+function scatterDL(rows){
+  const W=560,H=250,L=46,B=34,R=14,T=12,PW=W-L-R,PH=H-B-T;
+  const xM=Math.max(...rows.map(r=>r.depth))*1.15,yM=Math.max(...rows.map(r=>r.lift))*1.15;
+  const X=v=>L+(v/xM)*PW,Y=v=>T+PH-(v/yM)*PH;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let k=0;k<=4;k++){const y=T+k*(PH/4);g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#F0F3F9"/>
+    <text x="${L-7}" y="${y+3}" font-size="9.5" fill="#98A2B3" text-anchor="end">${Math.round(yM-(k/4)*yM)}%</text>`}
+  for(let k=0;k<=4;k++)g+=`<text x="${L+k*(PW/4)}" y="${H-16}" font-size="9.5" fill="#98A2B3" text-anchor="middle">${Math.round((k/4)*xM)}%</text>`;
+  g+=`<text x="${L+PW/2}" y="${H-2}" font-size="9.5" fill="#667085" text-anchor="middle" font-weight="600">ASP DIP DEPTH vs TRAILING AVERAGE</text>
+      <text x="10" y="${T+PH/2}" font-size="9.5" fill="#667085" font-weight="600" transform="rotate(-90 10 ${T+PH/2})" text-anchor="middle">RUN-RATE LIFT</text>`;
+  rows.forEach((r,i)=>g+=`<circle class="dot" data-i="${i}" cx="${X(r.depth)}" cy="${Y(r.lift)}" r="${5+r.burn*3.1}" fill="${RISK[r.st].col}" fill-opacity=".2" stroke="${RISK[r.st].col}" stroke-width="2" style="cursor:pointer"/>`);
+  return g+'</svg>';
+}
+
+/* risk-band heatmap · 12 weeks */
+function heatmap(rows){
+  const LB=230,CW=44,CH=26,GAP=3,W=LB+12*(CW+GAP)+80,H=30+rows.length*(CH+GAP);
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let w=0;w<12;w++)g+=`<text x="${LB+w*(CW+GAP)+CW/2}" y="18" font-size="9" fill="#98A2B3" text-anchor="middle" font-weight="600">W${11+w}</text>`;
+  g+=`<text x="${LB+12*(CW+GAP)+8}" y="18" font-size="9" fill="#98A2B3" font-weight="600">EPISODES</text>`;
+  rows.forEach((r,i)=>{
+    const y=30+i*(CH+GAP);
+    g+=`<text x="0" y="${y+17}" font-size="11.5" fill="#101828" font-weight="600">${r.sku.length>30?r.sku.slice(0,29)+'…':r.sku}</text>`;
+    r.hist.forEach((b,w)=>{
+      g+=`<rect class="hc" data-r="${i}" data-w="${w}" x="${LB+w*(CW+GAP)}" y="${y}" width="${CW}" height="${CH}" rx="5"
+        fill="${RISK[b].col}" fill-opacity="${b==='ok'?.28:b==='watch'?.55:b==='oos'?1:.85}" style="cursor:pointer"/>`;
+      if(b==='oos')g+=`<text x="${LB+w*(CW+GAP)+CW/2}" y="${y+17}" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">OOS</text>`;
+    });
+    g+=`<text x="${LB+12*(CW+GAP)+30}" y="${y+17}" font-size="12" fill="${r.episodes>=5?'#B42318':'#344054'}" font-weight="700" text-anchor="middle">${r.episodes}</text>`;
+  });
+  return g+'</svg>';
+}
+
+/* stacked band counts by week */
+function migration(rows){
+  const W=980,H=200,L=42,B=30,T=10,R=14,PW=W-L-R,PH=H-B-T,n=12;
+  const counts=[];for(let w=0;w<n;w++){const c={};BANDS.forEach(b=>c[b]=0);rows.forEach(r=>c[r.hist[w]]++);counts.push(c)}
+  const total=rows.length,bw=PW/n-14;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let k=0;k<=4;k++){const y=T+k*(PH/4);g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#F0F3F9"/>
+    <text x="${L-7}" y="${y+3}" font-size="9.5" fill="#98A2B3" text-anchor="end">${Math.round(total-(k/4)*total)}</text>`}
+  counts.forEach((c,w)=>{
+    let acc=0;const x=L+w*(PW/n)+7;
+    ['ok','watch','high','crit','oos'].forEach(b=>{
+      if(!c[b])return;const h=(c[b]/total)*PH;
+      const y=T+PH-acc-h;
+      g+=`<rect class="mg" data-w="${w}" data-b="${b}" x="${x}" y="${y+1}" width="${bw}" height="${Math.max(1,h-2)}" rx="3"
+        fill="${RISK[b].col}" fill-opacity="${b==='ok'?.42:b==='watch'?.7:.9}" style="cursor:pointer"/>`;
+      acc+=h;});
+    g+=`<text x="${x+bw/2}" y="${H-10}" font-size="9.5" fill="#98A2B3" text-anchor="middle">W${11+w}</text>`;
+  });
+  return g+'</svg>';
+}
+
+/* ===================== EXTENDED DATA ===================== */
+const KWS=['toilet cleaner','harpic','disinfectant liquid','floor cleaner','bathroom cleaner','handwash','glass cleaner','antiseptic liquid',
+ 'surface disinfectant','air freshener','mosquito repellent','mosquito coil','hair removal cream','sore throat lozenge'];
+const COMPS=['Domex','Savlon','Good Knight','Sanifresh','Nimyle','Lifebuoy','Reckitt'];
+
+const RANK=KWS.map((k,i)=>{
+  const rank=Math.round(1+rnd()*18), prev=Math.max(1,rank+Math.round((rnd()-.45)*8));
+  const vol=Math.round(4000+rnd()*46000);
+  return {i,kw:k,vol,rank,prev,delta:prev-rank,top10:rank<=10,
+    sov:Math.round(rnd()*38*10)/10, paidSov:Math.round(rnd()*24*10)/10,
+    cpc:Math.round((8+rnd()*38)*10)/10, bid:Math.round((10+rnd()*44)*10)/10,
+    cvr:Math.round((1+rnd()*7)*10)/10,
+    plat:PLATFORMS[(i*2)%PLATFORMS.length].n,
+    owner:SKUS[i%SKUS.length][0], winner:rnd()>.55?'Us':COMPS[i%COMPS.length],
+    hist:trend(rank+3,-0.28,10,2.2)};
+});
+
+const PLACE=[
+ ['Blinkit','Home banner · Energy','banner',7,7,1,1],['Zepto','Category carousel · Beverages','carousel',7,5,3,2],
+ ['Swiggy Instamart','Search top slot · energy drink','slot',7,7,2,2],['Flipkart','Category page banner','banner',14,14,1,1],
+ ['Blinkit','Aisle strip · Snacks','slot',7,4,6,3],['Amazon','Sponsored brand header','banner',14,13,1,1],
+ ['Zepto','Home spotlight','banner',7,2,4,1],['FK Minutes','Category carousel · Surface Care','carousel',7,7,2,2],
+ ['Bigbassket','Search top slot · repellent','slot',7,6,5,3],['Blinkit','Checkout impulse rail','slot',7,7,1,1]
+].map((p,i)=>{
+  const [plat,name,type,booked,verified,posSeen,posBooked]=p;
+  const ok=verified>=booked&&posSeen<=posBooked;
+  const spend=Math.round(40000+rnd()*380000);
+  return {i,plat,name,type,booked,verified,posSeen,posBooked,ok,
+    status:ok?'Compliant':verified<booked*0.7?'Under-delivered':'Position drift',
+    spend, atRisk:ok?0:Math.round(spend*(1-verified/booked)+ (posSeen>posBooked?spend*0.15:0)),
+    creative:rnd()>.15?'Approved':'Wrong creative'};
+});
+
+const INVEST=SKUS.slice(0,8).map((s,i)=>{
+  const cur=Math.round(4+rnd()*14), tgt=Math.max(1,Math.round(cur/3));
+  const broke=i<3;
+  const curSales=Math.round(180000+rnd()*900000);
+  const tgtSales=Math.round(curSales*(1+ (cur-tgt)*0.18));
+  return {i,sku:s[0],code:s[1],brand:s[2],plat:PLATFORMS[(i*3)%PLATFORMS.length].n,
+    cur,tgt,curSales,tgtSales,broke,breakDate:['18 Jul','02 Aug','29 Jul'][i]||'—',
+    invest:Math.round((tgtSales-curSales)*0.11/1000)*1000, weeks:Math.round(3+rnd()*5),
+    orgShare:Math.round(35+rnd()*35),
+    recov:broke?[1,2,3,4,5,6,7,8,9,10,11,12].map((d,j)=>j<3?2:Math.min(22,2+(j-2)*4-Math.round(rnd()*3))):null};
+});
+
+const SEGS=[
+ ['Reckitt','Brand',null],['Surface Care','Category-Brand','Reckitt'],
+ ['Antiseptic & Wash','Category-Brand','Reckitt'],['OTC Healthcare','Category-Brand','Reckitt'],
+ ['Personal Care','Category-Brand','Reckitt'],['Toilet Cleaners','Sub-Category-Brand','Surface Care'],
+ ['Air Care','Sub-Category-Brand','Surface Care'],['Handwash','Sub-Category-Brand','Antiseptic & Wash'],
+ ['Sanitisers','Sub-Category-Brand','Antiseptic & Wash']
+].map((s,i)=>{
+  const org=Math.round((8+rnd()*26)*10)/10, paid=Math.round((4+rnd()*18)*10)/10, dss=Math.round((6+rnd()*22)*10)/10;
+  const tot=Math.round((org*.55+paid*.25+dss*.2)*10)/10;
+  const mkt=Math.round((6+rnd()*24)*10)/10;
+  const cvr=Math.round((2+rnd()*7)*10)/10, catCvr=Math.round((2.5+rnd()*5)*10)/10;
+  return {i,name:s[0],level:s[1],parent:s[2],org,paid,dss,tot,mkt,cvr,catCvr,
+    idxOrg:Math.round(org/mkt*100),idxPaid:Math.round(paid/mkt*100),idxDss:Math.round(dss/mkt*100),
+    idxTot:Math.round(tot/mkt*100),idxCvr:Math.round(cvr/catCvr*100)};
+});
+
+const BRANDS=[...new Set(SKUS.map(s=>s[2]))];
+const FAIR=BRANDS.map((b,i)=>{
+  const wtd=Math.round((42+rnd()*50)*10)/10, cat=Math.round((30+rnd()*45)*10)/10;
+  return {i,name:b,wtd,cat,fsi:Math.round(wtd/cat*100),
+    storesSel:Math.round(900+rnd()*3200), storesRng:Math.round(1400+rnd()*3400),
+    hist:trend(wtd,rnd()>.5?0.9:-0.8,10,3)};
+});
+
+const DISPLAY=SKUS.map((s,i)=>({i,sku:s[0],brand:s[2],
+  avail:Math.round((38+rnd()*58)*10)/10, disp:Math.round((4+rnd()*40)*10)/10,
+  plat:PLATFORMS[(i*2+1)%PLATFORMS.length].n, types:['Banner','Carousel','Search slot','Aisle strip'][i%4]}));
+
+const ELEMS=['Title','Bullets','Hero image','Image set','A+ / Rich','Video'];
+const RETS=['Amazon','Flipkart','Blinkit','Zepto','Swiggy Instamart','BigBasket'];
+const CONTENT=SKUS.slice(0,10).flatMap((s,i)=>RETS.slice(0,4).map((r,j)=>{
+  const st=ELEMS.map(()=>rnd()>.72?(rnd()>.5?'no':'wa'):'ok');
+  const okc=st.filter(x=>x==='ok').length;
+  return {i:i*10+j,sku:s[0],code:s[1],brand:s[2],ret:r,st,score:Math.round(okc/ELEMS.length*100),
+    fails:ELEMS.filter((_,k)=>st[k]!=='ok')};
+})).sort((a,b)=>a.score-b.score);
+
+const ASSETS=SKUS.slice(0,9).map((s,i)=>{
+  const conf=Math.round((52+rnd()*48));
+  return {i,sku:s[0],code:s[1],ret:RETS[i%RETS.length],slot:'Hero',
+    dam:'PVM_'+s[1].split('-')[2]+'_HERO_v'+(2+i%3),
+    live:conf>88?'match':conf>68?'variant':'unknown',conf,
+    status:conf>88?'Approved asset live':conf>68?'Outdated version live':'Unapproved asset'};
+});
+
+const CREATIVE=SKUS.slice(0,6).flatMap((s,i)=>['A · Pack front','B · Lifestyle','C · Claim overlay'].map((v,j)=>{
+  const views=Math.round(24000+rnd()*180000), cvr=Math.round((1.6+rnd()*5.4)*100)/100;
+  return {i:i*3+j,sku:s[0],code:s[1],variant:v,views,purch:Math.round(views*cvr/100),cvr,
+    ctrl:j===0, lift:j===0?0:Math.round((rnd()*46-12)*10)/10, sig:j===0?'—':(rnd()>.4?'95%':'not sig')};
+}));
+
+const BB=SKUS.slice(0,10).map((s,i)=>{
+  const our=Math.round(28+rnd()*96), low=Math.round(our*(0.78+rnd()*0.28));
+  const lost=low<our, lbb=lost?Math.round((12+rnd()*72)*10)/10:Math.round(rnd()*8*10)/10;
+  const rr=Math.round(700+rnd()*3400);
+  return {i,sku:s[0],code:s[1],plat:PLATFORMS[(i*2)%PLATFORMS.length].n,our,low,
+    holder:lost?['ShopEase Retail','QuickMart 24','ValueBazaar','NexGen Traders'][i%4]:'Reckitt (1P)',
+    is1P:!lost,lbb,rr,lostVal:Math.round(rr/7*(lbb/100)*30*our),
+    sellers:Math.round(1+rnd()*7),
+    hist:Array.from({length:30},()=>rnd()>(lost?0.42:0.9)?0:1)};
+});
+
+const SELLERS=['ShopEase Retail','QuickMart 24','ValueBazaar','NexGen Traders','BulkBuy India','Prime Distributors']
+ .map((n,i)=>{
+  const map=Math.round(40+rnd()*70), min=Math.round(map*(0.68+rnd()*0.4));
+  return {i,name:n,listings:Math.round(2+rnd()*22),min,map,violation:min<map,
+    isNew:i<2, slob:i===0||i===3, gap:Math.round((1-min/map)*1000)/10,
+    firstSeen:['3 days ago','6 days ago','2 weeks ago','1 month ago','2 months ago','5 months ago'][i]};
+});
+
+const SLOB=[
+ ['SLOB-2601','Harpic Power Plus Rose · 500ml',18400,22.5],['SLOB-2604','Veet Hair Removal Cream · 100g',9800,31.0],
+ ['SLOB-2609','Vanish Oxi Action Powder · 400g',26100,9.4],['SLOB-2612','Vanish Liquid · 800ml',7400,17.8]
+].map((s,i)=>{
+  const [batch,sku,units,eff]=s;
+  const obs=Math.round(eff*(0.82+rnd()*0.5)*10)/10;
+  return {i,batch,sku,units,eff,obs,breach:obs<eff,
+    seller:['ShopEase Retail','NexGen Traders','BulkBuy India','ValueBazaar'][i],
+    value:Math.round(units*Math.abs(eff-obs)), date:['02 Aug','28 Jul','19 Jul','11 Jul'][i]};
+});
+
+const VPARENTS=[
+ {p:'Harpic Power Plus',cat:'Surface Care',kids:['500ml','1L','2L jumbo','Po2 bundle','Po3 bundle']},
+ {p:'Mortein Coil',cat:'Pest Control',kids:['10s pack','12s pack','Jumbo 20s','Twin pack','4x multipack']},
+ {p:'Dettol Antiseptic',cat:'Antiseptic & Wash',kids:['125ml','550ml','1L','Po4 bundle']}
+].map((v,i)=>({...v,i,kids:v.kids.map((k,j)=>{
+  const units=Math.round(4000+rnd()*46000), price=Math.round((10+rnd()*90)*10)/10;
+  const traffic=Math.round(units*(6+rnd()*22));
+  return {name:k, units, sales:Math.round(units*price), price, traffic,
+    cvr:Math.round(units/traffic*1000)/10, content:Math.round(48+rnd()*50),
+    rating:Math.round((3.4+rnd()*1.5)*10)/10, reviews:Math.round(8+rnd()*420),
+    avail:Math.round((44+rnd()*54)*10)/10, sos:Math.round((3+rnd()*38)*10)/10,
+    weeks:Math.round(3+rnd()*90), isNew:j>=v.kids.length-2};
+})}));
+
+/* ===================== GENERIC UI HELPERS ===================== */
+function hero(eb,h1,sub,chip){return `<div class="herorow"><div style="flex:1">
+  <div class="eyebrow">${eb}</div><div class="h1">${h1}</div><div class="hsub">${sub}</div></div>
+  ${chip?`<span class="chip" style="margin-top:26px">${chip}</span>`:''}</div>`}
+function tiles(arr,cols){return `<div class="mgrid" style="grid-template-columns:repeat(${cols||arr.length},1fr)">
+  ${arr.map(t=>`<div class="mt"><div class="mt-l">${t.l}${t.tag?`<span class="srctag src-${t.tag}">${t.tag.toUpperCase()}</span>`:''}</div>
+   ${t.soon?`<div class="soon"><i>Coming Soon</i><span class="plug">⚡ PLUG SUPPLY FEED</span></div>`
+    :`<div class="mt-v"${t.c?` style="color:${t.c}"`:''}>${t.v}</div>
+      ${t.d?`<div class="mt-d ${t.dc||''}">${t.d}</div>`:''}${t.s?`<div class="mt-s">${t.s}</div>`:''}
+      ${t.spark?`<div style="margin-top:6px">${t.spark}</div>`:''}`}</div>`).join('')}</div>`}
+function card(icon,ic,title,sub,right,body){return `<div class="card">
+  <div class="card-hd"><div class="sq ${ic}">${icon}</div><div><div class="card-t">${title}</div>
+  ${sub?`<div class="card-s">${sub}</div>`:''}</div>${right?`<div class="hd-right">${right}</div>`:''}</div>${body}</div>`}
+function tbl(cols,rows,click){return `<div class="tblwrap"><table><thead><tr>${cols.map(c=>
+  `<th class="${c.r?'r':''}">${c.h}</th>`).join('')}</tr></thead><tbody>${rows.map((r,ri)=>
+  `<tr ${click?`onclick="${click(r,ri)}"`:'style="cursor:default"'}>${cols.map(c=>
+  `<td class="${c.r?'r':''} ${c.cls?c.cls(r):''}">${c.f(r,ri)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`}
+const pct=v=>v+'%';
+function bar(v,mx,col){return `<div class="pbar"><i style="width:${Math.min(100,v/mx*100)}%;background:${col}"></i></div>`}
+function idxChip(v){const c=v>=110?'d-ok':v>=90?'d-wa':'d-no';return `<span class="dchip ${c}">${v}</span>`}
+
+/* ===================== STATE + VIEWS ===================== */
+let DASH='availability', TAB='oos', PLAT='All Platforms',
+    ACC={oosnow:true,crit:true,high:true,watch:false,ok:false},
+    ANA='sku', ASPLEVEL='SKU', ASPSEL=0,
+    VSEL=0, SEGLVL='Brand', INVSEL=0, KWF='all';
+
+/* extra charts */
+function dumbbell(rows){
+  const W=940,LB=200,RB=70,H0=30,RH=27,H=H0+rows.length*RH+10,PW=W-LB-RB,MX=20;
+  const X=r=>LB+((MX-Math.min(r,MX))/MX)*PW;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let k=1;k<=MX;k+=4)g+=`<line x1="${X(k)}" y1="${H0-14}" x2="${X(k)}" y2="${H-8}" stroke="#F0F3F9"/>
+    <text x="${X(k)}" y="${H0-20}" font-size="9" fill="#98A2B3" text-anchor="middle" font-weight="600">#${k}</text>`;
+  rows.forEach((r,i)=>{
+    const y=H0+i*RH+13, up=r.delta>0, col=up?'#16A34A':r.delta<0?'#DC2626':'#98A2B3';
+    g+=`<text x="0" y="${y+4}" font-size="11.5" fill="#101828" font-weight="600">${r.kw}</text>`;
+    g+=`<line x1="${X(r.prev)}" y1="${y}" x2="${X(r.rank)}" y2="${y}" stroke="${col}" stroke-width="2.5" stroke-linecap="round"/>`;
+    g+=`<circle cx="${X(r.prev)}" cy="${y}" r="4.5" fill="#fff" stroke="#98A2B3" stroke-width="2"/>`;
+    g+=`<circle cx="${X(r.rank)}" cy="${y}" r="5.5" fill="${col}"/>`;
+    g+=`<text x="${W-RB+8}" y="${y+4}" font-size="10.5" fill="${col}" font-weight="700">${up?'▲ +':r.delta<0?'▼ ':'– '}${r.delta!==0?Math.abs(r.delta):''}</text>`;
+    g+=`<rect class="dbl" data-i="${r.i}" x="0" y="${H0+i*RH}" width="${W}" height="${RH}" fill="transparent" style="cursor:pointer"/>`;
+  });
+  return g+'</svg>';
+}
+function scat(rows,xk,yk,xlab,ylab,colf,labf){
+  const W=560,H=280,L=48,B=44,R=16,T=14,PW=W-L-R,PH=H-B-T;
+  const xM=Math.max(...rows.map(r=>r[xk]))*1.12,yM=Math.max(...rows.map(r=>r[yk]))*1.12;
+  const X=v=>L+(v/xM)*PW,Y=v=>T+PH-(v/yM)*PH;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  for(let k=0;k<=4;k++){const y=T+k*(PH/4);g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#F0F3F9"/>
+    <text x="${L-7}" y="${y+3}" font-size="9.5" fill="#98A2B3" text-anchor="end">${Math.round(yM-(k/4)*yM)}</text>`}
+  for(let k=0;k<=4;k++)g+=`<text x="${L+k*(PW/4)}" y="${H-24}" font-size="9.5" fill="#98A2B3" text-anchor="middle">${Math.round((k/4)*xM)}</text>`;
+  g+=`<text x="${L+PW/2}" y="${H-6}" font-size="9.5" fill="#667085" text-anchor="middle" font-weight="600">${xlab}</text>
+      <text x="10" y="${T+PH/2}" font-size="9.5" fill="#667085" font-weight="600" transform="rotate(-90 10 ${T+PH/2})" text-anchor="middle">${ylab}</text>`;
+  rows.forEach((r,i)=>g+=`<circle class="sc" data-i="${i}" cx="${X(r[xk])}" cy="${Y(r[yk])}" r="7" fill="${colf(r)}" fill-opacity=".22" stroke="${colf(r)}" stroke-width="2" style="cursor:pointer"/>`);
+  return g+'</svg>';
+}
+function idxBars(rows){
+  const W=940,LB=190,RB=64,H0=26,RH=30,H=H0+rows.length*RH+8,PW=W-LB-RB,MX=190;
+  const X=v=>LB+(Math.min(v,MX)/MX)*PW;
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">`;
+  [0,50,100,150].forEach(k=>{g+=`<line x1="${X(k)}" y1="${H0-12}" x2="${X(k)}" y2="${H-6}" stroke="${k===100?'#101828':'#F0F3F9'}" stroke-width="${k===100?1.5:1}"/>
+    <text x="${X(k)}" y="${H0-18}" font-size="9" fill="${k===100?'#101828':'#98A2B3'}" text-anchor="middle" font-weight="600">${k}</text>`});
+  rows.forEach((r,i)=>{
+    const y=H0+i*RH+8, col=r.idxTot>=110?'#16A34A':r.idxTot>=90?'#F59E0B':'#DC2626';
+    g+=`<text x="0" y="${y+11}" font-size="11.5" fill="#101828" font-weight="600">${r.name}</text>
+        <text x="0" y="${y+21}" font-size="9" fill="#98A2B3">${r.level}</text>`;
+    const x0=X(0),x1=X(r.idxTot);
+    g+=`<rect x="${Math.min(x0,x1)}" y="${y+2}" width="${Math.abs(x1-x0)}" height="14" rx="4" fill="${col}" fill-opacity=".85"/>`;
+    g+=`<text x="${W-RB+8}" y="${y+13}" font-size="11" fill="${col}" font-weight="700">${r.idxTot}</text>`;
+    g+=`<rect class="ix" data-i="${i}" x="0" y="${H0+i*RH}" width="${W}" height="${RH}" fill="transparent" style="cursor:pointer"/>`;
+  });
+  return g+'</svg>';
+}
+function recovLine(v){
+  const W=520,H=150,L=34,B=24,T=10,R=10,PW=W-L-R,PH=H-B-T;
+  const X=i=>L+(i/(v.length-1))*PW, Y=r=>T+((r-1)/23)*PH;
+  const p=v.map((r,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(r).toFixed(1)}`).join(' ');
+  let g=`<svg width="100%" viewBox="0 0 ${W} ${H}">`;
+  [1,6,12,18,24].forEach(k=>g+=`<line x1="${L}" y1="${Y(k)}" x2="${W-R}" y2="${Y(k)}" stroke="#F0F3F9"/>
+    <text x="${L-6}" y="${Y(k)+3}" font-size="9" fill="#98A2B3" text-anchor="end">#${k}</text>`);
+  g+=`<rect x="${L}" y="${T}" width="${X(2)-L}" height="${PH}" fill="#FEF3F2"/>`;
+  g+=`<text x="${L+4}" y="${T+11}" font-size="8.5" fill="#B42318" font-weight="700">BREAK</text>`;
+  g+=`<path d="${p}" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linejoin="round"/>`;
+  v.forEach((r,i)=>g+=`<circle cx="${X(i)}" cy="${Y(r)}" r="3" fill="#2563EB"/>`);
+  g+=`<text x="${L}" y="${H-6}" font-size="9" fill="#98A2B3">D0</text><text x="${W-R}" y="${H-6}" font-size="9" fill="#98A2B3" text-anchor="end">D+11</text>`;
+  return g+'</svg>';
+}
+function bbStrip(h){return `<div style="display:flex;gap:1.5px">${h.map(x=>
+  `<i style="width:5px;height:16px;border-radius:1.5px;background:${x?'#16A34A':'#DC2626'};opacity:${x?.55:.85};display:block"></i>`).join('')}</div>`}
+
+const DASHES={
+ availability:{n:'Availability',icon:'<path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>',
+   tabs:[{id:'overview',n:'Overview'},{id:'oos',n:'OOS Risk',new:1},{id:'analytics',n:'Risk Analytics',new:1},
+     {id:'fairshare',n:'Distribution & Fair Share',new:1}]},
+ explorer:{n:'SKU Explorer',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+   tabs:[{id:'variant',n:'Variant Comparator',new:1}]}};
+
+function renderNav(){
+  document.getElementById('dashnav').innerHTML=
+   `<div class="nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Tasks &amp; SLAs<span class="bdg">24</span></div>`+
+   Object.entries(DASHES).map(([k,d])=>`<div class="nv ${DASH===k?'on':''}" onclick="setDash('${k}')">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${d.icon}</svg>${d.n}</div>`).join('');
+}
+function renderSubnav(){
+  const firing=ALERTS.filter(a=>a.on&&a.scope===(DASH==='promotion'?'asp':'oos')).reduce((s,a)=>s+evalRule(a).length,0);
+  document.getElementById('ptitle').textContent=DASHES[DASH].n;
+  document.getElementById('subnav').innerHTML=DASHES[DASH].tabs.map(t=>
+    `<div class="tab ${TAB===t.id?'on':''}" onclick="setTab('${t.id}')">${t.n}${t.new?'<span class="new">NEW</span>':''}</div>`).join('')+
+   `<div class="sn-right">
+     <span class="chip red" onclick="scrollToAlerts()">⚠ ${firing} alerts firing</span>
+     <span class="chip">Data till <b style="margin-left:3px">11 Aug 26</b></span>
+     <span class="chip amb">◎ 1,934 pincodes</span><span class="chip">⇅ Filters</span></div>`;
+}
+function renderPlats(){
+  document.getElementById('plats').innerHTML=PLATFORMS.map(p=>
+   `<div class="plat ${PLAT===p.n?'on':''}" onclick="setPlat('${p.n}')"><span class="pbadge" style="background:${p.c}">${p.s}</span><span class="pname">${p.n}</span></div>`).join('');
+}
+function setDash(k){DASH=k;TAB=DASHES[k].tabs.find(t=>t.new)?.id||DASHES[k].tabs[0].id;renderNav();renderSubnav();render();document.getElementById('scroll').scrollTop=0}
+function setTab(t){TAB=t;renderSubnav();render();document.getElementById('scroll').scrollTop=0}
+function setPlat(p){PLAT=(PLAT===p&&p!=='All Platforms')?'All Platforms':p;renderPlats();render()}
+function toggleAcc(k){ACC[k]=!ACC[k];render()}
+function setAna(v){ANA=v;render()}
+function setAspLevel(v){ASPLEVEL=v;ASPSEL=0;render()}
+function selAsp(i){ASPSEL=i;render()}
+function scrollToAlerts(){const el=document.getElementById('alertcard');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+
+const feedStrip=`<div class="feeds"><span class="hint" style="margin-right:2px">SUPPLY FEEDS</span>
+  <span class="feed"><span class="d"></span>Blinkit Brand Portal <b>· synced 06:00</b></span>
+  <span class="feed"><span class="d"></span>Zepto Vendor Portal <b>· synced 06:00</b></span>
+  <span class="feed"><span class="d"></span>Instamart Partner <b>· synced 05:40</b></span>
+  <span class="feed"><span class="d"></span>Flipkart Seller Hub <b>· synced 06:10</b></span>
+  <span class="feed off">○ Amazon Vendor Central <span class="lnk">Connect</span></span></div>`;
+
+const inScope=()=>OOS.filter(o=>PLAT==='All Platforms'||o.plat===PLAT);
+
+/* ---------- worklist table ---------- */
+function wlTable(rows,showCover){
+  return `<div class="tblwrap"><table><thead><tr><th>SKU</th><th>PLATFORM · WAREHOUSE</th>
+   ${showCover?'<th class="r">DAYS COVER</th>':''}<th class="r">WOC</th><th>WOC TREND</th><th class="r">RUN-RATE /WK</th>
+   <th class="r">ON HAND</th><th class="r">FILL RATE</th><th class="r">LEAD TIME</th><th class="r">PROJ. OOS</th>
+   <th class="r">PO STATUS</th><th class="r">SALES AT RISK</th><th>RISK</th><th>ACTION</th></tr></thead><tbody>
+   ${rows.map(r=>`<tr onclick="openDrawer(${r.i})">
+    <td><div class="skn">${r.sku}</div><div class="skc mono">${r.code}</div></td>
+    <td><div class="wh">${r.plat}<small>${r.wh}</small></div></td>
+    ${showCover?`<td class="r"><span class="num" style="font-size:15px;color:${RISK[r.risk].col}">${r.daysCover}d</span></td>`:''}
+    <td class="r num" style="color:${RISK[r.risk].col}">${r.woc.toFixed(1)}</td>
+    <td>${spark(r.wocTrend,RISK[r.risk].col,74,22)}</td>
+    <td class="r num">${num(r.runRate)}</td><td class="r num">${num(r.onHand)}</td>
+    <td class="r"><span class="num">${r.fill}%</span><div class="bar"><i style="width:${r.fill}%;background:${r.fill<80?'#DC2626':r.fill<90?'#F59E0B':'#16A34A'}"></i></div></td>
+    <td class="r num">${r.lead.toFixed(1)} wk</td><td class="r num">+${r.projOos}d</td>
+    <td class="r">${!r.poRaised?'<span class="st st-crit"><span class="d"></span>No PO</span>':
+      r.exposure>0?`<span class="st st-high"><span class="d"></span>+${r.exposure}d late</span>`:'<span class="st st-ok"><span class="d"></span>Covered</span>'}</td>
+    <td class="r num">${r.atRisk>0?inr(r.atRisk):'—'}</td>
+    <td><span class="st ${RISK[r.risk].cls}"><span class="d"></span>${RISK[r.risk].k}</span></td>
+    <td><button class="btn ${r.risk==='crit'||r.risk==='oos'?'pri':''}" onclick="event.stopPropagation();act('${!r.poRaised?'Raise PO':r.exposure>0?'Expedite PO':'Watch'}','${r.sku}')">${!r.poRaised?'Raise PO':r.exposure>0?'Expedite':'Watch'}</button></td>
+   </tr>`).join('')}</tbody></table></div>`;
+}
+
+function accordion(key,cls,title,sub,rows,showCover){
+  return `<div class="acc ${cls} ${ACC[key]?'open':''}">
+   <div class="acc-hd" onclick="toggleAcc('${key}')">
+     <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+     <div><div class="acc-t">${title}</div><div class="acc-c">${sub}</div></div>
+     <div class="acc-n">${rows.length} SKUs</div></div>
+   <div class="acc-bd">${rows.length?wlTable(rows,showCover):'<div class="ph">Nothing in this band right now.</div>'}</div></div>`;
+}
+
+/* ---------- alert rules card ---------- */
+function alertCard(scope){
+  const mine=ALERTS.filter(a=>a.scope===scope);
+  return `<div class="card" id="alertcard">
+   <div class="card-hd"><div class="sq amb">🔔</div><div>
+     <div class="card-t">Alert rules</div>
+     <div class="card-s">Pick a template or build your own. Rules run on every refresh and post to the channels you choose.</div></div>
+     <div class="hd-right"><button class="btn pri lg" onclick="openBuilder('${scope}')">+ New alert</button></div></div>
+   ${mine.map(a=>`<div class="rule">
+     <div class="sw ${a.on?'on':''}" onclick="toggleAlert(${a.id})"></div>
+     <div style="flex:1;min-width:0"><div class="rule-n">${a.n}</div>
+       <div class="rule-c">When <code>${ruleText(a)}</code> · ${a.who}</div></div>
+     <span class="st ${RISK[a.sev].cls}"><span class="d"></span>${RISK[a.sev].k}</span>
+     <div style="text-align:right;min-width:96px"><div class="num" style="font-size:15px;color:${evalRule(a).length?'#B42318':'#344054'}">${evalRule(a).length}</div>
+       <div class="skc">matching now</div></div>
+     <div style="text-align:right;min-width:78px"><div class="num" style="font-size:15px">${a.fired}</div><div class="skc">fired · 30d</div></div>
+     <div style="display:flex;gap:5px">${a.ch.map(c=>`<span class="bpill" style="font-size:10px">${c==='app'?'In-app':c==='email'?'Email':'Tasks'}</span>`).join('')}</div>
+     <button class="btn" onclick="openBuilder('${scope}',${a.id})">Edit</button></div>`).join('')}
+   </div>`;
+}
+
+/* ---------- OOS RISK TAB ---------- */
+function viewOOS(){
+  const all=inScope();
+  const oosNow=all.filter(o=>o.risk==='oos');
+  const crit=all.filter(o=>o.risk==='crit'), high=all.filter(o=>o.risk==='high');
+  const watch=all.filter(o=>o.risk==='watch'), ok=all.filter(o=>o.risk==='ok');
+  const atRisk=[...oosNow,...crit,...high,...watch];
+  const totRisk=atRisk.reduce((s,o)=>s+o.atRisk,0);
+  const totOpp=oosNow.reduce((s,o)=>s+o.oppLost,0);
+  const avgWoc=(all.reduce((s,o)=>s+o.woc,0)/all.length).toFixed(1);
+  const avgFill=(all.reduce((s,o)=>s+o.fill,0)/all.length).toFixed(1);
+  const noPO=all.filter(o=>!o.poRaised).length;
+  const firing=ALERTS.filter(a=>a.on&&a.scope==='oos').reduce((s,a)=>s+evalRule(a).length,0);
+
+  return `<div class="herorow"><div style="flex:1">
+    <div class="eyebrow">AVAILABILITY · SUPPLY RISK</div>
+    <div class="h1">Which SKUs run out — and will the PO land in time.</div>
+    <div class="hsub">Scope: <b>${PLAT}</b> · <b>${all.length}</b> SKUs against <b>4,581</b> darkstores · projection horizon <b>6 weeks</b> · as of 11 Aug 2026</div>
+  </div><span class="chip red" style="margin-top:26px" onclick="scrollToAlerts()">⚠ ${firing} alerts firing</span></div>
+
+  <div class="card">${feedStrip}
+   <div class="mgrid" style="grid-template-columns:repeat(6,1fr)">
+    <div class="mt"><div class="mt-l">SKUs at Risk<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v" style="color:#DC2626">${atRisk.length}</div>
+      <div class="mt-s">${oosNow.length} OOS · ${crit.length} critical · ${high.length} high · ${watch.length} watch</div></div>
+    <div class="mt"><div class="mt-l">Sales at Risk<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v">${inr(totRisk)}</div><div class="mt-d dn">▲ 18.4% vs prev</div></div>
+    <div class="mt"><div class="mt-l">Opportunity Lost<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v" style="color:#7F1D1D">${inr(totOpp)}</div><div class="mt-s">${oosNow.length} SKUs already out</div></div>
+    <div class="mt"><div class="mt-l">Avg Weeks of Cover<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v">${avgWoc}<span style="font-size:15px;color:var(--mut)"> wk</span></div>
+      <div style="margin-top:6px">${spark(trend(5.4,-.22,8,.3),'#DC2626')}</div></div>
+    <div class="mt"><div class="mt-l">Fill Rate<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v">${avgFill}%</div><div style="margin-top:6px">${spark(trend(90,-1.1,8,2.4),'#DC2626')}</div></div>
+    <div class="mt"><div class="mt-l">No PO Raised<span class="srctag src-feed">FEED</span></div>
+      <div class="mt-v" style="color:#EA580C">${noPO}</div><div class="mt-s">cover falling, nothing ordered</div></div>
+   </div></div>
+
+  <div class="card">
+    <div class="card-hd"><div class="sq red">⚠</div><div>
+      <div class="card-t">Stockout Exposure Timeline</div>
+      <div class="card-s">Runway to projected stockout vs when the next PO actually lands</div></div>
+      <div class="hd-right"><span class="hint">CLICK A LANE TO DRILL</span></div></div>
+    <div class="legend">
+      <span class="lg"><span class="k" style="background:#7F1D1D"></span>Out of stock now</span>
+      <span class="lg"><span class="k" style="background:#DC2626"></span>Critical (≤10d)</span>
+      <span class="lg"><span class="k" style="background:#EA580C"></span>High (≤18d)</span>
+      <span class="lg"><span class="k" style="background:#F59E0B"></span>Watch (≤28d)</span>
+      <span class="lg"><span class="k" style="background:#16A34A"></span>Healthy</span>
+      <span class="lg"><svg width="13" height="13"><circle cx="6.5" cy="6.5" r="5" fill="#fff" stroke="#667085" stroke-width="2.2"/></svg>Projected OOS</span>
+      <span class="lg"><svg width="13" height="13"><path d="M6.5 1 L11.5 6.5 L6.5 12 L1.5 6.5 Z" fill="#fff" stroke="#2563EB" stroke-width="2"/></svg>PO arrives</span>
+      <span class="lg"><span class="k" style="background:#FEE4E2;border:1px solid #F97066"></span>Exposure gap / no PO</span></div>
+    <div style="padding:0 16px 18px" id="expo">${exposureChart([...oosNow,...crit,...high,...watch].slice(0,10))}</div>
+  </div>
+
+  <div class="card" style="border-color:var(--red-b)">
+    <div class="card-hd" style="background:var(--red-s);border-radius:15px 15px 0 0"><div class="sq red">⛔</div><div>
+      <div class="card-t">Cover lost · replenishment not received</div>
+      <div class="card-s">Already out of stock. Days out, and the sell-out forgone while waiting.</div></div>
+      <div class="hd-right"><span class="st st-crit"><span class="d"></span>${inr(totOpp)} lost</span></div></div>
+    ${oosNow.length?`<div class="tblwrap"><table><thead><tr><th>SKU</th><th>PLATFORM · WAREHOUSE</th>
+      <th class="r">DAYS OUT</th><th class="r">RUN-RATE /WK</th><th class="r">UNITS FORGONE</th><th class="r">OPPORTUNITY LOST</th>
+      <th>LAST PO</th><th>ACTION</th></tr></thead><tbody>
+      ${oosNow.map(r=>`<tr onclick="openDrawer(${r.i})">
+        <td><div class="skn">${r.sku}</div><div class="skc mono">${r.code}</div></td>
+        <td><div class="wh">${r.plat}<small>${r.wh}</small></div></td>
+        <td class="r"><span class="num" style="font-size:16px;color:#7F1D1D">${r.daysOOS}d</span></td>
+        <td class="r num">${num(r.runRate)}</td>
+        <td class="r num">${num(r.runRate/7*r.daysOOS)}</td>
+        <td class="r num" style="color:#7F1D1D;font-size:14px">${inr(r.oppLost)}</td>
+        <td>${r.poRaised?`<span class="st st-high"><span class="d"></span>Raised · ${r.exposure>0?'+'+r.exposure+'d late':'in transit'}</span>`:'<span class="st st-crit"><span class="d"></span>None raised</span>'}</td>
+        <td><button class="btn pri" onclick="event.stopPropagation();act('Emergency PO','${r.sku}')">Emergency PO</button></td></tr>`).join('')}
+      </tbody></table></div>`:'<div class="ph">Nothing fully out of stock in this scope.</div>'}
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="sq blue">☰</div><div><div class="card-t">Replenishment worklist</div>
+      <div class="card-s">Grouped by risk band. Days of cover is shown in the risk bands where it drives the decision.</div></div></div>
+    <div style="padding-top:12px">
+      ${accordion('crit','crit','High Risk — Critical','Projected stockout within 10 days',crit,true)}
+      ${accordion('high','high','High Risk — High','Projected stockout within 18 days',high,true)}
+      ${accordion('watch','watch','Watch','Projected stockout within 28 days',watch,true)}
+      ${accordion('ok','ok','Healthy','Cover beyond the projection horizon',ok,false)}
+    </div>
+  </div>
+
+  <div class="g2">
+  ${card('◑','amb','Fill rate by warehouse','Received against ordered — the driver behind most cover loss','<span class="hint">THRESHOLD 90%</span>',
+   tbl([
+    {h:'WAREHOUSE',f:r=>`<div class="skn">${r.wh}</div><div class="skc">${r.n} SKUs</div>`},
+    {h:'FILL RATE',r:1,f:r=>`<span class="num" style="font-size:15px;color:${r.fill<80?'#DC2626':r.fill<90?'#F59E0B':'#16A34A'}">${r.fill}%</span>${bar(r.fill,100,r.fill<80?'#DC2626':r.fill<90?'#F59E0B':'#16A34A')}`},
+    {h:'8-WK TREND',f:r=>spark(r.tr,r.fill<90?'#DC2626':'#16A34A',80,24)},
+    {h:'UNITS CUT',r:1,f:r=>`<span class="num">${num(r.cut)}</span>`},
+    {h:'STATUS',f:r=>r.fill<80?'<span class="st st-crit"><span class="d"></span>Below threshold</span>':r.fill<90?'<span class="st st-watch"><span class="d"></span>Watch</span>':'<span class="st st-ok"><span class="d"></span>On target</span>'}
+   ],(()=>{const m={};all.forEach(o=>{(m[o.wh]=m[o.wh]||[]).push(o)});
+     return Object.entries(m).map(([wh,v])=>({wh,n:v.length,
+       fill:Math.round(v.reduce((s,x)=>s+x.fill,0)/v.length*10)/10,
+       cut:v.reduce((s,x)=>s+x.cut,0),tr:trend(92,-1.0,8,2.6)})).sort((a,b)=>a.fill-b.fill)})()))}
+  ${card('✂','red','Units cut &amp; order schedule','Projection versus actual sell-out — model-based today, moves to the order feed as connectors land',
+   '<span class="srctag src-soon">MODEL-BASED</span>',
+   `<div style="padding:12px 16px 4px">${tbl([
+     {h:'WEEK',f:r=>`<span class="mono">${r.w}</span>`},
+     {h:'ORDERED',r:1,f:r=>`<span class="num">${num(r.ord)}</span>`},
+     {h:'CONFIRMED',r:1,f:r=>`<span class="num">${num(r.conf)}</span>`},
+     {h:'RECEIVED',r:1,f:r=>`<span class="num">${num(r.rec)}</span>`},
+     {h:'CUT',r:1,f:r=>`<span class="num" style="color:#B42318">−${num(r.ord-r.rec)}</span>`},
+     {h:'PROJ. SELL-OUT',r:1,f:r=>`<span class="num">${num(r.proj)}</span>`},
+     {h:'ACTUAL SELL-OUT',r:1,f:r=>`<span class="num" style="color:${r.act>r.proj?'#DC2626':'#16A34A'}">${num(r.act)}</span>`},
+     {h:'VARIANCE',r:1,f:r=>{const v=Math.round((r.act/r.proj-1)*100);
+       return `<span class="num" style="color:${v>5?'#DC2626':'#16A34A'}">${v>0?'+':''}${v}%</span>`}}
+   ],['W19','W20','W21','W22'].map((w,i)=>{const ord=all.reduce((s,o)=>s+o.orders[i].ord,0);
+     const rec=all.reduce((s,o)=>s+o.orders[i].rec,0);const proj=Math.round(ord*0.92);
+     return {w,ord,conf:all.reduce((s,o)=>s+o.orders[i].conf,0),rec,proj,act:Math.round(proj*(1+(i*0.045)))}}))}
+    <div class="out" style="margin:12px 0 14px">Actual sell-out is running <b>ahead</b> of projection while fill rate falls — the combination that produces a stockout despite a normal ordering schedule.</div></div>`)}
+  </div>
+
+  ${card('⟳','blue','Replenishment rate','Derived from order and receipt history. The module adapts to whichever feed the client connects.',
+   '<span class="srctag src-feed">FEED</span>',
+   tiles([
+    {l:'Avg replenishment cadence',v:'11.4 days',s:'between receipts, across warehouses'},
+    {l:'Avg replenishment qty',v:num(Math.round(all.reduce((s,o)=>s+o.runRate,0)*1.6)),s:'units per cycle'},
+    {l:'RR vs run-rate',v:'0.94×',c:'#EA580C',s:'replenishing slower than we sell'},
+    {l:'Cycles inside lead time',v:all.filter(o=>o.lead*7>11.4).length,c:'#DC2626',s:'lead time exceeds cadence'}],4)+
+   `<div style="padding:0 16px 16px"><div class="out">Replenishment rate is running at <b>0.94×</b> sell-out — for every 100 units sold, 94 are being replaced.
+     Sustained, that drains cover regardless of how healthy any single order looks. Connect the retailer order feed to replace the modelled cadence with actual receipts.</div></div>`)}
+
+  ${alertCard('oos')}
+
+  <div class="card">
+    <div class="card-hd"><div class="sq grad">✦</div><div class="card-t">Insights</div>
+      <span class="bpill" style="margin-left:4px">powered by eGenie</span>
+      <div class="bcrumb" style="margin-left:8px"><span class="bpill b">Supply Risk</span>›<span class="bpill">${PLAT}</span></div></div>
+    <div class="ins2">
+      <div class="inspanel r"><div class="ins-hd">↘ ESCALATING RISK</div>
+        ${[...oosNow,...crit].slice(0,3).map(o=>`<div class="ins-row">
+          <div class="ins-top">◉ ${o.sku.split('·')[0].trim()} · ${o.plat}<span style="margin-left:auto;color:#B42318">▼ ${o.daysCover}d cover</span></div>
+          <div class="ins-cells">
+            <div class="ic"><div class="ic-l">PROJ. OOS</div><div class="ic-v" style="color:#B42318">${o.isOOS?'OUT':'+'+o.projOos+'d'}</div></div>
+            <div class="ic"><div class="ic-l">PO STATUS</div><div class="ic-v" style="color:#B42318;font-size:12px">${!o.poRaised?'None raised':o.exposure>0?'+'+o.exposure+'d late':'In transit'}</div></div>
+            <div class="ic"><div class="ic-l">AT RISK</div><div class="ic-v">${inr(o.atRisk||o.oppLost)}</div></div></div></div>`).join('')}</div>
+      <div class="inspanel g"><div class="ins-hd">↗ HEALTHY / RECOVERING</div>
+        ${ok.slice(0,3).map(o=>`<div class="ins-row">
+          <div class="ins-top">◉ ${o.sku.split('·')[0].trim()} · ${o.plat}<span style="margin-left:auto;color:#067647">▲ ${o.woc.toFixed(1)} wk cover</span></div>
+          <div class="ins-cells">
+            <div class="ic"><div class="ic-l">DAYS COVER</div><div class="ic-v" style="color:#067647">${o.daysCover}d</div></div>
+            <div class="ic"><div class="ic-l">FILL RATE</div><div class="ic-v">${o.fill}%</div></div>
+            <div class="ic dash"><div class="ic-l">OFFTAKE</div><i style="font-size:11px;color:#98A2B3">Coming Soon</i><span class="plug">⚡ PLUG OFFTAKE</span></div></div></div>`).join('')}</div>
+    </div></div>`;
+}
+
+/* ---------- RISK ANALYTICS TAB ---------- */
+function viewAnalytics(){
+  const base=ANA==='loc'?LOCS:inScope();
+  const rows=[...base].sort((a,b)=>b.episodes-a.episodes);
+  const chronic=rows.filter(r=>r.episodes>=5);
+  const newly=rows.filter(r=>['ok','watch'].includes(r.hist[3])&&['high','crit','oos'].includes(r.hist[11]));
+  const recovered=rows.filter(r=>['high','crit','oos'].includes(r.hist[3])&&['ok'].includes(r.hist[11]));
+  const avgEp=(rows.reduce((s,r)=>s+r.episodes,0)/rows.length).toFixed(1);
+  const label=ANA==='loc'?'locations':ANA==='both'?'SKU × location pairs':'SKUs';
+
+  return `<div class="herorow"><div style="flex:1">
+    <div class="eyebrow">AVAILABILITY · RISK ANALYTICS</div>
+    <div class="h1">Who keeps going at risk — and who just started.</div>
+    <div class="hsub">Scope: <b>${PLAT}</b> · trailing <b>12 weeks</b> · risk band recorded weekly per ${label} · as of 11 Aug 2026</div>
+  </div><span class="chip" style="margin-top:26px">⏱ W11 → W22 FY26</span></div>
+
+  <div class="card"><div class="card-hd nb">
+    <div class="seg"><span class="${ANA==='sku'?'on':''}" onclick="setAna('sku')">By SKU</span>
+      <span class="${ANA==='loc'?'on':''}" onclick="setAna('loc')">By Location</span>
+      <span class="${ANA==='both'?'on':''}" onclick="setAna('both')">SKU × Location</span></div>
+    <div class="hd-right"><span class="hint">A RISK EPISODE = A WEEK SPENT IN HIGH, CRITICAL OR OUT OF STOCK</span></div></div>
+   <div class="mgrid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="mt"><div class="mt-l">Chronic offenders</div><div class="mt-v" style="color:#DC2626">${chronic.length}</div>
+      <div class="mt-s">5+ risk weeks out of 12</div></div>
+    <div class="mt"><div class="mt-l">Newly at risk</div><div class="mt-v" style="color:#EA580C">${newly.length}</div>
+      <div class="mt-s">healthy 8 weeks ago, at risk now</div></div>
+    <div class="mt"><div class="mt-l">Recovered</div><div class="mt-v" style="color:#16A34A">${recovered.length}</div>
+      <div class="mt-s">at risk then, healthy now</div></div>
+    <div class="mt"><div class="mt-l">Avg risk weeks</div><div class="mt-v">${avgEp}<span style="font-size:15px;color:var(--mut)"> / 12</span></div>
+      <div class="mt-s">across ${rows.length} ${label}</div></div>
+   </div></div>
+
+  <div class="card">
+    <div class="card-hd"><div class="sq red">▦</div><div><div class="card-t">Risk band by week</div>
+      <div class="card-s">Each cell is one ${ANA==='loc'?'location':'SKU'} in one week. Repeated dark bands are the chronic problems.</div></div>
+      <div class="hd-right"><span class="hint">HOVER A CELL</span></div></div>
+    <div class="legend">
+      <span class="lg"><span class="k" style="background:#16A34A;opacity:.4"></span>Healthy</span>
+      <span class="lg"><span class="k" style="background:#F59E0B;opacity:.65"></span>Watch</span>
+      <span class="lg"><span class="k" style="background:#EA580C;opacity:.85"></span>High</span>
+      <span class="lg"><span class="k" style="background:#DC2626;opacity:.85"></span>Critical</span>
+      <span class="lg"><span class="k" style="background:#7F1D1D"></span>Out of stock</span></div>
+    <div style="padding:0 16px 18px;overflow-x:auto" id="heat">${heatmap(rows)}</div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="sq amb">▤</div><div><div class="card-t">Risk migration over 12 weeks</div>
+      <div class="card-s">How the portfolio has drifted between bands. A shrinking green block is the signal to act on.</div></div></div>
+    <div class="legend">
+      <span class="lg"><span class="k" style="background:#16A34A;opacity:.5"></span>Healthy</span>
+      <span class="lg"><span class="k" style="background:#F59E0B;opacity:.75"></span>Watch</span>
+      <span class="lg"><span class="k" style="background:#EA580C;opacity:.9"></span>High</span>
+      <span class="lg"><span class="k" style="background:#DC2626;opacity:.9"></span>Critical</span>
+      <span class="lg"><span class="k" style="background:#7F1D1D"></span>Out of stock</span></div>
+    <div style="padding:0 16px 16px" id="mig">${migration(rows)}</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:16px" class="two">
+    <div class="card"><div class="card-hd"><div class="sq red">↻</div><div>
+      <div class="card-t">Chronic offenders</div><div class="card-s">Ranked by weeks spent at risk</div></div></div>
+      <div class="tblwrap"><table><thead><tr><th>${ANA==='loc'?'LOCATION':'SKU'}</th><th class="r">RISK WEEKS</th>
+        <th>12-WEEK PATTERN</th><th class="r">${ANA==='loc'?'SKUS AT RISK':'DAYS COVER'}</th><th>NOW</th></tr></thead><tbody>
+        ${rows.slice(0,8).map((r,i)=>`<tr onclick="${ANA==='loc'?'null':'openDrawer('+r.i+')'}">
+          <td><div class="skn">${r.sku}</div><div class="skc">${ANA==='loc'?r.stores+' darkstores':r.plat+' · '+r.wh}</div></td>
+          <td class="r"><span class="num" style="font-size:16px;color:${r.episodes>=5?'#B42318':'#344054'}">${r.episodes}</span><span class="skc" style="display:inline"> /12</span></td>
+          <td><div style="display:flex;gap:2px">${r.hist.map(b=>`<i style="width:9px;height:16px;border-radius:2px;background:${RISK[b].col};opacity:${b==='ok'?.3:b==='watch'?.6:.9};display:block"></i>`).join('')}</div></td>
+          <td class="r num">${ANA==='loc'?r.skusAtRisk:r.daysCover+'d'}</td>
+          <td><span class="st ${RISK[r.hist[11]].cls}"><span class="d"></span>${RISK[r.hist[11]].k}</span></td></tr>`).join('')}
+      </tbody></table></div></div>
+
+    <div class="card"><div class="card-hd"><div class="sq amb">↗</div><div>
+      <div class="card-t">Healthy → at risk</div><div class="card-s">Was fine 8 weeks ago, is not now. The list worth a root-cause.</div></div></div>
+      ${newly.length?newly.slice(0,6).map(r=>`<div class="rule" style="cursor:pointer" onclick="${ANA==='loc'?'null':'openDrawer('+r.i+')'}">
+        <div style="flex:1;min-width:0"><div class="rule-n">${r.sku}</div>
+          <div class="rule-c">${ANA==='loc'?r.stores+' darkstores':r.plat}</div></div>
+        <div style="display:flex;gap:2px">${r.hist.map(b=>`<i style="width:7px;height:15px;border-radius:2px;background:${RISK[b].col};opacity:${b==='ok'?.3:b==='watch'?.6:.9};display:block"></i>`).join('')}</div>
+        <div style="display:flex;align-items:center;gap:6px;min-width:150px;justify-content:flex-end">
+          <span class="st st-ok"><span class="d"></span>W15</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="st ${RISK[r.hist[11]].cls}"><span class="d"></span>${RISK[r.hist[11]].k}</span></div></div>`).join('')
+      :'<div class="ph">No band migrations in this scope.</div>'}
+    </div>
+  </div>`;
+}
+
+/* ---------- ASP & VELOCITY (Promotion) ---------- */
+function aspSet(){return ASPLEVEL==='Category'?CATS:ASPLEVEL==='Range'?RANGES:
+  DIPS.filter(d=>PLAT==='All Platforms'||d.plat===PLAT).sort((a,b)=>b.depth-a.depth)}
+function viewASP(){
+  const set=aspSet(), sel=set[Math.min(ASPSEL,set.length-1)]||set[0];
+  const skuRows=DIPS.filter(d=>PLAT==='All Platforms'||d.plat===PLAT).sort((a,b)=>b.depth-a.depth);
+  const active=skuRows.filter(r=>r.depth>7);
+  const avgDepth=(skuRows.reduce((s,r)=>s+r.depth,0)/skuRows.length).toFixed(1);
+  const avgLift=(skuRows.reduce((s,r)=>s+r.lift,0)/skuRows.length).toFixed(1);
+  const firing=ALERTS.filter(a=>a.on&&a.scope==='asp').reduce((s,a)=>s+evalRule(a).length,0);
+
+  return `<div class="herorow"><div style="flex:1">
+    <div class="eyebrow">PROMOTION · PRICE–VELOCITY</div>
+    <div class="h1">When price drops, stock burns faster.</div>
+    <div class="hsub">Scope: <b>${PLAT}</b> · <b>${skuRows.length}</b> SKUs with an ASP movement · trailing baseline <b>8 weeks</b> · as of 11 Aug 2026</div>
+  </div><span class="chip red" style="margin-top:26px" onclick="scrollToAlerts()">⚠ ${firing} alerts firing</span></div>
+
+  <div class="card"><div class="mgrid" style="grid-template-columns:repeat(5,1fr)">
+    <div class="mt"><div class="mt-l">Active ASP Dips<span class="srctag src-crawl">CRAWL</span></div>
+      <div class="mt-v" style="color:#EA580C">${active.length}</div>
+      <div class="mt-s">${skuRows.filter(r=>r.depth>15).length} beyond the −15% guardrail</div></div>
+    <div class="mt"><div class="mt-l">Avg Depth vs Trailing<span class="srctag src-crawl">CRAWL</span></div>
+      <div class="mt-v" style="color:#EA580C">−${avgDepth}%</div>
+      <div style="margin-top:6px">${spark(trend(8,1.1,8,1.6),'#EA580C')}</div></div>
+    <div class="mt"><div class="mt-l">Run-Rate Lift, post-dip<span class="srctag src-crawl">CRAWL</span></div>
+      <div class="mt-v" style="color:#16A34A">+${avgLift}%</div>
+      <div style="margin-top:6px">${spark(trend(22,2.1,8,3),'#16A34A')}</div></div>
+    <div class="mt"><div class="mt-l">Replenishment Rate<span class="srctag src-soon">SOON</span></div>
+      <div class="soon"><i>Coming Soon</i><span class="plug">⚡ PLUG SUPPLY FEED</span></div></div>
+    <div class="mt"><div class="mt-l">Lead Time by Warehouse<span class="srctag src-soon">SOON</span></div>
+      <div class="soon"><i>Coming Soon</i><span class="plug">⚡ PLUG SUPPLY FEED</span></div></div>
+  </div></div>
+
+  <div class="card">
+    <div class="card-hd"><div class="sq blue">₹</div><div><div class="card-t">Dip explorer</div>
+      <div class="card-s">Pick a category, a range, or an individual SKU — the chart follows your selection.</div></div>
+      <div class="hd-right"><div class="seg">
+        <span class="${ASPLEVEL==='Category'?'on':''}" onclick="setAspLevel('Category')">Category</span>
+        <span class="${ASPLEVEL==='Range'?'on':''}" onclick="setAspLevel('Range')">Range</span>
+        <span class="${ASPLEVEL==='SKU'?'on':''}" onclick="setAspLevel('SKU')">SKU</span></div></div></div>
+    <div class="master">
+      <div class="mlist">
+        <div class="srch"><input id="aspsearch" placeholder="Search ${ASPLEVEL.toLowerCase()}…" oninput="filterList(this.value)"/></div>
+        <div id="asplist">${set.map((d,i)=>`<div class="li ${i===ASPSEL?'on':''}" data-n="${d.name.toLowerCase()}" onclick="selAsp(${i})">
+          <div style="min-width:0;flex:1"><div class="li-n">${d.name.length>26?d.name.slice(0,25)+'…':d.name}</div>
+            <div class="li-s">${ASPLEVEL==='SKU'?d.plat:d.members+' SKUs · all platforms'}</div></div>
+          <div class="li-r"><div class="li-d" style="color:${RISK[d.st].col}">−${d.depth}%</div>
+            <div class="li-s" style="color:#16A34A">+${d.lift}% lift</div></div></div>`).join('')}</div>
+      </div>
+      <div>
+        <div style="padding:14px 16px 4px;display:flex;align-items:center;gap:10px">
+          <div><div style="font-weight:600;font-size:14px">${sel.name}</div>
+            <div class="card-s">${ASPLEVEL==='SKU'?sel.code+' · '+sel.plat:sel.members+' SKUs rolled up · '+ASPLEVEL.toLowerCase()+' level'}</div></div>
+          <div class="hd-right"><span class="st ${RISK[sel.st].cls}"><span class="d"></span>${sel.status}</span></div></div>
+        <div class="legend" style="padding:10px 16px">
+          <span class="lg"><span class="kl" style="background:#2563EB"></span>Selling price (ASP)</span>
+          <span class="lg"><span class="kl" style="background:#98A2B3"></span>8-week trailing average</span>
+          <span class="lg"><span class="k" style="background:#93B4F7"></span>Sell-through, pre-dip</span>
+          <span class="lg"><span class="k" style="background:#2563EB"></span>Sell-through, post-dip</span>
+          <span class="lg"><span class="k" style="background:#FEF3F2;border:1px solid #F97066"></span>Dip window</span></div>
+        <div style="padding:0 16px 8px" id="aspc">${aspVelocity(sel,'ahv')}</div>
+        <div class="mgrid" style="grid-template-columns:repeat(4,1fr);padding-top:4px">
+          <div class="mt"><div class="mt-l">ASP now vs trailing</div><div class="mt-v">₹${sel.aspNow}</div>
+            <div class="mt-d dn">▼ ${sel.depth}% vs ₹${sel.trail}</div></div>
+          <div class="mt"><div class="mt-l">Run-rate before → after</div><div class="mt-v" style="font-size:20px">${num(sel.rrB)} → ${num(sel.rrA)}</div>
+            <div class="mt-d up">▲ ${sel.lift}% units/wk</div></div>
+          <div class="mt"><div class="mt-l">Cover burned</div><div class="mt-v">${sel.burn} wk</div>
+            <div class="mt-d dn">faster than plan</div></div>
+          <div class="mt"><div class="mt-l">Projected OOS<span class="srctag src-soon">SOON</span></div>
+            <div class="soon" style="min-height:62px"><i>Needs RR + lead time</i><span class="plug">⚡ PLUG SUPPLY FEED</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1.25fr;gap:16px" class="two">
+    <div class="card"><div class="card-hd"><div class="sq amb">◎</div><div>
+      <div class="card-t">Deeper dip, faster burn</div><div class="card-s">Bubble size = weeks of cover burned</div></div></div>
+      <div class="legend"><span class="lg"><span class="k" style="background:#DC2626"></span>Escalating</span>
+        <span class="lg"><span class="k" style="background:#EA580C"></span>Active — high</span>
+        <span class="lg"><span class="k" style="background:#F59E0B"></span>Active — watch</span>
+        <span class="lg"><span class="k" style="background:#16A34A"></span>Recovering</span></div>
+      <div style="padding:0 8px 14px" id="scat">${scatterDL(skuRows)}</div></div>
+    <div class="card"><div class="card-hd"><div class="sq red">⚡</div><div>
+      <div class="card-t">ASP dip events · SKU level</div><div class="card-s">Actions happen at SKU level, whatever the explorer is set to</div></div>
+      <div class="hd-right"><span class="hint">CLICK A ROW TO DRILL</span></div></div>
+      <div class="tblwrap"><table><thead><tr><th>SKU</th><th>RANGE</th><th>PLATFORM</th><th class="r">ASP</th>
+        <th class="r">DEPTH</th><th class="r">RR LIFT</th><th class="r">BURNED</th><th>STATUS</th></tr></thead><tbody>
+        ${skuRows.map(r=>`<tr onclick="openDip(${r.i})">
+          <td><div class="skn">${r.sku.split('·')[0].trim()}</div><div class="skc mono">${r.code}</div></td>
+          <td><span class="wh">${r.brand}</span></td><td><span class="wh">${r.plat}</span></td>
+          <td class="r"><span class="num">₹${r.aspNow}</span><div class="skc">was ₹${r.trail}</div></td>
+          <td class="r num" style="color:${RISK[r.st].col}">−${r.depth}%</td>
+          <td class="r num" style="color:#16A34A">+${r.lift}%</td><td class="r num">${r.burn} wk</td>
+          <td><span class="st ${RISK[r.st].cls}"><span class="d"></span>${r.status}</span></td></tr>`).join('')}
+      </tbody></table></div></div>
+  </div>
+
+  ${alertCard('asp')}`;
+}
+
+/* ---------- AVAILABILITY · DISTRIBUTION & FAIR SHARE (6-05, 6-11) ---------- */
+function viewFairShare(){
+  const f=FAIR, d=DISPLAY.filter(x=>PLAT==='All Platforms'||x.plat===PLAT);
+  const avgFsi=Math.round(f.reduce((s,x)=>s+x.fsi,0)/f.length);
+  const under=f.filter(x=>x.fsi<100).length;
+  const corr=(()=>{const n=d.length,sx=d.reduce((s,r)=>s+r.avail,0),sy=d.reduce((s,r)=>s+r.disp,0);
+    const sxy=d.reduce((s,r)=>s+r.avail*r.disp,0),sx2=d.reduce((s,r)=>s+r.avail**2,0),sy2=d.reduce((s,r)=>s+r.disp**2,0);
+    return Math.round(((n*sxy-sx*sy)/Math.sqrt((n*sx2-sx*sx)*(n*sy2-sy*sy)))*100)/100})();
+  return hero('AVAILABILITY · DISTRIBUTION','Where distribution under-indexes against share.',
+   `Scope: <b>${PLAT}</b> · <b>${f.length}</b> ranges · weighted by <b>sales value &amp; volume</b> · as of 11 Aug 2026`,
+   '⏱ MONTHLY · W22 FY26')+
+  card('◑','blue','Fair share',null,`<span class="hint">WEIGHTED AVAILABILITY SHARE ÷ CATEGORY SHARE</span>`,
+   tiles([
+    {l:'Avg fair-share index',v:avgFsi,c:avgFsi>=100?'#16A34A':'#EA580C',s:'100 = at parity with category share'},
+    {l:'Ranges under-indexed',v:under,c:'#DC2626',s:`of ${f.length} tracked`},
+    {l:'Weighting basis',v:'Sales value',s:'volume and %ACV also supported'},
+    {l:'Availability ↔ display corr.',v:corr,c:corr>0.4?'#16A34A':'#F59E0B',s:'Pearson, SKU × week'}],4)+
+   tbl([
+    {h:'RANGE',f:r=>`<div class="skn">${r.name}</div>`},
+    {h:'WTD. AVAILABILITY %',r:1,f:r=>`<span class="num">${r.wtd}%</span>${bar(r.wtd,100,'#2563EB')}`},
+    {h:'CATEGORY SHARE %',r:1,f:r=>`<span class="num">${r.cat}%</span>${bar(r.cat,100,'#98A2B3')}`},
+    {h:'FAIR SHARE INDEX',r:1,f:r=>idxChip(r.fsi)},
+    {h:'12-WK TREND',f:r=>spark(r.hist,r.fsi>=100?'#16A34A':'#DC2626',88,24)},
+    {h:'STORES SELLING',r:1,f:r=>`<span class="num">${num(r.storesSel)}</span>`},
+    {h:'STORES RANGED',r:1,f:r=>`<span class="num">${num(r.storesRng)}</span><div class="mini">${Math.round(r.storesSel/r.storesRng*100)}% selling</div>`},
+    {h:'VERDICT',f:r=>r.fsi>=110?'<span class="st st-ok"><span class="d"></span>Over-indexed</span>':r.fsi>=90?'<span class="st st-watch"><span class="d"></span>At parity</span>':'<span class="st st-crit"><span class="d"></span>Under-indexed</span>'}
+   ],f))+
+  `<div class="gA">`+
+  card('◎','amb','Availability × secondary display','Does better availability actually buy visibility?',null,
+   `<div class="legend"><span class="lg"><span class="k" style="background:#16A34A"></span>Both strong</span>
+     <span class="lg"><span class="k" style="background:#F59E0B"></span>Available, not displayed</span>
+     <span class="lg"><span class="k" style="background:#DC2626"></span>Neither</span></div>
+    <div style="padding:0 8px 14px" id="fscat">${scat(d,'avail','disp','ONLINE AVAILABILITY %','SECONDARY DISPLAY SHARE %',
+      r=>r.avail>70&&r.disp>20?'#16A34A':r.avail>70?'#F59E0B':'#DC2626')}</div>`)+
+  card('▤','grn','Display presence by type','Banner, carousel, search slot and aisle strip, from the crawl',null,
+   tbl([
+    {h:'SKU',f:r=>`<div class="skn">${r.sku.split('·')[0].trim()}</div><div class="skc">${r.plat}</div>`},
+    {h:'DISPLAY TYPE',f:r=>`<span class="bpill">${r.types}</span>`},
+    {h:'AVAILABILITY %',r:1,f:r=>`<span class="num" style="color:${r.avail>70?'#16A34A':'#EA580C'}">${r.avail}%</span>`},
+    {h:'DISPLAY SHARE %',r:1,f:r=>`<span class="num">${r.disp}%</span>`}
+   ],d.slice(0,8)))+
+  `</div>`;
+}
+
+/* ---------- VISIBILITY · SHARE OF SEARCH (7-02) ---------- */
+function viewSOS(){
+  let rows=[...RANK].sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta));
+  if(KWF==='won')rows=rows.filter(r=>r.delta>0); if(KWF==='lost')rows=rows.filter(r=>r.delta<0);
+  if(KWF==='top10')rows=rows.filter(r=>r.top10);
+  const top10=RANK.filter(r=>r.top10).length, sos=Math.round(top10/RANK.length*1000)/10;
+  const won=RANK.filter(r=>r.delta>0).length, lost=RANK.filter(r=>r.delta<0).length;
+  const avgSov=Math.round(RANK.reduce((s,r)=>s+r.sov,0)/RANK.length*10)/10;
+  return hero('VISIBILITY · ORGANIC SEARCH','Where we rank, what moved, and who took it.',
+   `Scope: <b>${PLAT}</b> · <b>${RANK.length}</b> tracked keywords · <b>1,934</b> pincode sampling frame · week on week`,
+   '⏱ WEEKLY · W22 FY26')+
+  card('⌕','blue','Share of search',null,
+   `<div class="fchips">${[['all','All'],['won','Gained'],['lost','Lost'],['top10','Top 10']].map(([k,l])=>
+     `<span class="fc ${KWF===k?'on':''}" onclick="KWF='${k}';render()">${l}</span>`).join('')}</div>`,
+   tiles([
+    {l:'Share of search',v:sos+'%',c:'#2563EB',s:`${top10} of ${RANK.length} keywords in top 10`,tag:'crawl'},
+    {l:'Keywords gained',v:won,c:'#16A34A',d:'▲ vs last week',dc:'up',tag:'crawl'},
+    {l:'Keywords lost',v:lost,c:'#DC2626',d:'▼ vs last week',dc:'dn',tag:'crawl'},
+    {l:'Avg share of voice',v:avgSov+'%',s:'organic + paid combined',tag:'crawl'},
+    {l:'Glance / PDP views',v:'—',soon:1,tag:'soon'}],5))+
+  card('⇅','grn','Rank movement week on week','Grey dot = last week, solid = this week. Longer bar means a bigger move.',
+   '<span class="hint">CLICK A KEYWORD TO DRILL</span>',
+   `<div style="padding:0 16px 16px" id="dbl">${dumbbell(rows.slice(0,10))}</div>`)+
+  card('☰','blue','Tracked keyword set',`${RANK.length} keywords, held stable so the trend stays comparable`,null,
+   tbl([
+    {h:'KEYWORD',f:r=>`<div class="skn">${r.kw}</div><div class="skc">${num(r.vol)} searches/mo · ${r.plat}</div>`},
+    {h:'RANK',r:1,f:r=>`<span class="num" style="font-size:15px;color:${r.top10?'#16A34A':'#EA580C'}">#${r.rank}</span>`},
+    {h:'MOVE',r:1,f:r=>`<span class="num" style="color:${r.delta>0?'#16A34A':r.delta<0?'#DC2626':'#98A2B3'}">${r.delta>0?'▲ +'+r.delta:r.delta<0?'▼ '+r.delta:'—'}</span>`},
+    {h:'TOP 10',f:r=>r.top10?'<span class="dchip d-ok">YES</span>':'<span class="dchip d-na">NO</span>'},
+    {h:'ORGANIC SOV',r:1,f:r=>`<span class="num">${r.sov}%</span>${bar(r.sov,40,'#2563EB')}`},
+    {h:'PAID SOV',r:1,f:r=>`<span class="num">${r.paidSov}%</span>${bar(r.paidSov,40,'#7C5CF5')}`},
+    {h:'WINNING SKU',f:r=>`<span class="wh">${r.owner.split('·')[0].trim()}</span>`},
+    {h:'TOP RESULT',f:r=>r.winner==='Us'?'<span class="st st-ok"><span class="d"></span>Us</span>':`<span class="st st-crit"><span class="d"></span>${r.winner}</span>`},
+    {h:'CPC',r:1,f:r=>`₹${r.cpc}`},
+    {h:'',f:r=>`<button class="btn" onclick="event.stopPropagation();setTab('invest')">Cost to win</button>`}
+   ],rows,r=>`openKw(${r.i})`));
+}
+
+/* ---------- VISIBILITY · SHELF LAYOUT AUDIT (6-10) ---------- */
+function viewShelf(){
+  const p=PLACE.filter(x=>PLAT==='All Platforms'||x.plat===PLAT);
+  const ok=p.filter(x=>x.ok).length, atRisk=p.reduce((s,x)=>s+x.atRisk,0);
+  const compliance=Math.round(ok/p.length*100);
+  const wrongCreative=p.filter(x=>x.creative!=='Approved').length;
+  const ladder=[{n:'Domex Toilet Expert 500ml',us:0},{n:'Harpic Power Plus Rose · 500ml',us:1},{n:'Sanifresh Ultrashine 500ml',us:0},
+   {n:'Mortein Liquid Vaporiser Refill · 45ml',us:1},{n:'Domex Toilet Cleaner 500ml',us:0},{n:'Veet Hair Removal Cream · 100g',us:1},
+   {n:'Savlon Antiseptic Liquid 500ml',us:0},{n:'Dettol Antiseptic Liquid · 550ml',us:1},{n:'Dettol Handwash Original · 200ml',us:1},{n:'Nimyle Floor Cleaner 1L',us:0}];
+  const ourSlots=ladder.filter(x=>x.us).length;
+  return hero('VISIBILITY · SHELF LAYOUT','Did the placement we paid for actually run.',
+   `Scope: <b>${PLAT}</b> · <b>${p.length}</b> booked placements this flight · category page audited daily · as of 11 Aug 2026`,
+   '⏱ DAILY CRAWL · W22 FY26')+
+  card('▦','red','Placement compliance','Booked against verified-live. This is the digital equivalent of planogram compliance.',null,
+   tiles([
+    {l:'Placement compliance',v:compliance+'%',c:compliance>80?'#16A34A':'#DC2626',s:`${ok} of ${p.length} ran as booked`,tag:'crawl'},
+    {l:'Spend at risk',v:inr(atRisk),c:'#DC2626',s:'under-delivered or drifted position',tag:'crawl'},
+    {l:'Wrong creative live',v:wrongCreative,c:wrongCreative?'#EA580C':'#16A34A',s:'vs approved asset',tag:'crawl'},
+    {l:'Share of shelf',v:Math.round(ourSlots/ladder.length*100)+'%',s:`${ourSlots} of top ${ladder.length} category slots`,tag:'crawl'}],4)+
+   tbl([
+    {h:'PLACEMENT',f:r=>`<div class="skn">${r.name}</div><div class="skc">${r.plat} · ${r.type}</div>`},
+    {h:'BOOKED',r:1,f:r=>`<span class="num">${r.booked}d</span>`},
+    {h:'VERIFIED LIVE',r:1,f:r=>`<span class="num" style="color:${r.verified>=r.booked?'#16A34A':'#DC2626'}">${r.verified}d</span>${bar(r.verified,r.booked,r.verified>=r.booked?'#16A34A':'#DC2626')}`},
+    {h:'POSITION BOOKED',r:1,f:r=>`#${r.posBooked}`},
+    {h:'POSITION SEEN',r:1,f:r=>`<span class="num" style="color:${r.posSeen<=r.posBooked?'#16A34A':'#EA580C'}">#${r.posSeen}</span>`},
+    {h:'CREATIVE',f:r=>r.creative==='Approved'?'<span class="dchip d-ok">APPROVED</span>':'<span class="dchip d-no">WRONG ASSET</span>'},
+    {h:'SPEND',r:1,f:r=>inr(r.spend)},
+    {h:'AT RISK',r:1,f:r=>r.atRisk?`<span class="num" style="color:#B42318">${inr(r.atRisk)}</span>`:'—'},
+    {h:'STATUS',f:r=>r.ok?'<span class="st st-ok"><span class="d"></span>Compliant</span>':
+      r.status==='Under-delivered'?'<span class="st st-crit"><span class="d"></span>Under-delivered</span>':'<span class="st st-high"><span class="d"></span>Position drift</span>'},
+    {h:'',f:r=>r.ok?'':`<button class="btn pri" onclick="event.stopPropagation();act('Raise make-good claim','${r.name}')">Make-good</button>`}
+   ],p))+
+  `<div class="gB">`+
+  card('☷','blue','Category page slot ladder','Top 10 visible slots on the category page — ours vs competitors',
+   '<span class="hint">SHARE OF SHELF</span>',
+   `<div style="padding:12px 16px 16px">${ladder.map((s,i)=>`<div class="slot ${s.us?'us':''}">
+     <span class="n">${i+1}</span><span style="flex:1;font-size:12px;font-weight:${s.us?600:400}">${s.n}</span>
+     ${s.us?'<span class="dchip d-ok">OURS</span>':'<span class="dchip d-na">COMPETITOR</span>'}</div>`).join('')}</div>`)+
+  card('◇','amb','Discoverability impact','Does slot position actually move traffic?',null,
+   `<div style="padding:14px 16px">
+     <div class="out">Placements running <b>as booked</b> average <b>#2.1</b> category position and <b>4.8%</b> CTR.
+       Placements that drifted average <b>#4.6</b> and <b>2.1%</b> — a <b>56% CTR loss</b> from position drift alone.</div>
+     <div style="margin-top:14px">${tbl([
+       {h:'POSITION',f:r=>`Slot ${r.p}`},{h:'AVG CTR',r:1,f:r=>`<span class="num">${r.c}%</span>${bar(r.c,6,'#2563EB')}`},
+       {h:'INDEX',r:1,f:r=>idxChip(r.x)}
+     ],[{p:'1–2',c:4.8,x:168},{p:'3–4',c:3.1,x:109},{p:'5–6',c:2.1,x:74},{p:'7+',c:1.2,x:42}])}</div></div>`)+
+  `</div>`;
+}
+
+/* ---------- VISIBILITY · INVESTMENT → POSITION (6-06) ---------- */
+function viewInvest(){
+  const rows=INVEST, sel=rows[Math.min(INVSEL,rows.length-1)];
+  const breaks=rows.filter(r=>r.broke).length;
+  const totalInvest=rows.reduce((s,r)=>s+r.invest,0);
+  return hero('VISIBILITY · INVESTMENT → POSITION','What it costs to get the position back.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> SKUs modelled · organic and paid · as of 11 Aug 2026`,
+   '⏱ WEEKLY · W22 FY26')+
+  card('₹','blue','Position recovery',null,null,
+   tiles([
+    {l:'Listing breaks detected',v:breaks,c:'#DC2626',s:'EAN / ASIN change in last 30 days',tag:'crawl'},
+    {l:'Investment to close gap',v:inr(totalInvest),s:'across all modelled SKUs',tag:'crawl'},
+    {l:'Avg recovery time',v:Math.round(rows.reduce((s,r)=>s+r.weeks,0)/rows.length)+' wk',s:'modelled, at recommended spend'},
+    {l:'Avg organic share',v:Math.round(rows.reduce((s,r)=>s+r.orgShare,0)/rows.length)+'%',s:'of the recovery mix'}],4))+
+  `<div class="gA">`+
+  card('◷','red','Rank recovery after listing break',sel.broke?`${sel.sku} · break detected ${sel.breakDate}`:'Select a SKU with a detected break',null,
+   sel.broke?`<div style="padding:14px 16px">${recovLine(sel.recov)}
+     <div class="out" style="margin-top:12px">Listing broke on <b>${sel.breakDate}</b> — new identifier, review count reset, rank collapsed from
+     <b>#2</b> to outside the top 20. ${sel.recov[11]<=6?`Recovered to <b>#${sel.recov[11]}</b> over 11 days.`:`Still at <b>#${sel.recov[11]}</b> after 11 days.`}</div></div>`
+    :`<div class="ph">No listing break on this SKU. Pick one of the three flagged rows below.</div>`)+
+  card('⚙','blue','What will it take','Model the spend needed to reach a target position',null,
+   `<div style="padding:14px 16px"><div class="calc">
+     <div class="row"><label>SKU</label><select onchange="INVSEL=+this.value;render()">
+       ${rows.map((r,i)=>`<option value="${i}" ${i===INVSEL?'selected':''}>${r.sku.split('·')[0].trim()} · ${r.plat}</option>`).join('')}</select></div>
+     <div class="row"><label>CURRENT POSITION</label><input value="#${sel.cur}" disabled/></div>
+     <div class="row"><label>TARGET POSITION</label><input value="#${sel.tgt}" disabled/></div>
+     <div class="row"><label>CHANNEL MIX</label><input value="${sel.orgShare}% organic · ${100-sel.orgShare}% paid" disabled/></div>
+   </div>
+   <div class="out" style="margin-top:12px">To move <b>${sel.sku.split('·')[0].trim()}</b> from <b>#${sel.cur}</b> to <b>#${sel.tgt}</b> on ${sel.plat},
+     delivering <b>${inr(sel.tgtSales)}</b> against today's ${inr(sel.curSales)}, needs
+     <b>${inr(sel.invest)}</b> over <b>${sel.weeks} weeks</b> — ${sel.orgShare}% through content and keyword work, ${100-sel.orgShare}% through bid.</div>
+   <div style="display:flex;gap:8px;margin-top:12px"><button class="btn pri lg" onclick="act('Create media plan','${sel.sku}')">Create media plan</button>
+     <button class="btn lg" onclick="act('Assign content fix','${sel.sku}')">Assign content fix</button></div></div>`)+
+  `</div>`+
+  card('☰','amb','Investment model by SKU',null,'<span class="hint">CLICK A ROW TO LOAD THE MODEL</span>',
+   tbl([
+    {h:'SKU',f:r=>`<div class="skn">${r.sku}</div><div class="skc mono">${r.code} · ${r.plat}</div>`},
+    {h:'BREAK',f:r=>r.broke?`<span class="st st-crit"><span class="d"></span>${r.breakDate}</span>`:'<span class="dchip d-na">NONE</span>'},
+    {h:'CURRENT',r:1,f:r=>`<span class="num">#${r.cur}</span>`},
+    {h:'TARGET',r:1,f:r=>`<span class="num" style="color:#16A34A">#${r.tgt}</span>`},
+    {h:'SALES NOW',r:1,f:r=>inr(r.curSales)},
+    {h:'SALES AT TARGET',r:1,f:r=>`<span style="color:#067647">${inr(r.tgtSales)}</span>`},
+    {h:'INVESTMENT',r:1,f:r=>`<span class="num">${inr(r.invest)}</span>`},
+    {h:'TIME',r:1,f:r=>`${r.weeks} wk`},
+    {h:'MIX',f:r=>`<div class="pbar" style="min-width:90px"><i style="width:${r.orgShare}%;background:#16A34A"></i><i style="width:${100-r.orgShare}%;background:#7C5CF5"></i></div>
+      <div class="mini">${r.orgShare}% organic</div>`}
+   ],rows,r=>`INVSEL=${r.i};render()`));
+}
+
+/* ---------- VISIBILITY · BRAND vs CATEGORY (7-07) ---------- */
+function viewSegIdx(){
+  const rows=SEGS.filter(s=>SEGLVL==='All'||s.level===SEGLVL);
+  const under=rows.filter(r=>r.idxTot<100).length;
+  const cvrUnder=rows.filter(r=>r.idxCvr<100).length;
+  return hero('VISIBILITY · CATEGORY BENCHMARK','Traffic share against market share — and whether CVR is the problem.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> segments at <b>${SEGLVL}</b> level · index 100 = at parity with market $ share`,
+   '⏱ MONTHLY · W22 FY26')+
+  card('◨','blue','Share of traffic, indexed to market share',null,
+   `<div class="seg">${['Brand','Category-Brand','Sub-Category-Brand','All'].map(l=>
+     `<span class="${SEGLVL===l?'on':''}" onclick="SEGLVL='${l}';render()">${l}</span>`).join('')}</div>`,
+   tiles([
+    {l:'Segments under-indexed',v:under,c:under?'#DC2626':'#16A34A',s:'traffic share below market share'},
+    {l:'CVR under category',v:cvrUnder,c:cvrUnder?'#EA580C':'#16A34A',s:'conversion index below 100'},
+    {l:'Category denominator',v:'Modelled',c:'#EA580C',s:'from E-Genie category coverage'},
+    {l:'Measures indexed',v:'4 + CVR',s:'organic · paid · DSS · total'}],4)+
+   `<div class="legend"><span class="lg"><span class="k" style="background:#16A34A"></span>Index ≥ 110</span>
+     <span class="lg"><span class="k" style="background:#F59E0B"></span>90–109</span>
+     <span class="lg"><span class="k" style="background:#DC2626"></span>Below 90</span>
+     <span class="lg">Vertical line = parity with market $ share</span></div>
+    <div style="padding:0 16px 16px" id="ixb">${idxBars(rows)}</div>`)+
+  card('☰','amb','Full index — all four traffic measures plus CVR',null,null,
+   tbl([
+    {h:'SEGMENT',f:r=>`<div class="skn">${r.name}</div><div class="skc">${r.level}${r.parent?' · in '+r.parent:''}</div>`},
+    {h:'MARKET $ SHARE',r:1,f:r=>`<span class="num">${r.mkt}%</span>`},
+    {h:'ORGANIC',r:1,f:r=>`<span class="num">${r.org}%</span><div>${idxChip(r.idxOrg)}</div>`},
+    {h:'PAID',r:1,f:r=>`<span class="num">${r.paid}%</span><div>${idxChip(r.idxPaid)}</div>`},
+    {h:'DSS',r:1,f:r=>`<span class="num">${r.dss}%</span><div>${idxChip(r.idxDss)}</div>`},
+    {h:'TOTAL',r:1,f:r=>`<span class="num">${r.tot}%</span><div>${idxChip(r.idxTot)}</div>`},
+    {h:'CVR',r:1,f:r=>`<span class="num">${r.cvr}%</span><div class="mini">cat ${r.catCvr}%</div>`},
+    {h:'CVR INDEX',r:1,f:r=>idxChip(r.idxCvr)},
+    {h:'WHERE TO ACT',f:r=>r.idxTot<90&&r.idxCvr<100?'<span class="st st-crit"><span class="d"></span>Traffic and conversion</span>'
+      :r.idxTot<90?'<span class="st st-high"><span class="d"></span>Traffic gap</span>'
+      :r.idxCvr<100?'<span class="st st-watch"><span class="d"></span>Conversion gap</span>':'<span class="st st-ok"><span class="d"></span>Healthy</span>'}
+   ],rows));
+}
+
+/* ---------- CONTENT · MASTER vs LIVE (6-13) ---------- */
+function viewMVL(){
+  const rows=CONTENT;
+  const failing=rows.filter(r=>r.score<100).length;
+  const avg=Math.round(rows.reduce((s,r)=>s+r.score,0)/rows.length);
+  const byEl=ELEMS.map((e,k)=>({e,fail:rows.filter(r=>r.st[k]!=='ok').length}));
+  return hero('CONTENT · SYNDICATION COMPLIANCE','What is in Salsify vs what is actually on the PDP.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> SKU × retailer combinations · <b>${ELEMS.length}</b> content elements · as of 11 Aug 2026`,
+   '⏱ DAILY CRAWL · W22 FY26')+
+  card('⇄','blue','Master vs live',null,
+   `<span class="feed"><span class="d"></span>Salsify <b>· synced 04:00</b></span>`,
+   tiles([
+    {l:'Avg compliance',v:avg+'%',c:avg>80?'#16A34A':'#EA580C',s:'elements matching master',tag:'crawl'},
+    {l:'Combinations failing',v:failing,c:'#DC2626',s:`of ${rows.length} SKU × retailer`,tag:'crawl'},
+    {l:'Worst element',v:byEl.sort((a,b)=>b.fail-a.fail)[0].e,c:'#EA580C',s:`${byEl[0].fail} failures`,tag:'crawl'},
+    {l:'Retailers audited',v:4,s:'Amazon, Flipkart, Blinkit, Zepto',tag:'crawl'}],4)+
+   tbl([
+    {h:'SKU',f:r=>`<div class="skn">${r.sku}</div><div class="skc mono">${r.code} · ${r.brand}</div>`},
+    {h:'RETAILER',f:r=>`<span class="wh">${r.ret}</span>`},
+    ...ELEMS.map((e,k)=>({h:e.toUpperCase(),f:r=>r.st[k]==='ok'?'<span class="dchip d-ok">OK</span>'
+      :r.st[k]==='wa'?'<span class="dchip d-wa">DRIFT</span>':'<span class="dchip d-no">FAIL</span>'})),
+    {h:'COMPLIANCE',r:1,f:r=>`<span class="num" style="color:${r.score>80?'#16A34A':r.score>60?'#EA580C':'#DC2626'}">${r.score}%</span>`},
+    {h:'',f:r=>r.score<100?`<button class="btn" onclick="event.stopPropagation();act('Push content fix','${r.sku} · ${r.ret}')">Fix</button>`:''}
+   ],rows,r=>`openMVL(${r.i})`))+
+  card('▤','amb','Failures by element','Where content drifts most often across the portfolio',null,
+   `<div style="padding:12px 16px 16px">${byEl.map(b=>`<div style="display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--line2)">
+     <div style="width:130px;font-size:12px;font-weight:600">${b.e}</div>
+     <div style="flex:1">${bar(b.fail,rows.length,b.fail>rows.length*0.3?'#DC2626':'#F59E0B')}</div>
+     <div style="width:110px;text-align:right" class="num">${b.fail} <span class="mini">of ${rows.length}</span></div></div>`).join('')}</div>`);
+}
+
+/* ---------- CONTENT · ASSET MATCH (6-10 asset half) ---------- */
+function viewAsset(){
+  const rows=ASSETS;
+  const okc=rows.filter(r=>r.live==='match').length;
+  return hero('CONTENT · ASSET COMPLIANCE','Is the image live on the PDP the one we approved.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> hero assets matched against PIM / DAM · image matching, not filename`,
+   '⏱ DAILY CRAWL · W22 FY26')+
+  card('⧉','blue','PIM / DAM asset match',null,
+   `<span class="feed"><span class="d"></span>Salsify DAM <b>· synced 04:00</b></span>`,
+   tiles([
+    {l:'Approved asset live',v:okc,c:'#16A34A',s:`of ${rows.length} hero slots`,tag:'crawl'},
+    {l:'Outdated version',v:rows.filter(r=>r.live==='variant').length,c:'#EA580C',s:'older approved asset still live'},
+    {l:'Unapproved asset',v:rows.filter(r=>r.live==='unknown').length,c:'#DC2626',s:'no DAM match found'},
+    {l:'Avg match confidence',v:Math.round(rows.reduce((s,r)=>s+r.conf,0)/rows.length)+'%',s:'perceptual image match'}],4)+
+   `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:16px">
+     ${rows.map(r=>`<div class="ast">
+       <div class="im">${r.live==='match'?'🖼':r.live==='variant'?'🖼':'⚠'}</div>
+       <div class="bd"><div class="skn" style="font-size:12px">${r.sku.split('·')[0].trim()}</div>
+         <div class="skc">${r.ret} · ${r.slot} slot</div>
+         <div class="mini mono" style="margin-top:5px">${r.dam}</div>
+         <div style="display:flex;align-items:center;gap:6px;margin-top:7px">
+           ${r.live==='match'?'<span class="dchip d-ok">MATCH</span>':r.live==='variant'?'<span class="dchip d-wa">OUTDATED</span>':'<span class="dchip d-no">UNAPPROVED</span>'}
+           <span class="mini">${r.conf}% confidence</span></div>
+         <div class="mini" style="margin-top:5px">${r.status}</div></div></div>`).join('')}</div>`);
+}
+
+/* ---------- CONTENT · CREATIVE PERFORMANCE (6-16) ---------- */
+function viewCreative(){
+  const rows=CREATIVE;
+  const winners=rows.filter(r=>!r.ctrl&&r.lift>0&&r.sig==='95%');
+  const totalViews=rows.reduce((s,r)=>s+r.views,0);
+  return hero('CONTENT · CREATIVE PERFORMANCE','Which image actually converts.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> creative variants across <b>6</b> SKUs · PDP views joined from the retailer API`,
+   '⏱ WEEKLY · W22 FY26')+
+  card('◐','blue','Creative conversion',null,null,
+   tiles([
+    {l:'Variants tested',v:rows.length,s:'3 per SKU, control + 2',tag:'feed'},
+    {l:'Significant winners',v:winners.length,c:'#16A34A',s:'95% confidence vs control',tag:'feed'},
+    {l:'PDP views analysed',v:num(totalViews),tag:'feed'},
+    {l:'Best lift',v:'+'+Math.max(...rows.map(r=>r.lift))+'%',c:'#16A34A',s:'vs control creative',tag:'feed'}],4)+
+   tbl([
+    {h:'SKU',f:r=>r.ctrl?`<div class="skn">${r.sku.split('·')[0].trim()}</div><div class="skc mono">${r.code}</div>`:''},
+    {h:'VARIANT',f:r=>`<span class="wh">${r.variant}</span>${r.ctrl?' <span class="dchip d-na">CONTROL</span>':''}`},
+    {h:'PDP VIEWS',r:1,f:r=>`<span class="num">${num(r.views)}</span>`},
+    {h:'PURCHASES',r:1,f:r=>`<span class="num">${num(r.purch)}</span>`},
+    {h:'CVR',r:1,f:r=>`<span class="num" style="color:${r.cvr>4?'#16A34A':'#344054'}">${r.cvr}%</span>${bar(r.cvr,8,r.cvr>4?'#16A34A':'#2563EB')}`},
+    {h:'LIFT vs CONTROL',r:1,f:r=>r.ctrl?'—':`<span class="num" style="color:${r.lift>0?'#16A34A':'#DC2626'}">${r.lift>0?'+':''}${r.lift}%</span>`},
+    {h:'SIGNIFICANCE',f:r=>r.ctrl?'<span class="dchip d-na">BASELINE</span>':r.sig==='95%'?'<span class="dchip d-ok">95%</span>':'<span class="dchip d-wa">NOT SIG</span>'},
+    {h:'',f:r=>(!r.ctrl&&r.lift>0&&r.sig==='95%')?`<button class="btn pri" onclick="event.stopPropagation();act('Roll out winning creative','${r.sku} · ${r.variant}')">Roll out</button>`:''}
+   ],rows));
+}
+
+/* ---------- PRICING · BUY BOX (6-07) ---------- */
+function viewBB(){
+  const rows=BB.filter(r=>PLAT==='All Platforms'||r.plat===PLAT).sort((a,b)=>b.lbb-a.lbb);
+  const lost=rows.filter(r=>!r.is1P).length;
+  const lostVal=rows.reduce((s,r)=>s+(r.is1P?0:r.lostVal),0);
+  const avgLbb=Math.round(rows.reduce((s,r)=>s+r.lbb,0)/rows.length*10)/10;
+  const firing=ALERTS.filter(a=>a.on&&a.scope==='bb').reduce((s,a)=>s+evalRule(a).length,0);
+  return hero('PRICING · BUY BOX','Who holds the Buy Box, and what losing it costs.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> listings monitored · seller of record tracked at timestamp grain · 30-day window`,
+   `⚠ ${firing} alerts firing`)+
+  card('◫','red','Buy Box position',null,null,
+   tiles([
+    {l:'Listings not held',v:lost,c:'#DC2626',s:`of ${rows.length} monitored`,tag:'crawl'},
+    {l:'Sell-out lost',v:inr(lostVal),c:'#B42318',s:'%LBB time × daily run-rate',tag:'crawl'},
+    {l:'Avg % LBB',v:avgLbb+'%',c:avgLbb>20?'#DC2626':'#F59E0B',s:'time not holding ÷ monitored time',tag:'crawl'},
+    {l:'Third-party sellers',v:rows.reduce((s,r)=>s+r.sellers,0),s:'across all monitored listings',tag:'crawl'}],4)+
+   tbl([
+    {h:'SKU',f:r=>`<div class="skn">${r.sku}</div><div class="skc mono">${r.code} · ${r.plat}</div>`},
+    {h:'OUR PRICE',r:1,f:r=>`<span class="num">₹${r.our}</span>`},
+    {h:'LOWEST 3P',r:1,f:r=>`<span class="num" style="color:${r.low<r.our?'#DC2626':'#344054'}">₹${r.low}</span>${r.low<r.our?`<div class="mini" style="color:#B42318">−${Math.round((1-r.low/r.our)*100)}%</div>`:''}`},
+    {h:'BUY BOX HOLDER',f:r=>r.is1P?'<span class="st st-ok"><span class="d"></span>Reckitt (1P)</span>':`<span class="st st-crit"><span class="d"></span>${r.holder}</span>`},
+    {h:'% LBB',r:1,f:r=>`<span class="num" style="color:${r.lbb>20?'#DC2626':'#344054'}">${r.lbb}%</span>`},
+    {h:'30-DAY HOLD',f:r=>bbStrip(r.hist)},
+    {h:'SELLERS',r:1,f:r=>r.sellers},
+    {h:'VALUE LOST',r:1,f:r=>r.is1P?'—':`<span class="num" style="color:#B42318">${inr(r.lostVal)}</span>`},
+    {h:'',f:r=>r.is1P?'':`<button class="btn pri" onclick="event.stopPropagation();act('Escalate Buy Box loss','${r.sku}')">Escalate</button>`}
+   ],rows))+
+  alertCard('bb');
+}
+
+/* ---------- PRICING · SELLER WATCH & MAP (6-08) ---------- */
+function viewSeller(){
+  const rows=SELLERS;
+  const viol=rows.filter(r=>r.violation).length;
+  return hero('PRICING · SELLER WATCH','Who is selling our stock, and at what price.',
+   `Scope: <b>${PLAT}</b> · <b>${rows.length}</b> third-party sellers detected · MAP price list loaded · new listings monitored daily`,
+   '⏱ DAILY CRAWL · W22 FY26')+
+  card('◎','amb','Third-party sellers & MAP',null,null,
+   tiles([
+    {l:'Sellers detected',v:rows.length,tag:'crawl'},
+    {l:'MAP violations',v:viol,c:viol?'#DC2626':'#16A34A',s:'listing below the agreed floor',tag:'crawl'},
+    {l:'New this week',v:rows.filter(r=>r.isNew).length,c:'#EA580C',s:'first seen in last 7 days',tag:'crawl'},
+    {l:'Matched to SLOB',v:rows.filter(r=>r.slob).length,c:'#B42318',s:'pricing traces to a sell-off batch'}],4)+
+   tbl([
+    {h:'SELLER',f:r=>`<div class="skn">${r.name}</div><div class="skc">first seen ${r.firstSeen}</div>`},
+    {h:'LISTINGS',r:1,f:r=>`<span class="num">${r.listings}</span>`},
+    {h:'MIN PRICE',r:1,f:r=>`<span class="num">₹${r.min}</span>`},
+    {h:'MAP FLOOR',r:1,f:r=>`₹${r.map}`},
+    {h:'GAP',r:1,f:r=>r.violation?`<span class="num" style="color:#B42318">−${r.gap}%</span>`:'<span class="mini">above floor</span>'},
+    {h:'FLAGS',f:r=>`${r.violation?'<span class="dchip d-no">MAP BREACH</span> ':''}${r.isNew?'<span class="dchip d-wa">NEW</span> ':''}${r.slob?'<span class="dchip d-no">SLOB MATCH</span>':''}`},
+    {h:'',f:r=>r.violation?`<button class="btn pri" onclick="event.stopPropagation();act('Issue MAP notice','${r.name}')">MAP notice</button>`:''}
+   ],rows));
+}
+
+/* ---------- PRICING · SLOB SELL-OFF (6-08) ---------- */
+function viewSLOB(){
+  const rows=SLOB;
+  const breach=rows.filter(r=>r.breach).length;
+  const val=rows.reduce((s,r)=>s+(r.breach?r.value:0),0);
+  return hero('PRICING · SLOB SELL-OFF','Stock we wrote off, back on our own PDP.',
+   `Scope: <b>${rows.length}</b> sell-off batches loaded with effective cost · matched against observed reseller pricing`,
+   '⏱ DAILY CRAWL · W22 FY26')+
+  card('⟲','red','Sell-off detection',null,
+   `<span class="feed"><span class="d"></span>SLOB register <b>· client upload</b></span>`,
+   tiles([
+    {l:'Batches monitored',v:rows.length,tag:'feed'},
+    {l:'Below effective cost',v:breach,c:'#DC2626',s:'reseller price under our cost'},
+    {l:'Value exposure',v:inr(val),c:'#B42318',s:'units × price gap'},
+    {l:'Resellers involved',v:new Set(rows.map(r=>r.seller)).size,s:'traced from listing price'}],4)+
+   tbl([
+    {h:'BATCH',f:r=>`<div class="skn mono">${r.batch}</div><div class="skc">sold ${r.date}</div>`},
+    {h:'SKU',f:r=>`<span class="wh">${r.sku}</span>`},
+    {h:'UNITS',r:1,f:r=>`<span class="num">${num(r.units)}</span>`},
+    {h:'EFFECTIVE COST',r:1,f:r=>`<span class="num">₹${r.eff}</span>`},
+    {h:'OBSERVED PRICE',r:1,f:r=>`<span class="num" style="color:${r.breach?'#DC2626':'#16A34A'}">₹${r.obs}</span>`},
+    {h:'RESELLER',f:r=>`<span class="wh">${r.seller}</span>`},
+    {h:'EXPOSURE',r:1,f:r=>r.breach?`<span class="num" style="color:#B42318">${inr(r.value)}</span>`:'—'},
+    {h:'STATUS',f:r=>r.breach?'<span class="st st-crit"><span class="d"></span>Below cost</span>':'<span class="st st-ok"><span class="d"></span>Above cost</span>'},
+    {h:'',f:r=>r.breach?`<button class="btn pri" onclick="event.stopPropagation();act('Notify RGM & trade','${r.batch}')">Notify RGM</button>`:''}
+   ],rows));
+}
+
+/* ---------- SKU EXPLORER · VARIANT COMPARATOR (7-06) ---------- */
+function viewVariant(){
+  const p=VPARENTS[VSEL], k=p.kids;
+  const M=[
+   {l:'Sales',f:v=>inr(v.sales),k:'sales',hi:1},{l:'Units',f:v=>num(v.units),k:'units',hi:1},
+   {l:'Price',f:v=>'₹'+v.price,k:'price'},{l:'Traffic',f:v=>num(v.traffic),k:'traffic',hi:1},
+   {l:'Conversion rate',f:v=>v.cvr+'%',k:'cvr',hi:1},{l:'Content score',f:v=>v.content,k:'content',hi:1},
+   {l:'Rating',f:v=>v.rating,k:'rating',hi:1},{l:'Reviews',f:v=>num(v.reviews),k:'reviews',hi:1},
+   {l:'Availability',f:v=>v.avail+'%',k:'avail',hi:1},{l:'Share of search',f:v=>v.sos+'%',k:'sos',hi:1},
+   {l:'Weeks live',f:v=>v.weeks+' wk',k:'weeks'}];
+  const par={}; M.forEach(m=>{par[m.k]=k.reduce((s,v)=>s+v[m.k],0)/k.length});
+  const nw=k.filter(v=>v.isNew);
+  const newShare=Math.round(nw.reduce((s,v)=>s+v.sales,0)/k.reduce((s,v)=>s+v.sales,0)*100);
+  return hero('SKU EXPLORER · VARIANTS','Every variant, every KPI, side by side.',
+   `Parent: <b>${p.p}</b> · <b>${k.length}</b> variants · category <b>${p.cat}</b> · trailing 4 weeks`,
+   '⏱ WEEKLY · W22 FY26')+
+  card('▥','blue','Variant comparison',null,
+   `<div class="seg">${VPARENTS.map((v,i)=>`<span class="${VSEL===i?'on':''}" onclick="VSEL=${i};render()">${v.p}</span>`).join('')}</div>`,
+   tiles([
+    {l:'Variants live',v:k.length,s:`${nw.length} launched in last 6 months`},
+    {l:'New-variant share',v:newShare+'%',c:newShare>30?'#16A34A':'#F59E0B',s:'of parent sales'},
+    {l:'Best converter',v:k.reduce((a,b)=>a.cvr>b.cvr?a:b).name,c:'#16A34A'},
+    {l:'Weakest',v:k.reduce((a,b)=>a.cvr<b.cvr?a:b).name,c:'#DC2626',s:'lowest conversion'}],4)+
+   `<div class="cmp"><table><thead><tr><th class="lbl">METRIC</th>
+     ${k.map(v=>`<th class="r">${v.name}${v.isNew?' <span class="dchip d-wa">NEW</span>':''}</th>`).join('')}
+     <th class="r">PARENT AVG</th></tr></thead><tbody>
+     ${M.map(m=>{const vals=k.map(v=>v[m.k]);const mx=Math.max(...vals),mn=Math.min(...vals);
+       return `<tr style="cursor:default"><td class="lbl"><b>${m.l}</b></td>
+        ${k.map(v=>`<td class="r ${m.hi&&v[m.k]===mx?'best':m.hi&&v[m.k]===mn?'worst':''}">${m.f(v)}</td>`).join('')}
+        <td class="r par">${m.k==='price'?'₹'+Math.round(par[m.k]*10)/10:m.k==='rating'?Math.round(par[m.k]*10)/10:
+          ['cvr','avail','sos'].includes(m.k)?Math.round(par[m.k]*10)/10+'%':m.k==='sales'?inr(par[m.k]):
+          m.k==='weeks'?Math.round(par[m.k])+' wk':num(par[m.k])}</td></tr>`}).join('')}
+   </tbody></table></div>`)+
+  card('◔','amb','Did the new variants grow the franchise?','Launch-window sales against the parent trend',null,
+   `<div style="padding:14px 16px"><div class="out">
+     The ${nw.length} newest variants carry <b>${newShare}%</b> of parent sales.
+     Parent units are ${newShare>28?'<b style="color:#067647">up</b> over the same window — the launches look incremental.'
+      :'<b style="color:#B42318">flat</b> over the same window — the launches look cannibalising rather than incremental.'}
+     Confirm against category growth before acting.</div>
+    <div style="margin-top:14px">${tbl([
+      {h:'VARIANT',f:r=>`<div class="skn">${r.name}</div><div class="skc">${r.weeks} weeks live</div>`},
+      {h:'SALES',r:1,f:r=>inr(r.sales)},
+      {h:'SHARE OF PARENT',r:1,f:r=>{const sh=Math.round(r.sales/k.reduce((s,v)=>s+v.sales,0)*100);
+        return `<span class="num">${sh}%</span>${bar(sh,60,'#2563EB')}`}},
+      {h:'CVR vs PARENT',r:1,f:r=>idxChip(Math.round(r.cvr/par.cvr*100))},
+      {h:'STATUS',f:r=>r.isNew?'<span class="st st-watch"><span class="d"></span>New</span>':'<span class="st st-ok"><span class="d"></span>Established</span>'}
+    ],k)}</div></div>`);
+}
+
+function openKw(i){
+  const r=RANK[i];
+  document.getElementById('drawer').innerHTML=`
+   <div class="dw-hd"><div class="sq blue" style="width:34px;height:34px;flex:0 0 34px">⌕</div>
+     <div style="flex:1"><div style="font-weight:600;font-size:15px">${r.kw}</div>
+       <div class="card-s">${num(r.vol)} searches/month · ${r.plat}</div></div>
+     <span class="st ${r.top10?'st-ok':'st-high'}"><span class="d"></span>#${r.rank}</span>
+     <div class="iconbtn" onclick="closeDrawer()">✕</div></div>
+   <div class="dw-body">
+     <div class="why"><b>Where we stand.</b> Ranked <b>#${r.rank}</b> this week, ${r.delta>0?`up <b style="color:#067647">${r.delta}</b> places`:r.delta<0?`down <b style="color:#B42318">${Math.abs(r.delta)}</b> places`:'unchanged'} from #${r.prev}.
+       Organic share of voice is <b>${r.sov}%</b> and paid <b>${r.paidSov}%</b>. The top organic result is currently <b>${r.winner}</b>.
+       <span class="calc">share of search contribution = ${r.top10?'IN':'OUT of'} top 10
+current bid ₹${r.bid} · market CPC ₹${r.cpc} · keyword CVR ${r.cvr}%</span></div>
+     <div class="sec-t">RANK · LAST 10 WEEKS</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px">${spark(r.hist.map(v=>25-v),'#2563EB',480,88)}
+       <div class="mini" style="margin-top:6px">Higher is better — inverted so an improving rank rises.</div></div>
+     <div class="sec-t">POSITION</div>
+     <div class="kv"><div class="kvc"><div class="l">Organic SOV</div><div class="v">${r.sov}%</div></div>
+       <div class="kvc"><div class="l">Paid SOV</div><div class="v">${r.paidSov}%</div></div>
+       <div class="kvc"><div class="l">Market CPC</div><div class="v">₹${r.cpc}</div></div>
+       <div class="kvc"><div class="l">Our bid</div><div class="v">₹${r.bid}</div></div></div>
+     <div class="sec-t">RANKING SKU</div>
+     <div class="out">${r.owner} is the SKU currently ranking for this keyword.</div>
+   </div>
+   <div class="dw-ft"><button class="btn pri lg" onclick="closeDrawer();setTab('invest')">Model cost to win</button>
+     <button class="btn lg" onclick="act('Add to keyword plan','${r.kw}')">Add to plan</button></div>`;
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawer').classList.remove('wide');
+  document.getElementById('scrim').classList.add('on');
+}
+function openMVL(i){
+  const r=CONTENT.find(c=>c.i===i);
+  document.getElementById('drawer').innerHTML=`
+   <div class="dw-hd"><div class="sq ${r.score>80?'grn':'red'}" style="width:34px;height:34px;flex:0 0 34px">⇄</div>
+     <div style="flex:1"><div style="font-weight:600;font-size:15px">${r.sku}</div>
+       <div class="card-s mono">${r.code} · ${r.ret}</div></div>
+     <span class="st ${r.score>80?'st-ok':'st-crit'}"><span class="d"></span>${r.score}%</span>
+     <div class="iconbtn" onclick="closeDrawer()">✕</div></div>
+   <div class="dw-body">
+     <div class="why"><b>What differs from master.</b> ${r.fails.length?`${r.fails.length} of ${ELEMS.length} elements do not match the Salsify master on ${r.ret}: <b>${r.fails.join(', ')}</b>.`:'All elements match the Salsify master.'}</div>
+     <div class="sec-t">ELEMENT BY ELEMENT</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden">
+      <table style="font-size:12px"><thead><tr><th>ELEMENT</th><th>MASTER</th><th>LIVE ON PDP</th><th>STATUS</th></tr></thead>
+      <tbody>${ELEMS.map((e,k)=>`<tr style="cursor:default"><td><b>${e}</b></td>
+        <td class="mini">Approved v${2+k%3}</td>
+        <td class="mini">${r.st[k]==='ok'?'Matches master':r.st[k]==='wa'?'Older version live':'Missing or different'}</td>
+        <td>${r.st[k]==='ok'?'<span class="dchip d-ok">OK</span>':r.st[k]==='wa'?'<span class="dchip d-wa">DRIFT</span>':'<span class="dchip d-no">FAIL</span>'}</td></tr>`).join('')}
+      </tbody></table></div>
+     <div class="sec-t">RECOMMENDED ACTION</div>
+     <div class="out">${r.fails.length?`Re-syndicate ${r.fails.join(', ')} to ${r.ret} from Salsify, then re-audit on the next crawl.`:'No action required.'}</div>
+   </div>
+   <div class="dw-ft"><button class="btn pri lg" onclick="act('Re-syndicate from Salsify','${r.sku} · ${r.ret}')">Re-syndicate</button>
+     <button class="btn lg" onclick="act('Assign to Tasks','${r.sku}')">Assign to Tasks</button></div>`;
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawer').classList.remove('wide');
+  document.getElementById('scrim').classList.add('on');
+}
+
+function viewPlaceholder(n){return `<div class="card"><div class="ph"><b>${n}</b>Existing screen — not rebuilt in this prototype.<br>
+  The new modules are <b style="color:#2563EB;display:inline">Availability → OOS Risk / Risk Analytics</b> and <b style="color:#2563EB;display:inline">Promotion → ASP &amp; Velocity</b>.</div></div>`}
+
+const VIEWS={oos:viewOOS,analytics:viewAnalytics,aspv:viewASP,fairshare:viewFairShare,
+ sos:viewSOS,shelf:viewShelf,invest:viewInvest,segidx:viewSegIdx,
+ mvl:viewMVL,asset:viewAsset,creative:viewCreative,bb:viewBB,seller:viewSeller,slob:viewSLOB,variant:viewVariant};
+function render(){
+  const v=document.getElementById('view');
+  v.innerHTML = VIEWS[TAB]?VIEWS[TAB]():viewPlaceholder(DASHES[DASH].tabs.find(t=>t.id===TAB).n);
+  bind();renderSubnav();
+}
+function filterList(q){
+  q=(q||'').toLowerCase();
+  document.querySelectorAll('#asplist .li').forEach(el=>{el.style.display=el.dataset.n.includes(q)?'':'none'});
+}
+
+/* ---------- interactions ---------- */
+function bind(){
+  document.querySelectorAll('#expo .lane').forEach(el=>{
+    const r=OOS[+el.dataset.i];if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.sku}</b>
+      <div class="r"><span>Platform</span><span>${r.plat}</span></div>
+      <div class="r"><span>Days of cover</span><span>${r.daysCover}d</span></div>
+      <div class="r"><span>Projected OOS</span><span>${r.isOOS?'already out':'in '+r.projOos+' days'}</span></div>
+      <div class="r"><span>PO status</span><span>${r.poRaised?'arrives in '+r.poEta+'d':'none raised'}</span></div>
+      <div class="r"><span>Exposure</span><span>${!r.poRaised?'open-ended':r.exposure>0?r.exposure+' days':'covered'}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+    el.addEventListener('click',()=>{hideTip();openDrawer(r.i)});
+  });
+  const set=aspSet(),sel=set[Math.min(ASPSEL,set.length-1)];
+  if(sel)document.querySelectorAll('#aspc .ahv').forEach(el=>{
+    const i=+el.dataset.i;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>Day −${sel.days-i}</b>
+      <div class="r"><span>Selling price</span><span>₹${sel.asp[i]}</span></div>
+      <div class="r"><span>Trailing average</span><span>₹${sel.trail}</span></div>
+      <div class="r"><span>vs trailing</span><span>${((sel.asp[i]/sel.trail-1)*100).toFixed(1)}%</span></div>
+      <div class="r"><span>Units sold</span><span>${num(sel.units[i])}</span></div>
+      <div class="r"><span>Phase</span><span>${i<sel.dipAt?'Pre-dip':'Post-dip'}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+  });
+  const skuRows=DIPS.filter(d=>PLAT==='All Platforms'||d.plat===PLAT).sort((a,b)=>b.depth-a.depth);
+  document.querySelectorAll('#scat .dot').forEach(el=>{
+    const r=skuRows[+el.dataset.i];if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.sku}</b>
+      <div class="r"><span>Dip depth</span><span>−${r.depth}%</span></div>
+      <div class="r"><span>Run-rate lift</span><span>+${r.lift}%</span></div>
+      <div class="r"><span>Cover burned</span><span>${r.burn} wk</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+    el.addEventListener('click',()=>{hideTip();openDip(r.i)});
+  });
+  const arows=(ANA==='loc'?LOCS:inScope()).slice().sort((a,b)=>b.episodes-a.episodes);
+  document.querySelectorAll('#heat .hc').forEach(el=>{
+    const r=arows[+el.dataset.r],w=+el.dataset.w;if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.sku} · W${11+w}</b>
+      <div class="r"><span>Risk band</span><span>${RISK[r.hist[w]].k}</span></div>
+      <div class="r"><span>Risk weeks · 12wk</span><span>${r.episodes}</span></div>
+      <div class="r"><span>Current band</span><span>${RISK[r.hist[11]].k}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+  });
+  document.querySelectorAll('#dbl .dbl').forEach(el=>{
+    const r=RANK[+el.dataset.i];if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.kw}</b>
+      <div class="r"><span>Rank now</span><span>#${r.rank}</span></div>
+      <div class="r"><span>Last week</span><span>#${r.prev}</span></div>
+      <div class="r"><span>Search volume</span><span>${num(r.vol)}/mo</span></div>
+      <div class="r"><span>Organic SOV</span><span>${r.sov}%</span></div>
+      <div class="r"><span>Top result</span><span>${r.winner}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+    el.addEventListener('click',()=>{hideTip();openKw(r.i)});
+  });
+  const dsp=DISPLAY.filter(x=>PLAT==='All Platforms'||x.plat===PLAT);
+  document.querySelectorAll('#fscat .sc').forEach(el=>{
+    const r=dsp[+el.dataset.i];if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.sku}</b>
+      <div class="r"><span>Availability</span><span>${r.avail}%</span></div>
+      <div class="r"><span>Display share</span><span>${r.disp}%</span></div>
+      <div class="r"><span>Display type</span><span>${r.types}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+  });
+  const sgs=SEGS.filter(s=>SEGLVL==='All'||s.level===SEGLVL);
+  document.querySelectorAll('#ixb .ix').forEach(el=>{
+    const r=sgs[+el.dataset.i];if(!r)return;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>${r.name}</b>
+      <div class="r"><span>Market $ share</span><span>${r.mkt}%</span></div>
+      <div class="r"><span>Total traffic share</span><span>${r.tot}%</span></div>
+      <div class="r"><span>Traffic index</span><span>${r.idxTot}</span></div>
+      <div class="r"><span>CVR index</span><span>${r.idxCvr}</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+  });
+  document.querySelectorAll('#mig .mg').forEach(el=>{
+    const w=+el.dataset.w,b=el.dataset.b;
+    const c=arows.filter(r=>r.hist[w]===b).length;
+    el.addEventListener('mousemove',e=>showTip(e,`<b>Week ${11+w}</b>
+      <div class="r"><span>${RISK[b].k}</span><span>${c} of ${arows.length}</span></div>
+      <div class="r"><span>Share</span><span>${Math.round(c/arows.length*100)}%</span></div>`));
+    el.addEventListener('mouseleave',hideTip);
+  });
+}
+
+/* ---------- ALERT BUILDER ---------- */
+let DRAFT=null;
+function openBuilder(scope,id){
+  const ex=id?ALERTS.find(a=>a.id===id):null;
+  DRAFT=ex?{...ex,ch:[...ex.ch]}:{id:null,scope,n:'',m:scope==='oos'?'woc':'depth',o:'lt',v:2,x:'none',sev:'high',ch:['app'],who:'All platforms',on:true,fired:0,tmpl:null};
+  paintBuilder();
+  document.getElementById('drawer').classList.add('on','wide');
+  document.getElementById('scrim').classList.add('on');
+}
+function pickTmpl(tid){
+  const t=TEMPLATES[DRAFT.scope].find(x=>x.id===tid);
+  Object.assign(DRAFT,{n:t.n,m:t.m,o:t.o,v:t.v,x:t.x,sev:t.sev,tmpl:tid});paintBuilder();
+}
+function upd(k,v){DRAFT[k]=k==='v'?parseFloat(v):v;DRAFT.tmpl=null;paintBuilder()}
+function updCh(c){const i=DRAFT.ch.indexOf(c);i<0?DRAFT.ch.push(c):DRAFT.ch.splice(i,1);paintBuilder()}
+function saveAlert(){
+  if(!DRAFT.n)DRAFT.n=ruleText(DRAFT).replace(/^./,s=>s.toUpperCase());
+  if(DRAFT.id)ALERTS=ALERTS.map(a=>a.id===DRAFT.id?{...DRAFT}:a);
+  else ALERTS.push({...DRAFT,id:nextId++});
+  closeDrawer();render();
+}
+function delAlert(){ALERTS=ALERTS.filter(a=>a.id!==DRAFT.id);closeDrawer();render()}
+function toggleAlert(id){ALERTS=ALERTS.map(a=>a.id===id?{...a,on:!a.on}:a);render()}
+
+function paintBuilder(){
+  const scope=DRAFT.scope, matches=evalRule(DRAFT);
+  const total=(scope==='oos'?OOS:scope==='bb'?BB:DIPS).length;
+  const mkeys=scope==='oos'?['woc','daysCover','fill','daysOOS','exposure','runRate']
+    :scope==='bb'?['lbb','priceGap','lostVal']:['depth','lift','burn'];
+  const xkeys=scope==='oos'?['none','nopo','poLate','gap']:scope==='bb'?['none','is1p']:['none','nopromo'];
+  const scopeName=scope==='oos'?'Availability · Supply Risk':scope==='bb'?'Pricing & Buy Box':'Promotion · Price–Velocity';
+  const unitName=scope==='oos'?'SKUs':scope==='bb'?'listings':'dip events';
+  document.getElementById('drawer').innerHTML=`
+   <div class="dw-hd"><div class="sq amb" style="width:34px;height:34px;flex:0 0 34px">🔔</div>
+     <div style="flex:1"><div style="font-weight:600;font-size:15px">${DRAFT.id?'Edit alert':'New alert'}</div>
+       <div class="card-s">${scopeName}</div></div>
+     <div class="iconbtn" onclick="closeDrawer()">✕</div></div>
+   <div class="dw-body">
+     <div class="sec-t">START FROM A TEMPLATE</div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+       ${TEMPLATES[scope].map(t=>`<div class="tmpl ${DRAFT.tmpl===t.id?'on':''}" onclick="pickTmpl('${t.id}')">
+         <div class="tmpl-n">${t.n}</div><div class="tmpl-d">${t.d}</div></div>`).join('')}</div>
+
+     <div class="sec-t" style="margin-top:20px">CONDITION</div>
+     <div class="fld"><label>ALERT NAME</label>
+       <input value="${DRAFT.n.replace(/"/g,'&quot;')}" placeholder="e.g. Cover falling with no PO" oninput="DRAFT.n=this.value"/></div>
+     <div class="row3">
+       <div class="fld"><label>WHEN</label><select onchange="upd('m',this.value)">
+         ${mkeys.map(k=>`<option value="${k}" ${DRAFT.m===k?'selected':''}>${METRICS[k].l}</option>`).join('')}</select></div>
+       <div class="fld"><label>OPERATOR</label><select onchange="upd('o',this.value)">
+         ${Object.entries(OPS).map(([k,o])=>`<option value="${k}" ${DRAFT.o===k?'selected':''}>${o.l}</option>`).join('')}</select></div>
+       <div class="fld"><label>VALUE (${METRICS[DRAFT.m].u})</label>
+         <input type="number" step="0.5" value="${DRAFT.v}" oninput="upd('v',this.value)"/></div></div>
+     <div class="fld"><label>ADDITIONAL CONDITION</label><select onchange="upd('x',this.value)">
+       ${xkeys.map(k=>`<option value="${k}" ${DRAFT.x===k?'selected':''}>${EXTRAS[k].l}</option>`).join('')}</select></div>
+     <div class="row2">
+       <div class="fld"><label>SCOPE</label><select onchange="DRAFT.who=this.value">
+         <option ${DRAFT.who==='All platforms'?'selected':''}>All platforms</option>
+         <option ${DRAFT.who==='All platforms · MSL only'?'selected':''}>All platforms · MSL only</option>
+         <option ${DRAFT.who==='Blinkit, Zepto'?'selected':''}>Blinkit, Zepto</option>
+         <option ${DRAFT.who==='Harpic, Mortein'?'selected':''}>Harpic, Mortein</option>
+         <option>Top 50 SKUs by value</option></select></div>
+       <div class="fld"><label>SEVERITY</label><select onchange="upd('sev',this.value)">
+         ${['crit','high','watch'].map(k=>`<option value="${k}" ${DRAFT.sev===k?'selected':''}>${RISK[k].k}</option>`).join('')}</select></div></div>
+
+     <div class="sec-t">NOTIFY VIA</div>
+     <div style="display:flex;gap:16px">
+       ${[['app','In-app'],['email','Email'],['task','Tasks & SLAs']].map(([k,l])=>
+        `<span class="chk ${DRAFT.ch.includes(k)?'on':''}" onclick="updCh('${k}')"><i>✓</i>${l}</span>`).join('')}</div>
+
+     <div class="sec-t">IMPACT PREVIEW</div>
+     <div class="prev">This rule matches <b>${matches.length} of ${total}</b> ${unitName} right now.
+       ${matches.length===0?'Nothing would fire — consider loosening the threshold.':
+         matches.length>total*0.5?'<b style="color:#B42318">That is more than half the portfolio</b> — this will be noisy. Tighten the threshold or narrow the scope.':
+         'That is a workable volume for a daily digest.'}
+       ${matches.length?`<div style="margin-top:9px;display:flex;flex-wrap:wrap;gap:5px">
+         ${matches.slice(0,6).map(m=>`<span class="bpill" style="font-size:10.5px">${(m.sku||m.name).split('·')[0].trim()}</span>`).join('')}
+         ${matches.length>6?`<span class="bpill" style="font-size:10.5px">+${matches.length-6} more</span>`:''}</div>`:''}
+     </div>
+   </div>
+   <div class="dw-ft">
+     <button class="btn pri lg" onclick="saveAlert()">${DRAFT.id?'Save changes':'Create alert'}</button>
+     ${DRAFT.id?'<button class="btn lg" onclick="delAlert()">Delete</button>':''}
+     <button class="btn lg" onclick="closeDrawer()">Cancel</button></div>`;
+}
+
+/* ---------- detail drawers ---------- */
+function openDrawer(i){
+  const r=OOS[i];
+  document.getElementById('drawer').innerHTML=`
+   <div class="dw-hd"><div class="sq ${r.risk==='ok'?'grn':r.risk==='watch'?'amb':'red'}" style="width:34px;height:34px;flex:0 0 34px">⚠</div>
+     <div style="flex:1"><div style="font-weight:600;font-size:15px">${r.sku}</div>
+       <div class="card-s mono">${r.code} · ${r.plat} · ${r.wh}</div></div>
+     <span class="st ${RISK[r.risk].cls}"><span class="d"></span>${RISK[r.risk].k}</span>
+     <div class="iconbtn" onclick="closeDrawer()">✕</div></div>
+   <div class="dw-body">
+     <div class="why"><b>Why this fired.</b> ${r.isOOS?
+       `This SKU has been <b>out of stock for ${r.daysOOS} days</b>. At a run-rate of ${num(r.runRate)} units/wk that is <b>${num(r.runRate/7*r.daysOOS)} units</b> and roughly <b>${inr(r.oppLost)}</b> of sell-out forgone. ${r.poRaised?'A PO is raised but has not landed.':'<b style="color:#B42318">No PO has been raised.</b>'}`
+       :`Weeks of cover has fallen from ${r.wocTrend[0].toFixed(1)} to <b>${r.woc.toFixed(1)} wk (${r.daysCover} days)</b> over 8 weeks while the order schedule stayed flat, and fill rate is running at <b>${r.fill}%</b> — ${num(r.cut)} units cut against plan. On the current run-rate it goes out of stock in <b>${r.projOos} days</b>. ${!r.poRaised?'<b style="color:#B42318">No PO has been raised.</b>':r.exposure>0?`The next PO lands in ${r.poEta} days — a <b style="color:#B42318">${r.exposure}-day exposure gap</b> worth about <b>${inr(r.atRisk)}</b>.`:'The next PO lands before the projected stockout, so this one is covered.'}`}
+       <span class="calc">days of cover = on hand ${num(r.onHand)} ÷ run-rate ${num(r.runRate)}/wk × 7 = ${r.daysCover}d
+${r.poRaised?`next PO = lead time ${r.lead.toFixed(1)} wk → lands day ${r.poEta}
+exposure = ${r.poEta} − ${r.projOos} = ${r.exposure}d`:'next PO = none raised → exposure is open-ended'}</span></div>
+     <div class="sec-t">POSITION</div>
+     <div class="kv">
+       <div class="kvc"><div class="l">Days of cover</div><div class="v" style="color:${RISK[r.risk].col}">${r.daysCover} <span style="font-size:11px;color:var(--mut)">days</span></div></div>
+       <div class="kvc"><div class="l">On hand</div><div class="v">${num(r.onHand)} <span style="font-size:11px;color:var(--mut)">units</span></div></div>
+       <div class="kvc"><div class="l">Run-rate</div><div class="v">${num(r.runRate)} <span style="font-size:11px;color:var(--mut)">/wk</span></div></div>
+       <div class="kvc"><div class="l">Fill rate</div><div class="v" style="color:${r.fill<80?'#DC2626':'#101828'}">${r.fill}%</div></div></div>
+     <div class="sec-t">RISK BAND · LAST 12 WEEKS</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px">
+       <div style="display:flex;gap:3px">${r.hist.map((b,w)=>`<div style="flex:1;text-align:center">
+         <div style="height:26px;border-radius:4px;background:${RISK[b].col};opacity:${b==='ok'?.3:b==='watch'?.6:.9}"></div>
+         <div style="font-size:8.5px;color:#98A2B3;margin-top:3px">W${11+w}</div></div>`).join('')}</div>
+       <div style="font-size:11.5px;color:var(--mut);margin-top:10px">${r.episodes} of the last 12 weeks spent in high, critical or out of stock.</div></div>
+     <div class="sec-t">WEEKS OF COVER · LAST 8 WEEKS</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px">${spark(r.wocTrend,RISK[r.risk].col,490,86)}</div>
+     <div class="sec-t">ORDER SCHEDULE vs ACTUALS</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden">
+       <table style="font-size:12px"><thead><tr><th>WEEK</th><th class="r">ORDERED</th><th class="r">CONFIRMED</th><th class="r">RECEIVED</th><th class="r">CUT</th></tr></thead>
+       <tbody>${r.orders.map(o=>`<tr style="cursor:default"><td class="mono">${o.w}</td><td class="r num">${num(o.ord)}</td>
+         <td class="r num">${num(o.conf)}</td><td class="r num">${num(o.rec)}</td><td class="r num" style="color:#B42318">−${num(o.ord-o.rec)}</td></tr>`).join('')}</tbody></table></div>
+     <div class="sec-t">RECOMMENDED ACTION</div>
+     <div class="why" style="border-left-color:${RISK[r.risk].col};background:#FFFCFC;border-color:#FADEDD">
+       Raise a PO of <b>${num(r.suggest)} units</b> — ${r.lead.toFixed(1)} weeks of lead time plus a 2-week buffer at the current run-rate — and flag ${r.wh} for the ${(100-r.fill).toFixed(1)}pt fill-rate shortfall.
+       ${!r.poRaised?' Nothing is on order, so this is the whole gap.':r.exposure>0?' Expedite is required: a standard-lead PO cannot close the gap.':''}</div>
+   </div>
+   <div class="dw-ft"><button class="btn pri lg" onclick="act('Raise PO ${num(r.suggest)}u','${r.sku}')">Raise PO · ${num(r.suggest)} units</button>
+     <button class="btn lg" onclick="act('Expedite','${r.sku}')">Request expedite</button>
+     <button class="btn lg" onclick="act('Assign to Tasks','${r.sku}')">Assign to Tasks</button></div>`;
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawer').classList.remove('wide');
+  document.getElementById('scrim').classList.add('on');
+}
+function openDip(i){
+  const d=DIPS[i];
+  document.getElementById('drawer').innerHTML=`
+   <div class="dw-hd"><div class="sq ${d.st==='crit'?'red':'amb'}" style="width:34px;height:34px;flex:0 0 34px">₹</div>
+     <div style="flex:1"><div style="font-weight:600;font-size:15px">${d.sku}</div>
+       <div class="card-s mono">${d.code} · ${d.brand} · ${d.plat}</div></div>
+     <span class="st ${RISK[d.st].cls}"><span class="d"></span>${d.status}</span>
+     <div class="iconbtn" onclick="closeDrawer()">✕</div></div>
+   <div class="dw-body">
+     <div class="why"><b>Why this fired.</b> Selling price dropped to <b>₹${d.aspNow}</b> on ${d.dipStart}, <b>${d.depth}% below</b> the 8-week trailing average of ₹${d.trail} — past the −7% dip threshold. Since then sell-through has run at <b>${num(d.rrA)} units/wk</b> against a pre-dip baseline of ${num(d.rrB)}, a <b style="color:#067647">+${d.lift}% lift</b>. At that velocity the SKU is burning roughly <b>${d.burn} weeks</b> of cover faster than plan.
+       <span class="calc">dip depth = (₹${d.trail} − ₹${d.aspNow}) ÷ ₹${d.trail} = ${d.depth}%
+run-rate lift = (${num(d.rrA)} − ${num(d.rrB)}) ÷ ${num(d.rrB)} = +${d.lift}%
+cover burned = lift × current cover ≈ ${d.burn} wk</span></div>
+     <div class="sec-t">PRICE vs SELL-THROUGH</div>
+     <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px">${aspVelocity(d,'dhv')}</div>
+     <div class="sec-t">POSITION</div>
+     <div class="kv">
+       <div class="kvc"><div class="l">ASP now</div><div class="v">₹${d.aspNow}</div></div>
+       <div class="kvc"><div class="l">8-wk trailing</div><div class="v">₹${d.trail}</div></div>
+       <div class="kvc"><div class="l">Run-rate lift</div><div class="v" style="color:#16A34A">+${d.lift}%</div></div>
+       <div class="kvc"><div class="l">Cover burned</div><div class="v">${d.burn} wk</div></div></div>
+     <div class="sec-t">DOWNSTREAM SUPPLY IMPACT</div>
+     <div style="background:#fff;border:1px dashed var(--amb-b);border-radius:12px;padding:16px;text-align:center">
+       <div style="font-size:12.5px;color:var(--mut);margin-bottom:9px">Replenishment-order sizing and the manufacturer / retailer OOS date need Replenishment Rate and warehouse lead time from the supply feed.</div>
+       <span class="plug">⚡ PLUG SUPPLY FEED</span></div>
+   </div>
+   <div class="dw-ft"><button class="btn pri lg" onclick="act('Flag to supply planning','${d.sku}')">Flag to supply planning</button>
+     <button class="btn lg" onclick="act('Set price guardrail','${d.sku}')">Set price guardrail</button>
+     <button class="btn lg" onclick="openBuilder('asp')">Create alert</button></div>`;
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawer').classList.remove('wide');
+  document.getElementById('scrim').classList.add('on');
+}
+function closeDrawer(){document.getElementById('drawer').classList.remove('on','wide');document.getElementById('scrim').classList.remove('on')}
+function act(a,s){alert('Prototype action\n\n'+a+'\n'+s+'\n\nIn production this writes to Tasks & SLAs and notifies the assigned owner.')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+
+renderPlats();renderNav();renderSubnav();render();
+</script>
+
+<a href="control-tower.html?alerts=1" class="egn-bell" aria-label="Alerts">🔔<span>Alerts</span></a>
+<style>
+.egn-bell{position:fixed;right:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:8px;
+  padding:9px 15px;border-radius:22px;font:600 12.5px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#2563EB;color:#fff;text-decoration:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.18),0 14px 34px -12px rgba(37,99,235,.5)}
+.egn-bell:hover{background:#1D4ED8}
+@media print{.egn-bell{display:none}}
+</style>
+
+<a href="index.html" class="egn-home" aria-label="Back to all modules">&larr;&nbsp; All modules</a>
+<style>
+.egn-home{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;
+  padding:9px 15px;border-radius:22px;font:600 12.5px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#0E1729;color:#fff;text-decoration:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.18),0 14px 34px -12px rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.14)}
+.egn-home:hover{background:#1B2740}
+@media print{.egn-home{display:none}}
+</style>
+
+</body>
+</html>
